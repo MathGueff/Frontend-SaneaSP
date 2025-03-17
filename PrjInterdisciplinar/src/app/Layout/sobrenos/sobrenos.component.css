@@ -1,3 +1,7 @@
+:root{
+  --sobrenos-titulo: 1.75rem;
+}
+
 h2{
   font-size: var(--sobrenos-titulo);
   font-weight: bolder;

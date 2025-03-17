@@ -9,7 +9,7 @@ body {
 .segundo-fundo {
   background-color: #f0f0f0;
   margin: 32px 0px 72px 0px;
-  font-size: var(--doencas-texto);
+  font-size: var(--fonte-primaria);
   border-radius: 20px;
   padding: 30px 10px;
   gap: 20px;

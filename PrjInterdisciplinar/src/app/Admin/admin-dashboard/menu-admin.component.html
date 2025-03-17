@@ -1,0 +1,44 @@
+<div class="background container-fluid">
+  <div class="container-dashboard d-flex justify-content-center align-items-center">
+    <div class="sidebar-dashboard">
+      <div class="sidebar-dashboard-header d-flex flex-wrap justify-content-center">
+        <div class="row">
+          <span> Opções de Gerenciamento</span>
+        </div>
+      </div>
+      <div class="sidebar-dashboard-opcoes d-flex flex-column">
+          @for (link of links; track $index) 
+          {
+            <div class="opcao-sidebar d-flex justify-content-start align-items-center" (click)="changeOptions(link.opcao)">
+              <div class="col-2">
+                <img class="icone-menu-admin" src="{{link.img}}" alt="">
+              </div>
+              <div class="col-10">
+                <span>{{link.nome}}</span>
+              </div>
+            </div>
+          }
+      </div>
+    </div>
+    <div class="opcoes-dashboard d-flex justify-content-center align-items-center flex-wrap">
+      @for (opcao of opcoes; track $index) 
+      {
+          <div class="opcao-dashboard col-xl-3 col-lg-4 col-md-12 d-flex justify-content-center align-items-center flex-column" routerLink="{{opcao.path}}">
+            <img class="icone-menu-admin" src="{{opcao.img}}" alt="">
+            <span class="text-center">{{opcao.nome}}</span>
+          </div>
+      }
+    </div>
+  </div>
+<div>
+
+<!-- <div class="background container-fluid d-flex justify-content-center align-items-center">
+  <div class="d-flex flex-wrap justify-content-center align-items-center h-100 opcoes-dashboard m-4 row w-50 gap-3">
+    <div *ngFor="let link of links" class="col-xl-3 col-lg-4 col-md-12 opcao-dashboard d-flex justify-content-center align-items-center flex-wrap text-center">
+      <div class="d-flex justify-content-center align-items-center flex-column" routerLink="{{link.path}}">
+        <img class="icone-menu-admin" src="{{link.img}}" alt="">
+        <span>{{link.nome}}</span>
+      </div>
+    </div>
+  </div>
+</div> -->

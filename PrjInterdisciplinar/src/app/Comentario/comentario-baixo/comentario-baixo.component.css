@@ -1,3 +1,7 @@
+:root{
+  --cor-bloco-comentario:#98c1de;
+}
+
 .card-comentario{
   background-color:var(--cor-bloco-comentario);
   border-radius: 5px;

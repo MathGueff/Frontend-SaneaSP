@@ -6,7 +6,7 @@ import { DoencaDetalhesComponent } from './Doenca/doenca-detalhes/doenca-detalhe
 import { DoencasInicialComponent } from './Doenca/doencas-inicial/doencas-inicial.component';
 import { ReclamacaoInicialComponent } from './Reclamacao/reclamacao-inicial/reclamacao-inicial.component';
 import { SobrenosComponent } from './Layout/sobrenos/sobrenos.component';
-import { MenuAdminComponent } from './Admin/menu-admin/menu-admin.component';
+import { MenuAdminComponent } from './Admin/admin-dashboard/menu-admin.component';
 import { NoticiasInicialComponent } from './Noticias/noticias-inicial/noticias-inicial.component';
 import { FormLoginComponent } from './Login/form-login/form-login.component';
 import { FormCadastroComponent } from './Login/form-cadastro/form-cadastro.component';
@@ -17,6 +17,7 @@ import { NoticiasDetalhesComponent } from './Noticias/noticias-detalhes/noticias
 import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.component';
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
+import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
 
 
 export const routes: Routes = [

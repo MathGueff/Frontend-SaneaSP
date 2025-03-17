@@ -1,0 +1,107 @@
+/* NOVO */
+
+.container-fluid {
+  margin: 0px;
+  padding: 0px;
+}
+
+.container-dashboard{
+  height: 80vh;
+  width: 100%;
+  padding: 20px;
+  color: var(--cor-fonte-branca);
+}
+
+/* Sidebar do dashboard */
+.sidebar-dashboard{
+  width: 20%;
+  height: 100%;
+  padding: 10px;
+  background-color: var(--cor-primaria);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.sidebar-dashboard-header{
+  font-size: var(--fonte-terciaria);
+  text-align: center;
+  border-bottom: 4px solid rgb(228, 228, 228);
+}
+
+.sidebar-dashboard-opcoes{
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.opcao-sidebar{
+  transition: 0.7s all ease;
+  cursor: pointer;
+}
+
+.opcao-sidebar:hover{
+  opacity: 0.5;
+  transform: translateX(5px);
+}
+
+/* Opções do Dashboard */
+.opcoes-dashboard{
+  width:  80%;
+  height: 100%;
+  background-color: var(--cor-terciaria);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  gap: 20px;
+}
+
+.opcao-dashboard{
+  background-color: var(--cor-primaria);
+  height: 150px;
+  transition: 0.7s all ease;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.opcao-dashboard span{
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #e0e0e0;
+}
+
+.opcao-dashboard img{
+  width: 60px;
+  height: 60px;
+}
+
+.opcao-dashboard:hover{
+  transform: scale(1.05);
+}
+
+/* ANTIGO 
+img{
+  width: 60px;
+  height: 60px;
+}
+
+.opcao-dashboard{
+  background-color: var(--cor-primaria);
+  height: 150px;
+  transition: 0.7s all ease;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.opcao-dashboard span{
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #e0e0e0;
+}
+
+.opcao-dashboard:hover{
+  transform: scale(1.05);
+}
+
+.dropdown a{
+  color: white;
+  text-decoration: none;
+}
+*/

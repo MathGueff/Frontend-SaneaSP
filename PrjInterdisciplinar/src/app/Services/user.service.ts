@@ -16,8 +16,8 @@ export class UserService {
   
   constructor(private sweetAlert : SweetAlertService) {
     // Carrega os usuários ao inicializar o serviço
-    this.loadUsers();
-    //this.loadFallbackUsers();
+    //this.loadUsers();
+    this.loadFallbackUsers();
     // Verificando se o usuário ativo é admin
     this.userAtivo$.subscribe((user) => {
         if (user) {
