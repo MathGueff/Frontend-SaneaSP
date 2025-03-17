@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './menu-admin.component.css',
 })
 export class MenuAdminComponent {
-  links: MenuAdminSidebarLink[] = [
+  linksSidebar: MenuAdminSidebarLink[] = [
     {
       path: '/opcoes',
       nome: 'Gerenciar Reclamações',
@@ -33,7 +33,7 @@ export class MenuAdminComponent {
       img: 'assets/icones/icon_white_doenca.svg',
       opcao: OpcoesMenuAdmin.Doenca,
     },
-    //{path: '/doenca-form', nome : 'Cadastre uma nova doença', img : 'assets/icones/icon_white_doenca.svg'},
+    
     {
       path: '/opcoes',
       nome: 'Visualizar página sobre o responsável pelo saneamento',
@@ -42,6 +42,8 @@ export class MenuAdminComponent {
     },
   ];
  
+  opcaoAtual : OpcoesMenuAdmin = OpcoesMenuAdmin.Reclamacao;
+
   noticia : MenuAdminOpcoesLink[] = [
     {
       path: '/noticia-form',
@@ -72,27 +74,27 @@ export class MenuAdminComponent {
 
   doenca : MenuAdminOpcoesLink[] = [
     {
-      path: '/noticia-form',
+      path: '/doenca-form',
       nome: 'Cadastrar uma nova doença',
-      img: 'assets/icones/icon_white_noticia.svg',
+      img: 'assets/icones/icon_white_doenca.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/doenca-form',
       nome: 'Editar uma doença',
       img: 'assets/icones/icon_white_doenca.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/doenca-form',
       nome: 'Excluir uma doença',
       img: 'assets/icones/icon_white_doenca.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/doenca-inicial',
       nome: 'Visualizar suas doenças cadastradas',
       img: 'assets/icones/icon_white_doenca.svg',
     },
     {
-      path: '/noticia-inicial',
+      path: '/doenca-inicial',
       nome: 'Visualizar todas doenças',
       img: 'assets/icones/icon_white_doenca.svg',
     },
@@ -100,35 +102,44 @@ export class MenuAdminComponent {
 
   reclamacao : MenuAdminOpcoesLink[] = [
     {
-      path: '/noticia-form',
+      path: '/reclamacao-inicial',
       nome: 'Visualizar todas reclamações',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/reclamacao-inicial',
       nome: 'Seus comentários',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/reclamacao-inicial',
       nome: 'Excluir uma reclamação',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/',
       nome: 'Gerar relatório de reclamação',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/noticia-inicial',
+      path: '/',
       nome: 'Visualizar filtragem geográfica',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
   ]
 
+  responsavel : MenuAdminOpcoesLink[] = [
+    {
+      path: '/responsaveis',
+      nome: 'Visualizar página dos responsáveis pelo saneamento básico',
+      img: 'assets/icones/icon_white_responsavel.svg',
+    },
+  ]
+
   opcoes: MenuAdminOpcoesLink[] = this.reclamacao;
 
-  changeOptions(opcao: OpcoesMenuAdmin) {
+  mudarOpcaoAtual(opcao: OpcoesMenuAdmin) {
+    this.opcaoAtual = opcao;
     switch (opcao) {
       case OpcoesMenuAdmin.Doenca:
         this.opcoes = this.doenca;
@@ -139,6 +150,8 @@ export class MenuAdminComponent {
       case OpcoesMenuAdmin.Reclamacao:
         this.opcoes = this.reclamacao;
         break;
+      case OpcoesMenuAdmin.Responsaveis:
+        this.opcoes = this.responsavel;
     }
   }
 }

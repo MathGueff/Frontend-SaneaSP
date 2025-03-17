@@ -23,9 +23,9 @@
 }
 
 .sidebar-dashboard-header{
-  font-size: var(--fonte-terciaria);
+  font-size: 1.4rem;
   text-align: center;
-  border-bottom: 4px solid rgb(228, 228, 228);
+  border-bottom: 2px solid rgb(228, 228, 228);
 }
 
 .sidebar-dashboard-opcoes{
@@ -36,6 +36,7 @@
 .opcao-sidebar{
   transition: 0.7s all ease;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .opcao-sidebar:hover{
