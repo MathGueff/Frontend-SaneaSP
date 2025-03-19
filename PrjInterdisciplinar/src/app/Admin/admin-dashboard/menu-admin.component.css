@@ -6,8 +6,6 @@
 }
 
 .container-dashboard{
-  height: 80vh;
-  width: 100%;
   padding: 20px;
   color: var(--cor-fonte-branca);
 }
@@ -15,8 +13,6 @@
 /* Sidebar do dashboard */
 .sidebar-dashboard{
   width: 20%;
-  height: 100%;
-  padding: 10px;
   background-color: var(--cor-primaria);
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -34,9 +30,11 @@
 }
 
 .opcao-sidebar{
-  transition: 0.7s all ease;
   cursor: pointer;
+  border: 2px transparent var(--cor-terciaria);
   font-size: 0.8rem;
+  padding: 5px;
+  transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
 .opcao-sidebar:hover{
@@ -44,22 +42,26 @@
   transform: translateX(5px);
 }
 
+.opcao-sidebar-selecionada{
+  border: 2px solid var(--cor-terciaria);
+  border-radius: 10px;
+}
+
 /* Opções do Dashboard */
 .opcoes-dashboard{
   width:  80%;
-  height: 100%;
   background-color: var(--cor-terciaria);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  gap: 20px;
 }
 
 .opcao-dashboard{
   background-color: var(--cor-primaria);
   height: 150px;
-  transition: 0.7s all ease;
+  transition: opacity 0.7s ease, transform 0.7s ease;
   cursor: pointer;
   border-radius: 4px;
+  text-decoration: none;
 }
 
 .opcao-dashboard span{
