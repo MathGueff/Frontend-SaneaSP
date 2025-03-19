@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuAdminOpcoesLink, MenuAdminSidebarLink } from '../../models/menu-admin';
+import { MenuAdminDashOpcoesLink, MenuAdminSidebarLink } from '../../models/menu-admin';
 import { CommonModule } from '@angular/common';
 import { OpcoesMenuAdmin } from '../OpcoesMenuAdmin.enum';
 import { RouterLink } from '@angular/router';
@@ -14,37 +14,35 @@ import { RouterLink } from '@angular/router';
 export class MenuAdminComponent {
   linksSidebar: MenuAdminSidebarLink[] = [
     {
-      path: '/opcoes',
       nome: 'Gerenciar Reclamações',
       img: 'assets/icones/icon_white_reclamacao.svg',
       opcao: OpcoesMenuAdmin.Reclamacao,
     },
-    
     {
-      path: 'opcoes',
       nome: 'Gerenciar notícias do site',
       img: 'assets/icones/icon_white_noticia.svg',
       opcao: OpcoesMenuAdmin.Noticia,
     },
-    
     {
-      path: '/opcoes',
       nome: 'Gerenciar doenças do site',
       img: 'assets/icones/icon_white_doenca.svg',
       opcao: OpcoesMenuAdmin.Doenca,
     },
-    
     {
-      path: '/opcoes',
       nome: 'Visualizar página sobre o responsável pelo saneamento',
       img: 'assets/icones/icon_white_responsavel.svg',
       opcao: OpcoesMenuAdmin.Responsaveis,
+    },
+    {
+      nome: 'Visualizar Log',
+      img: 'assets/icones/icon_white_responsavel.svg',
+      opcao: OpcoesMenuAdmin.Log,
     },
   ];
  
   opcaoAtual : OpcoesMenuAdmin = OpcoesMenuAdmin.Reclamacao;
 
-  noticia : MenuAdminOpcoesLink[] = [
+  noticia : MenuAdminDashOpcoesLink[] = [
     {
       path: '/noticia-form',
       nome: 'Cadastrar uma nova notícia',
@@ -72,7 +70,7 @@ export class MenuAdminComponent {
     },
   ]
 
-  doenca : MenuAdminOpcoesLink[] = [
+  doenca : MenuAdminDashOpcoesLink[] = [
     {
       path: '/doenca-form',
       nome: 'Cadastrar uma nova doença',
@@ -100,20 +98,25 @@ export class MenuAdminComponent {
     },
   ]
 
-  reclamacao : MenuAdminOpcoesLink[] = [
+  reclamacao : MenuAdminDashOpcoesLink[] = [
     {
-      path: '/reclamacao-inicial',
+      path: '/reclamacao',
       nome: 'Visualizar todas reclamações',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/reclamacao-inicial',
+      path: '/reclamacao',
       nome: 'Seus comentários',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
-      path: '/reclamacao-inicial',
+      path: '/reclamacao',
       nome: 'Excluir uma reclamação',
+      img: 'assets/icones/icon_white_reclamacao.svg',
+    },
+    {
+      path: '/',
+      nome: 'Criar nova tag para os usuários',
       img: 'assets/icones/icon_white_reclamacao.svg',
     },
     {
@@ -128,7 +131,7 @@ export class MenuAdminComponent {
     },
   ]
 
-  responsavel : MenuAdminOpcoesLink[] = [
+  responsavel : MenuAdminDashOpcoesLink[] = [
     {
       path: '/responsaveis',
       nome: 'Visualizar página dos responsáveis pelo saneamento básico',
@@ -136,7 +139,15 @@ export class MenuAdminComponent {
     },
   ]
 
-  opcoes: MenuAdminOpcoesLink[] = this.reclamacao;
+  log : MenuAdminDashOpcoesLink[] = [
+    {
+      path: '/',
+      nome: 'Visualizar log de comentários',
+      img: 'assets/icones/icon_white_responsavel.svg',
+    },
+  ]
+
+  opcoes: MenuAdminDashOpcoesLink[] = this.reclamacao;
 
   mudarOpcaoAtual(opcao: OpcoesMenuAdmin) {
     this.opcaoAtual = opcao;
@@ -152,6 +163,12 @@ export class MenuAdminComponent {
         break;
       case OpcoesMenuAdmin.Responsaveis:
         this.opcoes = this.responsavel;
+        break;
+      case OpcoesMenuAdmin.Log:
+        this.opcoes = this.log;
+        break;
+      default:
+          this.opcoes = [];
     }
   }
 }
