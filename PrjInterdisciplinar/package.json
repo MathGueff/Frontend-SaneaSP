@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:PrjIntegrador": "node dist/sanea-sp/server/server.mjs"
+    "serve:ssr:PrjInterdisciplinar": "node dist/sanea-sp/server/server.mjs",
+    "generate" : "ng g"
   },
   "private": true,
   "dependencies": {
