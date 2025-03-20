@@ -18,6 +18,7 @@ import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.com
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
+import { ReclamacaoUsuariosComponent } from './Reclamacao/reclamacao-usuarios/reclamacao-usuarios.component';
 
 
 export const routes: Routes = [
@@ -29,6 +30,7 @@ export const routes: Routes = [
   {path: 'reclamacao', component: ReclamacaoInicialComponent},
   {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
+  {path: 'reclamacao/reclamacao-usuarios', component: ReclamacaoUsuariosComponent},
 
   //Doenças
   {path: 'doenca-inicial',component:DoencasInicialComponent},
