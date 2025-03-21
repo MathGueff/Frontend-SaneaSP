@@ -1,1 +1,63 @@
-<p>reclamacao-usuarios works!</p>
+<div class="background">
+  <div class="container-fluid pt-2">
+    <div class="row banner">
+      <div class="titulo mt-2 mb-2">
+        <h1>Suas Reclamações</h1>
+      </div>
+      <div class="row">
+        <div class="col">
+          <img
+            class="img-fluid"
+            src="img/paginas/reclamacoes/reclamacao.svg"
+            alt="banner reclamacao"
+          />
+        </div>
+        <div class="col-8">
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit aliquam quisquam animi debitis obcaecati quia quo quae atque cupiditate saepe ex sapiente nobis doloremque earum recusandae dolor iste, voluptates ad. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit, provident sequi illo ipsa magnam labore suscipit aperiam nihil dignissimos mollitia incidunt hic. Tempora qui ipsam ut sequi architecto incidunt vel. Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, assumenda unde consectetur, atque ad veritatis ratione harum, quas iure officia totam. Assumenda impedit aut quasi in a repudiandae nam suscipit?
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col tags">
+        <h2 class="mb-4">Filtre pela Tag</h2>
+        <form class="pesquisa-tag p-4">
+          <div class="tag-reclamacao">
+            <input
+              list="box"
+              type="search"
+              class="form-select text-center borda"
+              formControlName="tagForm"
+            />
+            <datalist id="box">
+              <option selected>Todos</option>
+              <option>Abastecimento</option>
+              <option>Esgoto</option>
+              <option>Lixo</option>
+              <option>Qualidade da Água</option>
+            </datalist>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col text-center adicionar">
+        <h2 class="mb-4">Adicione sua reclamação</h2>
+        <div class="adicionar-btn py-3">
+          <a routerLink="reclamacao-form" class="btn btn-secondary"
+            >Adicionar</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4 mb-4 cards-div">
+      <div class="col-12 p-4 ps-5 pe-5">
+        <!-- Coluna do card-->
+        <app-reclamacao-card [card]="reclamacao"></app-reclamacao-card>
+      </div>
+
+    </div>
+  </div>
+</div>
