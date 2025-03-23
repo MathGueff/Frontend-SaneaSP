@@ -54,7 +54,7 @@ export class UserService {
         id: 1,
         nome: 'Matheus', 
         email: 'gueff@gmail.com', 
-        senha: 'matheus',
+        senha: 'math',
         endereco:{
           cep: '18075718',
           bairro : 'Jardim Brasilândia',
@@ -66,7 +66,7 @@ export class UserService {
         id: 2,
         nome: 'Davy', 
         email: 'davy@gmail.com', 
-        senha: '123456',
+        senha: 'davy',
         endereco:{
           cep: '17571802',
           bairro : 'Jardim Europa',
@@ -78,7 +78,31 @@ export class UserService {
         id: 3,
         nome: 'Adryann', 
         email: 'adryann@gmail.com', 
-        senha: '123456',
+        senha: 'adry',
+        endereco:{
+          cep: '11111111',
+          bairro : 'Bairro tal',
+          logradouro : 'Rua tal',
+          cidade : 'Sorocaba'
+        } 
+      },
+      { 
+        id: 4,
+        nome: 'Ryan', 
+        email: 'ryan@gmail.com', 
+        senha: 'ryan',
+        endereco:{
+          cep: '11111111',
+          bairro : 'Bairro tal',
+          logradouro : 'Rua tal',
+          cidade : 'Sorocaba'
+        } 
+      },
+      { 
+        id: 5,
+        nome: 'Pedro', 
+        email: 'pedro@gmail.com', 
+        senha: 'pedr',
         endereco:{
           cep: '11111111',
           bairro : 'Bairro tal',
@@ -87,7 +111,7 @@ export class UserService {
         } 
       },
     ];
-    console.warn('Usando dados de fallback.');
+    console.log('Usando dados de fallback.');
   }
 
 
