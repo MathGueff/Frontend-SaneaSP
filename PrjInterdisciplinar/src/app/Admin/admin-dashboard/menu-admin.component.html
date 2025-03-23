@@ -1,39 +1,38 @@
 <div class="background container-fluid">
   <div class="container-dashboard d-flex justify-content-center">
-    <div class="sidebar-dashboard p-3">
+    <div class="sidebar-dashboard d-flex align-items-center flex-column">
       <div
-        class="sidebar-dashboard-header d-flex flex-wrap justify-content-center"
+        class="sidebar-dashboard-header d-none d-md-flex justify-content-center flex-wrap"
       >
-        <div class="row">
           <span> Opções de Gerenciamento</span>
-        </div>
       </div>
-      <div class="sidebar-dashboard-opcoes d-flex flex-column">
+      <div class="sidebar-dashboard-opcoes d-flex flex-column p-3 m-3 text-center justify-content-center align-items-center">
         @for (link of linksSidebar; track $index) {
         <div
           [class.opcao-sidebar-selecionada]="opcaoAtual == link.opcao"
-          class="opcao-sidebar focus-secundario d-flex justify-content-center align-items-center"
+          class="opcao-sidebar focus-secundario d-flex justify-content-center 
+          align-items-center flex-lg-row flex-column text-center pe-3"
           (click)="mudarOpcaoAtual(link.opcao)"
           (keydown.enter)="mudarOpcaoAtual(link.opcao)"
           (keydown.space)="mudarOpcaoAtual(link.opcao)"
           tabindex="0"
         >
-          <div class="col-xl-3 col-lg-4 col-md-12">
-            <img class="icone-menu-admin" src="{{ link.img }}" alt="" />
+          <div class="col-xl-3 col-lg-4">
+            <img class="opcao-sidebar-icone" src="{{ link.img }}" alt="" />
           </div>
-          <div class="col-xl-9 col-lg-8 col-md-0">
-            <span>{{ link.nome }}</span>
+          <div class="col-xl-9 col-lg-8 d-none d-md-block">
+            <span class="opcao-sidebar-link">{{ link.nome }}</span>
           </div>
         </div>
         }
       </div>
     </div>
     <div
-      class="opcoes-dashboard gap-3 p-3 d-flex justify-content-center align-items-center flex-wrap"
+      class="opcoes-dashboard row gap-3 p-3 d-flex justify-content-center align-items-center"
     >
       @for (opcao of opcoes; track $index) {
       <a
-        class="opcao-dashboard focus-terciario col-xl-3 col-lg-4 col-md-12 d-flex justify-content-center align-items-center flex-column"
+        class="opcao-dashboard focus-terciario col-xl-3 col-lg-4 col-md-8 col-sm-12 d-flex justify-content-center align-items-center flex-column"
         routerLink="{{ opcao.path }}"
       >
         <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />

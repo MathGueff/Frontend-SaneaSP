@@ -19,10 +19,11 @@
 }
 
 .sidebar-dashboard-header{
-  font-size: 1.4rem;
+  font-size: 2vw;
   text-align: center;
   border-bottom: 2px solid rgb(228, 228, 228);
 }
+
 
 .sidebar-dashboard-opcoes{
   margin-top: 20px;
@@ -31,9 +32,8 @@
 
 .opcao-sidebar{
   cursor: pointer;
-  border: 2px transparent var(--cor-terciaria);
+  outline: 2px transparent var(--cor-terciaria);
   font-size: 0.8rem;
-  padding: 5px;
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
@@ -42,8 +42,18 @@
   transform: translateX(5px);
 }
 
+.opcao-sidebar-icone{
+  min-width: 40px;
+  width: 50%;
+}
+
+.opcao-sidebar-link{
+  overflow: hidden;
+  width: 100%;
+}
+
 .opcao-sidebar-selecionada{
-  border: 2px solid var(--cor-terciaria);
+  outline: 2px solid var(--cor-terciaria);
   border-radius: 10px;
 }
 
@@ -79,6 +89,9 @@
   transform: scale(1.05);
 }
 
+@media (max-width: 772px){
+  
+}
 /* ANTIGO 
 img{
   width: 60px;
