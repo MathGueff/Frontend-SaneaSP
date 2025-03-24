@@ -1,49 +1,57 @@
 <div class="background container-fluid">
-  <div class="container-dashboard d-flex justify-content-center">
-    <div class="sidebar-dashboard p-3">
-      <div
-        class="sidebar-dashboard-header d-flex flex-wrap justify-content-center"
-      >
-        <div class="row">
-          <span> Opções de Gerenciamento</span>
-        </div>
+  <div class="container-dashboard d-flex flex-md-row flex-column">
+    <div
+      class="sidebar-dashboard d-flex flex-column align-items-center col-md-2 col-12"
+    >
+      <div class="sidebar-dashboard-header d-none d-md-flex flex-column pe-3 pt-3 ps-3">
+        <span> Opções de Gerenciamento</span>
+        <hr>
       </div>
-      <div class="sidebar-dashboard-opcoes d-flex flex-column">
+      <div
+        class="sidebar-dashboard-opcoes d-flex flex-md-column 
+        flex-row position-sticky p-3 gap-4 flex-wrap 
+        justify-content-center align-items-center text-center"
+      >
         @for (link of linksSidebar; track $index) {
         <div
           [class.opcao-sidebar-selecionada]="opcaoAtual == link.opcao"
-          class="opcao-sidebar focus-secundario d-flex justify-content-center align-items-center"
+          class="opcao-sidebar focus-secundario d-flex align-items-center gap-2 p-2
+          flex-lg-row flex-column text-center"
           (click)="mudarOpcaoAtual(link.opcao)"
           (keydown.enter)="mudarOpcaoAtual(link.opcao)"
           (keydown.space)="mudarOpcaoAtual(link.opcao)"
           tabindex="0"
         >
-          <div class="col-xl-3 col-lg-4 col-md-12">
-            <img class="icone-menu-admin" src="{{ link.img }}" alt="" />
+          <div class="">
+            <img class="opcao-sidebar-icone" src="{{ link.img }}" alt="" />
           </div>
-          <div class="col-xl-9 col-lg-8 col-md-0">
-            <span>{{ link.nome }}</span>
+          <div class="d-none d-md-block">
+            <span class="opcao-sidebar-link">{{ link.nome }}</span>
           </div>
         </div>
         }
       </div>
     </div>
     <div
-      class="opcoes-dashboard gap-3 p-3 d-flex justify-content-center align-items-center flex-wrap"
+      class="opcoes-dashboard col-md-10 col-12 d-flex justify-content-center align-items-center"
     >
-      @for (opcao of opcoes; track $index) {
-      <a
-        class="opcao-dashboard focus-terciario col-xl-3 col-lg-4 col-md-12 d-flex justify-content-center align-items-center flex-column"
-        routerLink="{{ opcao.path }}"
+      <div
+        class="row gap-3 p-3 d-flex justify-content-center align-items-center w-100"
       >
-        <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
-        <span class="text-center">{{ opcao.nome }}</span>
-      </a>
-      }
+        @for (opcao of opcoes; track $index) {
+        <a
+          class="opcao-dashboard d-flex justify-content-center 
+          align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-3"
+          routerLink="{{ opcao.path }}"
+        >
+          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+          <span class="text-center">{{ opcao.nome }}</span>
+        </a>
+        }
+      </div>
     </div>
   </div>
-  <div>
-    <!-- <div class="background container-fluid d-flex justify-content-center align-items-center">
+  <!-- <div class="background container-fluid d-flex justify-content-center align-items-center">
   <div class="d-flex flex-wrap justify-content-center align-items-center h-100 opcoes-dashboard m-4 row w-50 gap-3">
     <div *ngFor="let link of links" class="col-xl-3 col-lg-4 col-md-12 opcao-dashboard d-flex justify-content-center align-items-center flex-wrap text-center">
       <div class="d-flex justify-content-center align-items-center flex-column" routerLink="{{link.path}}">
@@ -53,5 +61,4 @@
     </div>
   </div>
 </div> -->
-  </div>
 </div>
