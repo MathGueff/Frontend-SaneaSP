@@ -12,6 +12,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './menu-admin.component.css',
 })
 export class MenuAdminComponent {
+  //#region Links Sidebar
   //Array de Objetos de links da sidebar do Menu de Admin
   linksSidebar: MenuAdminSidebarLink[] = [
     {
@@ -30,16 +31,18 @@ export class MenuAdminComponent {
       opcao: OpcoesMenuAdmin.Doenca,
     },
     {
-      nome: 'Visualizar página sobre o responsável pelo saneamento',
+      nome: 'Responsável pelo saneamento',
       img: 'assets/icones/icon_white_responsavel.svg',
       opcao: OpcoesMenuAdmin.Responsaveis,
     },
     {
-      nome: 'Visualizar Log',
+      nome: 'Log',
       img: 'assets/icones/icon_relatorio_white.svg',
       opcao: OpcoesMenuAdmin.Log,
     },
   ];
+
+  //#endregion
  
   //Variável para guardar a opção atual selecionada no sidebar 
     // (para mostrar os links corretos ao lado)
