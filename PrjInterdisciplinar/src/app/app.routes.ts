@@ -30,7 +30,7 @@ export const routes: Routes = [
   {path: 'reclamacao', component: ReclamacaoInicialComponent},
   {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
-  {path: 'reclamacao/suas-reclamacoes', component: ReclamacaoUsuariosComponent},
+  {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent},
 
   //Doenças
   {path: 'doenca-inicial',component:DoencasInicialComponent},

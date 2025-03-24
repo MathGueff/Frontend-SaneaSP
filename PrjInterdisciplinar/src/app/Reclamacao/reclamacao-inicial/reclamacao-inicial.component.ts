@@ -19,8 +19,8 @@ import { UserService } from '../../Services/user.service';
 })
 export class ReclamacaoInicialComponent implements OnInit {
   protected userService = inject(UserService);
-  usuarioAtivo$ = this.userService.userAtivo$; // Observable com as informações do admin
-  
+  usuarioAtivo$ = this.userService.getObservableCurrentUser(); // Observable com as informações do admin
+
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
   protected vazio: boolean = false;

@@ -49,8 +49,9 @@
               <span>{{ link.nome }}</span>
             </a>
           </div>
+
           <!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
-          } @if(this.adminInfo$ | async){
+} @if(this.adminInfo$ | async){
           <div class="col-12 pb-4">
             <a
               routerLink="pagina-admin"
@@ -90,8 +91,24 @@
         <span>{{ link.nome }}</span>
       </a>
     </li>
-    <!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
-    } @if(this.adminInfo$ | async){
+    <!-- Caso o usuário esteja logado no sistema -->
+  } @if (this.loginInfo$ | async) {
+    <li>
+      <a
+      routerLink="suas-reclamacoes"
+      routerLinkActive="link-navbar-ativo"
+      class="focus-secundario navbar-header-link d-flex justify-content-center align-items-center text-center"
+      >
+      <img
+      src="assets/icones/icon-search-reclamacao.svg"
+      alt="Ícone do link para página de Suas Reclamações"
+      />
+      <span>Suas Reclamações</span>
+    </a>
+  </li>
+  }
+<!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
+  @if(this.adminInfo$ | async){
     <li>
       <a
         routerLink="pagina-admin"
@@ -105,6 +122,6 @@
         <span>Admin</span>
       </a>
     </li>
-    }
+  }
   </ul>
 </nav>

@@ -13,7 +13,7 @@ export class UserService {
   private userMockService = inject(UserMockService);
   private users: IUser[] = [];
   private adminService = inject(AdminService);
-  
+
   constructor(private sweetAlert : SweetAlertService) {
     // Carrega os usuários ao inicializar o serviço
     //this.loadUsers();
@@ -42,73 +42,73 @@ export class UserService {
       },
       error: (err: unknown) => {
         console.error('Erro ao buscar usuários da API:', err);
-        this.loadFallbackUsers(); 
+        this.loadFallbackUsers();
       },
     });
   }
-  
+
   /* Método para carregar usuários padrão caso a API falhe */
   private loadFallbackUsers(): void {
     this.users = [
-      { 
+      {
         id: 1,
-        nome: 'Matheus', 
-        email: 'gueff@gmail.com', 
+        nome: 'Matheus',
+        email: 'gueff@gmail.com',
         senha: 'math',
         endereco:{
           cep: '18075718',
           bairro : 'Jardim Brasilândia',
           logradouro : 'Rua Alonco Muchon',
           cidade : 'Sorocaba'
-        } 
+        }
       },
-      { 
+      {
         id: 2,
-        nome: 'Davy', 
-        email: 'davy@gmail.com', 
+        nome: 'Davy',
+        email: 'davy@gmail.com',
         senha: 'davy',
         endereco:{
           cep: '17571802',
           bairro : 'Jardim Europa',
           logradouro : 'Rua Rock',
           cidade : 'Votorantim'
-        } 
+        }
       },
-      { 
+      {
         id: 3,
-        nome: 'Adryann', 
-        email: 'adryann@gmail.com', 
+        nome: 'Adryann',
+        email: 'adryann@gmail.com',
         senha: 'adry',
         endereco:{
           cep: '11111111',
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        } 
+        }
       },
-      { 
+      {
         id: 4,
-        nome: 'Ryan', 
-        email: 'ryan@gmail.com', 
+        nome: 'Ryan',
+        email: 'ryan@gmail.com',
         senha: 'ryan',
         endereco:{
           cep: '11111111',
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        } 
+        }
       },
-      { 
+      {
         id: 5,
-        nome: 'Pedro', 
-        email: 'pedro@gmail.com', 
+        nome: 'Pedro',
+        email: 'pedro@gmail.com',
         senha: 'pedr',
         endereco:{
           cep: '11111111',
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        } 
+        }
       },
     ];
     console.log('Usando dados de fallback.');
@@ -124,7 +124,7 @@ export class UserService {
    admin$: Observable<IAdmin | null> = this.adminSubject.asObservable();
 
   //#region Login e Cadastro
-  
+
   public fazerLogin(user: IUser) {
     this.sweetAlert.showMessage("Login realizado com sucesso");
     this.userAtivoSubject.next(user);
@@ -133,7 +133,7 @@ export class UserService {
   public logout() {
     this.userAtivoSubject.next(null);
   }
-  
+
   /* Criação de um novo usuário */
   public newUser(newUser: IUser) {
     //this.userMockService.addUserToList(newUser); //Método POST
@@ -182,6 +182,9 @@ export class UserService {
   public getCurrentUser(): IUser | null {
     return this.userAtivoSubject.value;
   }
+  public getObservableCurrentUser(): Observable<IUser | null>{
+    return this.userAtivo$;
+  }
 
   // Procura um usuário de acordo com o ID
   public findUserById(id: number): Observable<IUser> {
@@ -190,7 +193,7 @@ export class UserService {
       return of(user);
     } else {
       throw new Error('Usuário não encontrado');
-    } 
+    }
   }
 
   //#endregion
