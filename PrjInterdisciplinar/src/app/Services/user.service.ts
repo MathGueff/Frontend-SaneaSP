@@ -92,10 +92,10 @@ export class UserService {
         email: 'ryan@gmail.com', 
         senha: 'ryan',
         endereco:{
-          cep: '11111111',
-          bairro : 'Bairro tal',
-          logradouro : 'Rua tal',
-          cidade : 'Sorocaba'
+          cep: '18112525',
+          bairro : 'Jardim São Pedro',
+          logradouro : 'Rua Carmelina Garcia',
+          cidade : 'Votorantim'
         } 
       },
       { 
