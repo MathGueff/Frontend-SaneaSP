@@ -6,12 +6,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from '../../Services/user.service';
 import { IUser } from '../../models/user.model';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent,NotFoundComponent],
+  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule],
   templateUrl: './reclamacao-usuarios.component.html',
   styleUrl: './reclamacao-usuarios.component.css'
 })
@@ -19,9 +20,10 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   private userService = inject(UserService);
   private router = inject(Router);
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
-  data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
-  protected usuario : IUser | null = this.userService.getCurrentUser();
-  erro : string = "";
+  protected data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
+  protected user : IUser | null = this.userService.getCurrentUser();
+  protected vazio: boolean = true;
+  protected erro : string = "";
   reclamacoes: Reclamacao [] = [
     {
       idReclamacao: 1,
@@ -129,25 +131,24 @@ export class ReclamacaoUsuariosComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.usuario = {
-      id: 2,
-      nome: 'Davy',
-      email: 'davy@gmail.com',
-      senha: 'davy',
-      endereco:{
-        cep: '17571802',
-        bairro : 'Jardim Europa',
-        logradouro : 'Rua Rock',
-        cidade : 'Votorantim'
-      }}
+    this.thisIsUser(this.user);
 
-    if(!this.usuario){
+    let lista : Reclamacao [];
+    lista = this.reclamacoes.filter((reclamacao) =>{
+      return (reclamacao.objUsuario.id === this.user!.id)
+    })
+    if(lista.length > 0 ){
+      this.vazio = false;
+      this.reclamacaoSubject.next(lista);
+    }
+    else{
+      this.vazio = true;
+      this.erro = "Nenhuma Reclamação encontrada";
+    }
+  }
+ private thisIsUser(user : IUser | null ) : void{
+    if(!user){
       this.router.navigate(['']);
     }
-
-    // let lista : Reclamacao [];
-    // lista = this.reclamacoes.find((reclamacao) =>{
-    //   if(reclamacao.)
-    // })
   }
 }
