@@ -24,20 +24,17 @@
       <!-- Caso haja um usuário, exibe o nome, caso contrário, escreve login-->
       <span>{{ this.userAtivo }}</span>
     </a>
-    <ul
-      class="focus-secundario dropdown-menu dropdown-menu-dark row"
-      
-    >
+    <ul class="focus-secundario dropdown-menu dropdown-menu-dark row">
+      <li>
+        <a class="dropdown-item" routerLink="/editar-perfil">
+          <img src="assets/icones/edit_profile_icon.svg" class="me-1" alt="" />
+          Editar seu perfil
+        </a>
+      </li>
       <li>
         <a class="dropdown-item" (click)="btnLogout()">
           <img src="assets/icones/logout_icon.svg" class="me-1" alt="" />
           Logout
-        </a>
-      </li>
-      <li>
-        <a class="dropdown-item" routerLink="/editar-perfil">
-          <img src="assets/icones/edit_icon.svg" class="me-1" alt="" />
-          Editar seu perfil
         </a>
       </li>
     </ul>

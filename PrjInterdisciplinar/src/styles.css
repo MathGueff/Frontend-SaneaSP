@@ -54,7 +54,7 @@ div:focus-visible {
 
 /* Estilo com outline azul escuro */
 .focus-primario:focus-visible{
-  outline: var(--outline-tab-primario);;
+  outline: var(--outline-tab-primario);
 }
 
 /* Estilo com outline branco */
