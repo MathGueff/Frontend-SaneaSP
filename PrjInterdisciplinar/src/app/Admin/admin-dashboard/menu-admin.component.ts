@@ -49,12 +49,12 @@ export class MenuAdminComponent {
       img: 'assets/icones/icon_white_noticia.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/up-noticia',
       nome: 'Editar uma notícia',
       img: 'assets/icones/icon_white_noticia.svg',
     },
     {
-      path: '/noticia-form',
+      path: '/dell-noticia',
       nome: 'Excluir uma notícia',
       img: 'assets/icones/icon_white_noticia.svg',
     },
