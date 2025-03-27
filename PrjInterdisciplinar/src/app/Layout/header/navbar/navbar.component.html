@@ -3,6 +3,41 @@
   class="d-flex align-items-center justify-content-between"
 >
   <!--Navbar-->
+  <!-- Links da navbar -->
+  <ul
+    id="navbar-links"
+    class="d-none d-lg-flex justify-content-evenly align-items-center"
+  >
+    <!--Em telas menores muda para display none -->
+    @for (link of links; track $index) {
+    <li>
+      <a
+        routerLink="{{ link.path }}"
+        routerLinkActive="link-navbar-ativo"
+        class="focus-secundario navbar-header-link d-flex justify-content-center align-items-center text-center"
+      >
+        <img src="{{ link.img }}" alt="{{ link.alt }}" />
+        <span>{{ link.nome }}</span>
+      </a>
+    </li>
+    <!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
+    } @if(this.adminInfo$ | async){
+    <li>
+      <a
+        routerLink="pagina-admin"
+        routerLinkActive="link-navbar-ativo"
+        class="focus-secundario navbar-header-link d-flex justify-content-center align-items-center text-center"
+      >
+        <img
+          src="assets/icones/icon_white_responsavel.svg"
+          alt="Ícone do link para página de Admin"
+        />
+        <span>Admin</span>
+      </a>
+    </li>
+    }
+  </ul>
+
   <!-- Botão para chamar o OFFCANVAS -->
   <button
     class="btn btn-outline-light d-lg-none"
@@ -34,16 +69,17 @@
     <!-- Corpo do offcanvas -->
     <div class="offcanvas-body">
       <div
-        class="container d-flex justify-content-center align-items-center flex-wrap"
+        class="container d-flex justify-content-center align-items-center flex-wrap gap-3"
       >
-        <div class="row">
+        <div class="row gap-4">
           @for (link of links; track $index) {
-          <div class="col-12 pb-4">
+          <div class="col-12 d-flex justify-content-center align-items-center">
             <!-- Links de navegação do OFFCANVAS -->
             <a
               routerLink="{{ link.path }}"
               routerLinkActive="link-navbar-ativo"
-              class="focus-secundario navbar-header-link d-flex justify-content-center align-items-center text-center"
+              class="focus-secundario navbar-header-link d-flex justify-content-center
+              align-items-center text-center w-50"
             >
               <img src="{{ link.img }}" alt="{{ link.alt }}" />
               <span>{{ link.nome }}</span>
@@ -67,8 +103,8 @@
           </div>
           }
         </div>
+        <app-login-link></app-login-link>
       </div>
-      <app-login-link></app-login-link>
     </div>
     <!-- Fechamento do corpo do offCanvas -->
   </div>
@@ -91,24 +127,8 @@
         <span>{{ link.nome }}</span>
       </a>
     </li>
-    <!-- Caso o usuário esteja logado no sistema -->
-  } @if (this.loginInfo$ | async) {
-    <li>
-      <a
-      routerLink="suas-reclamacoes"
-      routerLinkActive="link-navbar-ativo"
-      class="focus-secundario navbar-header-link d-flex justify-content-center align-items-center text-center"
-      >
-      <img
-      src="assets/icones/icon-search-reclamacao.svg"
-      alt="Ícone do link para página de Suas Reclamações"
-      />
-      <span>Suas Reclamações</span>
-    </a>
-  </li>
-  }
-<!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
-  @if(this.adminInfo$ | async){
+    <!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
+    } @if(this.adminInfo$ | async){
     <li>
       <a
         routerLink="pagina-admin"
@@ -122,6 +142,6 @@
         <span>Admin</span>
       </a>
     </li>
-  }
+    }
   </ul>
 </nav>

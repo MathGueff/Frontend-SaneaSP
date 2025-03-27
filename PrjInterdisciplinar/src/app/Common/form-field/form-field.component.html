@@ -1,4 +1,4 @@
-<div [formGroup]="formGroup">
+<div class="mb-3" [formGroup]="formGroup">
     <!-- FormControl -->
     <img class="label-icon me-1" [src]="icon">
     <label [for]="controlName + '-' + formName" class="form-label">
@@ -25,6 +25,17 @@
         rows="3"
         class="form-control"
         ></textarea>
+        <select
+        *ngSwitchCase="'select'"
+        [formControlName]="controlName"
+        [name]="controlName + '-' + formName"
+        [id]="controlName + '-' + formName"
+        class="form-control text-center"
+        >
+        <option selected value="Nenhum">Nenhum</option>
+        <option *ngFor="let item of selectList" [value]="item">{{item}}</option>
+    </select>
+        
         
     @if (type == 'password' || this.showPassword == true) 
     {
