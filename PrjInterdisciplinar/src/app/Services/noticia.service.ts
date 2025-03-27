@@ -54,7 +54,7 @@ export class NoticiaService{
 
   /* Validação de Notícia */
   validateNoticia(newNoticia : string) : boolean{
-    return this.noticias.some(noticia => noticia.titulo != newNoticia);
+    return !this.noticias.some(noticia => noticia.titulo.trim() == newNoticia.trim());
   }
 
   /* Criação de uma nova Doença */

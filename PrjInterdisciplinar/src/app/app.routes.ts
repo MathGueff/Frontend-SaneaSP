@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { MenuUsuarioComponent } from './Usuario/menu-usuario/menu-usuario.component';
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from './Reclamacao/reclamacao-descricao/reclamacao-descricao.component';
@@ -17,8 +16,6 @@ import { NoticiasDetalhesComponent } from './Noticias/noticias-detalhes/noticias
 import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.component';
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
-import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
-
 
 export const routes: Routes = [
   //Home
