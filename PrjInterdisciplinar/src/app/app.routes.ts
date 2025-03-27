@@ -18,6 +18,7 @@ import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.com
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
+import { UpdateTagComponent } from './Tag/update-tag/update-tag.component';
 
 
 export const routes: Routes = [
@@ -41,6 +42,10 @@ export const routes: Routes = [
   {path: 'noticia-detalhe', component:NoticiasDetalhesComponent},
   {path: 'noticia-detalhe/:id', component:NoticiasDetalhesComponent},
   {path: 'noticia-form', component: FormNoticiaComponent},
+
+  //Tags
+  {path: 'tag-form', component: UpdateTagComponent},
+
 
   //Outros
   {path: 'sobre-nos', component:SobrenosComponent},

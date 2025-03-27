@@ -1,0 +1,8 @@
+.container-fluid .row .col {
+    padding:  45px 70px;
+}
+
+.row .col li {
+    font-size: var(--fonte-terciaria);
+    padding: 0px 70px;
+}
