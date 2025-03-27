@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { DoencaService } from '../../Services/doenca.service';
+//import { DoencaService } from '../../Services/doenca.service';
 import { IFieldForm } from '../../models/fieldForm.model';
 import { CommonModule } from '@angular/common';
 import { CheckErrorComponent } from '../../Common/check-error/check-error.component';

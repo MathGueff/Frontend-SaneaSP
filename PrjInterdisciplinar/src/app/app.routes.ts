@@ -18,6 +18,8 @@ import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.com
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
+import { UpNoticiaComponent } from './Noticias/up-noticia/up-noticia.component';
+import { DellNoticiaComponent } from './Noticias/dell-noticia/dell-noticia.component';
 
 
 export const routes: Routes = [
@@ -41,6 +43,8 @@ export const routes: Routes = [
   {path: 'noticia-detalhe', component:NoticiasDetalhesComponent},
   {path: 'noticia-detalhe/:id', component:NoticiasDetalhesComponent},
   {path: 'noticia-form', component: FormNoticiaComponent},
+  {path: 'dell-noticia', component: DellNoticiaComponent},
+  {path: 'up-noticia/', component: UpNoticiaComponent},
 
   //Outros
   {path: 'sobre-nos', component:SobrenosComponent},

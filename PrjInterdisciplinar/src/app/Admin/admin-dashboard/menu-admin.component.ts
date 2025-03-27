@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-menu-admin',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ],
   templateUrl: './menu-admin.component.html',
   styleUrl: './menu-admin.component.css',
 })

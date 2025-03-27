@@ -20,7 +20,6 @@ import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 })
 export class DoencasInicialComponent implements OnInit {
   //variaveis para poder controlar o componente NotFound
-  //variaveis para poder controlar o componente NotFound
   protected vazio: boolean = true;
   erro: string = "doenças";
   //Observable Doenças
