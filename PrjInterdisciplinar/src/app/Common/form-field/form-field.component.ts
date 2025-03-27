@@ -10,6 +10,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './form-field.component.css'
 })
 export class FormFieldComponent{
+  @Input() class : string = 'col-md-12 col-sm-12 mb-3'; //Classes CSS que devem ser aplicadas ao input
   @Input() formGroup !: FormGroup; //Form gruop utilizado no componente pai
   @Input() formName : string = 'form'; //Usado para concatenar ao nome do campo para gerar names e ids diferentes (controlName + '-' + formName)
   @Input() controlName!: string; //Nome do campo
@@ -19,7 +20,7 @@ export class FormFieldComponent{
   @Input() placeholder!: string;  //Placeholder do input
   @Input() required !: boolean; //Se o campo é obrigatório (serve para adicionar o asterisco* como forma visual de separar obrigatórios de opcionais)
   @Input() fieldType : string = 'input';
-
+  @Input() selectList : string[] = [];
   @Input() validators : string[] = []; //Select, input ou textarea
 
   /*Retorna a mensagem correspondente ao tipo de validação que os campos possuem
