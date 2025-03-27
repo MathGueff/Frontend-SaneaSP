@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../Services/user.service';
 
@@ -12,6 +12,9 @@ import { UserService } from '../../../Services/user.service';
 export class LoginLinkComponent implements OnInit{
   userAtivo : string | null = null;
   private userService = inject(UserService);
+
+  @ViewChild('dropdown') dropdown !: ElementRef
+  @ViewChild('dropdownLinks') linksDropdown !: ElementRef
   
   ngOnInit(): void {
     /* Alterando o nome do usuário ativo com Observable */
@@ -33,5 +36,13 @@ export class LoginLinkComponent implements OnInit{
 
   btnLogout(){
     this.userService.logout();
+  }
+
+  toggleLoginDropdown(){
+    const dropdown = this.linksDropdown.nativeElement as HTMLElement; 
+    if(dropdown.classList.contains("show"))
+      dropdown.classList.remove('show');
+    else
+      dropdown.classList.add('show')
   }
 }

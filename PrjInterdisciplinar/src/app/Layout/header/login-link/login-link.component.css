@@ -16,7 +16,7 @@
 
   /* Botão de login enquanto estiver logado */
   .login-menu, .login-link{
-    transition: 0.7s all ease;
+    transition: 0.7s transform ease, 0.7s opacity ease;
   }
 
   .login-menu a{
@@ -34,7 +34,6 @@
 
   .dropdown-toggle{
     cursor: pointer;
-    transition: 0.7s all ease;
   }
 
   .dropdown-toggle a{
@@ -45,20 +44,20 @@
     overflow: hidden;
   }
 
-  .dropdown-item img{
-    width: 24px;
-    height: 24px;
-  }
-
   .dropdown-item, .dropdown-menu{
     color: #eeeeee !important;
     background-color: var(--cor-primaria) !important;
     opacity: 1 !important;
-    transition: 0.4s all ease;
+    transition: 0.4s opacity ease, 0.4s transform ease;
   }
 
   .dropdown-item{
     cursor: pointer;
+  }
+
+  .dropdown-item img{
+    width: 24px;
+    height: 24px;
   }
 
   .dropdown-item:hover{
