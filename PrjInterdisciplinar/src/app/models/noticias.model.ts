@@ -4,5 +4,5 @@ export interface INoticia{
     descricao : string;
     tags_noticia : string[];
     fontes_noticia : string[];
-    imagens_noticia : string[];
+    imagem_noticia : string;
 }
