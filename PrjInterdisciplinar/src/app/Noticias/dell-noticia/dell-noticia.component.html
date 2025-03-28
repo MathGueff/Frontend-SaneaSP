@@ -1,1 +1,44 @@
-<p>Delete de Noticia is Working!</p>
+<div class="background">
+    <div class="container-fluid d-flex justify-content-center align-items-center flex-column">
+        <div class="form d-flex justify-content-center align-items-center flex-column m-3 p-4 rounded">
+            <label for="id_noticia">Digite o ID da Notícia:</label>
+            <input type="text" id="id_noticia" class="form-control">
+            <button type="submit" class="btn btn-primary" (click)="pesquisarNoticia()">Pesquisar</button> <!-- (click)="pesquisarNoticia()" -->
+            <div> <!-- *ngIf="noticiaEncontrada()" -->
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="titulo_noticia" class="form-label">Título da Notícia:</label>
+                    <p id="titulo_noticia" class="form-control"></p>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="descricao_noticia" class="form-label">Descrição da Notícia:</label>
+                    <textarea name="description" id="descricao_noticia" min_cols="5" min_rows="5" readonly
+                        class="form-control"></textarea>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="imagem_noticia" class="form-label">Imagem da Noticia:</label>
+                    <img id="imagem_noticia" src="" alt="" class="img-fluid form-control">
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="tags_noticia" class="form-label">Tag's da Noticia:</label>
+                    <p id="tags_noticia" class="form-control"></p>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="fonte_noticia" class="form-label">Fonte da Noticia:</label>
+                    <p id="fonte_noticia" class="form-control"></p>
+                </div>
+                <div class="d-flex justify-content-center align-items-center flex-column">
+                    <label for="data_noticia" class="form-label">Data da Noticia:</label>
+                    <input type="date" id="data_noticia" value="" class="form-control" readonly>
+                </div>
+            </div>
+            <button class="btn btn-primary">Excluir</button>
+            <ng-template #template> <!-- Pop-up de confirmação de excluir -->
+                <div class="modal-body text-center">
+                    <p>Tem certeza que deseja excluir essa noticia?</p>
+                    <button type="button" class="btn btn-default">Sim</button> <!-- (click)="confirmDelete()" -->
+                    <button type="button" class="btn btn-primary">Nao</button> <!-- (click)="declineDelete()" -->
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

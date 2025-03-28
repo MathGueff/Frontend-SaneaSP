@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { INoticia } from '../../models/noticias.model';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dell-noticia',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './dell-noticia.component.html',
   styleUrl: './dell-noticia.component.css'
 })
 export class DellNoticiaComponent {
 
+  pesquisarNoticia() {
+    
+  }
 }
