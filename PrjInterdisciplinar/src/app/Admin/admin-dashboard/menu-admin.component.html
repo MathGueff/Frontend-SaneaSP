@@ -1,22 +1,22 @@
 <div class="background container-fluid">
   <div class="container-dashboard d-flex flex-md-row flex-column">
+    <!-- SIDEBAR -->
     <div
       class="sidebar-dashboard d-flex flex-column align-items-center col-md-2 col-12"
     >
-      <div class="sidebar-dashboard-header d-none d-md-flex flex-column pe-3 pt-3 ps-3">
+      <div
+        class="sidebar-dashboard-header d-none d-md-flex flex-column pe-3 pt-3 ps-3"
+      >
         <span> Opções de Gerenciamento</span>
-        <hr>
+        <hr />
       </div>
       <div
-        class="sidebar-dashboard-opcoes d-flex flex-md-column 
-        flex-row position-sticky p-3 gap-4 flex-wrap 
-        justify-content-center align-items-center text-center"
+        class="sidebar-dashboard-opcoes d-flex flex-md-column flex-row position-sticky p-3 gap-4 flex-wrap justify-content-center align-items-center text-center"
       >
         @for (link of linksSidebar; track $index) {
         <div
-          [class.opcao-sidebar-selecionada]="opcaoAtual == link.opcao"
-          class="opcao-sidebar focus-secundario d-flex align-items-center gap-2 p-2
-          flex-lg-row flex-column text-center"
+          [class.opcao-sidebar-selecionada]="sidebarAtual == link.opcao"
+          class="opcao-sidebar focus-secundario d-flex align-items-center gap-2 p-2 flex-lg-row flex-column text-center"
           (click)="mudarOpcaoAtual(link.opcao)"
           (keydown.enter)="mudarOpcaoAtual(link.opcao)"
           (keydown.space)="mudarOpcaoAtual(link.opcao)"
@@ -32,33 +32,77 @@
         }
       </div>
     </div>
+    <!-- OPCOES DO MENU (VARIA CONFORME OPCAO SELECIONADA NO SIDEBAR) -->
     <div
       class="opcoes-dashboard col-md-10 col-12 d-flex justify-content-center align-items-center"
     >
       <div
         class="row gap-3 p-3 d-flex justify-content-center align-items-center w-100"
       >
-        @for (opcao of opcoes; track $index) {
+        @for (opcao of opcoesMenuAtuais; track $index) { @if(opcao.type ==
+        'link'){
         <a
-          class="opcao-dashboard d-flex justify-content-center 
-          align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-3"
+          class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
           routerLink="{{ opcao.path }}"
         >
           <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
           <span class="text-center">{{ opcao.nome }}</span>
         </a>
-        }
+        } @else {
+        <a
+          class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
+          [attr.data-bs-target]="'#exampleModal'"
+          [attr.data-bs-toggle]="'modal'"
+        >
+          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+          <span class="text-center">{{ opcao.nome }}</span>
+        </a>
+        } }
       </div>
     </div>
   </div>
-  <!-- <div class="background container-fluid d-flex justify-content-center align-items-center">
-  <div class="d-flex flex-wrap justify-content-center align-items-center h-100 opcoes-dashboard m-4 row w-50 gap-3">
-    <div *ngFor="let link of links" class="col-xl-3 col-lg-4 col-md-12 opcao-dashboard d-flex justify-content-center align-items-center flex-wrap text-center">
-      <div class="d-flex justify-content-center align-items-center flex-column" routerLink="{{link.path}}">
-        <img class="icone-menu-admin" src="{{link.img}}" alt="">
-        <span>{{link.nome}}</span>
+  <!-- Modal - Vai virar componente depois-->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Crie uma nova tag
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <label class="form-label" for="">SUA TAG</label>
+            <input
+              class="form-control"
+              placeholder="Digite a tag"
+              type="text"
+            />
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Fechar
+          </button>
+          <button type="button" class="btn btn-primary">Salvar Tag</button>
+        </div>
       </div>
     </div>
   </div>
-</div> -->
 </div>

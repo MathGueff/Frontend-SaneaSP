@@ -7,7 +7,7 @@
   font-family: var(--familia-primaria);
 }
 
-/* --- Variáveis do CSS global --- */
+/* --- INICIO VARIÁVEIS DO CSS GLOBAL  --- */
 :root{
     /* Cores de fundo */
     --cor-primaria: #295A80;
@@ -41,7 +41,18 @@
     --header-texto: 1.01rem;
 }
 
-/* --- Acessibilidade --- */
+/* INICIO PADRÕES */
+
+.rounded{
+  border-radius: 20px;
+}
+
+/* --- Background das páginas --- */
+.background{
+  background-color: var(--cor-background);
+}
+
+/* --- INICIO ACESSIBILIDADE --- */
 
 /* Estilo global para as tags (pode ser sobrescrito utilizando as classes focus-primario, secundario e terciario */
 button:focus-visible,
@@ -73,7 +84,29 @@ div:focus-visible {
   box-shadow: none !important;
 }
 
-/* --- Estilos do SweetAlert ---  */
+/* INICIO ESTILOS DO MODAL */
+
+.modal-content{
+  background-color: var(--cor-primaria) !important;
+}
+
+.modal-header, .modal-footer {
+  color: var(--cor-fonte-branca);
+}
+
+.modal-header{
+  border-bottom: 0px !important;
+}
+
+.modal-footer{
+  border-top: 0px !important;
+}
+.modal-body{
+  background-color: var(--cor-form-login);
+  border: none !important;
+}
+
+/* --- INICIO ESTILOS DO SWEETALERT ---  */
 .sweet_popup{
   padding: 10px; 
 }
@@ -97,16 +130,7 @@ div:focus-visible {
 }
 /* Fim dos estilos do SweetAlert */
 
-.rounded{
-  border-radius: 20px;
-}
-
-/* --- Background das páginas --- */
-.background{
-  background-color: var(--cor-background);
-}
-
-/* --- CSS padrão para cards --- */
+/* --- INICIO CSS PADRÃO PARA CARDS --- */
 .card, .comentario{
   cursor: pointer;
   border: none;
@@ -173,7 +197,7 @@ div:focus-visible {
   }
 }
 
-/* --- CSS padrão dos Formulários --- */
+/* --- INÍCIO CSS PADRÃO PARA FORMULÁRIOS --- */
 /* Div do formulário */
 .form{
   /* Width e Height devem ser definidos no CSS do componente, dentro dessa classe */
@@ -189,6 +213,7 @@ div:focus-visible {
 
 .form-control, .form-select, .tags-selected{
    background-color:  #dfdddd !important;/* #575757 */
+   border: 1px solid var(--cor-quaternaria) !important;
    border-radius: 10px !important;
    width: 100% !important;
    height: 40px !important;
