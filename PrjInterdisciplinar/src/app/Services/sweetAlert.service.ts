@@ -16,4 +16,29 @@ export class SweetAlertService {
       },
     });
   }
+  public confirmExclusion(message:string):boolean{
+    let confirm : boolean = false;
+      Swal.fire({
+      title: message,
+      showDenyButton: true,
+      showCancelButton: false,
+      icon:'question',
+      background: '#295A80',
+      color: '#e8e3e3',
+      confirmButtonText: 'Excluir',
+      denyButtonText: `Cancelar`,
+      customClass: {
+        confirmButton: 'sweet_btn_success',
+        title : 'sweet_title',
+      },
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        confirm = true;
+      } else if (result.isDenied) {
+        confirm = false;
+      }
+    });
+    return confirm;
+  }
 }
