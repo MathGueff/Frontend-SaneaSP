@@ -5,6 +5,7 @@ import { UserMockService } from './user-mock.service';
 import { AdminService } from './admin.service';
 import { IAdmin } from '../models/admin.model';
 import { SweetAlertService } from './sweetAlert.service';
+import { isNull } from 'util';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -182,6 +183,7 @@ export class UserService {
   public getCurrentUser(): IUser | null {
     return this.userAtivoSubject.value;
   }
+
   public getObservableCurrentUser(): Observable<IUser | null>{
     return this.userAtivo$;
   }

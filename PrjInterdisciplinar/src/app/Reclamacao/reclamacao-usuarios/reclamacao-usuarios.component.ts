@@ -7,12 +7,13 @@ import { UserService } from '../../Services/user.service';
 import { IUser } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule],
+  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule, ReactiveFormsModule],
   templateUrl: './reclamacao-usuarios.component.html',
   styleUrl: './reclamacao-usuarios.component.css'
 })
@@ -24,6 +25,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   protected user : IUser | null = this.userService.getCurrentUser();
   protected vazio: boolean = true;
   protected erro : string = "";
+  TagSelect : FormGroup;
   reclamacoes: Reclamacao [] = [
     {
       idReclamacao: 1,
@@ -127,15 +129,18 @@ export class ReclamacaoUsuariosComponent implements OnInit {
     },
   ];
 
-
-
+  constructor(private fb:FormBuilder){
+    this.TagSelect = this.fb.group({
+      tagForm: ['Todos']
+    })
+  }
 
   ngOnInit(): void {
     this.thisIsUser(this.user);
 
     let lista : Reclamacao [];
     lista = this.reclamacoes.filter((reclamacao) =>{
-      return (reclamacao.objUsuario.id === this.user!.id)
+      return (reclamacao.objUsuario.id === this.user?.id)
     })
     if(lista.length > 0 ){
       this.vazio = false;

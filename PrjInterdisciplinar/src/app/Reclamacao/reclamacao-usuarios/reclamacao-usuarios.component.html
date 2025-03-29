@@ -22,7 +22,7 @@
     <div class="row mb-5">
       <div class="col tags">
         <h2 class="mb-4">Filtre pela Tag</h2>
-        <form class="pesquisa-tag p-4">
+        <form class="pesquisa-tag p-4" [formGroup]="TagSelect">
           <div class="tag-reclamacao">
             <input
               list="box"
@@ -39,6 +39,7 @@
             </datalist>
           </div>
         </form>
+        <!-- <app-tag-select></app-tag-select> -->
       </div>
     </div>
     <div class="row mb-5">
