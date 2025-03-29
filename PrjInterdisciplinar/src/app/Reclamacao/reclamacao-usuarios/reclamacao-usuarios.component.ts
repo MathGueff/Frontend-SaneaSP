@@ -136,7 +136,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*
+    
     this.user =
     {
       id: 2,
@@ -149,7 +149,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
         logradouro : 'Rua Rock',
         cidade : 'Votorantim'
       }
-    } */
+    }
 
     this.thisIsUser(this.user);
 
