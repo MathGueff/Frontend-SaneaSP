@@ -1,13 +1,15 @@
-import { OpcoesMenuAdmin } from "../Admin/OpcoesMenuAdmin.enum";
+import { OpcoesSidebarMenuAdmin } from "../Admin/OpcoesSidebarMenuAdmin.enum";
 
 export class MenuAdminLink{
   nome : string = '';
   img : string = '';
 }
 export class MenuAdminDashOpcoesLink extends MenuAdminLink{
-  path : string = '';
+  type : string = 'link'; //Link (routerLink) ou modal(data-bs-target)
+  path ?: string = ''; //routerLink
+  nomeModal ?: string = ''; //data-bs-target
 }
 
 export class MenuAdminSidebarLink extends MenuAdminLink{
-  opcao : OpcoesMenuAdmin = OpcoesMenuAdmin.Doenca;
+  opcao : OpcoesSidebarMenuAdmin = OpcoesSidebarMenuAdmin.Doenca;
 }

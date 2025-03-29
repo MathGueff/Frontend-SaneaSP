@@ -11,7 +11,7 @@
     >
       <h3 class="mb-4">Cadastre uma nova notícia</h3>
       <!-- Campos do formulário -->
-      <div class="row mt-3" style="width: 100%; max-width: 600px">
+      <div class="row mt-3">
         <!-- Inputs do formulário (título e descrição) -->
         @for (input of inputs; track $index) {
         <app-form-field
@@ -28,18 +28,19 @@
         </app-form-field>
         }
 
+        <!-- TAGS -->
         <!-- Input de adicionar tag -->
         <app-form-field
           [formGroup]="this.formNoticia"
           class="col-md-6 col-12"
           formName="form-noticia"
-          controlName="tag"
+          controlName="tag_input"
           icon="assets/formularios/tag_icon.svg"
           label="Nova Tag:"
           placeholder="Digite a tag"
           [required]="false"
           fieldType="input"
-          (keydown.enter)="onEnter($event, 'tag')"
+          (keydown.enter)="onEnter($event, 'tag-input')"
         ></app-form-field>
 
         <!-- Select de Tags já existentes -->
@@ -47,13 +48,14 @@
           [formGroup]="this.formNoticia"
           class="col-md-6 col-12"
           formName="form-noticia"
-          controlName="tag"
+          controlName="tag_select"
           icon="assets/formularios/tag_icon.svg"
           label="Selecione uma tag:"
           [required]="false"
           fieldType="select"
           [selectList]="['tag1', 'tag2']"
-          (keydown.enter)="onEnter($event, 'tag')"
+          (keydown.enter)="onEnter($event, 'tag-select')"
+          (change)="onEnter($event, 'tag-select')"
         ></app-form-field>
 
         <!-- Caso o usuário não tenha digitado a fonte -->
@@ -71,7 +73,7 @@
         ></app-check-error>
 
         <div class="col-6 mb-3">
-          <button class="form-btn" (click)="addTag()">Adicionar tag</button>
+          <button class="form-btn" (click)="onEnter($event, 'tag-input')">Adicionar tag</button>
         </div>
 
         <div class="col-md-12 col-sm-12 mb-3">
@@ -99,6 +101,7 @@
           </div>
         </div>
 
+        <!-- FONTES -->
         <!-- Input de adicionar fonte -->
         <app-form-field
           [formGroup]="this.formNoticia"
@@ -204,7 +207,7 @@
         class="d-flex gap-2 flex-wrap-reverse justify-content-center align-items-center"
       >
         <!-- Botão de voltar -->
-        <button class="form-btn" routerLink="/doenca-inicial">VOLTAR</button>
+        <button class="form-btn" routerLink="/pagina-admin">VOLTAR</button>
 
         <!-- Botão de entrar -->
         <button class="form-btn" type="submit" (click)="onSubmit()">

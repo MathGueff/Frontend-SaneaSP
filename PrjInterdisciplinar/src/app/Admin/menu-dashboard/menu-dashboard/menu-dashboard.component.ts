@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { OpcoesMenuAdmin } from '../../OpcoesMenuAdmin.enum';
+import { OpcoesMenuAdmin } from '../../OpcoesSidebarMenuAdmin.enum';
 import { CommonModule } from '@angular/common';
 
 @Component({

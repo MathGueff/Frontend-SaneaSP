@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Doencas } from '../../models/doencas';
 import { DoencaCardComponent } from '../doenca-card/doenca-card.component';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
+import { DoencaService } from '../../Services/doenca.service';
 
 @Component({
   selector: 'app-doencas-inicial',
@@ -19,6 +20,7 @@ import { NotFoundComponent } from '../../Common/not-found/not-found.component';
   styleUrl: './doencas-inicial.component.css',
 })
 export class DoencasInicialComponent implements OnInit {
+  private doencaService = inject(DoencaService)
   //variaveis para poder controlar o componente NotFound
   //variaveis para poder controlar o componente NotFound
   protected vazio: boolean = true;

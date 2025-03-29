@@ -22,4 +22,9 @@ export class DoencaService{
   getCurrentID() : number{
     return this.doencas.length + 1
   }
+  
+
+  getDoencas() : IDoenca[]{
+    return this.doencas;
+  }
 }
