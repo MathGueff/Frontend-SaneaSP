@@ -136,8 +136,26 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    /*
+    this.user =
+    {
+      id: 2,
+      nome: 'Davy',
+      email: 'davy@gmail.com',
+      senha: 'davy',
+      endereco:{
+        cep: '17571802',
+        bairro : 'Jardim Europa',
+        logradouro : 'Rua Rock',
+        cidade : 'Votorantim'
+      }
+    } */
+
     this.thisIsUser(this.user);
 
+    this.TagSelect.valueChanges.subscribe(()=>{
+      console.log("Esta funcionando");
+    })
     let lista : Reclamacao [];
     lista = this.reclamacoes.filter((reclamacao) =>{
       return (reclamacao.objUsuario.id === this.user?.id)
