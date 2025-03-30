@@ -1,5 +1,5 @@
 import { UserService } from './../../Services/user.service';
-import { Comentario } from './../../models/comentario';
+import { Comentario } from '../../models/class/comentario';
 import { Component, inject, Input, OnInit } from '@angular/core';
 
 @Component({

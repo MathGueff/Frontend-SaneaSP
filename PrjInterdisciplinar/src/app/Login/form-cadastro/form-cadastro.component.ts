@@ -3,11 +3,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../Services/user.service';
-import { IUser } from '../../models/user.model';
-import { IEndereco } from '../../models/endereco.model';
-import { CadastroErrorStatus } from './CadastroErrorStatus.enum';
+import { IUser } from '../../models/interface/user.model';
+import { IEndereco } from '../../models/interface/endereco.model';
+import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { ViacepService } from '../../Services/viacep.service';
-import { IFieldForm } from '../../models/fieldForm.model';
+import { IFieldForm } from '../../models/interface/fieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 
 @Component({

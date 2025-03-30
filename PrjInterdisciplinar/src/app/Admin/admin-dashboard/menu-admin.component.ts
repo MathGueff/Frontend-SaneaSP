@@ -1,39 +1,58 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import {
   MenuAdminDashOpcoesLink,
   MenuAdminSidebarLink,
-} from '../../models/menu-admin';
+} from '../../models/class/menu-admin';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { OpcoesSidebarMenuAdmin } from '../OpcoesSidebarMenuAdmin.enum';
+import { OpcoesSidebarMenuAdmin } from '../../models/enums/OpcoesSidebarMenuAdmin.enum';
+import { ModalSimplesComponent } from "../../Common/modal-simples/modal-simples.component";
+import { ModalType } from '../../models/enums/ModalType.enum';
 
 @Component({
   selector: 'app-menu-admin',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ModalSimplesComponent],
   templateUrl: './menu-admin.component.html',
   styleUrl: './menu-admin.component.css',
 })
 export class MenuAdminComponent {
   constructor(private router: Router) {}
 
+  modalTypes = ModalType;
+
+  @ViewChild('botaoModal') botaoModal !: ElementRef;
+
   //Para utilizar os atalhos do teclado
   @HostListener('document:keydown', ['$event'])
+
   onKeyDown(event: KeyboardEvent) {
     if (event.key >= '1' && event.key <= '9') {
       //Convertendo o número para indíce do array (subtraindo -1 para que a tecla 1 seja a pos 0)
       const index = parseInt(event.key) - 1;
-
       if (index <= 9 && index < this.opcoesMenuAtuais.length) {
+        //Acessando a opcaoSelecionada por meio do index referente a sua posição no array
         const opcaoSelecionada = this.opcoesMenuAtuais[index];
         if(opcaoSelecionada.type == 'link')
           this.router.navigate([opcaoSelecionada.path]);
         else{
-          //TODO : codigo para abrir o modal
+          this.alternarModal(opcaoSelecionada.nomeModal || '', opcaoSelecionada.tipoModal || ModalType.None)
         }
       }
     }
+  }
+
+  nomeModalAtual : string = '';
+  tipoModalAtual : ModalType = ModalType.None;
+
+  alternarModal(nomeModal : string, tipoModal : ModalType){
+    this.nomeModalAtual = nomeModal;
+    this.tipoModalAtual = tipoModal;
+    // Esperar que a variável seja atualizada antes de clicar no botão
+    setTimeout(() => {
+      this.botaoModal.nativeElement.click();
+    });
   }
 
   //Array de Objetos de links da sidebar do Menu de Admin
@@ -97,19 +116,22 @@ export class MenuAdminComponent {
       },
       {
         type : 'modal',
-        nomeModal : 'novaTagReclamacaoModal',
+        nomeModal : 'criarTagReclamacaoModal',
+        tipoModal : ModalType.Adicao,
         nome: 'Criar nova tag para os usuários',
         img: 'assets/icones/icon_plus_white.svg',
       },
       {
         type : 'modal',
         nomeModal : 'editarTagReclamacaoModal',
+        tipoModal : ModalType.PesquisaEdicao,
         nome: 'Editar uma tag para os usuários',
         img: 'assets/icones/icon_edit_white.svg',
       },
       {
         type : 'modal',
         nomeModal : 'excluirTagReclamacaoModal',
+        tipoModal : ModalType.PesquisaExclusao,
         nome: 'Excluir uma tag para os usuários',
         img: 'assets/icones/icon_delete_white.svg',
       },

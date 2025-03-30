@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { DoencaService } from '../../Services/doenca.service';
-import { IFieldForm } from '../../models/fieldForm.model';
+import { IFieldForm } from '../../models/interface/fieldForm.model';
 import { CommonModule } from '@angular/common';
 import { CheckErrorComponent } from '../../Common/check-error/check-error.component';
 import { FormFieldComponent } from '../../Common/form-field/form-field.component';
-import { NoticiaErrorStatus } from '../NoticiaErrorStatus.enum';
-import { INoticia } from '../../models/noticias.model';
+import { NoticiaErrorStatus } from '../../models/enums/NoticiaErrorStatus.enum';
+import { INoticia } from '../../models/interface/noticias.model';
 import { NoticiaService } from '../../Services/noticia.service';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 
