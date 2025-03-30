@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Tag } from '../../models/tag.model';
+import { Tag } from '../../models/interface/tag.model';
 
 
 @Component({

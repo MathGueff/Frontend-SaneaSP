@@ -1,9 +1,9 @@
-import { IUser } from './../models/user.model';
+import { IUser } from '../models/interface/user.model';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UserMockService } from './user-mock.service';
 import { AdminService } from './admin.service';
-import { IAdmin } from '../models/admin.model';
+import { IAdmin } from '../models/interface/admin.model';
 import { SweetAlertService } from './sweetAlert.service';
 
 @Injectable({ providedIn: 'root' })

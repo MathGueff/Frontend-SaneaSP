@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Doencas } from '../../models/doencas';
+import { Doencas } from '../../models/class/doencas';
 import { DoencaCardComponent } from '../doenca-card/doenca-card.component';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';

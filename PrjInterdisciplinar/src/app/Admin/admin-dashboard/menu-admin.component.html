@@ -39,70 +39,41 @@
       <div
         class="row gap-3 p-3 d-flex justify-content-center align-items-center w-100"
       >
-        @for (opcao of opcoesMenuAtuais; track $index) { @if(opcao.type ==
-        'link'){
-        <a
-          class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
-          routerLink="{{ opcao.path }}"
-        >
-          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
-          <span class="text-center">{{ opcao.nome }}</span>
-        </a>
-        } @else {
-        <a
-          class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
-          [attr.data-bs-target]="'#exampleModal'"
-          [attr.data-bs-toggle]="'modal'"
-        >
-          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
-          <span class="text-center">{{ opcao.nome }}</span>
-        </a>
-        } }
+        @for (opcao of opcoesMenuAtuais; track $index) 
+        { 
+          @if(opcao.type =='link'){
+            <a
+              class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
+              routerLink="{{ opcao.path }}"
+            >
+              <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+              <span class="text-center">{{ opcao.nome }}</span>
+            </a>
+          } @else {
+            <a
+              class="opcao-dashboard rounded d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
+              (click)="alternarModal(opcao.nomeModal || '', opcao.tipoModal || modalTypes.None)"
+              tabindex="0"
+            >
+              <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+              <span class="text-center">{{ opcao.nome }}</span>
+            </a>
+          } 
+        }
       </div>
     </div>
   </div>
+
+  <button 
+  class="d-none"
+    [attr.data-bs-target]="'#'+ nomeModalAtual"
+    [attr.data-bs-toggle]="'modal'"
+    #botaoModal
+  ></button>
+
   <!-- Modal - Vai virar componente depois-->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
-            Crie uma nova tag
-          </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <form action="">
-            <label class="form-label" for="">SUA TAG</label>
-            <input
-              class="form-control"
-              placeholder="Digite a tag"
-              type="text"
-            />
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Fechar
-          </button>
-          <button type="button" class="btn btn-primary">Salvar Tag</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-modal-simples
+    [modalId]="nomeModalAtual"
+    [modalType]="tipoModalAtual">
+  </app-modal-simples>
 </div>

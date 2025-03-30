@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, catchError, of, timeout } from "rxjs";
-import { IUser } from "../models/user.model";
+import { IUser } from "../models/interface/user.model";
 
 @Injectable({ providedIn: "root" })
 export class UserMockService {

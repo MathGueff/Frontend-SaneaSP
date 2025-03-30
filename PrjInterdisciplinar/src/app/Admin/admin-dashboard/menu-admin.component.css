@@ -52,7 +52,8 @@
   height: 150px;
   transition: opacity 0.7s ease, transform 0.7s ease;
   cursor: pointer;
-  border-radius: 4px;
+  border: 2px solid transparent !important;
+  border-radius: 10px !important;
   text-decoration: none;
 }
 

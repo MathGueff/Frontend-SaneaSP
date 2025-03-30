@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { IFieldForm } from '../../models/fieldForm.model';
-import { CadastroErrorStatus } from '../../Login/form-cadastro/CadastroErrorStatus.enum';
+import { IFieldForm } from '../../models/interface/fieldForm.model';
+import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { Router } from '@angular/router';
 
 @Component({

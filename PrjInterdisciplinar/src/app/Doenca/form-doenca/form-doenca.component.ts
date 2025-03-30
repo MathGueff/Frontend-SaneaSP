@@ -1,11 +1,11 @@
-import { DoencaErrorStatus } from './DoencaErrorStatus.enum';
+import { DoencaErrorStatus } from '../../models/enums/DoencaErrorStatus.enum';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IDoenca } from '../../models/doencas.model';
+import { IDoenca } from '../../models/interface/doencas.model';
 import { DoencaService } from '../../Services/doenca.service';
 import { Router, RouterModule } from '@angular/router';
-import { IFieldForm } from '../../models/fieldForm.model';
+import { IFieldForm } from '../../models/interface/fieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 import { CheckErrorComponent } from "../../Common/check-error/check-error.component";
 import { SweetAlertService } from '../../Services/sweetAlert.service';

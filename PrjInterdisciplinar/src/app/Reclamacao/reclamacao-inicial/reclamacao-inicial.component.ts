@@ -1,4 +1,4 @@
-import { Reclamacao } from './../../models/reclamacao';
+import { Reclamacao } from '../../models/class/reclamacao';
 import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.component';
 import { CommonModule } from '@angular/common';
