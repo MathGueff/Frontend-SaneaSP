@@ -3,10 +3,10 @@ import { ComentarioBaixoComponent } from '../comentario-baixo/comentario-baixo.c
 import { ComentarioCimaComponent } from '../comentario-cima/comentario-cima.component';
 import { CommonModule } from '@angular/common';
 import { ComentarioInputComponent } from '../comentario-input/comentario-input.component';
-import { Comentario } from '../../models/comentario';
+import { Comentario } from '../../models/class/comentario';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Reclamacao } from '../../models/reclamacao';
+import { Reclamacao } from '../../models/class/reclamacao';
 import { UserService } from '../../Services/user.service';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 

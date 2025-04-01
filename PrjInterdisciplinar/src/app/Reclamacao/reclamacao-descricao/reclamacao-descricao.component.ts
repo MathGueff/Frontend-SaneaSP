@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Reclamacao } from '../../models/reclamacao';
+import { Reclamacao } from '../../models/class/reclamacao';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';

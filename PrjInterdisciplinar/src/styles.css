@@ -65,17 +65,17 @@ div:focus-visible {
 
 /* Estilo com outline azul escuro */
 .focus-primario:focus-visible{
-  outline: var(--outline-tab-primario);
+  outline: var(--outline-tab-primario) !important;
 }
 
 /* Estilo com outline branco */
 .focus-secundario:focus-visible{
-  outline: var(--outline-tab-secundario);
+  outline: var(--outline-tab-secundario) !important;
 }
 
 /* Estilo com outline preto */
 .focus-terciario:focus-visible{
-  outline: var(--outline-tab-terciario);
+  outline: var(--outline-tab-terciario) !important;
 }
 
 /* Sobrescrita do estilo do bootstrap */
@@ -116,17 +116,21 @@ div:focus-visible {
 }
 
 .sweet_btn_success {
-  background-color: var(--cor-terciaria);  
-  color: var(--cor-primaria);              
+  background-color: var(--cor-terciaria) !important;  
+  color: var(--cor-primaria) !important;              
   border: none;               
-  padding: 10px 20px;        
-  font-size: 16px;            
-  border-radius: 5px;         
+  padding: 10px 20px !important;        
+  font-size: 18px !important;          
+  transition: .4s opacity ease !important;  
+}
+
+.sweet_btn_success:hover {
+  opacity: 0.5 !important
 }
 
 .sweet_btn_success:focus {
-  outline: 2px solid var(--cor-secundaria); 
-  box-shadow: 0 0 5px var(--cor-secundaria); 
+  outline: var(--outline-tab-terciario) !important; 
+  box-shadow: 0 0 5px var(--cor-secundaria) !important; 
 }
 /* Fim dos estilos do SweetAlert */
 
