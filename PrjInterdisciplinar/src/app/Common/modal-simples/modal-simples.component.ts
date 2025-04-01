@@ -1,7 +1,7 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { CommonModule } from '@angular/common';
-import { EventEmitter } from 'stream';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-modal-simples',

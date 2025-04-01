@@ -19,6 +19,9 @@
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
 
+    /* Box Shadow */
+    --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
+
     /* Acessibilidade */
     --outline-tab-primario: 2px solid var(--cor-primaria);
     --outline-tab-secundario: 2px solid #fff;
@@ -139,9 +142,7 @@ div:focus-visible {
   cursor: pointer;
   border: none;
   transition: 0.6s transform ease, 0.6s opacity ease;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao);
   text-decoration: none;
 }
 
@@ -157,21 +158,26 @@ div:focus-visible {
 }
 
 .card:hover{
-  opacity: 0.85;
-  transform: translateX(6px);
+  opacity: 0.9;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
 }
 
 .btn-primary{
   background-color: var(--cor-quaternaria) !important;
   border-color: var(--cor-quaternaria) !important;
-  transition: 0.6s transform ease, 0.6s opacity ease !important;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  transition: 0.4s transform ease, 0.6s opacity ease !important;
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover .btn-primary:hover{
+  transform: translateX(4px);
+  opacity: 0.8;
 }
 
 .btn-primary:hover{
-  transform: translateY(6px);
+  transform: translateY(-4px);
+  opacity: 0.9;
 }
 
 .btn-primary:active{
@@ -189,9 +195,7 @@ div:focus-visible {
   width: 140px;
   height: 140px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao)
 }
 
 @media(max-width: 992px){

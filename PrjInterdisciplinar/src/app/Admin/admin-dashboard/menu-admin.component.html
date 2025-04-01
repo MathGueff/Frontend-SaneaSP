@@ -53,6 +53,7 @@
             <a
               class="opcao-dashboard rounded d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
               (click)="alternarModal(opcao.nomeModal || '', opcao.tipoModal || modalTypes.None)"
+              (keydown.enter)="alternarModal(opcao.nomeModal || '', opcao.tipoModal || modalTypes.None)"
               tabindex="0"
             >
               <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
