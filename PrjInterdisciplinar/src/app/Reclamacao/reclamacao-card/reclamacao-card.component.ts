@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input} from '@angular/core';
 import { Reclamacao } from '../../models/class/reclamacao';
 import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
@@ -10,12 +10,15 @@ import { SweetAlertService } from '../../Services/sweetAlert.service';
   templateUrl: './reclamacao-card.component.html',
   styleUrl: './reclamacao-card.component.css'
 })
-export class ReclamacaoCardComponent implements OnInit {
+export class ReclamacaoCardComponent   {
   @Input () card !: Reclamacao;
   private sweetAlert = inject(SweetAlertService);
-
-  ngOnInit(): void {
-      console.log(this.sweetAlert.confirmExclusion(`Deseja excluir esta reclamação?`));
+  protected async exclusaoReclamacao(id:number){
+    const confirm = this.sweetAlert.confirmExclusion(`Deseja mesmo exluir esta reclamação?`);
+    console.log(confirm)
+    if(confirm){
+      this.sweetAlert.showMessage("Reclamação Excluída com sucesso");
+    }
   }
 }
 

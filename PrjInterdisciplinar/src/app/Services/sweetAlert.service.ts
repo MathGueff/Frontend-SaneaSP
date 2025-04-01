@@ -20,8 +20,8 @@ export class SweetAlertService {
     let confirm : boolean = false;
       Swal.fire({
       title: message,
+      showConfirmButton: true,
       showDenyButton: true,
-      showCancelButton: false,
       icon:'question',
       background: '#295A80',
       color: '#e8e3e3',

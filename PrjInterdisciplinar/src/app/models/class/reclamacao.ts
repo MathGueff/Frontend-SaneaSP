@@ -1,4 +1,5 @@
-import { IUser } from "./user.model";
+import { IUser } from "../interface/user.model";
+
 
 export class Reclamacao {
   idReclamacao:number = 0;

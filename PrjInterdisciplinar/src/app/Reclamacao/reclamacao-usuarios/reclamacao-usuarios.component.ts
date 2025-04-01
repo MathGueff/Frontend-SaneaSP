@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.component';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
-import { Reclamacao } from '../../models/reclamacao';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from '../../Services/user.service';
-import { IUser } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Reclamacao } from '../../models/class/reclamacao';
+import { IUser } from '../../models/interface/user.model';
 
 
 @Component({
@@ -136,7 +136,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.user =
     {
       id: 2,
