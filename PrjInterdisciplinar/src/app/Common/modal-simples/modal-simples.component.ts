@@ -1,7 +1,6 @@
 import { Component, ElementRef, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { CommonModule } from '@angular/common';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-modal-simples',
