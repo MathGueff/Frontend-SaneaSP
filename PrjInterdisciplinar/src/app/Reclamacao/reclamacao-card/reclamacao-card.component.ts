@@ -13,8 +13,10 @@ import { SweetAlertService } from '../../Services/sweetAlert.service';
 export class ReclamacaoCardComponent   {
   @Input () card !: Reclamacao;
   private sweetAlert = inject(SweetAlertService);
+
+  // Função para excluir Reclamacao. Função assincrona: precisa usar async e await
   protected async exclusaoReclamacao(id:number){
-    const confirm = this.sweetAlert.confirmExclusion(`Deseja mesmo exluir esta reclamação?`);
+    const confirm = await this.sweetAlert.confirmExclusion(`Deseja mesmo exluir a Reclamação: ${id}?`);
     console.log(confirm)
     if(confirm){
       this.sweetAlert.showMessage("Reclamação Excluída com sucesso");
