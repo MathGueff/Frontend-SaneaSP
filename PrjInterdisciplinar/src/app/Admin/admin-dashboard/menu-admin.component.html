@@ -39,42 +39,50 @@
       <div
         class="row gap-3 p-3 d-flex justify-content-center align-items-center w-100"
       >
-        @for (opcao of opcoesMenuAtuais; track $index) 
-        { 
-          @if(opcao.type =='link'){
-            <a
-              class="opcao-dashboard d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
-              routerLink="{{ opcao.path }}"
-            >
-              <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
-              <span class="text-center">{{ opcao.nome }}</span>
-            </a>
-          } @else {
-            <a
-              class="opcao-dashboard rounded d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
-              (click)="alternarModal(opcao.nomeModal || '', opcao.tipoModal || modalTypes.None)"
-              (keydown.enter)="alternarModal(opcao.nomeModal || '', opcao.tipoModal || modalTypes.None)"
-              tabindex="0"
-            >
-              <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
-              <span class="text-center">{{ opcao.nome }}</span>
-            </a>
-          } 
-        }
+        @for (opcao of opcoesMenuAtuais; track $index) { @if(opcao.type
+        =='link'){
+        <a
+          class="opcao-dashboard focus-terciario d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
+          routerLink="{{ opcao.path }}"
+        >
+          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+          <span class="text-center">{{ opcao.nome }}</span>
+        </a>
+        } @else {
+        <a
+          class="opcao-dashboard focus-terciario rounded d-flex justify-content-center align-items-center flex-column col-xl-3 col-lg-4 col-md-4 col-sm-12"
+          (click)="
+            alternarModal(
+              opcao.nomeModal || '',
+              opcao.tipoModal || modalTypes.None
+            )
+          "
+          (keydown.enter)="
+            alternarModal(
+              opcao.nomeModal || '',
+              opcao.tipoModal || modalTypes.None
+            )
+          "
+          tabindex="0"
+          routerLink="."
+        >
+          <img class="icone-menu-admin" src="{{ opcao.img }}" alt="" />
+          <span class="text-center">{{ opcao.nome }}</span>
+        </a>
+        } }
       </div>
     </div>
   </div>
 
-  <button 
-  class="d-none"
-    [attr.data-bs-target]="'#'+ nomeModalAtual"
+  <button
+    class="d-none"
+    [attr.data-bs-target]="'#modalTag'"
     [attr.data-bs-toggle]="'modal'"
     #botaoModal
   ></button>
 
   <!-- Modal - Vai virar componente depois-->
-  <app-modal-simples
-    [modalId]="nomeModalAtual"
-    [modalType]="tipoModalAtual">
-  </app-modal-simples>
+  <app-tag-modal
+    [modalTypeSelected]="tipoModalAtual"
+  ></app-tag-modal>
 </div>
