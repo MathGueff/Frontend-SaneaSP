@@ -13,8 +13,18 @@
         <img src="assets\icones\icon_options.svg" alt="icone de opções">Mais Opções
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="reclamacao-descricao/{{card.idReclamacao}}">Editar</a></li>
-        <li><button (click)="exclusaoReclamacao(card.idReclamacao)" class="dropdown-item">Excluir</button></li>
+        <li>
+          <a class="dropdown-item" href="reclamacao-descricao/{{card.idReclamacao}}">
+            <img src="assets\icones\icon-black-edit.svg" alt="Ícone de Edição Reclamação"> Editar
+          </a>
+        </li>
+        <li>
+
+          <button (click)="exclusaoReclamacao(card.idReclamacao)" class="dropdown-item">
+            <img src="assets\icones\icon-black-delete.svg" alt="Ícone de Edição Reclamação">
+            <span>Excluir</span>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
