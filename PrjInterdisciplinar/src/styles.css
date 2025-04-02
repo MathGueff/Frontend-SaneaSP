@@ -18,6 +18,7 @@
     /* Cores de componentes */
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
+    --cor-botao-fechar: #b1180e;
 
     /* Box Shadow */
     --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
@@ -63,7 +64,7 @@ a:focus-visible,
 input:focus-visible, 
 textarea:focus-visible, 
 div:focus-visible {
-  outline: var(--outline-tab-primario);
+  outline: var(--outline-tab-primario) !important;
 }
 
 /* Estilo com outline azul escuro */
@@ -163,11 +164,19 @@ div:focus-visible {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
 }
 
+.btn-primary, .btn-secondary{
+  transition: 0.4s transform ease, 0.6s opacity ease !important;
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
 .btn-primary{
   background-color: var(--cor-quaternaria) !important;
   border-color: var(--cor-quaternaria) !important;
-  transition: 0.4s transform ease, 0.6s opacity ease !important;
-  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary{
+  background-color: var(--cor-botao-fechar) !important;
+  border-color: var(--cor-botao-fechar) !important;
 }
 
 .card:hover .btn-primary:hover{
@@ -175,7 +184,7 @@ div:focus-visible {
   opacity: 0.8;
 }
 
-.btn-primary:hover{
+.btn-primary:hover, .btn-secondary:hover{
   transform: translateY(-4px);
   opacity: 0.9;
 }

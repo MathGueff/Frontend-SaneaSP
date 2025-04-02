@@ -7,13 +7,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { OpcoesSidebarMenuAdmin } from '../../models/enums/OpcoesSidebarMenuAdmin.enum';
-import { ModalSimplesComponent } from '../../Common/modal-simples/modal-simples.component';
 import { ModalType } from '../../models/enums/ModalType.enum';
+import { TagModalComponent } from '../../Tag/tag-modal/tag-modal.component';
 
 @Component({
   selector: 'app-menu-admin',
   standalone: true,
-  imports: [CommonModule, RouterLink, ModalSimplesComponent],
+  imports: [CommonModule, RouterLink, TagModalComponent],
   templateUrl: './menu-admin.component.html',
   styleUrl: './menu-admin.component.css',
 })
@@ -37,13 +37,23 @@ export class MenuAdminComponent {
     });
   }
 
-  //Para utilizar os atalhos do teclado
+  private handleNumericNavigation(key: string) {
+    const index = parseInt(key) - 1;
+    if (!isNaN(index) && index >= 0 && index < this.linksSidebar.length) {
+      this.mudarOpcaoAtual(this.linksSidebar[index].opcao);
+      return true;
+    }
+    return false;
+  }
+
+  private handleArrowNavigation(event: KeyboardEvent) {
+    //Navegação por setas
+  }
+
   @HostListener('document:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-    const index = parseInt(event.key) - 1
-    if(index >= 0 && index < this.linksSidebar.length){
-        this.mudarOpcaoAtual(this.linksSidebar[index].opcao)
-    }
+    if (this.handleNumericNavigation(event.key)) return;
+    this.handleArrowNavigation(event);
   }
 
   //Array de Objetos de links da sidebar do Menu de Admin
