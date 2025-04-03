@@ -3,12 +3,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../Services/user.service';
-import { IUser } from '../../models/interface/user.model';
-import { IEndereco } from '../../models/interface/endereco.model';
+import { IUser } from '../../models/interface/IUser.model';
+import { IEndereco } from '../../models/interface/IEndereco.model';
 import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { ViacepService } from '../../Services/viacep.service';
-import { IFieldForm } from '../../models/interface/fieldForm.model';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-form-cadastro',
@@ -49,7 +50,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Nome:',
       placeholder: 'Nome de usuário',
       required: true,
-      validators: ['required','minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
     },
     {
       controlName:'email',
@@ -58,7 +59,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Email:',
       placeholder: 'Email de usuário',
       required: true,
-      validators: ['required','email']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.Email]
     },
     {
       controlName:'senha',
@@ -67,7 +68,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Senha:',
       placeholder: 'Senha de login',
       required: true,
-      validators: ['required','minlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     },
     {
       controlName:'confirmaSenha',
@@ -76,7 +77,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Confirme sua senha:',
       placeholder: 'Confirmação da senha',
       required: true,
-      validators: ['required','minlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     },
     {
       controlName:'telefone',
@@ -85,7 +86,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Telefone:',
       placeholder: 'Telefone para contato',
       required: false,
-      validators: ['minlength', 'maxlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     },
     {
       controlName:'cpf',
@@ -94,7 +95,7 @@ export class FormCadastroComponent implements OnInit{
       label:'CPF:',
       placeholder: 'Digite seu CPF',
       required: false,
-      validators: ['minlength', 'maxlength']
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength]
     }
   ]
 
@@ -106,7 +107,7 @@ export class FormCadastroComponent implements OnInit{
       label:'CEP:',
       placeholder: 'Digite seu CEP',
       required: false,
-      validators: ['minlength', 'maxlength']
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength]
     },
     {
       controlName:'logradouro',
