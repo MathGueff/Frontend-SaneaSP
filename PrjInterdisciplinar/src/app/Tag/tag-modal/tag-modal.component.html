@@ -9,19 +9,28 @@
       </div>
       <div class="modal-body">
         <div>
-          <form>
-            @if(modalTypeSelected == modalTypes.Adicao){
-              <label class="form-label" for="nome-tag-input">Nome da Tag</label>
-              <input id="nome-tag-input" class="form-control" placeholder="Digite o nome da nova tag" type="text" />
-            }
-          </form>
+          @if(modalTypeSelected == modalTypes.Adicao){
+            <form [formGroup]="formCadastroTag">
+                <app-form-field
+                  [formGroup]="this.formCadastroTag"
+                  formName="form-cadastro-tag"
+                  controlName="nome"
+                  icon="assets/formularios/tag_icon.svg"
+                  label="Nome da Tag:"
+                  placeholder="Digite o nome da tag"
+                  [required]="true"
+                  fieldType="input"
+                  [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
+                ></app-form-field>
+            </form>
+          }
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary focus-secundario" data-bs-dismiss="modal">
           Fechar
         </button>
-        <button type="button" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
+        <button type="submit" (click)="onSubmit()" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
         <button class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
       </div>
     </div>

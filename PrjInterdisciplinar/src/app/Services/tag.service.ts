@@ -1,56 +1,91 @@
-import { Injectable } from "@angular/core";
-import { ITag } from "../models/interface/ITag.model";
-import { ITagNoticia } from "../models/interface/ITagNoticia.model";
-import { ITagReclamacao } from "../models/interface/ITagReclamacao.model";
+import { Injectable } from '@angular/core';
+import { ITag } from '../models/interface/ITag.model';
+import { ITagNoticia } from '../models/interface/ITagNoticia.model';
+import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
 
 @Injectable({ providedIn: 'root' })
-
 export class TagService {
-    private tags: ITag[] = [
-        { id: 1, nomeTag: 'Esgoto' },
-        { id: 2, nomeTag: 'Poluição' }
-    ]
+  private tags: ITag[] = [
+    { id: 1, nome: 'Esgoto' },
+    { id: 2, nome: 'Poluição' },
+  ];
 
-    private tagsNoticias: ITagNoticia[] = [
-        { id: 1, idNoticia: 1, idTag: 1 }, //Esgoto
-        { id: 2, idNoticia: 2, idTag: 2 } //Poluição
-    ]
+  private tagsNoticias: ITagNoticia[] = [
+    { id: 1, idNoticia: 1, idTag: 1 }, //Esgoto
+    { id: 2, idNoticia: 2, idTag: 2 }, //Poluição
+  ];
 
-    private tagsReclamacao: ITagReclamacao[] = [
-        { id: 1, idReclamacao: 1, idTag: 1 }, //Esgoto
-        { id: 2, idReclamacao: 2, idTag: 2 } //Poluição
-    ]
+  private tagsReclamacao: ITagReclamacao[] = [
+    { id: 1, idReclamacao: 1, idTag: 1 }, //Esgoto
+    { id: 2, idReclamacao: 2, idTag: 2 }, //Poluição
+  ];
 
-    validateTag(name: string) : boolean {
-        name = name.toLowerCase().trim();
-        return this.tags.some((tag) => tag.nomeTag.toLowerCase().trim() == name)
+  //Verificação para evitar duplicidade de nomes e existencia de tag
+  tagWithNameExists(nomeFilter: string): boolean {
+    nomeFilter = nomeFilter.toLowerCase().trim();
+    return this.tags.some((tag) => tag.nome.toLowerCase().trim() == nomeFilter);
+  }
+
+  // GET?name=
+  getTagsByName(nomeFilter: string): ITag[] {
+    nomeFilter = nomeFilter.toLowerCase().trim();
+    return this.tags.filter((tag) =>
+      tag.nome.toLowerCase().trim().includes(nomeFilter)
+    );
+  }
+
+  //Retorna apenas a tag com o nome exato
+  getTagByName(nomeFilter: string): ITag | undefined {
+    return this.tags.find((tag) => tag.nome === nomeFilter);
+  }
+
+  //GET/:id
+  getTagById(id: number): ITag | undefined {
+    return this.tags.find((tag) => tag.id === id);
+  }
+
+  //Retorna o último ID cadastrado, caso não haja, retorna 1
+  getNextId() {
+    return this.tags.length > 0 ? Math.max(...this.tags.map(tag => tag.id)) + 1 : 1
+  }
+
+  //GET
+  getTagsList(): ITag[] {
+    return this.tags;
+  }
+
+  //POST
+  createNewTag(tag: ITag) : {error : boolean, message : string} {
+    if(this.tagWithNameExists(tag.nome)){
+        return {error : true, message : 'Já existe uma tag com esse nome'}
     }
+    tag.id = this.getNextId();
+    tag.nome = tag.nome.trim()
+    this.tags.push(tag);
+    return {error : false, message : 'Tag cadastrada com sucesso'}
+  }
 
-    createNewTag(tag : ITag) {
-        if(this.validateTag(tag.nomeTag)){
-            this.tags.push(tag);
-        }
-    }
+  //DELETE
+  deleteTag(idFilter: number): {error : boolean, message : string} {
+    const index = this.tags.findIndex((tag) => tag.id === idFilter);
+    if (index == -1) 
+        return {error : true, message : 'Nenhuma tag encontrada'};
+    this.tags.splice(index, 1);
+    return {error : false, message : 'Tag removida'};
+  }
 
-    deleteTag(tag : ITag) {
-        if(this.validateTag(tag.nomeTag)){
-            const index = this.tags.indexOf(tag)
-            this.tags.splice(index,1);
-        }
-    }
+  //PUT
+  editTag(idFilter: number, updatedTag: ITag): {error : boolean, message : string} {
+    //Verificação de existência
+    const index = this.tags.findIndex((tag) => tag.id === idFilter);
+    if (index == -1) 
+        return {error:true, message:'Nenhuma tag encontrada'};
 
-    editTag(tag : ITag) {
-        if(this.validateTag(tag.nomeTag)){
-            const index = this.tags.indexOf(tag)
-            this.tags.splice(index,1);
-        }
-    }
+    //Nomes duplicados
+    if(this.tagWithNameExists(updatedTag.nome))
+        return {error:true, message:'Já existe uma tag com o nome'}
 
-    getTag(nameTag : string) {
-       
-    }
-
-    getTagsList() : ITag[] {
-        return this.tags;
-    }
+    this.tags[index] = { id: idFilter, nome: updatedTag.nome };
+    return {error:false, message:'Tag atualizada com sucesso'};
+  }
 }

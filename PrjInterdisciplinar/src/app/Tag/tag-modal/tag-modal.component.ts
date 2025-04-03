@@ -1,15 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormFieldComponent } from "../../Common/form-field/form-field.component";
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-tag-modal',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent],
   templateUrl: './tag-modal.component.html',
   styleUrl: './tag-modal.component.css'
 })
-export class TagModalComponent {
+export class TagModalComponent{
+  private fb = inject(NonNullableFormBuilder)
+  formValidatorsEnum = FormValidatorEnum
   //Binding para o HTML
   modalTypes = ModalType;
   @Input() modalId !: string;
@@ -26,5 +32,17 @@ export class TagModalComponent {
     };
     
     return titles[this.modalTypeSelected] || titles[ModalType.None];
+  }
+
+  protected formCadastroTag = this.fb.group({
+    'nome' : ['', [Validators.required, Validators.minLength(5)]]
+  })
+
+  protected formPesquisaTag = this.fb.group({
+    'nome' : ['',Validators.required]
+  })
+
+  onSubmit(){
+    
   }
 }

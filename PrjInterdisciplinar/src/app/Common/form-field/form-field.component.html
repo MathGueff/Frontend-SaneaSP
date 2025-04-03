@@ -1,6 +1,6 @@
 <div class="mb-3" [formGroup]="formGroup">
     <!-- FormControl -->
-    <img class="label-icon me-1" [src]="icon">
+    <img *ngIf="icon" class="label-icon me-1" [src]="icon">
     <label [for]="controlName + '-' + formName" class="form-label">
         {{label}}
         <span *ngIf="required" class="required-control">*</span>
@@ -14,7 +14,7 @@
             [name]= "controlName + '-' + formName"
             [id]="controlName + '-' + formName"
             [type]="type"
-            [placeholder]="placeholder"
+            [placeholder]="placeholder || ''"
             class="form-control"
         >
         <!-- Caso seja um textarea -->
@@ -61,7 +61,7 @@
 
     <!-- Para cada Validator do controlName -->
     <div *ngFor="let validator of validators">
-        @if (formGroup.get(controlName)?.value && formGroup.get(controlName)?.touched) {
+        @if (formGroup.get(controlName)?.touched) {
             <span
                 *ngIf="formGroup.get(controlName)?.errors?.[validator]"
                 class="texto-validacao-erro-form ms-2"

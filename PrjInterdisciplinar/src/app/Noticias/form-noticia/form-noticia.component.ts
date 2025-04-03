@@ -10,6 +10,7 @@ import { NoticiaErrorStatus } from '../../models/enums/NoticiaErrorStatus.enum';
 import { INoticia } from '../../models/interface/INoticias.model';
 import { NoticiaService } from '../../Services/noticia.service';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-form-noticia',
@@ -55,7 +56,7 @@ export class FormNoticiaComponent {
       label: 'Título da notícia:',
       placeholder: 'Digite o título da notícia',
       required: true,
-      validators: ['required']
+      validators: [FormValidatorEnum.Required]
     },
     {
       controlName: 'descricao_noticia',
@@ -63,7 +64,7 @@ export class FormNoticiaComponent {
       label: 'Descrição da Notícia:',
       placeholder: 'Descrição da notícia',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
       typeField: 'textarea',
     },
   ];

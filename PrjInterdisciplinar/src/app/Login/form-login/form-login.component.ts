@@ -6,6 +6,7 @@ import { UserService } from '../../Services/user.service';
 import { LoginErrorStatus } from '../../models/enums/LoginErrorStatus.enum';
 import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class FormLoginComponent implements OnInit{
       label:'Email:', 
       placeholder: 'Email de login', 
       required: true, 
-      validators: ['required','email']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.Email]
     },
     { 
       controlName:'senha', 
@@ -46,7 +47,7 @@ export class FormLoginComponent implements OnInit{
       label:'Senha:', 
       placeholder: 'Senha de login', 
       required: true, 
-      validators: ['required','minlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     }
   ]
 
