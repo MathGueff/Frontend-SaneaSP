@@ -3,7 +3,7 @@ import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.comp
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from '../../Services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
@@ -13,7 +13,7 @@ import { IUser } from '../../models/interface/user.model';
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule, ReactiveFormsModule],
+  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule,RouterLink,ReactiveFormsModule],
   templateUrl: './reclamacao-usuarios.component.html',
   styleUrl: './reclamacao-usuarios.component.css'
 })

@@ -1,6 +1,6 @@
-<div class="card h-100"> <!-- Div do card-->
+<div class="card h-100" tabindex="0"> <!-- Div do card-->
   <!-- Header do card -->
-  <div class="card-header pt-3 d-flex flex-line justify-content-between align-items-start">
+  <div class="card-header pt-3 d-flex flex-md-row flex-sm-column justify-content-md-between justify-content-sm-center align-items-sm-center flex-wrap gap-md-3">
     <h5>
       {{ card.tituloReclamao }}
     </h5>
@@ -8,8 +8,9 @@
       {{ card.objTag }}
     </p>
 
-    <div id="mais-opcoes">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    @if (user$ | async) {
+    <div id="mais-opcoes" tabindex="0" role="listbox">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
         <img src="assets\icones\icon_options.svg" alt="icone de opções">Mais Opções
       </button>
       <ul class="dropdown-menu">
@@ -27,6 +28,8 @@
         </li>
       </ul>
     </div>
+    }
+
   </div>
   <!-- Body do Card -->
   <div class="card-body">

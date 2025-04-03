@@ -1,11 +1,11 @@
 <div class="background">
   <div class="container-fluid pt-2">
-    <div class="row banner align-content-center">
+    <div class="row banner align-content-center m-md-5 m-1 px-md-4 py-md-0 px-sm-2">
       <div class="titulo mt-2 mb-2 text-lg-start text-sm-center ">
         <h1>Suas Reclamações</h1>
       </div>
       <div class="row align-items-center">
-        <div class="col-lg-auto col-md-5">
+        <div class="col-lg col-md-5">
           <img
             class="img-fluid"
             src="img/paginas/reclamacoes/reclamacao.svg"
@@ -26,9 +26,9 @@
       </div>
     </div>
     <div class="row mb-5">
-      <div class="col tags">
+      <div class="col tags w-100">
         <h2 class="mb-4">Filtre pela Tag</h2>
-        <form class="pesquisa-tag p-4" [formGroup]="TagSelect">
+        <form class="pesquisa-tag p-4 w-75" [formGroup]="TagSelect">
           <div class="tag-reclamacao">
             <input
               list="box"
@@ -51,8 +51,8 @@
     <div class="row mb-5">
       <div class="col text-center adicionar">
         <h2 class="mb-4">Adicione sua reclamação</h2>
-        <div class="adicionar-btn py-3">
-          <a routerLink="reclamacao-form" class="btn btn-secondary"
+        <div class="adicionar-btn  w-75 py-3">
+          <a routerLink="../reclamacao/reclamacao-form" class="btn btn-secondary"
             >Adicionar</a
           >
         </div>

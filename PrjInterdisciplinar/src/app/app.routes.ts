@@ -29,6 +29,7 @@ export const routes: Routes = [
   {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
   {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent},
+  {path: 'suas-reclamacoes/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
 
   //Doenças
   {path: 'doenca-inicial',component:DoencasInicialComponent},
