@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import e from 'express';
 
 @Component({
   selector: 'app-dell-noticia',
@@ -18,6 +19,14 @@ export class DellNoticiaComponent {
 
   pesquisarId() {
     this.idPesquisado = Number(this.idNoticia.nativeElement.value);
+    if (this.idPesquisado === 0) {
+      this.idEncontrado = false;
+      return alert('Digite um ID Válido');
+    }
+    if (!this.listaNoticias.includes(this.idPesquisado)) {
+      this.idEncontrado = false;
+      return alert('Notícia Não Encontrada');
+    }
     this.idEncontrado = this.listaNoticias.includes(this.idPesquisado);
   }
 
