@@ -9,10 +9,24 @@
       </div>
       <div class="modal-body">
         <div>
-          @if(modalTypeSelected == modalTypes.Adicao){
-            <form [formGroup]="formCadastroTag">
+          <form [formGroup]="FormGroupSelected">
+            @switch (modalTypeSelected) {
+              @case (modalTypes.Adicao) {
+                  <app-form-field
+                    [formGroup]="FormGroupSelected"
+                    formName="form-cadastro-tag"
+                    controlName="nome"
+                    icon="assets/formularios/tag_icon.svg"
+                    label="Nome da Tag:"
+                    placeholder="Digite o nome da tag"
+                    [required]="true"
+                    fieldType="input"
+                    [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
+                  ></app-form-field>
+              }
+              @case (modalTypes.PesquisaEdicao) {
                 <app-form-field
-                  [formGroup]="this.formCadastroTag"
+                  [formGroup]="FormGroupSelected"
                   formName="form-cadastro-tag"
                   controlName="nome"
                   icon="assets/formularios/tag_icon.svg"
@@ -20,10 +34,19 @@
                   placeholder="Digite o nome da tag"
                   [required]="true"
                   fieldType="input"
-                  [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
+                  [validators]="[formValidatorsEnum.Required]"
                 ></app-form-field>
-            </form>
-          }
+                <app-form-field
+                  [formGroup]="FormGroupSelected"
+                  formName="form-cadastro-tag"
+                  controlName="select-nome"
+                  icon="assets/formularios/tag_icon.svg"
+                  label="Selecione a tag"
+                  fieldType="select"
+                ></app-form-field>
+              }
+            }
+          </form>
         </div>
       </div>
       <div class="modal-footer">

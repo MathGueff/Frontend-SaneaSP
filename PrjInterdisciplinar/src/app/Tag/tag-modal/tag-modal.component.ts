@@ -1,10 +1,13 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
+import { TagService } from '../../Services/tag.service';
+import { ITag } from '../../models/interface/ITag.model';
+import { SweetAlertService } from '../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-tag-modal',
@@ -15,6 +18,8 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 })
 export class TagModalComponent{
   private fb = inject(NonNullableFormBuilder)
+  private tagService = inject(TagService)
+  private sweetAlert = inject(SweetAlertService)
   formValidatorsEnum = FormValidatorEnum
   //Binding para o HTML
   modalTypes = ModalType;
@@ -34,6 +39,19 @@ export class TagModalComponent{
     return titles[this.modalTypeSelected] || titles[ModalType.None];
   }
 
+  get FormGroupSelected(){
+    const formGroups: Record<ModalType, FormGroup> = {
+      [ModalType.None]: this.formCadastroTag,
+      [ModalType.Adicao]:  this.formCadastroTag,
+      [ModalType.PesquisaEdicao]:  this.formCadastroTag,
+      [ModalType.PesquisaExclusao]:  this.formCadastroTag,
+      [ModalType.Edicao]: this.formCadastroTag,
+      [ModalType.Exclusao]:  this.formCadastroTag
+    };
+    
+    return formGroups[this.modalTypeSelected] || formGroups[ModalType.None];
+  }
+
   protected formCadastroTag = this.fb.group({
     'nome' : ['', [Validators.required, Validators.minLength(5)]]
   })
@@ -43,6 +61,27 @@ export class TagModalComponent{
   })
 
   onSubmit(){
-    
+    switch(this.modalTypeSelected){
+      case ModalType.Adicao:
+        if(this.formCadastroTag.valid){
+          const newTag : ITag = {
+            id : 0,
+            nome : this.formCadastroTag.controls.nome.value
+          }
+          const push = this.tagService.createNewTag(newTag)
+          if(!push.error)
+            this.formCadastroTag.reset();
+          this.sweetAlert.showMessage(push.message, push.error)
+        }
+        break
+      case ModalType.PesquisaEdicao:
+        break
+      case ModalType.PesquisaExclusao:
+        break
+      case ModalType.Edicao:
+        break
+      case ModalType.Exclusao:
+        break
+    }
   }
 }

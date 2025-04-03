@@ -86,7 +86,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Telefone:',
       placeholder: 'Telefone para contato',
       required: false,
-      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength]
     },
     {
       controlName:'cpf',
