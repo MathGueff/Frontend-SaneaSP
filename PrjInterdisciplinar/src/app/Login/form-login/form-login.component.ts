@@ -4,7 +4,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../Services/user.service';
 import { LoginErrorStatus } from '../../models/enums/LoginErrorStatus.enum';
-import { IFieldForm } from '../../models/interface/fieldForm.model';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 
 
