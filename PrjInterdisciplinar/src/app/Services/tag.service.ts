@@ -30,9 +30,11 @@ export class TagService {
   // GET?name=
   getTagsByName(nomeFilter: string): ITag[] {
     nomeFilter = nomeFilter.toLowerCase().trim();
-    return this.tags.filter((tag) =>
+    const t = this.tags.filter((tag) =>
       tag.nome.toLowerCase().trim().includes(nomeFilter)
     );
+    console.log(t);
+    return t
   }
 
   //Retorna apenas a tag com o nome exato

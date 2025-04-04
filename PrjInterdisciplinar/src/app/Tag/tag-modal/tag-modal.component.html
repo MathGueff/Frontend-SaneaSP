@@ -15,7 +15,7 @@
                   <app-form-field
                     [formGroup]="FormGroupSelected"
                     formName="form-cadastro-tag"
-                    controlName="nome"
+                    controlName="nomeNovaTag"
                     icon="assets/formularios/tag_icon.svg"
                     label="Nome da Tag:"
                     placeholder="Digite o nome da tag"
@@ -28,22 +28,25 @@
                 <app-form-field
                   [formGroup]="FormGroupSelected"
                   formName="form-cadastro-tag"
-                  controlName="nome"
+                  controlName="nomePesquisaTag"
                   icon="assets/formularios/tag_icon.svg"
                   label="Nome da Tag:"
                   placeholder="Digite o nome da tag"
-                  [required]="true"
                   fieldType="input"
+                  (input)="onSearchTag()"
+                  [required]="true"
                   [validators]="[formValidatorsEnum.Required]"
                 ></app-form-field>
-                <app-form-field
-                  [formGroup]="FormGroupSelected"
-                  formName="form-cadastro-tag"
-                  controlName="select-nome"
-                  icon="assets/formularios/tag_icon.svg"
-                  label="Selecione a tag"
-                  fieldType="select"
-                ></app-form-field>
+
+                @if(tagPesquisaLista.length > 0){
+                  <hr>
+                  <span>Tags Encontradas:</span>
+                  <ul class="list-group tag-list m-2">
+                    @for (tagPesquisa of tagPesquisaLista; track $index) {
+                      <li (click)="selectTag(tagPesquisa.nome)" class="list-group-item">{{tagPesquisa.nome}}</li>
+                    }
+                  </ul>
+                }
               }
             }
           </form>
@@ -54,7 +57,6 @@
           Fechar
         </button>
         <button type="submit" (click)="onSubmit()" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
-        <button class="btn btn-primary" data-bs-target="#modal2" data-bs-toggle="modal" data-bs-dismiss="modal">Open second modal</button>
       </div>
     </div>
   </div>
