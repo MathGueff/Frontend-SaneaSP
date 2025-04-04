@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ITag } from '../models/interface/ITag.model';
 import { ITagNoticia } from '../models/interface/ITagNoticia.model';
 import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
+import { IOperationResult } from '../models/interface/IOperationResult.model';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -29,9 +30,11 @@ export class TagService {
   // GET?name=
   getTagsByName(nomeFilter: string): ITag[] {
     nomeFilter = nomeFilter.toLowerCase().trim();
-    return this.tags.filter((tag) =>
+    const t = this.tags.filter((tag) =>
       tag.nome.toLowerCase().trim().includes(nomeFilter)
     );
+    console.log(t);
+    return t
   }
 
   //Retorna apenas a tag com o nome exato
@@ -55,7 +58,7 @@ export class TagService {
   }
 
   //POST
-  createNewTag(tag: ITag) : {error : boolean, message : string} {
+  createNewTag(tag: ITag) : IOperationResult {
     if(this.tagWithNameExists(tag.nome)){
         return {error : true, message : 'Já existe uma tag com esse nome'}
     }
@@ -66,7 +69,7 @@ export class TagService {
   }
 
   //DELETE
-  deleteTag(idFilter: number): {error : boolean, message : string} {
+  deleteTag(idFilter: number): IOperationResult {
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
         return {error : true, message : 'Nenhuma tag encontrada'};
@@ -75,7 +78,7 @@ export class TagService {
   }
 
   //PUT
-  editTag(idFilter: number, updatedTag: ITag): {error : boolean, message : string} {
+  editTag(idFilter: number, updatedTag: ITag): IOperationResult {
     //Verificação de existência
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
