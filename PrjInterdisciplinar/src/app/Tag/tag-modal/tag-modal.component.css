@@ -11,18 +11,3 @@
 .btn:focus-visible {
     outline: var(--outline-tab-secundario) !important;
 }
-
-.tag-list li{
-    background-color: var(--cor-background) !important;
-    color: var(--cor-primaria);
-    text-align: center;
-    border: 1px solid var(--cor-primaria);
-    cursor: pointer;
-    transition: 0.6s color ease, 0.8s background-color ease, 0.6s transform ease;
-}
-
-.tag-list li:hover{
-    background-color: var(--cor-primaria) !important;
-    color: var(--cor-fonte-branca);
-    transform: translateX(2px);
-}
