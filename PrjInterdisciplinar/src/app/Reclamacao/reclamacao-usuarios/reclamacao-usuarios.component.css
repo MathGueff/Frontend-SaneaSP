@@ -56,6 +56,10 @@
   font-size: 0.875rem;
 }
 
+#mais-opcoes button:focus{
+
+}
+
 @media(max-width:720px){
 
 
