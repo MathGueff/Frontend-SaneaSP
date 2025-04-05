@@ -36,10 +36,13 @@ export class TagService {
     console.log(t);
     return t
   }
-
-  //Retorna apenas a tag com o nome exato
+  /**
+   * 
+   * @param nomeFilter 
+   * @returns tag com o nome exato
+   */
   getTagByName(nomeFilter: string): ITag | undefined {
-    return this.tags.find((tag) => tag.nome === nomeFilter);
+    return this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
   }
 
   //GET/:id
