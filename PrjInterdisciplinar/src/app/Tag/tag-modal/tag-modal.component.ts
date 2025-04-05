@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -17,24 +17,30 @@ import { SweetAlertService } from '../../Services/sweetAlert.service';
   styleUrl: './tag-modal.component.css'
 })
 export class TagModalComponent{
+  //INPUTS
+  @Input() modalId !: string;
+  @Input() modalTypeSelected !: ModalType;
+
+  //INJECTIONS
   private fb = inject(NonNullableFormBuilder)
   private tagService = inject(TagService)
   private sweetAlert = inject(SweetAlertService)
-  formValidatorsEnum = FormValidatorEnum
-  //Binding para o HTML
-  modalTypes = ModalType;
-  @Input() modalId !: string;
-  @Input() modalTypeSelected !: ModalType;
-  protected tagPesquisaLista : ITag[] = [];
 
+  //ENUMS
+  formValidatorsEnum = FormValidatorEnum
+  modalTypes = ModalType;
+
+  //VAR
+  protected tagPesquisaLista : ITag[] = this.tagService.getTagsList();
+  protected tagPesquisaEncontrada : ITag | undefined;
   get ModalInfo(): IModalTagInfos{
     const titles: Record<ModalType, IModalTagInfos> = {
       [ModalType.None]: {title:'Informe o tipo de modal', buttonText:'Tipo faltando'},
       [ModalType.Adicao]:  {title:'Cadastre uma nova tag', buttonText:'Salvar tag'},
-      [ModalType.PesquisaEdicao]:  {title:'Pesquise por uma tag para editar', buttonText:'Confirmar'},
+      [ModalType.PesquisaEdicao]:  {title:'Pesquise por uma tag para editar', buttonText:'Editar'},
       [ModalType.PesquisaExclusao]:  {title:'Pesquise por uma tag para excluir', buttonText:'Excluir'},
       [ModalType.Edicao]:  {title:'Edite a tag', buttonText:'Confirmar edição'},
-      [ModalType.Exclusao]:  {title:'Confirmar exclusão', buttonText:'Confirmar'}
+      [ModalType.Exclusao]:  {title:'Confirmar exclusão', buttonText:'Confirmar exclusão'}
     };
     
     return titles[this.modalTypeSelected] || titles[ModalType.None];
@@ -53,55 +59,81 @@ export class TagModalComponent{
     return formGroups[this.modalTypeSelected] || formGroups[ModalType.None];
   }
 
+  //HTML ELEMENTS
+  @ViewChild('botaoModal2') botaoModal2 !: ElementRef
+
+  //FORMS
   protected formCadastroTag = this.fb.group({
-    'nomeNovaTag' : ['', [Validators.required, Validators.minLength(5)]]
+    'nomeNovaTag' : ['', [Validators.required, Validators.minLength(2)]]
   })
 
   protected formPesquisaTag = this.fb.group({
     'nomePesquisaTag' : ['',Validators.required]
   })
 
+  //METHODS
   onSubmit(){
     switch(this.modalTypeSelected){
       case ModalType.Adicao:
-        if(this.formCadastroTag.valid){
-          const newTag : ITag = {
-            id : 0,
-            nome : this.formCadastroTag.controls.nomeNovaTag.value
-          }
-          const push = this.tagService.createNewTag(newTag)
-          if(!push.error)
-            this.formCadastroTag.reset();
-          this.sweetAlert.showMessage(push.message, push.error)
-        }
-        break
+        this.onSubmitCreateNewTag()
+        break;
       case ModalType.PesquisaEdicao:
-        break
+        this.onSubmitSearchTag(ModalType.Edicao)
+        break;
       case ModalType.PesquisaExclusao:
-        break
+        this.onSubmitSearchTag(ModalType.Exclusao)
+        break;
       case ModalType.Edicao:
-        break
+        break;
       case ModalType.Exclusao:
-        break
+        break;
     }
   }
 
-  onSearchTag(){
-    const tagPesquisa = this.formPesquisaTag.controls.nomePesquisaTag;
-    if(tagPesquisa.valid){
-      if(this.tagService.getTagByName(tagPesquisa.value)){
-        this.tagPesquisaLista = []
-        return
+  onSubmitCreateNewTag(){
+    if(this.formCadastroTag.valid){
+      const newTag : ITag = {
+        id : 0,
+        nome : this.formCadastroTag.controls.nomeNovaTag.value
       }
-      this.tagPesquisaLista = this.tagService.getTagsByName(this.formPesquisaTag.controls.nomePesquisaTag.value)
+      const push = this.tagService.createNewTag(newTag)
+      if(!push.error)
+        this.formCadastroTag.reset();
+      this.sweetAlert.showMessage(push.message, push.error)
     }
-    else{
+  }
+
+  onSubmitSearchTag(modalType : ModalType){
+    if(this.formPesquisaTag.valid){
+      if(this.tagPesquisaEncontrada != undefined){
+        this.botaoModal2.nativeElement.click()
+        this.modalTypeSelected = modalType
+        return;
+      }
+      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true)
+    }
+  }
+
+  onInputTag(){
+    const tagPesquisaInput = this.formPesquisaTag.controls.nomePesquisaTag;
+    if(tagPesquisaInput.invalid){
       this.tagPesquisaLista = []
+      this.tagPesquisaEncontrada = undefined;
+      return
     }
+    this.tagPesquisaLista = this.tagService.getTagsByName(tagPesquisaInput.value)
+    if(this.tagPesquisaLista.length !== 1)
+      return;
+    this.setSelectedTag()
   }
 
   selectTag(nomeSelecionado : string){
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
+    this.setSelectedTag()
     this.tagPesquisaLista = []
+  }
+
+  setSelectedTag(){
+    this.tagPesquisaEncontrada = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value);
   }
 }

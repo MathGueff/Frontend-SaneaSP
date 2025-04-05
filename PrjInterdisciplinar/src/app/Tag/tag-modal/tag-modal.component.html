@@ -10,8 +10,7 @@
       <div class="modal-body">
         <div>
           <form [formGroup]="FormGroupSelected">
-            @switch (modalTypeSelected) {
-              @case (modalTypes.Adicao) {
+              @if (modalTypeSelected == modalTypes.Adicao) {
                   <app-form-field
                     [formGroup]="FormGroupSelected"
                     formName="form-cadastro-tag"
@@ -24,7 +23,8 @@
                     [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
                   ></app-form-field>
               }
-              @case (modalTypes.PesquisaEdicao) {
+              @else if (modalTypeSelected == modalTypes.PesquisaEdicao || 
+                modalTypeSelected == modalTypes.PesquisaExclusao) {
                 <app-form-field
                   [formGroup]="FormGroupSelected"
                   formName="form-cadastro-tag"
@@ -33,14 +33,16 @@
                   label="Nome da Tag:"
                   placeholder="Digite o nome da tag"
                   fieldType="input"
-                  (input)="onSearchTag()"
+                  (input)="onInputTag()"
                   [required]="true"
                   [validators]="[formValidatorsEnum.Required]"
                 ></app-form-field>
 
-                @if(tagPesquisaLista.length > 0){
+                <span *ngIf="tagPesquisaEncontrada != undefined" class="d-flex w-100 text-center justify-content-center mt-2">TAG encontrada!</span>
+                
+                @if(tagPesquisaLista.length > 0 && tagPesquisaEncontrada == undefined){
                   <hr>
-                  <span>Tags Encontradas:</span>
+                  <span>Sugestões de Tags Encontradas:</span>
                   <ul class="list-group tag-list m-2">
                     @for (tagPesquisa of tagPesquisaLista; track $index) {
                       <li (click)="selectTag(tagPesquisa.nome)" class="list-group-item">{{tagPesquisa.nome}}</li>
@@ -48,13 +50,12 @@
                   </ul>
                 }
               }
-            }
           </form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary focus-secundario" data-bs-dismiss="modal">
-          Fechar
+          Cancelar
         </button>
         <button type="submit" (click)="onSubmit()" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
       </div>
@@ -62,7 +63,15 @@
   </div>
 </div>
 
-<!-- <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modalTag" #modal>
+<button
+class="d-none"
+[attr.data-bs-target]="'#modalTag2'"
+[attr.data-bs-toggle]="'modal'"
+#botaoModal2
+></button>
+
+
+<div class="modal fade" id="modalTag2" tabindex="-1" aria-labelledby="modalTag" #modal>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,20 +82,15 @@
       </div>
       <div class="modal-body">
         <div>
-          <form>
-            @if(modalTypeSelected == modalTypes.Adicao){
-            <label class="form-label" for="nome-tag-input">Nome da Tag</label>
-            <input id="nome-tag-input" class="form-control" placeholder="Digite o nome da nova tag" type="text" />
-            }
-          </form>
+          
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary focus-secundario" data-bs-dismiss="modal">
-          Fechar
+          Cancelar
         </button>
         <button type="button" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
       </div>
     </div>
   </div>
-</div> -->
+</div>
