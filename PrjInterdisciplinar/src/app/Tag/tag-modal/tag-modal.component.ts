@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -60,7 +60,8 @@ export class TagModalComponent{
   }
 
   //HTML ELEMENTS
-  @ViewChild('botaoModal2') botaoModal2 !: ElementRef
+  @ViewChild('botaoModal2') botaoModal2Ref !: ElementRef
+  @ViewChild('modal2') modalRef = {} as ElementRef
 
   //FORMS
   protected formCadastroTag = this.fb.group({
@@ -106,11 +107,11 @@ export class TagModalComponent{
   onSubmitSearchTag(modalType : ModalType){
     if(this.formPesquisaTag.valid){
       if(this.tagPesquisaEncontrada != undefined){
-        this.botaoModal2.nativeElement.click()
+        this.botaoModal2Ref.nativeElement.click()
         this.modalTypeSelected = modalType
         return;
       }
-      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true)
+      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true, this.modalRef.nativeElement)
     }
   }
 
