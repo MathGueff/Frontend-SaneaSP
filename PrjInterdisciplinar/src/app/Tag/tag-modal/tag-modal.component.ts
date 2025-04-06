@@ -61,7 +61,8 @@ export class TagModalComponent{
 
   //HTML ELEMENTS
   @ViewChild('botaoModal2') botaoModal2Ref !: ElementRef
-  @ViewChild('modal2') modalRef = {} as ElementRef
+  @ViewChild('modalTagEdicaoExclusao') modalTagEdicaoExclusaoRef = {} as ElementRef 
+  @ViewChild('modalTagAdicaoPesquisa') modalTagAdicaoPesquisaRef = {} as ElementRef 
 
   //FORMS
   protected formCadastroTag = this.fb.group({
@@ -100,7 +101,7 @@ export class TagModalComponent{
       const push = this.tagService.createNewTag(newTag)
       if(!push.error)
         this.formCadastroTag.reset();
-      this.sweetAlert.showMessage(push.message, push.error)
+      this.sweetAlert.showMessage(push.message, push.error, this.modalTagAdicaoPesquisaRef.nativeElement)
     }
   }
 
@@ -111,7 +112,7 @@ export class TagModalComponent{
         this.modalTypeSelected = modalType
         return;
       }
-      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true, this.modalRef.nativeElement)
+      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true, this.modalTagAdicaoPesquisaRef.nativeElement)
     }
   }
 

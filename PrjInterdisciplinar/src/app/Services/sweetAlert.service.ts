@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import Swal, { SweetAlertResult } from 'sweetalert2';
+import Swal, { SweetAlertResult, SweetAlertOptions } from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class SweetAlertService {
   /**
-   * 
-   * @param message String com a mensagem a ser exibida
-   * @param error Boolean para manipulação de ícone de erro/sucesso
-   * @param modalElement (opcional) Modal que chamou o alerta
-   * @returns Promisse para manipular os eventos de resultado do Alert
+   * Exibe mensagem com SweetAlert2 integrado com modal do Bootstrap
+   * @param message Mensagem a ser exibida
+   * @param error Se true, exibe ícone de erro
+   * @param modalElementRef Referência do modal do bootstrap (opcional - fecha o modal bootstrap aberto para evitar conflito)
    */
   public showMessage(
     message: string, 
     error?: boolean,
-    modalElement?: HTMLElement 
-  ): Promise<SweetAlertResult> {
+    modalElementRef?: HTMLElement
+  ) {
     
-    // Desativa tabindex do modal Bootstrap se existir
-    if (modalElement) {
-      modalElement.setAttribute('tabindex', '-1');
+    if (modalElementRef) {
+      //Classe para esconder visualmente mantendo no DOM
+      modalElementRef.style.display = 'none'
+      modalElementRef.setAttribute('aria-hidden', 'true');
     }
 
-    return Swal.fire({
+    const swalConfig: SweetAlertOptions = {
       title: message,
       icon: error ? 'error' : 'success',
       confirmButtonText: 'Ok',
@@ -31,13 +31,18 @@ export class SweetAlertService {
         confirmButton: 'sweet_btn_success',
         title: 'sweet_title',
       },
+      focusConfirm: true,
+      allowEscapeKey: true,
+      allowEnterKey: true,
+      backdrop: true,
       willClose: () => {
-        // Restaura tabindex quando o SweetAlert fecha
-        if (modalElement) {
-          modalElement.removeAttribute('tabindex');
-          console.log('removeu' + modalElement.tabIndex)
+        // Restaurar o modal após fechar o SweetAlert
+        if (modalElementRef) {
+          modalElementRef.style.display = 'block'
+          modalElementRef.removeAttribute('aria-hidden');
         }
       }
-    });
+    };
+    Swal.fire(swalConfig);
   }
 }
