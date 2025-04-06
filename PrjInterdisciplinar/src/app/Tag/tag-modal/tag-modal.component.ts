@@ -8,6 +8,7 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { TagService } from '../../Services/tag.service';
 import { ITag } from '../../models/interface/ITag.model';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { ISearchFeedback } from '../../models/interface/ISearchFeedback.model';
 
 @Component({
   selector: 'app-tag-modal',
@@ -31,8 +32,13 @@ export class TagModalComponent{
   modalTypes = ModalType;
 
   //VAR
+  protected searchFeedback : ISearchFeedback = {
+    message : '',
+    imagePath : ''
+  };
   protected tagPesquisaLista : ITag[] = this.tagService.getTagsList();
   protected tagPesquisaEncontrada : ITag | undefined;
+
   get ModalInfo(): IModalTagInfos{
     const titles: Record<ModalType, IModalTagInfos> = {
       [ModalType.None]: {title:'Informe o tipo de modal', buttonText:'Tipo faltando'},
@@ -92,6 +98,7 @@ export class TagModalComponent{
     }
   }
 
+  //Quando o botão de Criar é pressionado
   onSubmitCreateNewTag(){
     if(this.formCadastroTag.valid){
       const newTag : ITag = {
@@ -105,6 +112,7 @@ export class TagModalComponent{
     }
   }
 
+  //Quando o botão de Editar ou Excluir é pressionado
   onSubmitSearchTag(modalType : ModalType){
     if(this.formPesquisaTag.valid){
       if(this.tagPesquisaEncontrada != undefined){
@@ -116,17 +124,23 @@ export class TagModalComponent{
     }
   }
 
+  redefineSearch(){
+    this.tagPesquisaLista = this.tagService.getTagsList();
+    this.tagPesquisaEncontrada = undefined;
+  }
+  //Quando uma tag é digitada em um campo nos modais de
   onInputTag(){
     const tagPesquisaInput = this.formPesquisaTag.controls.nomePesquisaTag;
-    if(tagPesquisaInput.invalid){
-      this.tagPesquisaLista = []
-      this.tagPesquisaEncontrada = undefined;
+    if(tagPesquisaInput.value.length == 0){
+      this.redefineSearch();
       return
     }
     this.tagPesquisaLista = this.tagService.getTagsByName(tagPesquisaInput.value)
-    if(this.tagPesquisaLista.length !== 1)
-      return;
-    this.setSelectedTag()
+    this.findSelectedTag()
+
+    if(this.tagPesquisaLista.length == 0 && this.tagPesquisaEncontrada == undefined && tagPesquisaInput.value.length != 0){
+      this.setSearchFeedback(false);
+    }
   }
 
   selectTag(nomeSelecionado : string){
@@ -135,7 +149,34 @@ export class TagModalComponent{
     this.tagPesquisaLista = []
   }
 
+  findSelectedTag(){
+    if(this.tagPesquisaLista.length === 1){
+      this.setSelectedTag()
+    }
+    else{
+      this.tagPesquisaEncontrada = undefined;
+    }
+  }
+
   setSelectedTag(){
     this.tagPesquisaEncontrada = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value);
+    this.setSearchFeedback(true)
+  }
+
+  setSearchFeedback(encontrada : boolean){
+    let messageFeedback : string = '';
+    let imageFeedback : string = '';
+    if(encontrada){
+      messageFeedback = 'Tag encontrada!'
+      imageFeedback = 'assets/icones/operacoes/icon_black_success.svg'
+    }
+    else{
+      messageFeedback = 'Nenhuma tag encontrada!'
+      imageFeedback = 'assets/icones/operacoes/icon_black_error.svg'
+    }
+    this.searchFeedback = {
+      message : messageFeedback,
+      imagePath: imageFeedback
+    }
   }
 }

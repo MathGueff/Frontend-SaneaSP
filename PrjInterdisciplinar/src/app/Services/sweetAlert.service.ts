@@ -3,22 +3,23 @@ import Swal, { SweetAlertResult, SweetAlertOptions } from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class SweetAlertService {
-  /**
-   * Exibe mensagem com SweetAlert2 integrado com modal do Bootstrap
-   * @param message Mensagem a ser exibida
-   * @param error Se true, exibe ícone de erro
-   * @param modalElementRef Referência do modal do bootstrap (opcional - fecha o modal bootstrap aberto para evitar conflito)
-   */
+
   public showMessage(
     message: string, 
     error?: boolean,
     modalElementRef?: HTMLElement
-  ) {
-    
+  ): Promise<SweetAlertResult> {
+    let backdrop: HTMLElement | null = null;
+
     if (modalElementRef) {
-      //Classe para esconder visualmente mantendo no DOM
-      modalElementRef.style.display = 'none'
+      // Esconde o modal e seu backdrop
+      modalElementRef.style.display = 'none';
       modalElementRef.setAttribute('aria-hidden', 'true');
+      
+      backdrop = document.querySelector('.modal-backdrop');
+      if (backdrop) {
+        backdrop.classList.remove('show');
+      }
     }
 
     const swalConfig: SweetAlertOptions = {
@@ -36,13 +37,18 @@ export class SweetAlertService {
       allowEnterKey: true,
       backdrop: true,
       willClose: () => {
-        // Restaurar o modal após fechar o SweetAlert
+        // Restaura o modal quando o SweetAlert fecha
         if (modalElementRef) {
-          modalElementRef.style.display = 'block'
+          modalElementRef.style.display = 'block';
           modalElementRef.removeAttribute('aria-hidden');
+          
+          if (backdrop) {
+            backdrop.classList.add('show');
+          }
         }
       }
     };
-    Swal.fire(swalConfig);
+
+    return Swal.fire(swalConfig);
   }
 }

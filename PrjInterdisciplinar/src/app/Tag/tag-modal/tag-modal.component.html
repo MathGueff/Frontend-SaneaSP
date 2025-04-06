@@ -1,94 +1,146 @@
-<div class="modal fade" id="modalTagAdicaoPesquisa" tabindex="-1" aria-labelledby="modalTag" #modalTagAdicaoPesquisa>
+<div
+  class="modal fade"
+  id="modalTagAdicaoPesquisa"
+  tabindex="-1"
+  aria-labelledby="modalTag"
+  #modalTagAdicaoPesquisa
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalTagLabel">
-          {{ModalInfo.title}}
+          {{ ModalInfo.title }}
         </h1>
-        <button type="button" class="btn-close focus-terciario" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close focus-terciario"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <div>
           <form [formGroup]="FormGroupSelected">
-              @if (modalTypeSelected == modalTypes.Adicao) {
-                  <app-form-field
-                    [formGroup]="FormGroupSelected"
-                    formName="form-cadastro-tag"
-                    controlName="nomeNovaTag"
-                    icon="assets/formularios/tag_icon.svg"
-                    label="Nome da Tag:"
-                    placeholder="Digite o nome da tag"
-                    [required]="true"
-                    fieldType="input"
-                    [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
-                  ></app-form-field>
-              }
-              @else if (modalTypeSelected == modalTypes.PesquisaEdicao || 
-                modalTypeSelected == modalTypes.PesquisaExclusao) {
-                <app-form-field
-                  [formGroup]="FormGroupSelected"
-                  formName="form-cadastro-tag"
-                  controlName="nomePesquisaTag"
-                  icon="assets/formularios/tag_icon.svg"
-                  label="Nome da Tag:"
-                  placeholder="Digite o nome da tag"
-                  fieldType="input"
-                  (input)="onInputTag()"
-                  [required]="true"
-                  [validators]="[formValidatorsEnum.Required]"
-                ></app-form-field>
+            @if (modalTypeSelected == modalTypes.Adicao) {
+            <app-form-field
+              [formGroup]="FormGroupSelected"
+              formName="form-cadastro-tag"
+              controlName="nomeNovaTag"
+              icon="assets/formularios/tag_icon.svg"
+              label="Nome da Tag:"
+              placeholder="Digite o nome da tag"
+              [required]="true"
+              fieldType="input"
+              [validators]="[
+                formValidatorsEnum.Required,
+                formValidatorsEnum.MinLength
+              ]"
+            ></app-form-field>
+            } @else if (modalTypeSelected == modalTypes.PesquisaEdicao ||
+            modalTypeSelected == modalTypes.PesquisaExclusao) {
+            <app-form-field
+              [formGroup]="FormGroupSelected"
+              formName="form-cadastro-tag"
+              controlName="nomePesquisaTag"
+              icon="assets/formularios/tag_icon.svg"
+              label="Nome da Tag:"
+              placeholder="Digite o nome da tag"
+              fieldType="input"
+              (input)="onInputTag()"
+              [required]="true"
+              [validators]="[formValidatorsEnum.Required]"
+            ></app-form-field>
 
-                <span *ngIf="tagPesquisaEncontrada != undefined" class="d-flex w-100 text-center justify-content-center mt-2">TAG encontrada!</span>
-                
-                @if(tagPesquisaLista.length > 0 && tagPesquisaEncontrada == undefined){
-                  <hr>
-                  <span>Sugestões de Tags Encontradas:</span>
-                  <ul class="list-group tag-list m-2">
-                    @for (tagPesquisa of tagPesquisaLista; track $index) {
-                      <li (click)="selectTag(tagPesquisa.nome)" class="list-group-item">{{tagPesquisa.nome}}</li>
-                    }
-                  </ul>
-                }
+            @if(tagPesquisaEncontrada != undefined 
+              || (tagPesquisaEncontrada == undefined 
+              && tagPesquisaLista.length == 0 
+              && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0)){
+              <div class="d-flex w-100 text-center justify-content-center mt-2">
+                <img src="{{searchFeedback.imagePath}}" alt="">
+                <span
+                  >{{searchFeedback.message}}
+                </span>
+              </div>
+             
+            }
+           
+
+            @if(tagPesquisaLista.length > 0 && tagPesquisaEncontrada ==
+            undefined){
+            <hr />
+            <span>Tags Sugeridas:</span>
+            <ul class="list-group tag-list m-2">
+              @for (tagPesquisa of tagPesquisaLista; track $index) {
+              <li (click)="selectTag(tagPesquisa.nome)" class="list-group-item">
+                {{ tagPesquisa.nome }}
+              </li>
               }
+            </ul>
+            } }
           </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary focus-secundario" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-secondary focus-secundario"
+          data-bs-dismiss="modal"
+        >
           Cancelar
         </button>
-        <button type="submit" (click)="onSubmit()" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
+        <button
+          type="submit"
+          (click)="onSubmit()"
+          class="btn btn-primary focus-secundario"
+        >
+          {{ ModalInfo.buttonText }}
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <button
-class="d-none"
-[attr.data-bs-target]="'#modalTag2'"
-[attr.data-bs-toggle]="'modal'"
-#botaoModal2
+  class="d-none"
+  [attr.data-bs-target]="'#modalTagEdicaoExclusao'"
+  [attr.data-bs-toggle]="'modal'"
+  #botaoModal2
 ></button>
 
-<div class="modal fade" id="modalTagEdicaoExclusao" tabindex="-1" aria-labelledby="modalTag" #modalTagEdicaoExclusao>
+<div
+  class="modal fade"
+  id="modalTagEdicaoExclusao"
+  tabindex="-1"
+  aria-labelledby="modalTag"
+  #modalTagEdicaoExclusao
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalTagLabel">
-          {{ModalInfo.title}}
+          {{ ModalInfo.title }}
         </h1>
-        <button type="button" class="btn-close focus-terciario" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close focus-terciario"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <div>
-          
-        </div>
+        <div></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary focus-secundario" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-secondary focus-secundario"
+          data-bs-dismiss="modal"
+        >
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary focus-secundario">{{ModalInfo.buttonText}}</button>
+        <button type="button" class="btn btn-primary focus-secundario">
+          {{ ModalInfo.buttonText }}
+        </button>
       </div>
     </div>
   </div>
