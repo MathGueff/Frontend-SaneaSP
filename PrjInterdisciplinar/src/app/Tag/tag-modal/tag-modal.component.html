@@ -7,22 +7,23 @@
 >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalTagLabel">
-          {{ ModalInfo.title }}
-        </h1>
-        <button
-          type="button"
-          class="btn-close focus-terciario"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <form [formGroup]="FormGroupSelected">
+      <form [formGroup]="FormGroupSelected">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modalTagLabel">
+            {{ ModalInfo.title }}
+          </h1>
+          <button
+            type="button"
+            class="btn-close focus-terciario"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div>
             @if (modalTypeSelected == modalTypes.Adicao) {
             <app-form-field
+              #formField
               [formGroup]="FormGroupSelected"
               formName="form-cadastro-tag"
               controlName="nomeNovaTag"
@@ -51,61 +52,49 @@
               [validators]="[formValidatorsEnum.Required]"
             ></app-form-field>
 
-            @if(tagPesquisaEncontrada != undefined 
-              || (tagPesquisaEncontrada == undefined 
-              && tagPesquisaLista.length == 0 
-              && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0)){
-              <div class="d-flex w-100 text-center justify-content-center mt-2">
-                <img src="{{searchFeedback.imagePath}}" alt="">
-                <span
-                  >{{searchFeedback.message}}
-                </span>
-              </div>
-             
-            }
-           
-
-            @if(tagPesquisaLista.length > 0 && tagPesquisaEncontrada ==
-            undefined){
+            @if(tagFound != undefined || (tagFound == undefined &&
+            tagList.length == 0 &&
+            this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0)){
+            <div class="d-flex w-100 text-center justify-content-center mt-2">
+              <img src="{{ searchFeedback.imagePath }}" alt="" />
+              <span>{{ searchFeedback.message }} </span>
+            </div>
+            } @if(tagList.length > 0 && tagFound == undefined){
             <hr />
             <span>Tags Sugeridas:</span>
             <ul class="list-group tag-list m-2">
-              @for (tagPesquisa of tagPesquisaLista; track $index) {
-              <li (click)="selectTag(tagPesquisa.nome)" class="list-group-item">
+              @for (tagPesquisa of tagList; track $index) {
+              <li
+                (click)="selectTagFromList(tagPesquisa.nome)"
+                class="list-group-item"
+              >
                 {{ tagPesquisa.nome }}
               </li>
               }
             </ul>
             } }
-          </form>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary focus-secundario"
-          data-bs-dismiss="modal"
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          (click)="onSubmit()"
-          class="btn btn-primary focus-secundario"
-        >
-          {{ ModalInfo.buttonText }}
-        </button>
-      </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary focus-secundario"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            (click)="onSubmit()"
+            class="btn btn-primary focus-secundario"
+          >
+            {{ ModalInfo.buttonText }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-
-<button
-  class="d-none"
-  [attr.data-bs-target]="'#modalTagEdicaoExclusao'"
-  [attr.data-bs-toggle]="'modal'"
-  #botaoModal2
-></button>
 
 <div
   class="modal fade"
@@ -145,3 +134,24 @@
     </div>
   </div>
 </div>
+
+<button
+  class="d-none"
+  [attr.data-bs-target]="'#modalTagAdicaoPesquisa'"
+  [attr.data-bs-toggle]="'modal'"
+  #botaoChamarModalAdicaoPesquisa
+></button>
+
+<button
+  class="d-none"
+  [attr.data-bs-target]="'#modalTagEdicaoExclusao'"
+  [attr.data-bs-toggle]="'modal'"
+  #botaoChamarModalEdicaoExclusao
+></button>
+
+<button
+  class="d-none"
+  [attr.data-bs-target]="'#modalTagAdicaoPesquisa'"
+  [attr.data-bs-toggle]="'modal'"
+  #botaoFecharModal
+></button>

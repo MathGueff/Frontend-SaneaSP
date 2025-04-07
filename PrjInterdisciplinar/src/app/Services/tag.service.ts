@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ITag } from '../models/interface/ITag.model';
 import { ITagNoticia } from '../models/interface/ITagNoticia.model';
 import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
-import { IOperationResult } from '../models/interface/IOperationResult.model';
+import { IResponse } from '../models/interface/IResponse.model';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -61,7 +61,7 @@ export class TagService {
   }
 
   //POST
-  createNewTag(tag: ITag) : IOperationResult {
+  createNewTag(tag: ITag) : IResponse {
     if(this.tagWithNameExists(tag.nome)){
         return {error : true, message : 'Já existe uma tag com esse nome'}
     }
@@ -72,7 +72,7 @@ export class TagService {
   }
 
   //DELETE
-  deleteTag(idFilter: number): IOperationResult {
+  deleteTag(idFilter: number): IResponse {
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
         return {error : true, message : 'Nenhuma tag encontrada'};
@@ -81,7 +81,7 @@ export class TagService {
   }
 
   //PUT
-  editTag(idFilter: number, updatedTag: ITag): IOperationResult {
+  editTag(idFilter: number, updatedTag: ITag): IResponse {
     //Verificação de existência
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
