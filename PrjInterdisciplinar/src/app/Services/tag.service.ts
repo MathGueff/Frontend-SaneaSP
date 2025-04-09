@@ -22,26 +22,34 @@ export class TagService {
   ];
 
   // GET?name=
-  getTagsByName(nomeFilter: string): ITag[] {
+  getTagsByName(nomeFilter: string): IResponse<ITag[]> {
     nomeFilter = nomeFilter.toLowerCase().trim();
-    const t = this.tags.filter((tag) =>
+    const tags = this.tags.filter((tag) =>
       tag.nome.toLowerCase().trim().includes(nomeFilter)
     );
-    console.log(t);
-    return t
+    if(tags.length === 0){
+      return {error:true, message:'Nenhuma tag encontrada'}
+    }
+    return {error:false, message:'Tags encontradas', data : tags}
   }
   /**
    * 
    * @param nomeFilter 
    * @returns tag com o nome exato
    */
-  getTagByName(nomeFilter: string): ITag | undefined {
-    return this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
+  getTagByName(nomeFilter: string): IResponse<ITag> {
+    const tagFound = this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
+    return tagFound != undefined 
+      ? {error : false, message : 'Tag encontrada', data : tagFound} 
+      : {error : true, message : 'Tag não encontrada'} 
   }
 
   //GET/:id
-  getTagById(id: number): ITag | undefined {
-    return this.tags.find((tag) => tag.id === id);
+  getTagById(id: number): IResponse<ITag> {
+    const tagById = this.tags.find((tag) => tag.id === id);
+    if(tagById == undefined)
+      return {error : true, message : 'Nenhuma tag encontrada com o ID'}
+    return {error : false, message : 'Tag encontrada', data : tagById}
   }
 
   //Retorna o último ID cadastrado, caso não haja, retorna 1

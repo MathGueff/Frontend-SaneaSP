@@ -177,7 +177,7 @@ export class TagModalComponent {
       return;
     }
     
-    this.tagList = this.tagService.getTagsByName(searchInput.value);
+    this.tagList = this.tagService.getTagsByName(searchInput.value).data || [];
     this.updateFoundTag();
 
     if (
@@ -203,9 +203,12 @@ export class TagModalComponent {
   }
 
   updateFoundTag() {
-    this.tagFound = this.tagList.length === 1 
-      ? this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value)
-      : undefined;
+    const tagSearch = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value) 
+
+    console.log(tagSearch.data)
+    tagSearch.data 
+      ? this.tagFound = tagSearch.data 
+      : this.tagFound = undefined
     
     if (this.tagFound) {
       this.setSearchFeedback(true);
@@ -213,7 +216,7 @@ export class TagModalComponent {
   }
 
   setFoundTag(tagName : string) {
-    this.tagFound = this.tagService.getTagByName(tagName)
+    this.tagFound = this.tagService.getTagByName(tagName)?.data
     this.setSearchFeedback(true);
   }
 
