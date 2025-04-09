@@ -142,12 +142,14 @@ export class TagModalComponent {
     };
 
     const result = this.tagService.createNewTag(newTag);
-    if (!result.error) this.formCadastroTag.reset();
 
     this.showMessageAlert({ 
-      message: 'Tag cadastrada com sucesso', 
-      error: false 
+      message: result.message, 
+      error: result.error 
     });
+    
+    if(!result.error)
+      this.formCadastroTag.reset();
   }
 
   //Quando o botão de Editar ou Excluir é pressionado

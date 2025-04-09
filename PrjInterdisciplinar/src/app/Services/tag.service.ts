@@ -21,12 +21,6 @@ export class TagService {
     { id: 2, idReclamacao: 2, idTag: 2 }, //Poluição
   ];
 
-  //Verificação para evitar duplicidade de nomes e existencia de tag
-  tagWithNameExists(nomeFilter: string): boolean {
-    nomeFilter = nomeFilter.toLowerCase().trim();
-    return this.tags.some((tag) => tag.nome.toLowerCase().trim() == nomeFilter);
-  }
-
   // GET?name=
   getTagsByName(nomeFilter: string): ITag[] {
     nomeFilter = nomeFilter.toLowerCase().trim();
@@ -62,11 +56,11 @@ export class TagService {
 
   //POST
   createNewTag(tag: ITag) : IResponse {
+    tag.nome = tag.nome.trim().toLowerCase()
     if(this.tagWithNameExists(tag.nome)){
-        return {error : true, message : 'Já existe uma tag com esse nome'}
+      return {error : true, message : 'Já existe uma tag com esse nome'}
     }
     tag.id = this.getNextId();
-    tag.nome = tag.nome.trim()
     this.tags.push(tag);
     return {error : false, message : 'Tag cadastrada com sucesso'}
   }
@@ -93,5 +87,11 @@ export class TagService {
 
     this.tags[index] = { id: idFilter, nome: updatedTag.nome };
     return {error:false, message:'Tag atualizada com sucesso'};
+  }
+
+  //Verificação para evitar duplicidade de nomes e existencia de tag
+  tagWithNameExists(nomeFilter: string): boolean {
+    nomeFilter = nomeFilter.toLowerCase().trim();
+    return this.tags.some((tag) => tag.nome.toLowerCase().trim() == nomeFilter);
   }
 }
