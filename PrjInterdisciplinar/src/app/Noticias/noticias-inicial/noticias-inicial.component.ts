@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NoticiasCardComponent } from "../noticias-card/noticias-card.component";
 import { NoticiaService } from '../../Services/noticia.service';
-import { INoticia } from '../../models/interface/noticias.model';
+import { INoticia } from '../../models/interface/INoticias.model';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 
 @Component({

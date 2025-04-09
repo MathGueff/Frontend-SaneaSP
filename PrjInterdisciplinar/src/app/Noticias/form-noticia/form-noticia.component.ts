@@ -2,14 +2,15 @@ import { Component, inject } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { DoencaService } from '../../Services/doenca.service';
-import { IFieldForm } from '../../models/interface/fieldForm.model';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { CommonModule } from '@angular/common';
 import { CheckErrorComponent } from '../../Common/check-error/check-error.component';
 import { FormFieldComponent } from '../../Common/form-field/form-field.component';
 import { NoticiaErrorStatus } from '../../models/enums/NoticiaErrorStatus.enum';
-import { INoticia } from '../../models/interface/noticias.model';
+import { INoticia } from '../../models/interface/INoticias.model';
 import { NoticiaService } from '../../Services/noticia.service';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-form-noticia',
@@ -55,7 +56,7 @@ export class FormNoticiaComponent {
       label: 'Título da notícia:',
       placeholder: 'Digite o título da notícia',
       required: true,
-      validators: ['required']
+      validators: [FormValidatorEnum.Required]
     },
     {
       controlName: 'descricao_noticia',
@@ -63,7 +64,7 @@ export class FormNoticiaComponent {
       label: 'Descrição da Notícia:',
       placeholder: 'Descrição da notícia',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
       typeField: 'textarea',
     },
   ];

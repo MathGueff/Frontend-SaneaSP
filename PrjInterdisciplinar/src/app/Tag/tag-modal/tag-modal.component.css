@@ -1,0 +1,13 @@
+.btn-close {
+    background-color: white;
+    transition: 0.5s opacity ease;
+}
+
+.btn-close:hover {
+    opacity: 0.3;
+}
+
+/* Sobrescrita do estilo do bootstrap */
+.btn:focus-visible {
+    outline: var(--outline-tab-secundario) !important;
+}

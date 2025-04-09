@@ -1,7 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
+/**
+ * COMPONENTE FORM-FIELD
+ * @description:
+ * - Componente com informações para criação de um input, select ou textArea de um formulário, apresentando mensagens individuais do campo, como validação de tamanho e de obrigatoriedade
+ * 
+ * @Inputs:
+ * - formGroup: FormGroup (obrigatório) - Grupo de formulário reativo
+ * - controlName: string (obrigatório) - Nome do controle no FormGroup
+ * - formName: string (obrigatório) - Prefixo para IDs e Names do campo (controlName - formName)
+ * - icon: string (opcional) - Caminho para ícone do label
+ * - label: string (obrigatório) - Texto do label
+ * - placeholder: string (opcional) - Placeholder do input
+ * - type: string (opcional) - Tipo do input (text, password, etc)
+ * - fieldType: 'input' | 'select' | 'textarea' (opcional) - Tipo de campo
+ * - selectList: any[] (opcional) - Lista para selects
+ * - required: boolean (opcional) - Se exibe asterisco de obrigatório
+ * - validators: string[] (opcional) - Validadores do campo
+ * 
+ * @Outputs:
+ * - keydown.enter: Event - Disparado ao pressionar Enter
+ * - change: Event - Disparado em mudanças (para selects)
+ */
 @Component({
   selector: 'app-form-field',
   standalone: true,
@@ -10,7 +33,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './form-field.component.css'
 })
 export class FormFieldComponent{
-  @Input() class : string = 'col-md-12 col-sm-12 mb-3'; //Classes CSS que devem ser aplicadas ao input
   @Input() formGroup !: FormGroup; //Form gruop utilizado no componente pai
   @Input() formName : string = 'form'; //Usado para concatenar ao nome do campo para gerar names e ids diferentes (controlName + '-' + formName)
   @Input() controlName!: string; //Nome do campo
@@ -18,10 +40,10 @@ export class FormFieldComponent{
   @Input() icon !: string; //Icone do input
   @Input() type: string = 'text'; //Tipo do input
   @Input() placeholder!: string;  //Placeholder do input
-  @Input() required !: boolean; //Se o campo é obrigatório (serve para adicionar o asterisco* como forma visual de separar obrigatórios de opcionais)
-  @Input() fieldType : string = 'input';
+  @Input() fieldType : string = 'input'; //Select, input ou textarea
   @Input() selectList : string[] = [];
-  @Input() validators : string[] = []; //Select, input ou textarea
+  @Input() required !: boolean; //Se o campo é obrigatório (serve para adicionar o asterisco* como forma visual de separar obrigatórios de opcionais)
+  @Input() validators : FormValidatorEnum[] = []; 
 
   /*Retorna a mensagem correspondente ao tipo de validação que os campos possuem
     erro -> string obtida pelo ngFor, obtida da lista de erros passada pelo componente pai em errorValidator

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Noticia } from '../../models/class/noticia';
-import { INoticia } from '../../models/interface/noticias.model';
+import { INoticia } from '../../models/interface/INoticias.model';
 
 @Component({
   selector: 'app-noticias-card',
