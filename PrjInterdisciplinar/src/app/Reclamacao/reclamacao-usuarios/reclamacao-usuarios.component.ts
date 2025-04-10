@@ -1,3 +1,4 @@
+import { IUser } from './../../models/interface/IUser.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.component';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
@@ -7,7 +8,6 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
-import { IUser } from '../../models/interface/user.model';
 
 
 @Component({

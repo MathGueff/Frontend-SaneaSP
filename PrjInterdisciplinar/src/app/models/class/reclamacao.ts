@@ -1,4 +1,5 @@
-import { IUser } from "../interface/user.model";
+import { IEndereco } from '../interface/IEndereco.model';
+import { IUser } from './../interface/IUser.model';
 
 
 export class Reclamacao {
@@ -9,5 +10,6 @@ export class Reclamacao {
   objImagem : string = ""; //por enquanto o objImagem vai ser tipo String
   objTag : string ="" ; // por enquanto objTag vai ser String
   objUsuario !: IUser
+  objEndereco ?: IEndereco
 }
 

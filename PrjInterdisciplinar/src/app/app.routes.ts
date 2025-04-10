@@ -18,6 +18,7 @@ import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
 import { ReclamacaoUsuariosComponent } from './Reclamacao/reclamacao-usuarios/reclamacao-usuarios.component';
+import { ReclamacaoEdicaoComponent } from './Reclamacao/reclamacao-edicao/reclamacao-edicao.component';
 
 export const routes: Routes = [
   //Home
@@ -27,6 +28,7 @@ export const routes: Routes = [
   //Reclamações
   {path: 'reclamacao', component: ReclamacaoInicialComponent},
   {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent},
+  {path:'suas-reclamacoes/:id',component:ReclamacaoEdicaoComponent},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
   {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent},
 
