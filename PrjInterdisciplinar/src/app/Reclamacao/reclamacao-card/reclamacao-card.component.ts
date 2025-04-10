@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Reclamacao } from '../../models/reclamacao';
+import { Reclamacao } from '../../models/class/reclamacao';
 import { RouterLink } from '@angular/router';
 
 @Component({

@@ -3,9 +3,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../Services/user.service';
-import { LoginErrorStatus } from './LoginErrorStatus.enum';
-import { IFieldForm } from '../../models/fieldForm.model';
+import { LoginErrorStatus } from '../../models/enums/LoginErrorStatus.enum';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class FormLoginComponent implements OnInit{
       label:'Email:', 
       placeholder: 'Email de login', 
       required: true, 
-      validators: ['required','email']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.Email]
     },
     { 
       controlName:'senha', 
@@ -46,7 +47,7 @@ export class FormLoginComponent implements OnInit{
       label:'Senha:', 
       placeholder: 'Senha de login', 
       required: true, 
-      validators: ['required','minlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     }
   ]
 
@@ -78,7 +79,7 @@ export class FormLoginComponent implements OnInit{
     if(this.userService.validateUser(email, senha)){
       /* Navega para a pagina principal */
       this.loginErrorStatus = LoginErrorStatus.None;
-      this.router.navigate(['']);
+      this.router.navigate(['pagina-admin']);
     }
     else{
       /* Usuário inexistente */

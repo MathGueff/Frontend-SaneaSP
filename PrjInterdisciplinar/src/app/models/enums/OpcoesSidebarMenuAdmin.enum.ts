@@ -1,4 +1,4 @@
-export enum OpcoesMenuAdmin{
+export enum OpcoesSidebarMenuAdmin{
     Doenca,
     Noticia,
     Reclamacao,

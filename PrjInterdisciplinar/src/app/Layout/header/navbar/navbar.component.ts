@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { NavbarLink } from '../../../models/navbar-link';
+import { NavbarLink } from '../../../models/class/navbar-link';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginLinkComponent } from "../login-link/login-link.component";
 import { UserService } from '../../../Services/user.service';

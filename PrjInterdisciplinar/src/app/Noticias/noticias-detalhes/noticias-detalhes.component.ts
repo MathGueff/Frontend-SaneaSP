@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { DetalheNoticia } from '../../models/detalhe';
+import { DetalheNoticia } from '../../models/class/detalhe';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { INoticia } from '../../models/noticias.model';
+import { INoticia } from '../../models/interface/INoticias.model';
 import { NoticiaService } from '../../Services/noticia.service';
 import { NotFoundComponent } from "../../Common/not-found/not-found.component";
 

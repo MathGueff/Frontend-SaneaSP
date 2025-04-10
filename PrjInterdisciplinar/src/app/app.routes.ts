@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { MenuUsuarioComponent } from './Usuario/menu-usuario/menu-usuario.component';
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from './Reclamacao/reclamacao-descricao/reclamacao-descricao.component';
@@ -19,7 +18,6 @@ import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
 import { UpdateTagComponent } from './Tag/update-tag/update-tag.component';
-
 
 export const routes: Routes = [
   //Home

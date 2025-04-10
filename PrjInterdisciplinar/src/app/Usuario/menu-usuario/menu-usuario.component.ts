@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuUsuario } from '../../models/menu-usuario';
+import { MenuUsuario } from '../../models/class/menu-usuario';
 import { RouterLink, Router} from '@angular/router';
 
 @Component({
