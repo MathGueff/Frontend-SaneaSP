@@ -5,10 +5,10 @@ import { Component } from '@angular/core';
   selector: 'app-update-tag',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './update-tag.component.html',
-  styleUrl: './update-tag.component.css'
+  templateUrl: './tag-tabela.component.html',
+  styleUrl: './tag-tabela.component.css'
 })
-export class UpdateTagComponent {
+export class TagTabelaComponent {
   tags = [
     { id: 1, doenca: 'Cancer' },
     { id: 2, doenca: 'Leptospirose' },
