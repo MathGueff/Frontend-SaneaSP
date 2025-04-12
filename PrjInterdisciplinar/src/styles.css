@@ -18,6 +18,10 @@
     /* Cores de componentes */
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
+    --cor-botao-fechar: #b1180e;
+
+    /* Box Shadow */
+    --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
 
     /* Acessibilidade */
     --outline-tab-primario: 2px solid var(--cor-primaria);
@@ -60,7 +64,7 @@ a:focus-visible,
 input:focus-visible, 
 textarea:focus-visible, 
 div:focus-visible {
-  outline: var(--outline-tab-primario);
+  outline: var(--outline-tab-primario) !important;
 }
 
 /* Estilo com outline azul escuro */
@@ -106,6 +110,23 @@ div:focus-visible {
   border: none !important;
 }
 
+/* INICIO ESTILOS DE LISTAS */
+
+.list-group li{
+    background-color: var(--cor-background) !important;
+    color: var(--cor-primaria);
+    text-align: center;
+    border: 1px solid var(--cor-primaria);
+    cursor: pointer;
+    transition: 0.6s color ease, 0.8s background-color ease, 0.6s transform ease;
+}
+
+.list-group li:hover{
+    background-color: var(--cor-primaria) !important;
+    color: var(--cor-fonte-branca);
+    transform: translateX(2px);
+}
+
 /* --- INICIO ESTILOS DO SWEETALERT ---  */
 .sweet_popup{
   padding: 10px; 
@@ -139,9 +160,7 @@ div:focus-visible {
   cursor: pointer;
   border: none;
   transition: 0.6s transform ease, 0.6s opacity ease;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao);
   text-decoration: none;
 }
 
@@ -157,21 +176,34 @@ div:focus-visible {
 }
 
 .card:hover{
-  opacity: 0.85;
-  transform: translateX(6px);
+  opacity: 0.9;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
+}
+
+.btn-primary, .btn-secondary{
+  transition: 0.4s transform ease, 0.6s opacity ease !important;
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary{
   background-color: var(--cor-quaternaria) !important;
   border-color: var(--cor-quaternaria) !important;
-  transition: 0.6s transform ease, 0.6s opacity ease !important;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
 }
 
-.btn-primary:hover{
-  transform: translateY(6px);
+.btn-secondary{
+  background-color: var(--cor-botao-fechar) !important;
+  border-color: var(--cor-botao-fechar) !important;
+}
+
+.card:hover .btn-primary:hover{
+  transform: translateX(4px);
+  opacity: 0.8;
+}
+
+.btn-primary:hover, .btn-secondary:hover{
+  transform: translateY(-4px);
+  opacity: 0.9;
 }
 
 .btn-primary:active{
@@ -189,9 +221,7 @@ div:focus-visible {
   width: 140px;
   height: 140px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao)
 }
 
 @media(max-width: 992px){

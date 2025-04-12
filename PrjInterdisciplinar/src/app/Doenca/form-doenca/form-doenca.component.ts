@@ -2,13 +2,14 @@ import { DoencaErrorStatus } from '../../models/enums/DoencaErrorStatus.enum';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IDoenca } from '../../models/interface/doencas.model';
+import { IDoenca } from '../../models/interface/IDoencas.model';
 import { DoencaService } from '../../Services/doenca.service';
 import { Router, RouterModule } from '@angular/router';
-import { IFieldForm } from '../../models/interface/fieldForm.model';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 import { CheckErrorComponent } from "../../Common/check-error/check-error.component";
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-form-doenca',
@@ -55,7 +56,7 @@ export class FormDoencaComponent {
       label: 'Nome da Doença:',
       placeholder: 'Digite o nome da Doença',
       required: true,
-      validators: ['required', 'minlength']
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength]
     },
     {
       controlName: 'descricao',
@@ -63,7 +64,7 @@ export class FormDoencaComponent {
       label: 'Descrição da Doença:',
       placeholder: 'Breve descrição da doença',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
       typeField: 'textarea',
     },
     {
@@ -72,7 +73,7 @@ export class FormDoencaComponent {
       label: 'Tratamento:',
       placeholder: 'Explique como a doença é tratada',
       required: true,
-      validators: ['required'],
+      validators: [FormValidatorEnum.Required],
       typeField: 'textarea'
     },
     {
@@ -81,7 +82,7 @@ export class FormDoencaComponent {
       label: 'Transmissão:',
       placeholder: 'Explique como a doença é transmitida',
       required: true,
-      validators: ['required'],
+      validators: [FormValidatorEnum.Required],
       typeField: 'textarea'
     },
   ];

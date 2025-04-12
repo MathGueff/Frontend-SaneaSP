@@ -3,10 +3,10 @@ import Swal from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class SweetAlertService {
-  public showMessage(message: string) {
+  public showMessage(message: string, error ?: boolean) {
     Swal.fire({
       title: message,
-      icon: 'success',
+      icon:  error ? 'error' : 'success',
       confirmButtonText: 'Ok',
       background: '#295A80',
       color: '#e8e3e3',
