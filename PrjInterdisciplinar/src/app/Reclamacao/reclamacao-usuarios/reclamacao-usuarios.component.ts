@@ -4,16 +4,17 @@ import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.comp
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UserService } from '../../Services/user.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
+import { type } from 'os';
 
 
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule, ReactiveFormsModule],
+  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule,RouterLink,ReactiveFormsModule],
   templateUrl: './reclamacao-usuarios.component.html',
   styleUrl: './reclamacao-usuarios.component.css'
 })
@@ -22,7 +23,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   private router = inject(Router);
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   protected data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
-  protected user : IUser | null = this.userService.getCurrentUser();
+  protected user !: IUser;
   protected vazio: boolean = true;
   protected erro : string = "";
   TagSelect : FormGroup;
@@ -137,21 +138,21 @@ export class ReclamacaoUsuariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user =
-    {
-      id: 2,
-      nome: 'Davy',
-      email: 'davy@gmail.com',
-      senha: 'davy',
-      endereco:{
-        cep: '17571802',
-        bairro : 'Jardim Europa',
-        logradouro : 'Rua Rock',
-        cidade : 'Votorantim'
-      }
-    }
+    // this.user =
+    // {
+    //   id: 2,
+    //   nome: 'Davy',
+    //   email: 'davy@gmail.com',
+    //   senha: 'davy',
+    //   endereco:{
+    //     cep: '17571802',
+    //     bairro : 'Jardim Europa',
+    //     logradouro : 'Rua Rock',
+    //     cidade : 'Votorantim'
+    //   }
+    // }
 
-    this.thisIsUser(this.user);
+    this.user = this.thisIsUser();
 
     this.TagSelect.valueChanges.subscribe(()=>{
       console.log("Esta funcionando");
@@ -169,9 +170,11 @@ export class ReclamacaoUsuariosComponent implements OnInit {
       this.erro = "Nenhuma Reclamação encontrada";
     }
   }
- private thisIsUser(user : IUser | null ) : void{
+ private thisIsUser() : IUser{
+    let user = this.userService.getCurrentUser();
     if(!user){
       this.router.navigate(['']);
     }
+    return user as IUser;
   }
 }

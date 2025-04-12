@@ -16,9 +16,9 @@ export class SweetAlertService {
       },
     });
   }
-  public confirmExclusion(message:string):boolean{
-    let confirm : boolean = false;
-      Swal.fire({
+  //Função assincrona. Ela retorna uma Promessa, isso quer dizer deve ser usada junto com asyc e await
+  public async confirmExclusion(message:string):Promise<boolean>{
+      const  result = await Swal.fire({
       title: message,
       showConfirmButton: true,
       showDenyButton: true,
@@ -31,14 +31,7 @@ export class SweetAlertService {
         confirmButton: 'sweet_btn_success',
         title : 'sweet_title',
       },
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        confirm = true;
-      } else if (result.isDenied) {
-        confirm = false;
-      }
     });
-    return confirm;
+    return result.isConfirmed;
   }
 }

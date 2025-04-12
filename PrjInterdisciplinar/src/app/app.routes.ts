@@ -19,6 +19,8 @@ import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.compo
 import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
 import { ReclamacaoUsuariosComponent } from './Reclamacao/reclamacao-usuarios/reclamacao-usuarios.component';
 import { ReclamacaoEdicaoComponent } from './Reclamacao/reclamacao-edicao/reclamacao-edicao.component';
+import { TagTabelaComponent } from './Tag/tag-tabela/tag-tabela.component';
+
 
 export const routes: Routes = [
   //Home
@@ -31,6 +33,7 @@ export const routes: Routes = [
   {path:'suas-reclamacoes/:id',component:ReclamacaoEdicaoComponent},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
   {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent},
+  {path: 'suas-reclamacoes/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
 
   //Doenças
   {path: 'doenca-inicial',component:DoencasInicialComponent},
@@ -43,6 +46,10 @@ export const routes: Routes = [
   {path: 'noticia-detalhe', component:NoticiasDetalhesComponent},
   {path: 'noticia-detalhe/:id', component:NoticiasDetalhesComponent},
   {path: 'noticia-form', component: FormNoticiaComponent},
+
+  //Tags
+  {path: 'tag-tabela', component: TagTabelaComponent},
+
 
   //Outros
   {path: 'sobre-nos', component:SobrenosComponent},
