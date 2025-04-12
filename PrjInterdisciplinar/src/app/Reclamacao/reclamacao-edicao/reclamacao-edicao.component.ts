@@ -25,7 +25,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
     protected vazio : boolean = false;
     protected path :string = "../";
 
-    private reclamacao ?:Reclamacao
+    private reclamacao ?: Reclamacao
     reclamacoes: Reclamacao [] = [
       {
         idReclamacao: 1,
@@ -132,7 +132,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
     src: any = null;
 
 
-     form = this.formBuider.group({
+    form = this.formBuider.group({
       titulo: [this.reclamacao?.tituloReclamao, [Validators.required]],
       descricao: [this.reclamacao?.descricaoReclamacao, [Validators.required]],
       cep: [
@@ -162,6 +162,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
         if(!this.reclamacao){
           this.vazio = true;
         }
+        
       })
       this.form.controls.cep.valueChanges.subscribe(() => {
         if (
