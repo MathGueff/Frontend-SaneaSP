@@ -1,6 +1,6 @@
-Repositório com os arquivos relacionados ao Projeto Integrador 2 Semestre - SaneaSP
+##Repositório com os arquivos relacionados ao Projeto Integrador 2 Semestre - SaneaSP
 
-DESCRIÇÃO DO PROJETO 
+#DESCRIÇÃO DO PROJETO 
 
 Proposta do Software:
 O presente projeto tem como objetivo abranger duas ODSs: Água Potável e Saneamento (ODS6) e Saúde e Bem-Estar (ODS3), por meio de um website. A função do site SaneaSP é auxiliar a prefeitura ou o órgão responsável pelo saneamento básico e administração da água da cidade, disponibilizando de forma rápida e organizada uma série de comentários e denúncias de problemas que estão ocorrendo na região, servindo como um centro de informações para os responsáveis. Além disso, o site disponibilizará informações aos usuários, permitindo o acesso aos dados sobre saneamento e água potável de forma rápida e fácil, ajudando os usuários a se prevenirem de doenças e a ficarem atentos às notícias recentes sobre esse assunto. Dessa forma, o projeto prevê reduzir a invisibilidade dos problemas de saneamento na sua cidade, contribuindo tanto para os responsáveis quanto para os cidadãos do local. 
