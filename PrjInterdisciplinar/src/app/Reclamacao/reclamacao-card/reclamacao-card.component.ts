@@ -1,9 +1,10 @@
-import { UserService } from './../../Services/user.service';
-import { Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import { Component, inject, Input} from '@angular/core';
 import { Reclamacao } from '../../models/class/reclamacao';
 import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { IUser } from '../../models/interface/user.model';
 
 @Component({
   selector: 'app-reclamacao-card',
@@ -14,11 +15,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ReclamacaoCardComponent   {
   @Input () card !: Reclamacao;
-  @ViewChild('dropdownLinks') linksDropdown !: ElementRef;
-  @ViewChild('dropdown') dropdown !: ElementRef;
+  @Input () user$ ?: Observable<IUser | null>
   private sweetAlert = inject(SweetAlertService);
-  private userService = inject(UserService);
-  user$ = this.userService.getObservableCurrentUser();
 
   // Função para excluir Reclamacao. Função assincrona: precisa usar async e await
   protected async exclusaoReclamacao(id:number){
@@ -27,14 +25,6 @@ export class ReclamacaoCardComponent   {
     if(confirm){
       this.sweetAlert.showMessage("Reclamação Excluída com sucesso");
     }
-  }
-
-  protected toggleOptionsDropdown() {
-    const dropdown = this.linksDropdown.nativeElement as HTMLElement;
-    if(dropdown.classList.contains("show"))
-      dropdown.classList.remove('show');
-    else
-      dropdown.classList.add('show')
   }
 }
 
