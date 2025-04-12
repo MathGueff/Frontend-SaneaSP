@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
 import { IUser } from '../../models/interface/user.model';
+import { type } from 'os';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   private router = inject(Router);
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   protected data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
-  protected user : IUser | null = this.userService.getCurrentUser();
+  protected user !: IUser;
   protected vazio: boolean = true;
   protected erro : string = "";
   TagSelect : FormGroup;
@@ -137,21 +138,21 @@ export class ReclamacaoUsuariosComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user =
-    {
-      id: 2,
-      nome: 'Davy',
-      email: 'davy@gmail.com',
-      senha: 'davy',
-      endereco:{
-        cep: '17571802',
-        bairro : 'Jardim Europa',
-        logradouro : 'Rua Rock',
-        cidade : 'Votorantim'
-      }
-    }
+    // this.user =
+    // {
+    //   id: 2,
+    //   nome: 'Davy',
+    //   email: 'davy@gmail.com',
+    //   senha: 'davy',
+    //   endereco:{
+    //     cep: '17571802',
+    //     bairro : 'Jardim Europa',
+    //     logradouro : 'Rua Rock',
+    //     cidade : 'Votorantim'
+    //   }
+    // }
 
-    this.thisIsUser(this.user);
+    this.user = this.thisIsUser();
 
     this.TagSelect.valueChanges.subscribe(()=>{
       console.log("Esta funcionando");
@@ -169,9 +170,11 @@ export class ReclamacaoUsuariosComponent implements OnInit {
       this.erro = "Nenhuma Reclamação encontrada";
     }
   }
- private thisIsUser(user : IUser | null ) : void{
+ private thisIsUser() : IUser{
+    let user = this.userService.getCurrentUser();
     if(!user){
       this.router.navigate(['']);
     }
+    return user as IUser;
   }
 }

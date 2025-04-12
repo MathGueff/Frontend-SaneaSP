@@ -8,32 +8,31 @@
       {{ card.objTag }}
     </span>
 
-    @if (user$ | async) {
-    <article id="mais-opcoes" role="listbox">
-      <button type="button" class="btn btn-primary dropdown-toggle"
-        tabindex="0"
-        role="listbox"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <img src="assets\icones\icon_options.svg" alt="icone de opções">Mais Opções
-      </button>
-      <ul class="dropdown-menu">
-        <li>
-          <a class="dropdown-item" role="menuitem"  href="reclamacao-descricao/{{card.idReclamacao}}">
-            <img src="assets\icones\icon-black-edit.svg" alt="Ícone de Edição Reclamação"> Editar
-          </a>
-        </li>
-        <li>
-          <button  role="menuitem" (click)="exclusaoReclamacao(card.idReclamacao)" class="dropdown-item">
-            <img src="assets\icones\icon-black-delete.svg" alt="Ícone de Edição Reclamação">
-            <span>Excluir</span>
-          </button>
-        </li>
-      </ul>
-    </article>
+    @if (this.user) {
+      <article id="mais-opcoes" role="listbox">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+          tabindex="0"
+          role="listbox"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src="assets\icones\icon_options.svg" alt="icone de opções">Mais Opções
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" role="menuitem"  href="reclamacao-descricao/{{card.idReclamacao}}">
+              <img src="assets\icones\icon-black-edit.svg" alt="Ícone de Edição Reclamação"> Editar
+            </a>
+          </li>
+          <li>
+            <button  role="menuitem" (click)="exclusaoReclamacao(card.idReclamacao)" class="dropdown-item">
+              <img src="assets\icones\icon-black-delete.svg" alt="Ícone de Edição Reclamação">
+              <span>Excluir</span>
+            </button>
+          </li>
+        </ul>
+      </article>
     }
-
   </header>
   <!-- Body do Card -->
   <div class="card-body">

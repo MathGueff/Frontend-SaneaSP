@@ -15,7 +15,7 @@ import { IUser } from '../../models/interface/user.model';
 })
 export class ReclamacaoCardComponent   {
   @Input () card !: Reclamacao;
-  @Input () user$ ?: Observable<IUser | null>
+  @Input () user ?: IUser;
   private sweetAlert = inject(SweetAlertService);
 
   // Função para excluir Reclamacao. Função assincrona: precisa usar async e await
