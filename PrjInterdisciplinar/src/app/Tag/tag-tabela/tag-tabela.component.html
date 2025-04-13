@@ -1,0 +1,36 @@
+<div class="background">
+    <div class="container-fluid d-flex flex-column">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <h1 class="titulo-centralizado">Nossas Tags:</h1>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Doenças</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tag of tags">
+                <td>{{ tag.id }}</td>
+                <td>{{ tag.doenca }}</td>
+                <td>
+                  <button class="btn-acoes">muda</button>
+                  <button class="btn-acoes">coisar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

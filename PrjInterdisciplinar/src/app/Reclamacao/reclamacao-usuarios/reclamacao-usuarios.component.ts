@@ -1,47 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Reclamacao } from '../../models/class/reclamacao';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.component';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UserService } from '../../Services/user.service';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Reclamacao } from '../../models/class/reclamacao';
+import { IUser } from '../../models/interface/IUser.model';
+import { type } from 'os';
+
 
 @Component({
-  selector: 'app-reclamacao-descricao',
+  selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [CommonModule,RouterLink,NotFoundComponent],
-  templateUrl: './reclamacao-descricao.component.html',
-  styleUrl: './reclamacao-descricao.component.css'
+  imports: [ReclamacaoCardComponent,NotFoundComponent,CommonModule,RouterLink,ReactiveFormsModule],
+  templateUrl: './reclamacao-usuarios.component.html',
+  styleUrl: './reclamacao-usuarios.component.css'
 })
-export class ReclamacaoDescricaoComponent implements OnInit {
-  //Observable de reclamacao
-  private reclacaoSubject = new BehaviorSubject<Reclamacao | undefined>(undefined);
-  dado$: Observable<Reclamacao | undefined> = this.reclacaoSubject.asObservable();
-
-  //variaveis para poder controlar o componente NotFound
+export class ReclamacaoUsuariosComponent implements OnInit {
+  private userService = inject(UserService);
+  private router = inject(Router);
+  private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
+  protected data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
+  protected user !: IUser;
   protected vazio: boolean = true;
-  erro: string = ""
-  caminhoVoltar : string = "../../"; //caminho para voltar para reclamação inicial
-
-  constructor(private activedrouter : ActivatedRoute){}
-  ngOnInit(): void {
-    this.activedrouter.params.subscribe( (parametros) =>{
-      // pega o valor do parametro da URL
-      const idParametro = Number(parametros['id']);
-      // procura a reclamação que tenha o ID da URL
-      const reclamacao = this.reclamacoes.find((reclamacao) => reclamacao.idReclamacao  === idParametro );
-
-      if(reclamacao !== undefined){
-        this.reclacaoSubject.next(reclamacao);
-        this.vazio = false;
-      }else{
-        this.erro = "reclamação";
-        this.vazio = true;
-      }
-
-    }
-
-    )
-  }
+  protected erro : string = "";
+  TagSelect : FormGroup;
   reclamacoes: Reclamacao [] = [
     {
       idReclamacao: 1,
@@ -144,4 +129,52 @@ export class ReclamacaoDescricaoComponent implements OnInit {
       }
     },
   ];
+
+  constructor(private fb:FormBuilder){
+    this.TagSelect = this.fb.group({
+      tagForm: ['Todos']
+    })
+  }
+
+  ngOnInit(): void {
+
+    // this.user =
+    // {
+    //   id: 2,
+    //   nome: 'Davy',
+    //   email: 'davy@gmail.com',
+    //   senha: 'davy',
+    //   endereco:{
+    //     cep: '17571802',
+    //     bairro : 'Jardim Europa',
+    //     logradouro : 'Rua Rock',
+    //     cidade : 'Votorantim'
+    //   }
+    // }
+
+    this.user = this.thisIsUser();
+
+    this.TagSelect.valueChanges.subscribe(()=>{
+      console.log("Esta funcionando");
+    })
+    let lista : Reclamacao [];
+    lista = this.reclamacoes.filter((reclamacao) =>{
+      return (reclamacao.objUsuario.id === this.user?.id)
+    })
+    if(lista.length > 0 ){
+      this.vazio = false;
+      this.reclamacaoSubject.next(lista);
+    }
+    else{
+      this.vazio = true;
+      this.erro = "Nenhuma Reclamação encontrada";
+    }
+  }
+ private thisIsUser() : IUser{
+    let user = this.userService.getCurrentUser();
+    if(!user){
+      this.router.navigate(['']);
+    }
+    return user as IUser;
+  }
 }
