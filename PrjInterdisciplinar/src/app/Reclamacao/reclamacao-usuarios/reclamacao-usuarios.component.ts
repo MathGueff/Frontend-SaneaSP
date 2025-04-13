@@ -7,7 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
-import { IUser } from '../../models/interface/user.model';
+import { IUser } from '../../models/interface/IUser.model';
 import { type } from 'os';
 
 

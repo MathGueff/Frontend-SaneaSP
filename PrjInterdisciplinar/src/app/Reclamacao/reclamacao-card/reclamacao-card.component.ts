@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { IUser } from '../../models/interface/user.model';
+import { IUser } from '../../models/interface/IUser.model';
 
 @Component({
   selector: 'app-reclamacao-card',

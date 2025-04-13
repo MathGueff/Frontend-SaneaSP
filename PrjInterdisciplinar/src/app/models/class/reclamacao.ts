@@ -1,4 +1,4 @@
-import { IUser } from "../interface/user.model";
+import { IUser } from "../interface/IUser.model";
 
 
 export class Reclamacao {
