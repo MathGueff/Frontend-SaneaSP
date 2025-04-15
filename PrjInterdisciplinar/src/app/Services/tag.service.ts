@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ITag } from '../models/interface/ITag.model';
 import { ITagNoticia } from '../models/interface/ITagNoticia.model';
 import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
-import { IOperationResult } from '../models/interface/IOperationResult.model';
+import { IResponse } from '../models/interface/IResponse.model';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -21,33 +21,35 @@ export class TagService {
     { id: 2, idReclamacao: 2, idTag: 2 }, //Poluição
   ];
 
-  //Verificação para evitar duplicidade de nomes e existencia de tag
-  tagWithNameExists(nomeFilter: string): boolean {
-    nomeFilter = nomeFilter.toLowerCase().trim();
-    return this.tags.some((tag) => tag.nome.toLowerCase().trim() == nomeFilter);
-  }
-
   // GET?name=
-  getTagsByName(nomeFilter: string): ITag[] {
+  getTagsByName(nomeFilter: string): IResponse<ITag[]> {
     nomeFilter = nomeFilter.toLowerCase().trim();
-    const t = this.tags.filter((tag) =>
+    const tags = this.tags.filter((tag) =>
       tag.nome.toLowerCase().trim().includes(nomeFilter)
     );
-    console.log(t);
-    return t
+    if(tags.length === 0){
+      return {error:true, message:'Nenhuma tag encontrada'}
+    }
+    return {error:false, message:'Tags encontradas', data : tags}
   }
   /**
    * 
    * @param nomeFilter 
    * @returns tag com o nome exato
    */
-  getTagByName(nomeFilter: string): ITag | undefined {
-    return this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
+  getTagByName(nomeFilter: string): IResponse<ITag> {
+    const tagFound = this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
+    return tagFound != undefined 
+      ? {error : false, message : 'Tag encontrada', data : tagFound} 
+      : {error : true, message : 'Tag não encontrada'} 
   }
 
   //GET/:id
-  getTagById(id: number): ITag | undefined {
-    return this.tags.find((tag) => tag.id === id);
+  getTagById(id: number): IResponse<ITag> {
+    const tagById = this.tags.find((tag) => tag.id === id);
+    if(tagById == undefined)
+      return {error : true, message : 'Nenhuma tag encontrada com o ID'}
+    return {error : false, message : 'Tag encontrada', data : tagById}
   }
 
   //Retorna o último ID cadastrado, caso não haja, retorna 1
@@ -61,18 +63,18 @@ export class TagService {
   }
 
   //POST
-  createNewTag(tag: ITag) : IOperationResult {
+  createNewTag(tag: ITag) : IResponse {
+    tag.nome = tag.nome.trim().toLowerCase()
     if(this.tagWithNameExists(tag.nome)){
-        return {error : true, message : 'Já existe uma tag com esse nome'}
+      return {error : true, message : 'Já existe uma tag com esse nome'}
     }
     tag.id = this.getNextId();
-    tag.nome = tag.nome.trim()
     this.tags.push(tag);
     return {error : false, message : 'Tag cadastrada com sucesso'}
   }
 
   //DELETE
-  deleteTag(idFilter: number): IOperationResult {
+  deleteTag(idFilter: number): IResponse {
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
         return {error : true, message : 'Nenhuma tag encontrada'};
@@ -81,7 +83,7 @@ export class TagService {
   }
 
   //PUT
-  editTag(idFilter: number, updatedTag: ITag): IOperationResult {
+  editTag(idFilter: number, updatedTag: ITag): IResponse {
     //Verificação de existência
     const index = this.tags.findIndex((tag) => tag.id === idFilter);
     if (index == -1) 
@@ -93,5 +95,11 @@ export class TagService {
 
     this.tags[index] = { id: idFilter, nome: updatedTag.nome };
     return {error:false, message:'Tag atualizada com sucesso'};
+  }
+
+  //Verificação para evitar duplicidade de nomes e existencia de tag
+  tagWithNameExists(nomeFilter: string): boolean {
+    nomeFilter = nomeFilter.toLowerCase().trim();
+    return this.tags.some((tag) => tag.nome.toLowerCase().trim() == nomeFilter);
   }
 }
