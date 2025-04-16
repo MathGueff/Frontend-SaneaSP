@@ -1,13 +1,39 @@
-<div class="card h-100" routerLink="reclamacao-descricao/{{card.idReclamacao}}"> <!-- Div do card-->
+<div class="card h-100"> <!-- Div do card-->
   <!-- Header do card -->
-  <div class="card-header pt-3 d-flex flex-line justify-content-between">
-    <h5>
+  <header class="card-header pt-3 d-flex flex-md-row flex-sm-column justify-content-md-between justify-content-sm-center align-items-sm-center flex-wrap gap-md-3">
+    <h3 class="h5">
       {{ card.tituloReclamao }}
-    </h5>
-    <p class="tag d-flex align-items-center">
+    </h3>
+    <span class="tag d-flex align-items-center m-md-0 ">
       {{ card.objTag }}
-    </p>
-  </div>
+    </span>
+
+    @if (this.user) {
+      <article id="mais-opcoes" role="listbox">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+          tabindex="0"
+          role="listbox"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src="assets\icones\icon_options.svg" alt="icone de opções">Mais Opções
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" role="menuitem"  href="suas-reclamacoes/{{card.idReclamacao}}">
+              <img src="assets\icones\icon-black-edit.svg" alt="Ícone de Edição Reclamação"> Editar
+            </a>
+          </li>
+          <li>
+            <button  role="menuitem" (click)="exclusaoReclamacao(card.idReclamacao)" class="dropdown-item">
+              <img src="assets\icones\icon-black-delete.svg" alt="Ícone de Edição Reclamação">
+              <span>Excluir</span>
+            </button>
+          </li>
+        </ul>
+      </article>
+    }
+  </header>
   <!-- Body do Card -->
   <div class="card-body">
     <!-- Row dos conteúdos do body -->
@@ -22,7 +48,7 @@
         <div class="d-flex align-items-start flex-column ps-md-3 ps-lg-0">
           <h5 class="card-title mt-md-3">{{ card.tituloReclamao }}</h5>
           <p class="card-text">{{ card.descricaoReclamacao}}</p>
-          <a routerLink="reclamacao-descricao/{{card.idReclamacao}}" class="btn btn-primary">Ver {{ card.tituloReclamao}}</a>
+          <a routerLink="reclamacao-descricao/{{card.idReclamacao}}" class="btn btn-primary">Saiba Mais</a>
         </div>
       </div>
     </div>

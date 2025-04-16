@@ -1,21 +1,23 @@
 <div [formGroup]="formGroup">
     <!-- FormControl -->
-    <img class="label-icon me-1" [src]="icon">
+    <img *ngIf="icon" class="label-icon me-1" [src]="icon">
     <label [for]="controlName + '-' + formName" class="form-label">
         {{label}}
         <span *ngIf="required" class="required-control">*</span>
     </label>
     <!-- Baseado no tipo especificado ele mostra um input, textarea ou select -->
     <div [ngSwitch]="fieldType" >
+        <!-- Caso seja um input -->
         <input
             *ngSwitchDefault
             [formControlName] = "controlName"
             [name]= "controlName + '-' + formName"
             [id]="controlName + '-' + formName"
             [type]="type"
-            [placeholder]="placeholder"
+            [placeholder]="placeholder || ''"
             class="form-control"
         >
+        <!-- Caso seja um textarea -->
         <textarea
         *ngSwitchCase="'textarea'"
         [formControlName]="controlName"
@@ -25,6 +27,18 @@
         rows="3"
         class="form-control"
         ></textarea>
+        <!-- Caso seja um select -->
+        <select
+        *ngSwitchCase="'select'"
+        [formControlName]="controlName"
+        [name]="controlName + '-' + formName"
+        [id]="controlName + '-' + formName"
+        class="form-control text-center"
+        >
+        <option selected value="NENHUM">Nenhum</option>
+        <option *ngFor="let item of selectList" [value]="item">{{item}}</option>
+    </select>
+        
         
     @if (type == 'password' || this.showPassword == true) 
     {
@@ -47,7 +61,7 @@
 
     <!-- Para cada Validator do controlName -->
     <div *ngFor="let validator of validators">
-        @if (formGroup.get(controlName)?.value && formGroup.get(controlName)?.touched) {
+        @if (formGroup.get(controlName)?.touched) {
             <span
                 *ngIf="formGroup.get(controlName)?.errors?.[validator]"
                 class="texto-validacao-erro-form ms-2"

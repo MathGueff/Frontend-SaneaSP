@@ -1,5 +1,5 @@
 import { Reclamacao } from "./reclamacao";
-import { IUser } from "./user.model";
+import { IUser } from "../interface/IUser.model";
 
 export class Comentario {
   id: number | null = 0;

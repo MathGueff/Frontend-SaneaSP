@@ -8,9 +8,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { IFieldForm } from '../../models/fieldForm.model';
-import { CadastroErrorStatus } from '../../Login/form-cadastro/CadastroErrorStatus.enum';
+import { IFieldForm } from '../../models/interface/IFieldForm.model';
+import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { Router } from '@angular/router';
+import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 
 @Component({
   selector: 'app-edicao-perfil',
@@ -65,7 +66,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'Nome:',
       placeholder: 'Nome de usuário',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
     },
     {
       controlName: 'email',
@@ -74,7 +75,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'Email:',
       placeholder: 'Email de usuário',
       required: true,
-      validators: ['required', 'email'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.Email],
     },
     {
       controlName: 'senha',
@@ -83,7 +84,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'Senha:',
       placeholder: 'Senha de login',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
     },
     {
       controlName: 'confirmaSenha',
@@ -92,7 +93,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'Confirme sua senha:',
       placeholder: 'Confirmação da senha',
       required: true,
-      validators: ['required', 'minlength'],
+      validators: [FormValidatorEnum.Required, FormValidatorEnum.MinLength],
     },
     {
       controlName: 'telefone',
@@ -101,7 +102,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'Telefone:',
       placeholder: 'Telefone para contato',
       required: false,
-      validators: ['minlength', 'maxlength'],
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength],
     },
     {
       controlName: 'cpf',
@@ -110,7 +111,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'CPF:',
       placeholder: 'Digite seu CPF',
       required: false,
-      validators: ['minlength', 'maxlength'],
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength],
     },
   ];
 
@@ -122,7 +123,7 @@ export class EdicaoPerfilComponent implements OnInit {
       label: 'CEP:',
       placeholder: 'Digite seu CEP',
       required: false,
-      validators: ['minlength', 'maxlength'],
+      validators: [FormValidatorEnum.MaxLength, FormValidatorEnum.MinLength],
     },
     {
       controlName: 'logradouro',

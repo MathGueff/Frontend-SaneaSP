@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Tag } from '../../models/tag.model';
+import { ITag } from '../../models/interface/ITag.model';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { Tag } from '../../models/tag.model';
 })
 export class TagSelectComponent {
   constructor(private formBuilder:FormBuilder){}
-  tags : Tag[] = [
+  tags : ITag[] = [
     {
       id:1,
       nomeTag : "Tag1"

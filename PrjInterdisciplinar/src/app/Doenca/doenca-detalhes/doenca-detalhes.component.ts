@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { DetalheDoenca } from '../../models/detalhe';
+import { DetalheDoenca } from '../../models/class/detalhe';
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute, RouterModule } from '@angular/router';

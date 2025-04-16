@@ -25,7 +25,7 @@ h5{
 }
 
 .links-footer a:focus-visible, span:focus-visible{
-  outline: var(--outline-tab-secundario);
+  outline: var(--outline-tab-secundario) !important;
 }
 
 .links-footer-img a{
@@ -37,7 +37,7 @@ h5{
 }
 
 .links-footer-img a:focus-visible{
-  outline: var(--outline-tab-secundario);
+  outline: var(--outline-tab-secundario) !important;
 }
 
 @media (max-width:1000px) {
@@ -47,4 +47,3 @@ h5{
     border-left: none;
   }
 }
-

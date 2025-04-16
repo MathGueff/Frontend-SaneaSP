@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IDoenca } from "../models/doencas.model";
+import { IDoenca } from "../models/interface/IDoencas.model";
 
 @Injectable({providedIn: 'root'})
 
@@ -21,5 +21,10 @@ export class DoencaService{
 
   getCurrentID() : number{
     return this.doencas.length + 1
+  }
+  
+
+  getDoencas() : IDoenca[]{
+    return this.doencas;
   }
 }

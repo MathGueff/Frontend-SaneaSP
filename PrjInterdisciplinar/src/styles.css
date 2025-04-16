@@ -7,7 +7,7 @@
   font-family: var(--familia-primaria);
 }
 
-/* --- Variáveis do CSS global --- */
+/* --- INICIO VARIÁVEIS DO CSS GLOBAL  --- */
 :root{
     /* Cores de fundo */
     --cor-primaria: #295A80;
@@ -18,6 +18,10 @@
     /* Cores de componentes */
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
+    --cor-botao-fechar: #b1180e;
+
+    /* Box Shadow */
+    --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
 
     /* Acessibilidade */
     --outline-tab-primario: 2px solid var(--cor-primaria);
@@ -41,61 +45,7 @@
     --header-texto: 1.01rem;
 }
 
-/* --- Acessibilidade --- */
-
-/* Estilo global para as tags (pode ser sobrescrito utilizando as classes focus-primario, secundario e terciario */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible, 
-textarea:focus-visible, 
-div:focus-visible {
-  outline: var(--outline-tab-primario);
-}
-
-/* Estilo com outline azul escuro */
-.focus-primario:focus-visible{
-  outline: var(--outline-tab-primario);
-}
-
-/* Estilo com outline branco */
-.focus-secundario:focus-visible{
-  outline: var(--outline-tab-secundario);
-}
-
-/* Estilo com outline preto */
-.focus-terciario:focus-visible{
-  outline: var(--outline-tab-terciario);
-}
-
-/* Sobrescrita do estilo do bootstrap */
-.btn:focus-visible{
-  outline: var(--outline-tab-primario) !important;
-  box-shadow: none !important;
-}
-
-/* --- Estilos do SweetAlert ---  */
-.sweet_popup{
-  padding: 10px; 
-}
-
-.sweet_title{
-  font-size: 1.2rem;
-}
-
-.sweet_btn_success {
-  background-color: var(--cor-terciaria);  
-  color: var(--cor-primaria);              
-  border: none;               
-  padding: 10px 20px;        
-  font-size: 16px;            
-  border-radius: 5px;         
-}
-
-.sweet_btn_success:focus {
-  outline: 2px solid var(--cor-secundaria); 
-  box-shadow: 0 0 5px var(--cor-secundaria); 
-}
-/* Fim dos estilos do SweetAlert */
+/* INICIO PADRÕES */
 
 .rounded{
   border-radius: 20px;
@@ -106,14 +56,111 @@ div:focus-visible {
   background-color: var(--cor-background);
 }
 
-/* --- CSS padrão para cards --- */
+/* --- INICIO ACESSIBILIDADE --- */
+
+/* Estilo global para as tags (pode ser sobrescrito utilizando as classes focus-primario, secundario e terciario */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible, 
+textarea:focus-visible, 
+div:focus-visible {
+  outline: var(--outline-tab-primario) !important;
+}
+
+/* Estilo com outline azul escuro */
+.focus-primario:focus-visible{
+  outline: var(--outline-tab-primario) !important;
+}
+
+/* Estilo com outline branco */
+.focus-secundario:focus-visible{
+  outline: var(--outline-tab-secundario) !important;
+}
+
+/* Estilo com outline preto */
+.focus-terciario:focus-visible{
+  outline: var(--outline-tab-terciario) !important;
+}
+
+/* Sobrescrita do estilo do bootstrap */
+.btn:focus-visible{
+  outline: var(--outline-tab-primario) !important;
+  box-shadow: none !important;
+}
+
+/* INICIO ESTILOS DO MODAL */
+
+.modal-content{
+  background-color: var(--cor-primaria) !important;
+}
+
+.modal-header, .modal-footer {
+  color: var(--cor-fonte-branca);
+}
+
+.modal-header{
+  border-bottom: 0px !important;
+}
+
+.modal-footer{
+  border-top: 0px !important;
+}
+.modal-body{
+  background-color: var(--cor-form-login);
+  border: none !important;
+}
+
+/* INICIO ESTILOS DE LISTAS */
+
+.list-group li{
+    background-color: var(--cor-background) !important;
+    color: var(--cor-primaria);
+    text-align: center;
+    border: 1px solid var(--cor-primaria);
+    cursor: pointer;
+    transition: 0.6s color ease, 0.8s background-color ease, 0.6s transform ease;
+}
+
+.list-group li:hover{
+    background-color: var(--cor-primaria) !important;
+    color: var(--cor-fonte-branca);
+    transform: translateX(2px);
+}
+
+/* --- INICIO ESTILOS DO SWEETALERT ---  */
+.sweet_popup{
+  padding: 10px; 
+}
+
+.sweet_title{
+  font-size: 1.2rem;
+}
+
+.sweet_btn_success {
+  background-color: var(--cor-terciaria) !important;  
+  color: var(--cor-primaria) !important;              
+  border: none;               
+  padding: 10px 20px !important;        
+  font-size: 18px !important;          
+  transition: .4s opacity ease !important;  
+}
+
+.sweet_btn_success:hover {
+  opacity: 0.5 !important
+}
+
+.sweet_btn_success:focus {
+  outline: var(--outline-tab-terciario) !important; 
+  box-shadow: 0 0 5px var(--cor-secundaria) !important; 
+}
+/* Fim dos estilos do SweetAlert */
+
+/* --- INICIO CSS PADRÃO PARA CARDS --- */
 .card, .comentario{
   cursor: pointer;
   border: none;
   transition: 0.6s transform ease, 0.6s opacity ease;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao);
   text-decoration: none;
 }
 
@@ -129,21 +176,34 @@ div:focus-visible {
 }
 
 .card:hover{
-  opacity: 0.85;
-  transform: translateX(6px);
+  opacity: 0.9;
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
+}
+
+.btn-primary, .btn-secondary{
+  transition: 0.4s transform ease, 0.6s opacity ease !important;
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary{
   background-color: var(--cor-quaternaria) !important;
   border-color: var(--cor-quaternaria) !important;
-  transition: 0.6s transform ease, 0.6s opacity ease !important;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
 }
 
-.btn-primary:hover{
-  transform: translateY(6px);
+.btn-secondary{
+  background-color: var(--cor-botao-fechar) !important;
+  border-color: var(--cor-botao-fechar) !important;
+}
+
+.card:hover .btn-primary:hover{
+  transform: translateX(4px);
+  opacity: 0.8;
+}
+
+.btn-primary:hover, .btn-secondary:hover{
+  transform: translateY(-4px);
+  opacity: 0.9;
 }
 
 .btn-primary:active{
@@ -161,9 +221,7 @@ div:focus-visible {
   width: 140px;
   height: 140px;
   border-radius: 10px;
-  -webkit-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  -moz-box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
-  box-shadow: 3px 10px 17px -11px rgba(0,0,0,0.75);
+  box-shadow: var(--box-shadow-padrao)
 }
 
 @media(max-width: 992px){
@@ -173,7 +231,7 @@ div:focus-visible {
   }
 }
 
-/* --- CSS padrão dos Formulários --- */
+/* --- INÍCIO CSS PADRÃO PARA FORMULÁRIOS --- */
 /* Div do formulário */
 .form{
   /* Width e Height devem ser definidos no CSS do componente, dentro dessa classe */
@@ -189,6 +247,7 @@ div:focus-visible {
 
 .form-control, .form-select, .tags-selected{
    background-color:  #dfdddd !important;/* #575757 */
+   border: 1px solid var(--cor-quaternaria) !important;
    border-radius: 10px !important;
    width: 100% !important;
    height: 40px !important;

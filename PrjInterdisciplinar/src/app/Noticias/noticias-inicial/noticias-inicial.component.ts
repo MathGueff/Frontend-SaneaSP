@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { Noticia } from '../../models/noticia';
+import { Noticia } from '../../models/class/noticia';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NoticiasCardComponent } from "../noticias-card/noticias-card.component";
 import { NoticiaService } from '../../Services/noticia.service';
-import { INoticia } from '../../models/noticias.model';
+import { INoticia } from '../../models/interface/INoticias.model';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 
 @Component({
