@@ -2,6 +2,7 @@ import { IEndereco } from '../interface/IEndereco.model';
 import { IUser } from './../interface/IUser.model';
 
 
+
 export class Reclamacao {
   idReclamacao:number = 0;
   tituloReclamao:string = "";

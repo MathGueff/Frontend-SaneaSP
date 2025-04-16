@@ -5,7 +5,6 @@ import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../../models/interface/IUser.model';
 
-
 @Component({
   selector: 'app-reclamacao-card',
   standalone: true,
