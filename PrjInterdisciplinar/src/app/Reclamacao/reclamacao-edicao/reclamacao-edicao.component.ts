@@ -161,8 +161,21 @@ export class ReclamacaoEdicaoComponent implements OnInit {
         })
         if(!this.reclamacao){
           this.vazio = true;
+          this.erro = "Reclamação Inexistente";
+          return;
         }
-        
+        this.form.patchValue({
+          titulo: this.reclamacao.tituloReclamao,
+          descricao: this.reclamacao?.descricaoReclamacao,
+          cep: this.reclamacao.objEndereco?.cep,
+          cidade: this.reclamacao.objEndereco?.cidade,
+          rua: this.reclamacao.objEndereco?.logradouro,
+          bairro: this.reclamacao.objEndereco?.bairro,
+          complemento: this.reclamacao.objEndereco?.complemento,
+          tag: this.reclamacao.objTag,
+          imagem: this.reclamacao.objImagem
+        });
+        console.log(this.reclamacao);
       })
       this.form.controls.cep.valueChanges.subscribe(() => {
         if (
@@ -174,7 +187,6 @@ export class ReclamacaoEdicaoComponent implements OnInit {
           this.resetAddressControls();
         }
       });
-
     }
     searchAddress(cep:string) {
       this.viacepService.getAddress(cep).subscribe({
