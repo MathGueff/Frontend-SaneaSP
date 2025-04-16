@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import e from 'express';
 
 @Component({
@@ -28,9 +29,5 @@ export class DellNoticiaComponent {
       return alert('Notícia Não Encontrada');
     }
     this.idEncontrado = this.listaNoticias.includes(this.idPesquisado);
-  }
-
-  openModal() {
-    
   }
 }
