@@ -83,12 +83,13 @@ export class TagModalComponent {
 
   get FormGroupSelected() {
     // Para Adição, usa formCadastroTag
-    if (this.modalTypeSelected === ModalType.Adicao) {
-      return this.formCadastroTag;
-    }
-    // Para Edição/Exclusão, usa formPesquisaTag (pois precisamos pesquisar primeiro)
-    else if (this.modalTypeSelected === ModalType.Edicao || this.modalTypeSelected === ModalType.Exclusao) {
-      return this.formPesquisaTag;
+    switch (this.modalTypeSelected) {
+      case ModalType.Adicao:
+        return this.formCadastroTag
+      case ModalType.Edicao:
+        return this.formEditTag
+      default:
+        break;
     }
     return this.formCadastroTag; // fallback
   }
@@ -181,7 +182,7 @@ export class TagModalComponent {
     }
     
     this.tagList = this.tagService.getTagsByName(searchInput.value).data || [];
-    this.updateTagFoundTagByInput();
+    this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
 
     if (
       this.tagList.length == 0 &&
@@ -196,7 +197,7 @@ export class TagModalComponent {
   selectTagFromList(nomeSelecionado: string) {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
     const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
-    this.updateTagFoundBySelect(tagName);
+    this.updateTagFound(tagName);
     this.tagList = [];
   }
 
@@ -205,18 +206,7 @@ export class TagModalComponent {
     this.tagFound = undefined;
   }
 
-  updateTagFoundTagByInput() {
-    const tagSearch = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value) 
-
-    console.log(tagSearch.data)
-    tagSearch.data 
-      ? this.tagFound = tagSearch.data 
-      : this.tagFound = undefined
-    
-    this.setSearchFeedback(!tagSearch.error);
-  }
-
-  updateTagFoundBySelect(tagName : string) {
+  updateTagFound(tagName : string){
     const tagSearch = this.tagService.getTagByName(tagName)
     tagSearch.data 
       ? this.tagFound = tagSearch.data 
@@ -226,7 +216,7 @@ export class TagModalComponent {
 
   setSearchFeedback(found: boolean) {
     this.searchFeedback = {
-      message: found ? 'Tag encontrada!' : 'Nenhuma tag encontrada!',
+      message: found ? 'Tag encontrada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
       imagePath: found 
         ? 'assets/icones/operacoes/icon_black_success.svg' 
         : 'assets/icones/operacoes/icon_black_error.svg'

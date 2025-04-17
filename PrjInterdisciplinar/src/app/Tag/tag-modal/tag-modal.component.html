@@ -24,7 +24,7 @@
             @if (modalTypeSelected == modalTypes.Adicao) {
             <app-form-field
               #formField
-              [formGroup]="formPesquisaTag"
+              [formGroup]="formCadastroTag"
               formName="form-cadastro-tag"
               controlName="nomeNovaTag"
               icon="assets/formularios/tag_icon.svg"
@@ -42,7 +42,7 @@
             modalTypeSelected == modalTypes.Edicao) 
             {
               <app-form-field
-                [formGroup]="FormGroupSelected"
+                [formGroup]="formPesquisaTag"
                 formName="form-edit-tag"
                 controlName="nomePesquisaTag"
                 icon="assets/formularios/tag_icon.svg"
