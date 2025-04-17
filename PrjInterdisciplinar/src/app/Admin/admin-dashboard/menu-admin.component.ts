@@ -125,14 +125,14 @@ export class MenuAdminComponent {
       {
         type: 'modal',
         nomeModal: 'editarTagReclamacaoModal',
-        tipoModal: ModalType.PesquisaEdicao,
+        tipoModal: ModalType.Edicao,
         nome: 'Editar uma tag para os usuários',
         img: 'assets/icones/icon_edit_white.svg',
       },
       {
         type: 'modal',
         nomeModal: 'excluirTagReclamacaoModal',
-        tipoModal: ModalType.PesquisaExclusao,
+        tipoModal: ModalType.Exclusao,
         nome: 'Excluir uma tag para os usuários',
         img: 'assets/icones/icon_delete_white.svg',
       },
