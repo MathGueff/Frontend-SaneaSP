@@ -33,6 +33,19 @@ export class TagModalComponent {
   private tagService = inject(TagService);
   private sweetAlert = inject(SweetAlertService);
 
+  //=== FORMS  ==============================
+  protected formCadastroTag = this.fb.group({
+    nomeNovaTag: ['', [Validators.required, Validators.minLength(2)]],
+  });
+
+  protected formPesquisaTag = this.fb.group({
+    nomePesquisaTag: ['', Validators.required],
+  });
+
+  protected formEditTag = this.fb.group({
+    nomeEditTag: ['', Validators.required],
+  });
+
   // === ENUMS  ==============================
   formValidatorsEnum = FormValidatorEnum;
   modalTypes = ModalType;
@@ -56,60 +69,37 @@ export class TagModalComponent {
         title: 'Cadastre uma nova tag',
         buttonText: 'Salvar tag',
       },
-      [ModalType.PesquisaEdicao]: {
-        title: 'Pesquise por uma tag para editar',
-        buttonText: 'Editar',
-      },
-      [ModalType.PesquisaExclusao]: {
-        title: 'Pesquise por uma tag para excluir',
-        buttonText: 'Excluir',
-      },
       [ModalType.Edicao]: {
         title: 'Edite a tag',
         buttonText: 'Confirmar edição',
       },
       [ModalType.Exclusao]: {
-        title: 'Confirmar exclusão',
-        buttonText: 'Confirmar exclusão',
+        title: 'Excluir a tag',
+        buttonText: 'Excluir',
       },
     };
-
     return modalInfoMap[this.modalTypeSelected] || modalInfoMap[ModalType.None];
   }
 
   get FormGroupSelected() {
-    const fromGroupsMap: Record<ModalType, FormGroup> | undefined = {
-      [ModalType.None]: this.formCadastroTag,
-      [ModalType.Adicao]: this.formCadastroTag,
-      [ModalType.PesquisaEdicao]: this.formPesquisaTag,
-      [ModalType.PesquisaExclusao]: this.formPesquisaTag,
-      [ModalType.Edicao]: this.formCadastroTag,
-      [ModalType.Exclusao]: this.formCadastroTag,
-    };
-
-    return fromGroupsMap[this.modalTypeSelected] || fromGroupsMap[ModalType.None];
+    // Para Adição, usa formCadastroTag
+    if (this.modalTypeSelected === ModalType.Adicao) {
+      return this.formCadastroTag;
+    }
+    // Para Edição/Exclusão, usa formPesquisaTag (pois precisamos pesquisar primeiro)
+    else if (this.modalTypeSelected === ModalType.Edicao || this.modalTypeSelected === ModalType.Exclusao) {
+      return this.formPesquisaTag;
+    }
+    return this.formCadastroTag; // fallback
   }
 
   //=== VIEW CHILDREN  ==============================
-  @ViewChild('botaoChamarModalEdicaoExclusao')
-  botaoChamarModalEdicaoExclusao!: ElementRef;
-  @ViewChild('botaoChamarModalAdicaoPesquisa')
-  botaoChamarModalAdicaoPesquisa!: ElementRef;
+  @ViewChild('botaoChamarModal')
+  botaoChamarModalRef!: ElementRef;
   @ViewChild('botaoFecharModal')
-  botaoFecharModal!: ElementRef;
-  @ViewChild('modalTagEdicaoExclusao') modalTagEdicaoExclusaoRef =
+  botaoFecharModalRef!: ElementRef;
+  @ViewChild('modalTag') modalTagRef =
     {} as ElementRef;
-  @ViewChild('modalTagAdicaoPesquisa') modalTagAdicaoPesquisaRef =
-    {} as ElementRef;
-
-  //=== FORMS  ==============================
-  protected formCadastroTag = this.fb.group({
-    nomeNovaTag: ['', [Validators.required, Validators.minLength(2)]],
-  });
-
-  protected formPesquisaTag = this.fb.group({
-    nomePesquisaTag: ['', Validators.required],
-  });
 
   //=== MODAL ACTIONS  ==============================
   onSubmit() {
@@ -117,17 +107,11 @@ export class TagModalComponent {
       case ModalType.Adicao:
         this.handleTagCreation();
         break;
-      case ModalType.PesquisaEdicao:
-        this.handleTagSearch(ModalType.Edicao);
-        break;
-      case ModalType.PesquisaExclusao:
-        this.handleTagSearch(ModalType.Exclusao);
-        break;
       case ModalType.Edicao:
-        //this.handleTagEdit();
+        this.handleTagEdit();
         break;
       case ModalType.Exclusao:
-        //this.handleTagDeletion();
+        this.handleTagDelete();
         break;
     }
   }
@@ -153,19 +137,38 @@ export class TagModalComponent {
   }
 
   //Quando o botão de Editar ou Excluir é pressionado
-  handleTagSearch(nextModalType: ModalType) {
+  handleTagEdit() {
     if (this.formPesquisaTag.invalid) return;
-
-    if (this.tagFound != undefined) {
-      this.botaoChamarModalEdicaoExclusao.nativeElement.click();
-      this.modalTypeSelected = nextModalType;
-      return;
+  
+    if (this.tagFound) {
+      if(this.formEditTag.invalid){
+        this.showMessageAlert({
+          message: 'Especifique o novo nome',
+          error: true,
+        });
+        return
+      }
+      const updatedTag = {
+        id: this.tagFound.id,
+        nome : this.formEditTag.controls.nomeEditTag.value
+      }
+      const result : IResponse = this.tagService.editTag(this.tagFound.id, updatedTag)
+      if(!result.error){
+        this.formEditTag.reset()
+        this.formPesquisaTag.reset()
+        this.tagFound = undefined
+        this.tagList = this.tagService.getTagsList() || []
+      }
+      this.showMessageAlert(result)
+    } else {
+      this.showMessageAlert({
+        message: 'Nenhuma tag foi encontrada com esse nome',
+        error: true,
+      });
     }
+  }
 
-    this.showMessageAlert({
-      message: 'Nenhuma tag foi encontrada com esse nome',
-      error: true,
-    });
+  handleTagDelete(){
   }
 
   //Quando uma tag é digitada em um campo nos modais de
@@ -178,7 +181,7 @@ export class TagModalComponent {
     }
     
     this.tagList = this.tagService.getTagsByName(searchInput.value).data || [];
-    this.updateFoundTag();
+    this.updateTagFoundTagByInput();
 
     if (
       this.tagList.length == 0 &&
@@ -193,7 +196,7 @@ export class TagModalComponent {
   selectTagFromList(nomeSelecionado: string) {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
     const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
-    this.setFoundTag(tagName);
+    this.updateTagFoundBySelect(tagName);
     this.tagList = [];
   }
 
@@ -202,7 +205,7 @@ export class TagModalComponent {
     this.tagFound = undefined;
   }
 
-  updateFoundTag() {
+  updateTagFoundTagByInput() {
     const tagSearch = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value) 
 
     console.log(tagSearch.data)
@@ -210,14 +213,15 @@ export class TagModalComponent {
       ? this.tagFound = tagSearch.data 
       : this.tagFound = undefined
     
-    if (this.tagFound) {
-      this.setSearchFeedback(true);
-    }
+    this.setSearchFeedback(!tagSearch.error);
   }
 
-  setFoundTag(tagName : string) {
-    this.tagFound = this.tagService.getTagByName(tagName)?.data
-    this.setSearchFeedback(true);
+  updateTagFoundBySelect(tagName : string) {
+    const tagSearch = this.tagService.getTagByName(tagName)
+    tagSearch.data 
+      ? this.tagFound = tagSearch.data 
+      : this.tagFound = undefined
+    this.setSearchFeedback(!tagSearch.error);
   }
 
   setSearchFeedback(found: boolean) {
@@ -243,12 +247,12 @@ export class TagModalComponent {
 
   //=== MODAL  ==============================
   closeModal() {
-    //Chamada para botão de fechar modal
-    this.botaoFecharModal.nativeElement.click();
+    //Chamada para botão de fechar modal (usado para interação entre modal e sweetAlert)
+    this.botaoFecharModalRef.nativeElement.click();
   }
 
   OpenModal() {
-    //Chamada para botão de chamar modal
-    this.botaoChamarModalAdicaoPesquisa.nativeElement.click();
+    //Chamada para botão de chamar modal (usado para interação entre modal e sweetAlert)
+    this.botaoChamarModalRef.nativeElement.click();
   }
 }
