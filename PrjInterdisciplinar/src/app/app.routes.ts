@@ -48,11 +48,12 @@ export const routes: Routes = [
   {path: 'noticia-detalhe', component:NoticiasDetalhesComponent},
   {path: 'noticia-detalhe/:id', component:NoticiasDetalhesComponent},
   {path: 'noticia-form', component: FormNoticiaComponent},
+  {path: 'dell-noticia', component: DellNoticiaComponent},
 
   //Tags
   {path: 'tag-tabela', component: TagTabelaComponent},
 
-  {path: 'dell-noticia', component: DellNoticiaComponent},
+  //{path: 'dell-noticia', component: DellNoticiaComponent},
   {path: 'up-noticia/', component: UpNoticiaComponent},
 
   //Outros
