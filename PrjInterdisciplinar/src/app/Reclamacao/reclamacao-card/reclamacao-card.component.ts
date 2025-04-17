@@ -3,7 +3,6 @@ import { Reclamacao } from '../../models/class/reclamacao';
 import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 import { IUser } from '../../models/interface/IUser.model';
 
 @Component({
