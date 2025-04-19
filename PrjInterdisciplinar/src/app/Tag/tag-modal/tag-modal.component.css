@@ -11,3 +11,8 @@
 .btn:focus-visible {
     outline: var(--outline-tab-secundario) !important;
 }
+
+.search-feedback-container img{
+    width: 20px;
+    height: 20px;
+}

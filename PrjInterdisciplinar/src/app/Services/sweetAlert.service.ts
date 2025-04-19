@@ -37,6 +37,7 @@ export class SweetAlertService {
       color: '#e8e3e3',
       confirmButtonText: 'Excluir',
       denyButtonText: `Cancelar`,
+      reverseButtons: true,
       customClass: {
         confirmButton: 'sweet_btn_success',
         title : 'sweet_title',

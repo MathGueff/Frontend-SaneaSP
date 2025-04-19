@@ -59,7 +59,7 @@
                 && tagList.length == 0 
                 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0))
               {
-                <div class="d-flex w-100 text-center justify-content-center mt-2">
+                <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
                   <img src="{{ searchFeedback.imagePath }}" alt="" />
                   <span>{{ searchFeedback.message }} </span>
                 </div>
@@ -78,8 +78,14 @@
                   }
                 </ul>
               } 
+              @else if (tagList.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
+                <hr>
+                <div class="d-flex justify-content-center align-items-center text-center">
+                  <span>Nenhuma tag criada. Para começar a pesquisar, cadastre uma tag</span>
+                </div>
+              }
 
-              @if(tagFound){
+              @if(tagFound && FormGroupSelected == formEditTag){
                 <hr>
                 <app-form-field
                 [formGroup]="formEditTag"

@@ -31,8 +31,8 @@ export class TagModalComponent {
 
   // === INJECTIONS  ==============================
   private fb = inject(NonNullableFormBuilder);
-  private tagService = inject(TagService);
-  private sweetAlert = inject(SweetAlertService);
+  protected tagService = inject(TagService);
+  private sweetAlertService = inject(SweetAlertService);
   private toastService = inject(ToastService)
 
   //=== FORMS  ==============================
@@ -155,17 +155,35 @@ export class TagModalComponent {
       const result : IResponse = this.tagService.editTag(this.tagFound.id, updatedTag)
       if(!result.error){
         this.formEditTag.reset()
-        this.formPesquisaTag.reset()
-        this.tagFound = undefined
-        this.tagList = this.tagService.getTagsList() || []
+        this.resetSearchForm()
       }
       this.toastService.show(result)
     } else {
-      this.toastService.show({message: 'Nenhuma tag foi encontrada com esse nome', error: true })
+      this.toastService.show({message: 'Nenhuma tag foi encontrada', error: true })
     }
   }
 
   handleTagDelete(){
+    if(this.formPesquisaTag.invalid) return;
+
+    if(this.tagFound){
+      this.showDeleteConfirmation(`Deseja deletar a tag ${this.tagFound.nome}?`);
+    }
+    else{
+      this.toastService.show({
+        message : "Nenhuma tag foi encontrada",
+        error : true
+      })
+    }
+  }
+
+  handleTagConfirmationDelete(){
+    if(this.tagFound == undefined) 
+      return
+    const result = this.tagService.deleteTag(this.tagFound.id)
+    if(!result.error) 
+      this.resetSearchForm();
+    this.toastService.show(result);
   }
 
   //Quando uma tag é digitada em um campo nos modais de
@@ -190,16 +208,24 @@ export class TagModalComponent {
   }
 
   //=== SEARCH METHODS  ==============================
+  
+  //Limpa o objeto com a tag encontrada e redefine a lista de tags visiveis
+  resetSearch() {
+    this.tagList = this.tagService.getTagsList() || [];
+    this.tagFound = undefined;
+  }
+
+  //Utiliza o resetSearch e reseta o formulário
+  resetSearchForm(){
+    this.formPesquisaTag.reset()
+    this.resetSearch();
+  }
+
   selectTagFromList(nomeSelecionado: string) {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
     const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
     this.updateTagFound(tagName);
     this.tagList = [];
-  }
-
-  resetSearch() {
-    this.tagList = this.tagService.getTagsList();
-    this.tagFound = undefined;
   }
 
   updateTagFound(tagName : string){
@@ -220,14 +246,15 @@ export class TagModalComponent {
   }
 
   //=== SWEETALERT  ==============================
-  showMessageAlert(response: IResponse) {
+  showDeleteConfirmation(message: string) {
     this.closeModal();
-    this.sweetAlert
-      .showMessage(response.message, response.error)
+    this.sweetAlertService
+      .confirmExclusion(message)
       .then((result) => {
-        if (result.dismiss || result.isConfirmed) {
-          this.OpenModal();
+        if (result) {
+          this.handleTagConfirmationDelete();
         }
+        this.OpenModal();
       });
   }
 
