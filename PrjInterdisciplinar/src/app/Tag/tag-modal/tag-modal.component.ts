@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, ElementRef, HostListener, inject, Input, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
 import {
-  FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators,
@@ -15,11 +14,13 @@ import { ITag } from '../../models/interface/ITag.model';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { ISearchFeedback } from '../../models/interface/ISearchFeedback.model';
 import { IResponse } from '../../models/interface/IResponse.model';
+import { ToastComponent } from "../../Common/toast/toast.component";
+import { ToastService } from '../../Services/toast.service';
 
 @Component({
   selector: 'app-tag-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent, ToastComponent],
   templateUrl: './tag-modal.component.html',
   styleUrl: './tag-modal.component.css',
 })
@@ -32,6 +33,7 @@ export class TagModalComponent {
   private fb = inject(NonNullableFormBuilder);
   private tagService = inject(TagService);
   private sweetAlert = inject(SweetAlertService);
+  private toastService = inject(ToastService)
 
   //=== FORMS  ==============================
   protected formCadastroTag = this.fb.group({
@@ -127,12 +129,9 @@ export class TagModalComponent {
     };
 
     const result = this.tagService.createNewTag(newTag);
-
-    this.showMessageAlert({ 
-      message: result.message, 
-      error: result.error 
-    });
     
+    this.toastService.show(result)
+
     if(!result.error)
       this.formCadastroTag.reset();
   }
@@ -143,10 +142,8 @@ export class TagModalComponent {
   
     if (this.tagFound) {
       if(this.formEditTag.invalid){
-        this.showMessageAlert({
-          message: 'Especifique o novo nome',
-          error: true,
-        });
+        this.toastService.show({ message: 'O novo nome da tag não foi informado',
+          error: true,})
         return
       }
       const updatedTag = {
@@ -160,12 +157,9 @@ export class TagModalComponent {
         this.tagFound = undefined
         this.tagList = this.tagService.getTagsList() || []
       }
-      this.showMessageAlert(result)
+      this.toastService.show(result)
     } else {
-      this.showMessageAlert({
-        message: 'Nenhuma tag foi encontrada com esse nome',
-        error: true,
-      });
+      this.toastService.show({message: 'Nenhuma tag foi encontrada com esse nome', error: true })
     }
   }
 
@@ -218,8 +212,8 @@ export class TagModalComponent {
     this.searchFeedback = {
       message: found ? 'Tag encontrada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
       imagePath: found 
-        ? 'assets/icones/operacoes/icon_black_success.svg' 
-        : 'assets/icones/operacoes/icon_black_error.svg'
+        ? 'assets/icones/operacoes/black/icon_success.svg' 
+        : 'assets/icones/operacoes/black/icon_error.svg'
     };
   }
 
