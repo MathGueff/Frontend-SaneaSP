@@ -16,7 +16,6 @@ import { NoticiasDetalhesComponent } from './Noticias/noticias-detalhes/noticias
 import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.component';
 import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
 import { FormNoticiaComponent } from './Noticias/form-noticia/form-noticia.component';
-import { MenuDashboardComponent } from './Admin/menu-dashboard/menu-dashboard/menu-dashboard.component';
 import { ReclamacaoUsuariosComponent } from './Reclamacao/reclamacao-usuarios/reclamacao-usuarios.component';
 import { ReclamacaoEdicaoComponent } from './Reclamacao/reclamacao-edicao/reclamacao-edicao.component';
 import { TagTabelaComponent } from './Tag/tag-tabela/tag-tabela.component';

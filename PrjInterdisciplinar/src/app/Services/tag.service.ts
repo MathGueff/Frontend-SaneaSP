@@ -64,7 +64,6 @@ export class TagService {
 
   //POST
   createNewTag(tag: ITag) : IResponse {
-    tag.nome = tag.nome.trim().toLowerCase()
     if(this.tagWithNameExists(tag.nome)){
       return {error : true, message : 'Já existe uma tag com esse nome'}
     }
