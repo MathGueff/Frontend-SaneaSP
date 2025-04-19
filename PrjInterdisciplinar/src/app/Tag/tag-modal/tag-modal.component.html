@@ -90,7 +90,7 @@
                 placeholder="Digite o novo nome da tag"
                 fieldType="input"
                 [required]="true"
-                [validators]="[formValidatorsEnum.Required]"
+                [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
               ></app-form-field>
               }
             }

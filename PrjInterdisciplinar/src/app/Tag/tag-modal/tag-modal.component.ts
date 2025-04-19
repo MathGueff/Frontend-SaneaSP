@@ -45,7 +45,7 @@ export class TagModalComponent {
   });
 
   protected formEditTag = this.fb.group({
-    nomeEditTag: ['', Validators.required],
+    nomeEditTag: ['', [Validators.required, Validators.minLength(2)]],
   });
 
   // === ENUMS  ==============================
@@ -142,8 +142,10 @@ export class TagModalComponent {
   
     if (this.tagFound) {
       if(this.formEditTag.invalid){
-        this.toastService.show({ message: 'O novo nome da tag não foi informado',
-          error: true,})
+        this.toastService.show({ 
+          message: this.formEditTag.controls.nomeEditTag.valid ? 'O novo nome da tag não foi informado' : 'A tag deve ser maior que 1 caracter',
+          error: true,
+        })
         return
       }
       const updatedTag = {
