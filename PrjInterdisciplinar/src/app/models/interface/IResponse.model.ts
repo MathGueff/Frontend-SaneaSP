@@ -1,4 +1,4 @@
-export interface IOperationResult<T = void>{
+export interface IResponse<T = void>{
     message : string,
     error : boolean,
     data ?: T

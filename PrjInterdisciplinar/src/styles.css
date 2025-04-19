@@ -15,6 +15,10 @@
     --cor-terciaria: #D9D9D9;
     --cor-quaternaria: #0B6D8F;
 
+    /* Cores de icones */
+    --cor-icone-verde: #71FF87;
+    --cor-icone-vermelho: #FF877E;
+
     /* Cores de componentes */
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
