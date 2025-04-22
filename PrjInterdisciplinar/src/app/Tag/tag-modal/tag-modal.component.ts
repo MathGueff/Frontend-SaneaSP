@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
 import {
@@ -13,9 +13,11 @@ import { TagService } from '../../Services/tag.service';
 import { ITag } from '../../models/interface/ITag.model';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { ISearchFeedback } from '../../models/interface/ISearchFeedback.model';
-import { IResponse } from '../../models/interface/IResponse.model';
 import { ToastComponent } from "../../Common/toast/toast.component";
 import { ToastService } from '../../Services/toast.service';
+import { Observable, of } from 'rxjs';
+import { IResponse } from '../../models/interface/IResponse.model';
+import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 
 @Component({
   selector: 'app-tag-modal',
@@ -24,7 +26,7 @@ import { ToastService } from '../../Services/toast.service';
   templateUrl: './tag-modal.component.html',
   styleUrl: './tag-modal.component.css',
 })
-export class TagModalComponent {
+export class TagModalComponent implements OnInit{
   // === INPUTS ==============================
   @Input() modalId!: string;
   @Input() modalTypeSelected!: ModalType;
@@ -57,8 +59,13 @@ export class TagModalComponent {
     message: '',
     imagePath: '',
   };
-  protected tagList: ITag[] = this.tagService.getTagsList();
+
+  protected tagList$ : Observable<any> = of([]);
   protected tagFound: ITag | undefined;
+  
+  ngOnInit(): void {
+    this.tagList$ = this.tagService.getTagsList()
+  }
 
   // === GETTERS  ==============================
   get ModalInfo(): IModalTagInfos {
@@ -123,17 +130,20 @@ export class TagModalComponent {
   handleTagCreation() {
     if (this.formCadastroTag.invalid) return;
 
-    const newTag: ITag = {
-      id: 0,
+    const newTag: ITagCadastro = {
       nome: this.formCadastroTag.controls.nomeNovaTag.value,
     };
 
-    const result = this.tagService.createNewTag(newTag);
-    
-    this.toastService.show(result)
-
-    if(!result.error)
-      this.formCadastroTag.reset();
+    this.tagService.createNewTag(newTag).subscribe({
+      next: (response) => {
+        this.toastService.show(response)
+        if(!response.error)
+          this.formCadastroTag.reset();
+      },
+      error: (err) => {
+        this.toastService.show(err.error)
+      }
+    });
   }
 
   //Quando o botão de Editar ou Excluir é pressionado
@@ -143,24 +153,31 @@ export class TagModalComponent {
     if (this.tagFound) {
       if(this.formEditTag.invalid){
         this.toastService.show({ 
-          message: this.formEditTag.controls.nomeEditTag.valid ? 'O novo nome da tag não foi informado' : 'A tag deve ser maior que 1 caracter',
+          message: this.formEditTag.controls.nomeEditTag.value.length == 0 ? 'Digite o novo nome para a tag' : 'O nome da tag deve ser maior',
           error: true,
         })
         return
       }
+
       const updatedTag = {
         id: this.tagFound.id,
         nome : this.formEditTag.controls.nomeEditTag.value
       }
-      const result : IResponse = this.tagService.editTag(this.tagFound.id, updatedTag)
-      if(!result.error){
-        this.formEditTag.reset()
-        this.resetSearchForm()
-      }
-      this.toastService.show(result)
-    } else {
-      this.toastService.show({message: 'Nenhuma tag foi encontrada', error: true })
-    }
+
+      this.tagService.editTag(this.tagFound.id, updatedTag).subscribe({
+        next: (response) => {
+          this.toastService.show(response)
+          if(!response.error){
+            this.formEditTag.reset()
+            this.resetSearchForm()
+          }
+        },
+        error: (err) =>{
+          this.toastService.show(err.error)
+        }
+      })
+     
+    } 
   }
 
   handleTagDelete(){
@@ -180,13 +197,20 @@ export class TagModalComponent {
   handleTagConfirmationDelete(){
     if(this.tagFound == undefined) 
       return
-    const result = this.tagService.deleteTag(this.tagFound.id)
-    if(!result.error) 
-      this.resetSearchForm();
-    this.toastService.show(result);
+    this.tagService.deleteTag(this.tagFound.id).subscribe({
+      next: (response) => {
+        this.toastService.show(response);
+        if(!response.error) 
+          this.resetSearchForm();
+      },
+      error : (err) => {
+        this.toastService.show(err);
+      }
+    })
+    
   }
 
-  //Quando uma tag é digitada em um campo nos modais de
+  //Quando uma tag é digitada em um campo nos modais de pesquisa
   onInputTag() {
     const searchInput = this.formPesquisaTag.controls.nomePesquisaTag;
 
@@ -195,24 +219,30 @@ export class TagModalComponent {
       return;
     }
     
-    this.tagList = this.tagService.getTagsByName(searchInput.value).data || [];
-    this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
+    // Faz a busca e atualiza a lista de tags
+    this.tagService.getTagsList(searchInput.value).subscribe(tags => {
+      // Atualiza o Observable tagList$ com as novas tags
+      this.tagList$ = of(tags || []);
+      //this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
+      this.tagFound = undefined;
 
-    if (
-      this.tagList.length == 0 &&
-      this.tagFound == undefined &&
-      searchInput.value.length != 0
-    ) {
-      this.setSearchFeedback(false);
-    }
+      if (
+        tags.length == 0 &&
+        searchInput.value.length != 0
+      ) {
+        this.setSearchFeedback(true);
+      }
+    });
   }
 
   //=== SEARCH METHODS  ==============================
   
   //Limpa o objeto com a tag encontrada e redefine a lista de tags visiveis
   resetSearch() {
-    this.tagList = this.tagService.getTagsList() || [];
-    this.tagFound = undefined;
+    this.tagService.getTagsList().subscribe(tags => {
+      this.tagList$ =  of(tags || [])
+      this.tagFound = undefined;
+    })
   }
 
   //Utiliza o resetSearch e reseta o formulário
@@ -225,21 +255,26 @@ export class TagModalComponent {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
     const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
     this.updateTagFound(tagName);
-    this.tagList = [];
+    this.tagList$ = of([])
   }
 
   updateTagFound(tagName : string){
-    const tagSearch = this.tagService.getTagByName(tagName)
-    tagSearch.data 
-      ? this.tagFound = tagSearch.data 
-      : this.tagFound = undefined
-    this.setSearchFeedback(!tagSearch.error);
+    this.tagService.getTagByName(tagName).subscribe({
+      next : (response) => {
+        this.tagFound = response.data
+        this.setSearchFeedback(response.error);
+      },
+      error: (err) => {
+        this.tagFound = undefined
+        this.setSearchFeedback(err.error);
+      }
+    })
   }
 
-  setSearchFeedback(found: boolean) {
+  setSearchFeedback(error: boolean) {
     this.searchFeedback = {
-      message: found ? 'Tag encontrada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
-      imagePath: found 
+      message: !error ? 'Tag encontrada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
+      imagePath: !error 
         ? 'assets/icones/operacoes/black/icon_success.svg' 
         : 'assets/icones/operacoes/black/icon_error.svg'
     };
