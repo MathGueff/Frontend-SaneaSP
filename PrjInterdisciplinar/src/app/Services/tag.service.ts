@@ -3,8 +3,9 @@ import { ITag } from '../models/interface/ITag.model';
 import { ITagNoticia } from '../models/interface/ITagNoticia.model';
 import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
 import { IResponse } from '../models/interface/IResponse.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ITagCadastro } from '../models/interface/ITagCadastro.model';
+import { ITagListFilter } from '../models/interface/ITagListFilter.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -25,6 +26,20 @@ export class TagService {
     { id: 1, idReclamacao: 1, idTag: 1 }, //Esgoto
     { id: 2, idReclamacao: 2, idTag: 2 }, //Poluição
   ];
+  
+  //GET
+  getTagsList(filters ?: ITagListFilter) {
+    let params = new HttpParams();
+    if(filters){
+      Object.entries(filters).forEach(([key, value]) => {
+        if(value != undefined && value != null){
+          params = params.set(key,value)
+        }
+      });
+    }
+    const url =`http://localhost:3000/tag`
+    return this.httpClient.get<ITag[]>(url,{params})
+  }
 
   /**
    * 
@@ -40,11 +55,6 @@ export class TagService {
     return this.httpClient.get<ITag>(`http://localhost:3000/tag${id}`)
   }
 
-  //GET
-  getTagsList(queryName ?: string) {
-    const url =`http://localhost:3000/tag${queryName!=null ? '?nome='+queryName : ''}`
-    return this.httpClient.get<ITag[]>(url)
-  }
 
   //POST
   createNewTag(newTag: ITagCadastro) {
