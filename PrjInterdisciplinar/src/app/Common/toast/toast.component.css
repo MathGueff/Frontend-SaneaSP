@@ -6,7 +6,7 @@
 }
 
 .toast{
-  width: 400px;
+  width: 350px;
   height: 70px;
   background-color: var(--cor-primaria);
   color: var(--cor-fonte-branca);
@@ -16,9 +16,15 @@
   position: relative;
   transform: translateX(100%);
   overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
   animation: moveleft 0.35s linear forwards, 
   opacityReduce 2s linear 1s forwards,
   dismiss 0.6s linear 2.4s forwards
+}
+
+.toast:hover{
+  background-color: #3e7baa;
 }
 
 .toast-success::after, .toast-error::after{
