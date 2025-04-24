@@ -3,9 +3,15 @@ import { ITag } from '../models/interface/ITag.model';
 import { ITagNoticia } from '../models/interface/ITagNoticia.model';
 import { ITagReclamacao } from '../models/interface/ITagReclamacao.model';
 import { IResponse } from '../models/interface/IResponse.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ITagCadastro } from '../models/interface/ITagCadastro.model';
+import { ITagListFilter } from '../models/interface/ITagListFilter.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
+
+  constructor(private httpClient : HttpClient) {}
+
   private tags: ITag[] = [
     { id: 1, nome: 'Esgoto' },
     { id: 2, nome: 'Poluição' },
@@ -20,80 +26,49 @@ export class TagService {
     { id: 1, idReclamacao: 1, idTag: 1 }, //Esgoto
     { id: 2, idReclamacao: 2, idTag: 2 }, //Poluição
   ];
-
-  // GET?name=
-  getTagsByName(nomeFilter: string): IResponse<ITag[]> {
-    nomeFilter = nomeFilter.toLowerCase().trim();
-    const tags = this.tags.filter((tag) =>
-      tag.nome.toLowerCase().trim().includes(nomeFilter)
-    );
-    if(tags.length === 0){
-      return {error:true, message:'Nenhuma tag encontrada'}
+  
+  //GET
+  getTagsList(filters ?: ITagListFilter) {
+    let params = new HttpParams();
+    if(filters){
+      Object.entries(filters).forEach(([key, value]) => {
+        if(value != undefined && value != null){
+          params = params.set(key,value)
+        }
+      });
     }
-    return {error:false, message:'Tags encontradas', data : tags}
+    const url =`http://localhost:3000/tag`
+    return this.httpClient.get<ITag[]>(url,{params})
   }
+
   /**
    * 
    * @param nomeFilter 
    * @returns tag com o nome exato
    */
-  getTagByName(nomeFilter: string): IResponse<ITag> {
-    const tagFound = this.tags.find((tag) => tag.nome.trim().toLowerCase() === nomeFilter.trim().toLowerCase());
-    return tagFound != undefined 
-      ? {error : false, message : 'Tag encontrada', data : tagFound} 
-      : {error : true, message : 'Tag não encontrada'} 
+  getTagByName(nameFilter: string){
+    return this.httpClient.get<IResponse<ITag>>(`http://localhost:3000/tag/nome/${nameFilter}`)
   }
 
   //GET/:id
-  getTagById(id: number): IResponse<ITag> {
-    const tagById = this.tags.find((tag) => tag.id === id);
-    if(tagById == undefined)
-      return {error : true, message : 'Nenhuma tag encontrada com o ID'}
-    return {error : false, message : 'Tag encontrada', data : tagById}
+  getTagById(id: number){
+    return this.httpClient.get<ITag>(`http://localhost:3000/tag${id}`)
   }
 
-  //Retorna o último ID cadastrado, caso não haja, retorna 1
-  getNextId() {
-    return this.tags.length > 0 ? Math.max(...this.tags.map(tag => tag.id)) + 1 : 1
-  }
-
-  //GET
-  getTagsList(): ITag[] {
-    return this.tags;
-  }
 
   //POST
-  createNewTag(tag: ITag) : IResponse {
-    if(this.tagWithNameExists(tag.nome)){
-      return {error : true, message : 'Já existe uma tag com esse nome'}
-    }
-    tag.id = this.getNextId();
-    this.tags.push(tag);
-    return {error : false, message : 'Tag cadastrada com sucesso'}
+  createNewTag(newTag: ITagCadastro) {
+    return this.httpClient.post<IResponse<ITag[]>>(`http://localhost:3000/tag`, newTag)
   }
 
   //DELETE
-  deleteTag(idFilter: number): IResponse {
-    const index = this.tags.findIndex((tag) => tag.id === idFilter);
-    if (index == -1) 
-        return {error : true, message : 'Nenhuma tag encontrada'};
-    this.tags.splice(index, 1);
-    return {error : false, message : 'Tag removida'};
+  deleteTag(idTag: number){
+    return this.httpClient.delete<IResponse<ITag[]>>(`http://localhost:3000/tag/${idTag}`)
   }
 
   //PUT
-  editTag(idFilter: number, updatedTag: ITag): IResponse {
-    //Verificação de existência
-    const index = this.tags.findIndex((tag) => tag.id === idFilter);
-    if (index == -1) 
-        return {error:true, message:'Nenhuma tag encontrada'};
-
-    //Nomes duplicados
-    if(this.tagWithNameExists(updatedTag.nome))
-        return {error:true, message:'Já existe uma tag com o nome'}
-
-    this.tags[index] = { id: idFilter, nome: updatedTag.nome };
-    return {error:false, message:'Tag atualizada com sucesso'};
+  editTag(idTag: number, updatedTag: ITag) {
+    return this.httpClient.put<IResponse<ITag[]>>(`http://localhost:3000/tag/${idTag}`, updatedTag)
   }
 
   //Verificação para evitar duplicidade de nomes e existencia de tag

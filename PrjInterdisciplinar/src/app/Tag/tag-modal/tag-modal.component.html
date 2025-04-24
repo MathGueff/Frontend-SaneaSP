@@ -56,7 +56,7 @@
 
               @if(tagFound != undefined 
                 || (tagFound == undefined 
-                && tagList.length == 0 
+                && (tagList$ | async)?.length == 0 
                 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0))
               {
                 <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
@@ -64,11 +64,11 @@
                   <span>{{ searchFeedback.message }} </span>
                 </div>
               } 
-              @if(tagList.length > 0 && tagFound == undefined){
+              @if((tagList$ | async)?.length > 0 && tagFound == undefined){
                 <hr />
                 <span>Tags Sugeridas:</span>
                 <ul class="list-group tag-list m-2">
-                  @for (tagPesquisa of tagList; track $index) {
+                  @for (tagPesquisa of (tagList$ | async); track $index) {
                   <li
                     (click)="selectTagFromList(tagPesquisa.nome)"
                     class="list-group-item"
@@ -78,7 +78,7 @@
                   }
                 </ul>
               } 
-              @else if (tagList.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
+              @else if ((tagList$ | async)?.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
                 <hr>
                 <div class="d-flex justify-content-center align-items-center text-center">
                   <span>Nenhuma tag criada. Para começar a pesquisar, cadastre uma tag</span>
