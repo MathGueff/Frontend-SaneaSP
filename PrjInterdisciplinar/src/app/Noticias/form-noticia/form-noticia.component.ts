@@ -52,7 +52,7 @@ export class FormNoticiaComponent {
   inputs: IFieldForm[] = [
     {
       controlName: 'titulo_noticia',
-      icon: 'assets/icones/icon_black_noticia.svg',
+      icon: 'assets/icones/black/noticia_icon.svg',
       label: 'Título da notícia:',
       placeholder: 'Digite o título da notícia',
       required: true,
