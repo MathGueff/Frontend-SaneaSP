@@ -1,139 +1,364 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormFieldComponent } from "../../Common/form-field/form-field.component";
+import { FormFieldComponent } from '../../Common/form-field/form-field.component';
 import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { TagService } from '../../Services/tag.service';
 import { ITag } from '../../models/interface/ITag.model';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { ISearchFeedback } from '../../models/interface/ISearchFeedback.model';
+import { ToastComponent } from "../../Common/toast/toast.component";
+import { ToastService } from '../../Services/toast.service';
+import { Observable, of } from 'rxjs';
+import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 
 @Component({
   selector: 'app-tag-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent, ToastComponent],
   templateUrl: './tag-modal.component.html',
-  styleUrl: './tag-modal.component.css'
+  styleUrl: './tag-modal.component.css',
 })
-export class TagModalComponent{
-  //INPUTS
-  @Input() modalId !: string;
+export class TagModalComponent implements AfterViewInit{
+  
+  // === INPUTS ==============================
+  @Input() tagSelectedInput ?: ITag;
   @Input() modalTypeSelected !: ModalType;
+  
+  // === OUTPUT ==============================
+  @Output() submitModalEvent: EventEmitter<void> = new EventEmitter<void>();
 
-  //INJECTIONS
-  private fb = inject(NonNullableFormBuilder)
-  private tagService = inject(TagService)
-  private sweetAlert = inject(SweetAlertService)
+  //=== Ng  ==============================
+  private observerModalOpen !: MutationObserver
+  private LIMIT_SEARCH : number = 5
 
-  //ENUMS
-  formValidatorsEnum = FormValidatorEnum
-  modalTypes = ModalType;
-
-  //VAR
-  protected tagPesquisaLista : ITag[] = this.tagService.getTagsList();
-  protected tagPesquisaEncontrada : ITag | undefined;
-  get ModalInfo(): IModalTagInfos{
-    const titles: Record<ModalType, IModalTagInfos> = {
-      [ModalType.None]: {title:'Informe o tipo de modal', buttonText:'Tipo faltando'},
-      [ModalType.Adicao]:  {title:'Cadastre uma nova tag', buttonText:'Salvar tag'},
-      [ModalType.PesquisaEdicao]:  {title:'Pesquise por uma tag para editar', buttonText:'Editar'},
-      [ModalType.PesquisaExclusao]:  {title:'Pesquise por uma tag para excluir', buttonText:'Excluir'},
-      [ModalType.Edicao]:  {title:'Edite a tag', buttonText:'Confirmar edição'},
-      [ModalType.Exclusao]:  {title:'Confirmar exclusão', buttonText:'Confirmar exclusão'}
-    };
-    
-    return titles[this.modalTypeSelected] || titles[ModalType.None];
+  ngAfterViewInit(): void {
+    // Verifica se o código está rodando no navegador
+    if (typeof document === 'undefined') return;
+  
+    if (!this.modalElement) return;
+  
+    //MutationObserver para detectar sempre que a classe do elemento é alterada e executar o código
+     this.observerModalOpen = new MutationObserver(() => {
+      if (this.modalElement.nativeElement.classList.contains('show')) {
+        this.updateTagListOnOpen();
+        this.setTagOnOpen();
+      }
+    });
+  
+    this.observerModalOpen.observe(this.modalElement.nativeElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
   }
 
-  get FormGroupSelected(){
-    const formGroups: Record<ModalType, FormGroup> | undefined = {
-      [ModalType.None]: this.formCadastroTag,
-      [ModalType.Adicao]:  this.formCadastroTag,
-      [ModalType.PesquisaEdicao]:  this.formPesquisaTag,
-      [ModalType.PesquisaExclusao]:  this.formPesquisaTag,
-      [ModalType.Edicao]: this.formCadastroTag,
-      [ModalType.Exclusao]:  this.formCadastroTag
-    };
-    
-    return formGroups[this.modalTypeSelected] || formGroups[ModalType.None];
+  ngOnDestroy(): void {
+    if (this.observerModalOpen) {
+      this.observerModalOpen.disconnect();
+    }
   }
 
-  //HTML ELEMENTS
-  @ViewChild('botaoModal2') botaoModal2 !: ElementRef
+  //=== MODAL  ==============================
 
-  //FORMS
+  updateTagListOnOpen(){
+    if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
+      this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+    }
+  }
+
+  setTagOnOpen(){
+    if(this.tagSelectedInput == undefined)
+      this.resetSearchForm();
+    if((this.modalTypeSelected == ModalType.Edicao || this.modalTypeSelected == ModalType.Exclusao) && this.tagSelectedInput != undefined){
+      this.formPesquisaTag.controls.nomePesquisaTag.setValue(this.tagSelectedInput?.nome || "")
+      this.selectTagFromList(this.tagSelectedInput?.nome || "")
+    }
+  }
+
+  closeModal() {
+    //Chamada para botão de fechar modal (usado para interação entre modal e sweetAlert)
+    this.botaoFecharModalRef.nativeElement.click();
+  }
+
+  OpenModal() {
+    //Chamada para botão de chamar modal (usado para interação entre modal e sweetAlert)
+    this.botaoChamarModalRef.nativeElement.click();
+  }
+
+  // === INJECTIONS  ==============================
+  private fb = inject(NonNullableFormBuilder);
+  protected tagService = inject(TagService);
+  private sweetAlertService = inject(SweetAlertService);
+  private toastService = inject(ToastService)
+
+  //=== FORMS  ==============================
   protected formCadastroTag = this.fb.group({
-    'nomeNovaTag' : ['', [Validators.required, Validators.minLength(2)]]
-  })
+    nomeNovaTag: ['', [Validators.required, Validators.minLength(2)]],
+  });
 
   protected formPesquisaTag = this.fb.group({
-    'nomePesquisaTag' : ['',Validators.required]
-  })
+    nomePesquisaTag: ['', Validators.required],
+  });
 
-  //METHODS
-  onSubmit(){
-    switch(this.modalTypeSelected){
+  protected formEditTag = this.fb.group({
+    nomeEditTag: ['', [Validators.required, Validators.minLength(2)]],
+  });
+
+  // === ENUMS  ==============================
+  formValidatorsEnum = FormValidatorEnum;
+  modalTypes = ModalType;
+
+  //=== STATE VARIABLES  ==============================
+  protected searchFeedback: ISearchFeedback = {
+    message: '',
+    imagePath: '',
+  };
+
+  protected tagList$ : Observable<any> = of([]);
+  protected tagCount$ : Observable<number> = this.tagService.getTagCount();
+  protected tagFound: ITag | undefined;
+
+  // === GETTERS  ==============================
+  get ModalInfo(): IModalTagInfos {
+    const modalInfoMap: Record<ModalType, IModalTagInfos> = {
+      [ModalType.None]: {
+        title: 'Informe o tipo de modal',
+        buttonText: 'Tipo faltando',
+      },
+      [ModalType.Adicao]: {
+        title: 'Cadastre uma nova tag',
+        buttonText: 'Salvar tag',
+      },
+      [ModalType.Edicao]: {
+        title: 'Edite a tag',
+        buttonText: 'Confirmar edição',
+      },
+      [ModalType.Exclusao]: {
+        title: 'Excluir a tag',
+        buttonText: 'Excluir',
+      },
+    };
+    return modalInfoMap[this.modalTypeSelected] || modalInfoMap[ModalType.None];
+  }
+
+  get FormGroupSelected() {
+    // Para Adição, usa formCadastroTag
+    switch (this.modalTypeSelected) {
       case ModalType.Adicao:
-        this.onSubmitCreateNewTag()
+        return this.formCadastroTag
+      case ModalType.Edicao:
+        return this.formEditTag
+      default:
         break;
-      case ModalType.PesquisaEdicao:
-        this.onSubmitSearchTag(ModalType.Edicao)
-        break;
-      case ModalType.PesquisaExclusao:
-        this.onSubmitSearchTag(ModalType.Exclusao)
+    }
+    return this.formCadastroTag; // fallback
+  }
+
+  //=== VIEW CHILDREN  ==============================
+  @ViewChild('botaoChamarModal')
+  botaoChamarModalRef!: ElementRef;
+  @ViewChild('botaoFecharModal')
+  botaoFecharModalRef!: ElementRef;
+  @ViewChild('modalTag') modalTagRef =
+    {} as ElementRef;
+  @ViewChild('modalTag') modalElement !: ElementRef
+
+  //=== MODAL ACTIONS  ==============================
+  onSubmit() {
+    switch (this.modalTypeSelected) {
+      case ModalType.Adicao:
+        this.handleTagCreation();
         break;
       case ModalType.Edicao:
+        this.handleTagEdit();
         break;
       case ModalType.Exclusao:
+        this.handleTagDelete();
         break;
     }
   }
 
-  onSubmitCreateNewTag(){
-    if(this.formCadastroTag.valid){
-      const newTag : ITag = {
-        id : 0,
-        nome : this.formCadastroTag.controls.nomeNovaTag.value
+  //Quando o botão de Criar é pressionado
+  handleTagCreation() {
+    if (this.formCadastroTag.invalid){
+      if(this.formCadastroTag.controls.nomeNovaTag.value.length == 0)
+        this.toastService.show({error: true, message: "Digite o nome da Tag"})
+      else if(this.formCadastroTag.controls.nomeNovaTag.invalid)
+        this.toastService.show({error: true, message: "O nome da tag deve ser maior"})
+      return;
+    };
+
+    const newTag: ITagCadastro = {
+      nome: this.formCadastroTag.controls.nomeNovaTag.value,
+    };
+
+    this.tagService.createNewTag(newTag).subscribe({
+      next: (response) => {
+        this.toastService.show(response)
+        if(!response.error){
+          this.formCadastroTag.reset();
+          this.submitModalEvent.emit();
+        }
+        
+      },
+      error: (err) => {
+        this.toastService.show(err.error)
       }
-      const push = this.tagService.createNewTag(newTag)
-      if(!push.error)
-        this.formCadastroTag.reset();
-      this.sweetAlert.showMessage(push.message, push.error)
-    }
+    });
   }
 
-  onSubmitSearchTag(modalType : ModalType){
-    if(this.formPesquisaTag.valid){
-      if(this.tagPesquisaEncontrada != undefined){
-        this.botaoModal2.nativeElement.click()
-        this.modalTypeSelected = modalType
-        return;
-      }
-      this.sweetAlert.showMessage('Nenhuma tag foi encontrada com esse nome', true)
-    }
-  }
-
-  onInputTag(){
-    const tagPesquisaInput = this.formPesquisaTag.controls.nomePesquisaTag;
-    if(tagPesquisaInput.invalid){
-      this.tagPesquisaLista = []
-      this.tagPesquisaEncontrada = undefined;
+  //Quando o botão de Editar ou Excluir é pressionado
+  handleTagEdit() {
+    if (this.tagFound == undefined){
+      this.toastService.show({ 
+        error: true,
+        message: "Escolha uma tag válida para começar a editar"
+      })
+      return
+    } 
+  
+    if(this.formEditTag.invalid){
+      this.toastService.show({ 
+        message: this.formEditTag.controls.nomeEditTag.value.length == 0 ? 'Digite o novo nome para a tag' : 'O nome da tag deve ser maior',
+        error: true,
+      })
       return
     }
-    this.tagPesquisaLista = this.tagService.getTagsByName(tagPesquisaInput.value)
-    if(this.tagPesquisaLista.length !== 1)
+
+    const updatedTag = {
+      id: this.tagFound.id,
+      nome : this.formEditTag.controls.nomeEditTag.value
+    }
+
+    this.tagService.editTag(this.tagFound.id, updatedTag).subscribe({
+      next: (response) => {
+        this.toastService.show(response)
+        if(!response.error){
+          this.formEditTag.reset()
+          this.submitModalEvent.emit();
+          this.resetSearchForm()
+        }
+      },
+      error: (err) =>{
+        this.toastService.show(err.error)
+      }
+    })
+  }
+
+  handleTagDelete(){
+    if (this.tagFound == undefined){
+      this.toastService.show({ 
+        error: true,
+        message: "Escolha uma tag válida para excluir"
+      })
+      return
+    } 
+    this.showDeleteConfirmation(`Deseja deletar a tag: "${this.tagFound.nome}"?`);
+  }
+
+  handleTagConfirmationDelete(){
+    if(this.tagFound == undefined) 
+      return
+    this.tagService.deleteTag(this.tagFound.id).subscribe({
+      next: (response) => {
+        this.toastService.show(response);
+        if(!response.error) {
+          this.resetSearchForm();
+          this.submitModalEvent.emit();
+        }
+      },
+      error : (err) => {
+        this.toastService.show(err.error);
+        this.resetSearchForm();
+      }
+    })
+    
+  }
+
+  //Quando uma tag é digitada em um campo nos modais de pesquisa
+  onInputTag() {
+    const searchInput = this.formPesquisaTag.controls.nomePesquisaTag;
+
+    if (searchInput.value.length == 0) {
+      this.resetTagSearchProgress();
       return;
-    this.setSelectedTag()
+    }
+    
+    // Faz a busca e atualiza a lista de tags
+    this.tagService.getTagsList({nome : searchInput.value}).subscribe(tags => {
+      // Atualiza o Observable tagList$ com as novas tags
+      this.tagList$ = of(tags || []);
+      //this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
+      this.tagFound = undefined;
+
+      if (
+        tags.length == 0 &&
+        searchInput.value.length != 0
+      ) {
+        this.setSearchFeedback(true);
+      }
+    });
   }
 
-  selectTag(nomeSelecionado : string){
+  //=== SEARCH METHODS  ==============================
+  
+  //Limpa o objeto com a tag encontrada e redefine a lista de tags visiveis
+  resetTagSearchProgress() {
+    this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+    this.tagFound = undefined;
+  }
+
+  //Utiliza o resetSearch e reseta o formulário
+  resetSearchForm(){
+    this.formPesquisaTag.reset()
+    this.resetTagSearchProgress();
+  }
+
+  selectTagFromList(nomeSelecionado: string) {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
-    this.setSelectedTag()
-    this.tagPesquisaLista = []
+    const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
+    this.updateTagFound(tagName);
+    this.tagList$ = of([])
   }
 
-  setSelectedTag(){
-    this.tagPesquisaEncontrada = this.tagService.getTagByName(this.formPesquisaTag.controls.nomePesquisaTag.value);
+  updateTagFound(tagName : string){
+    this.tagService.getTagByExactName(tagName).subscribe({
+      next : (response) => {
+        this.tagFound = response.data
+        this.setSearchFeedback(response.error);
+      },
+      error: (err) => {
+        this.tagFound = undefined
+        this.setSearchFeedback(err.error);
+      }
+    })
+  }
+
+  setSearchFeedback(error: boolean) {
+    this.searchFeedback = {
+      message: !error ? 'Tag selecionada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
+      imagePath: !error 
+        ? 'assets/icones/operacoes/black/icon_success.svg' 
+        : 'assets/icones/operacoes/black/icon_error.svg'
+    };
+  }
+
+  //=== SWEETALERT  ==============================
+  showDeleteConfirmation(message: string) {
+    this.closeModal();
+    this.sweetAlertService
+      .confirmExclusion(message)
+      .then((result) => {
+        if (result) {
+          this.handleTagConfirmationDelete();
+        }
+        this.OpenModal();
+      });
   }
 }

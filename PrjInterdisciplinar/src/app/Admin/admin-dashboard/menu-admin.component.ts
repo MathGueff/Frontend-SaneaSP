@@ -1,14 +1,11 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import {
-  MenuAdminDashOpcoesLink,
-  MenuAdminSidebarLink,
-} from '../../models/class/menu-admin';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { OpcoesSidebarMenuAdmin } from '../../models/enums/OpcoesSidebarMenuAdmin.enum';
+import { AdminSidebarOptions} from '../../models/enums/AdminSidebarOptions';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { TagModalComponent } from '../../Tag/tag-modal/tag-modal.component';
+import { ILinkPanelAdmin, ILinkSidebarAdmin } from '../../models/interface/ILink.model';
 
 @Component({
   selector: 'app-menu-admin',
@@ -25,11 +22,9 @@ export class MenuAdminComponent {
 
   @ViewChild('botaoModal') botaoModal!: ElementRef;
 
-  nomeModalAtual: string = '';
   tipoModalAtual: ModalType = ModalType.None;
 
-  alternarModal(nomeModal: string, tipoModal: ModalType) {
-    this.nomeModalAtual = nomeModal;
+  alternarModal(tipoModal: ModalType) {
     this.tipoModalAtual = tipoModal;
     // Esperar que a variável seja atualizada antes de clicar no botão
     setTimeout(() => {
@@ -38,6 +33,8 @@ export class MenuAdminComponent {
   }
 
   private handleNumericNavigation(key: string) {
+    //Evita que as teclas de atalho funcionem enquanto o modal está aberto
+    if(document.querySelector('.modal')?.classList.contains('show'))return
     const index = parseInt(key) - 1;
     if (!isNaN(index) && index >= 0 && index < this.linksSidebar.length) {
       this.mudarOpcaoAtual(this.linksSidebar[index].opcao);
@@ -57,110 +54,106 @@ export class MenuAdminComponent {
   }
 
   //Array de Objetos de links da sidebar do Menu de Admin
-  linksSidebar: MenuAdminSidebarLink[] = [
+  linksSidebar: ILinkSidebarAdmin[] = [
     {
-      nome: 'Gerenciar Reclamações',
-      img: 'assets/icones/icon_white_reclamacao.svg',
-      opcao: OpcoesSidebarMenuAdmin.Reclamacao,
+      name: 'Gerenciar Reclamações',
+      img: 'assets/icones/white/reclamacao_icon.svg',
+      opcao: AdminSidebarOptions.Reclamacao,
     },
     {
-      nome: 'Gerenciar notícias do site',
-      img: 'assets/icones/icon_white_noticia.svg',
-      opcao: OpcoesSidebarMenuAdmin.Noticia,
+      name: 'Gerenciar notícias do site',
+      img: 'assets/icones/white/noticia_icon.svg',
+      opcao: AdminSidebarOptions.Noticia,
     },
     {
-      nome: 'Gerenciar doenças do site',
-      img: 'assets/icones/icon_white_doenca.svg',
-      opcao: OpcoesSidebarMenuAdmin.Doenca,
+      name: 'Gerenciar doenças do site',
+      img: 'assets/icones/white/doenca_icon.svg',
+      opcao: AdminSidebarOptions.Doenca,
     },
     {
-      nome: 'Responsável pelo saneamento',
-      img: 'assets/icones/icon_white_responsavel.svg',
-      opcao: OpcoesSidebarMenuAdmin.Responsaveis,
+      name: 'Gerenciar Tags do site',
+      img: 'assets/icones/white/tag_icon.svg',
+      opcao: AdminSidebarOptions.Tag,
     },
     {
-      nome: 'Log',
-      img: 'assets/icones/icon_relatorio_white.svg',
-      opcao: OpcoesSidebarMenuAdmin.Log,
+      name: 'Responsável pelo saneamento',
+      img: 'assets/icones/white/responsavel_icon.svg',
+      opcao: AdminSidebarOptions.Responsaveis,
+    },
+    {
+      name: 'Log',
+      img: 'assets/icones/white/log_icon.svg',
+      opcao: AdminSidebarOptions.Log,
     },
   ];
 
   /* Objeto com todas opções do menu, organizados por tipo de menu e os links dele
-   *  OpcoesSidebarMenuAdmin se refere a Opção disponível no sidebar
-   *  MeuAdminDashOpcoesLink é um array de links que estão ligadas a um OpcaoMenuAdmin
+   *  AdminSidebarOptions se refere a Opção disponível no sidebar
+   *  ILinkPanelAdmin é um array de links que estão ligadas a uma sessão do sidebar
    */
-  menuLink: Record<OpcoesSidebarMenuAdmin, MenuAdminDashOpcoesLink[]> = {
-    [OpcoesSidebarMenuAdmin.Reclamacao]: [
+  menuLink: Record<AdminSidebarOptions, ILinkPanelAdmin[]> = {
+    [AdminSidebarOptions.Reclamacao]: [
       {
         type: 'link',
         path: '/reclamacao',
-        nome: 'Visualizar todas reclamações',
-        img: 'assets/icones/icon_view_white.svg',
-      },
-      {
-        type: 'link',
-        path: '/reclamacao',
-        nome: 'Seus comentários',
-        img: 'assets/icones/icon_view_white.svg',
+        name: 'Seus comentários',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
       {
         type: 'link',
         path: '/reclamacao',
-        nome: 'Excluir uma reclamação',
-        img: 'assets/icones/icon_delete_white.svg',
+        name: 'Adicionar comentário',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Editar comentário',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Remover um comentário',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Visualizar todas reclamações',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Excluir uma reclamação',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
       {
         type: 'link',
         path: '/',
-        nome: 'Visualizar todas as tags',
-        img: 'assets/icones/icon_view_white.svg',
-      },
-      {
-        type: 'modal',
-        nomeModal: 'criarTagReclamacaoModal',
-        tipoModal: ModalType.Adicao,
-        nome: 'Criar nova tag para os usuários',
-        img: 'assets/icones/icon_plus_white.svg',
-      },
-      {
-        type: 'modal',
-        nomeModal: 'editarTagReclamacaoModal',
-        tipoModal: ModalType.PesquisaEdicao,
-        nome: 'Editar uma tag para os usuários',
-        img: 'assets/icones/icon_edit_white.svg',
-      },
-      {
-        type: 'modal',
-        nomeModal: 'excluirTagReclamacaoModal',
-        tipoModal: ModalType.PesquisaExclusao,
-        nome: 'Excluir uma tag para os usuários',
-        img: 'assets/icones/icon_delete_white.svg',
+        name: 'Gerar relatório de reclamação',
+        img: 'assets/icones/white/log_icon.svg',
       },
       {
         type: 'link',
         path: '/',
-        nome: 'Gerar relatório de reclamação',
-        img: 'assets/icones/icon_relatorio_white.svg',
-      },
-      {
-        type: 'link',
-        path: '/',
-        nome: 'Visualizar filtragem geográfica',
-        img: 'assets/icones/icon_map_white.svg',
+        name: 'Visualizar filtragem geográfica',
+        img: 'assets/icones/white/geo_icon.svg',
       },
     ],
-    [OpcoesSidebarMenuAdmin.Noticia]: [
+    [AdminSidebarOptions.Noticia]: [
       {
         type: 'link',
         path: '/noticia-form',
-        nome: 'Cadastrar uma nova notícia',
-        img: 'assets/icones/icon_plus_white.svg',
+        name: 'Cadastrar uma nova notícia',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
       },
       {
         type: 'link',
         path: '/noticia-form',
-        nome: 'Editar uma notícia',
-        img: 'assets/icones/icon_edit_white.svg',
+        name: 'Editar uma notícia',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
       },
       {
         type: 'link',
@@ -171,75 +164,101 @@ export class MenuAdminComponent {
       {
         type: 'link',
         path: '/noticia-inicial',
-        nome: 'Visualizar suas notícias criadas',
-        img: 'assets/icones/icon_view_white.svg',
+        name: 'Visualizar suas notícias criadas',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
       {
         type: 'link',
         path: '/noticia-inicial',
-        nome: 'Visualizar todas notícias',
-        img: 'assets/icones/icon_view_white.svg',
+        name: 'Visualizar todas notícias',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
     ],
-    [OpcoesSidebarMenuAdmin.Doenca]: [
+    [AdminSidebarOptions.Doenca]: [
       {
         type: 'link',
         path: '/doenca-form',
-        nome: 'Cadastrar uma nova doença',
-        img: 'assets/icones/icon_plus_white.svg',
+        name: 'Cadastrar uma nova doença',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
       },
       {
         type: 'link',
         path: '/doenca-form',
-        nome: 'Editar uma doença',
-        img: 'assets/icones/icon_edit_white.svg',
+        name: 'Editar uma doença',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
       },
       {
         type: 'link',
         path: '/doenca-form',
-        nome: 'Excluir uma doença',
-        img: 'assets/icones/icon_delete_white.svg',
+        name: 'Excluir uma doença',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
       {
         type: 'link',
         path: '/doenca-inicial',
-        nome: 'Visualizar suas doenças cadastradas',
-        img: 'assets/icones/icon_view_white.svg',
+        name: 'Visualizar suas doenças cadastradas',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
       {
         type: 'link',
         path: '/doenca-inicial',
-        nome: 'Visualizar todas doenças',
-        img: 'assets/icones/icon_view_white.svg',
+        name: 'Visualizar todas doenças',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
     ],
-    [OpcoesSidebarMenuAdmin.Responsaveis]: [
+    [AdminSidebarOptions.Tag] : [
+      {
+        type: 'link',
+        path: '/tag-tabela',
+        name: 'Visualizar todas as tags',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Adicao,
+        name: 'Criar nova tag',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Edicao,
+        name: 'Editar uma tag',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Exclusao,
+        name: 'Excluir uma tag',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
+      },
+    ],
+    [AdminSidebarOptions.Responsaveis]: [
       {
         type: 'link',
         path: '/responsaveis',
-        nome: 'Visualizar página dos responsáveis pelo saneamento básico',
-        img: 'assets/icones/icon_white_responsavel.svg',
+        name: 'Visualizar página dos responsáveis pelo saneamento básico',
+        img: 'assets/icones/white/responsavel_icon.svg',
       },
     ],
-    [OpcoesSidebarMenuAdmin.Log]: [
+    [AdminSidebarOptions.Log]: [
       {
         type: 'link',
         path: '/',
-        nome: 'Visualizar log de comentários',
-        img: 'assets/icones/icon_relatorio_white.svg',
+        name: 'Visualizar log de comentários',
+        img: 'assets/icones/white/log_icon.svg',
       },
     ],
-    [OpcoesSidebarMenuAdmin.Login]: [],
+    [AdminSidebarOptions.Login]: [],
   };
 
   //Variável para guardar a opção atual selecionada no sidebar (inicia com o primeiro elemento de linksSidebar)
-  sidebarAtual: OpcoesSidebarMenuAdmin = this.linksSidebar[0].opcao;
+  sidebarAtual: AdminSidebarOptions = this.linksSidebar[0].opcao;
 
   //Variável para guardar o array de links referentes a opcao atual do sidebar selecionada
-  opcoesMenuAtuais: MenuAdminDashOpcoesLink[] =
+  opcoesMenuAtuais: ILinkPanelAdmin[] =
     this.menuLink[this.sidebarAtual] || [];
 
-  mudarOpcaoAtual(opcao: OpcoesSidebarMenuAdmin) {
+  mudarOpcaoAtual(opcao: AdminSidebarOptions) {
     this.sidebarAtual = opcao;
     this.opcoesMenuAtuais = this.menuLink[opcao] || [];
   }

@@ -1,7 +1,8 @@
-export enum OpcoesSidebarMenuAdmin{
+export enum AdminSidebarOptions{
     Doenca,
     Noticia,
     Reclamacao,
+    Tag,
     Responsaveis,
     Log,
     Login
