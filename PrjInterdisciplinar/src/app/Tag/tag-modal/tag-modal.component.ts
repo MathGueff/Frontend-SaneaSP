@@ -163,7 +163,13 @@ export class TagModalComponent implements AfterViewInit{
 
   //Quando o botão de Criar é pressionado
   handleTagCreation() {
-    if (this.formCadastroTag.invalid) return;
+    if (this.formCadastroTag.invalid){
+      if(this.formCadastroTag.controls.nomeNovaTag.value.length == 0)
+        this.toastService.show({error: true, message: "Digite o nome da Tag"})
+      else if(this.formCadastroTag.controls.nomeNovaTag.invalid)
+        this.toastService.show({error: true, message: "O nome da tag deve ser maior"})
+      return;
+    };
 
     const newTag: ITagCadastro = {
       nome: this.formCadastroTag.controls.nomeNovaTag.value,
@@ -307,7 +313,7 @@ export class TagModalComponent implements AfterViewInit{
 
   setSearchFeedback(error: boolean) {
     this.searchFeedback = {
-      message: !error ? 'Tag encontrada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
+      message: !error ? 'Tag selecionada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
       imagePath: !error 
         ? 'assets/icones/operacoes/black/icon_success.svg' 
         : 'assets/icones/operacoes/black/icon_error.svg'

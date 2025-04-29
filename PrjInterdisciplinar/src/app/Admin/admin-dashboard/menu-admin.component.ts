@@ -71,6 +71,11 @@ export class MenuAdminComponent {
       opcao: AdminSidebarOptions.Doenca,
     },
     {
+      name: 'Gerenciar Tags do site',
+      img: 'assets/formularios/tag_icon.svg',
+      opcao: AdminSidebarOptions.Doenca,
+    },
+    {
       name: 'Responsável pelo saneamento',
       img: 'assets/icones/icon_white_responsavel.svg',
       opcao: AdminSidebarOptions.Responsaveis,
