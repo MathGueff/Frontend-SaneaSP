@@ -158,7 +158,7 @@ export class MenuAdminComponent {
       {
         type: 'link',
         path: '/dell-noticia',
-        nome: 'Excluir uma notícia',
+        name: 'Excluir uma notícia',
         img: 'assets/icones/icon_delete_white.svg',
       },
       {
