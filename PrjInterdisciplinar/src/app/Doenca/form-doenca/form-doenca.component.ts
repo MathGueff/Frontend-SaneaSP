@@ -52,7 +52,7 @@ export class FormDoencaComponent {
   inputs: IFieldForm[] = [
     {
       controlName: 'nome_doenca',
-      icon: 'assets/icones/icon_black_doenca.svg',
+      icon: 'assets/icones/black/doenca_icon.svg',
       label: 'Nome da Doença:',
       placeholder: 'Digite o nome da Doença',
       required: true,
@@ -69,7 +69,7 @@ export class FormDoencaComponent {
     },
     {
       controlName: 'tratamento',
-      icon: 'assets/icones/icon_black_doenca.svg',
+      icon: 'assets/icones/black/doenca_icon.svg',
       label: 'Tratamento:',
       placeholder: 'Explique como a doença é tratada',
       required: true,
@@ -78,7 +78,7 @@ export class FormDoencaComponent {
     },
     {
       controlName: 'transmissao',
-      icon: 'assets/icones/icon_black_doenca.svg',
+      icon: 'assets/icones/black/doenca_icon.svg',
       label: 'Transmissão:',
       placeholder: 'Explique como a doença é transmitida',
       required: true,
