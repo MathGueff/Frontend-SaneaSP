@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { IModalTagInfos } from '../../models/interface/IModalTagInfos';
 import {
@@ -26,9 +26,18 @@ import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
   styleUrl: './tag-modal.component.css',
 })
 export class TagModalComponent implements AfterViewInit{
-  //=== MODAL  ==============================
+  
+  // === INPUTS ==============================
+  @Input() tagSelectedInput ?: ITag;
+  @Input() modalTypeSelected !: ModalType;
+  
+  // === OUTPUT ==============================
+  @Output() submitModalEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
   private LIMIT_SEARCH : number = 5
+
   ngAfterViewInit(): void {
     // Verifica se o código está rodando no navegador
     if (typeof document === 'undefined') return;
@@ -37,9 +46,9 @@ export class TagModalComponent implements AfterViewInit{
   
     //MutationObserver para detectar sempre que a classe do elemento é alterada e executar o código
      this.observerModalOpen = new MutationObserver(() => {
-      if (this.modalElement.nativeElement.classList.contains('show') 
-          && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
-        this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+      if (this.modalElement.nativeElement.classList.contains('show')) {
+        this.updateTagListOnOpen();
+        this.setTagOnOpen();
       }
     });
   
@@ -55,6 +64,23 @@ export class TagModalComponent implements AfterViewInit{
     }
   }
 
+  //=== MODAL  ==============================
+
+  updateTagListOnOpen(){
+    if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
+      this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+    }
+  }
+
+  setTagOnOpen(){
+    if(this.tagSelectedInput == undefined)
+      this.resetSearchForm();
+    if((this.modalTypeSelected == ModalType.Edicao || this.modalTypeSelected == ModalType.Exclusao) && this.tagSelectedInput != undefined){
+      this.formPesquisaTag.controls.nomePesquisaTag.setValue(this.tagSelectedInput?.nome || "")
+      this.selectTagFromList(this.tagSelectedInput?.nome || "")
+    }
+  }
+
   closeModal() {
     //Chamada para botão de fechar modal (usado para interação entre modal e sweetAlert)
     this.botaoFecharModalRef.nativeElement.click();
@@ -64,10 +90,6 @@ export class TagModalComponent implements AfterViewInit{
     //Chamada para botão de chamar modal (usado para interação entre modal e sweetAlert)
     this.botaoChamarModalRef.nativeElement.click();
   }
-  
-  // === INPUTS ==============================
-  @Input() modalId!: string;
-  @Input() modalTypeSelected!: ModalType;
 
   // === INJECTIONS  ==============================
   private fb = inject(NonNullableFormBuilder);
@@ -99,6 +121,7 @@ export class TagModalComponent implements AfterViewInit{
   };
 
   protected tagList$ : Observable<any> = of([]);
+  protected tagCount$ : Observable<number> = this.tagService.getTagCount();
   protected tagFound: ITag | undefined;
 
   // === GETTERS  ==============================
@@ -178,8 +201,11 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.createNewTag(newTag).subscribe({
       next: (response) => {
         this.toastService.show(response)
-        if(!response.error)
+        if(!response.error){
           this.formCadastroTag.reset();
+          this.submitModalEvent.emit();
+        }
+        
       },
       error: (err) => {
         this.toastService.show(err.error)
@@ -215,6 +241,7 @@ export class TagModalComponent implements AfterViewInit{
         this.toastService.show(response)
         if(!response.error){
           this.formEditTag.reset()
+          this.submitModalEvent.emit();
           this.resetSearchForm()
         }
       },
@@ -228,7 +255,7 @@ export class TagModalComponent implements AfterViewInit{
     if (this.tagFound == undefined){
       this.toastService.show({ 
         error: true,
-        message: "Escolha uma tag válida para começar a editar"
+        message: "Escolha uma tag válida para excluir"
       })
       return
     } 
@@ -241,8 +268,10 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.deleteTag(this.tagFound.id).subscribe({
       next: (response) => {
         this.toastService.show(response);
-        if(!response.error) 
+        if(!response.error) {
           this.resetSearchForm();
+          this.submitModalEvent.emit();
+        }
       },
       error : (err) => {
         this.toastService.show(err.error);
@@ -257,7 +286,7 @@ export class TagModalComponent implements AfterViewInit{
     const searchInput = this.formPesquisaTag.controls.nomePesquisaTag;
 
     if (searchInput.value.length == 0) {
-      this.resetSearch();
+      this.resetTagSearchProgress();
       return;
     }
     
@@ -280,7 +309,7 @@ export class TagModalComponent implements AfterViewInit{
   //=== SEARCH METHODS  ==============================
   
   //Limpa o objeto com a tag encontrada e redefine a lista de tags visiveis
-  resetSearch() {
+  resetTagSearchProgress() {
     this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
     this.tagFound = undefined;
   }
@@ -288,7 +317,7 @@ export class TagModalComponent implements AfterViewInit{
   //Utiliza o resetSearch e reseta o formulário
   resetSearchForm(){
     this.formPesquisaTag.reset()
-    this.resetSearch();
+    this.resetTagSearchProgress();
   }
 
   selectTagFromList(nomeSelecionado: string) {
@@ -299,7 +328,7 @@ export class TagModalComponent implements AfterViewInit{
   }
 
   updateTagFound(tagName : string){
-    this.tagService.getTagByName(tagName).subscribe({
+    this.tagService.getTagByExactName(tagName).subscribe({
       next : (response) => {
         this.tagFound = response.data
         this.setSearchFeedback(response.error);
