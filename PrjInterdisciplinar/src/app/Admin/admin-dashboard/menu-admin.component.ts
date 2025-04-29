@@ -71,6 +71,11 @@ export class MenuAdminComponent {
       opcao: AdminSidebarOptions.Doenca,
     },
     {
+      name: 'Gerenciar Tags do site',
+      img: 'assets/icones/white/tag_icon.svg',
+      opcao: AdminSidebarOptions.Tag,
+    },
+    {
       name: 'Responsável pelo saneamento',
       img: 'assets/icones/white/responsavel_icon.svg',
       opcao: AdminSidebarOptions.Responsaveis,
@@ -91,43 +96,37 @@ export class MenuAdminComponent {
       {
         type: 'link',
         path: '/reclamacao',
-        name: 'Visualizar todas reclamações',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/reclamacao',
         name: 'Seus comentários',
         img: 'assets/icones/operacoes/white/view_icon.svg',
       },
       {
         type: 'link',
         path: '/reclamacao',
-        name: 'Excluir uma reclamação',
+        name: 'Adicionar comentário',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Editar comentário',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Remover um comentário',
         img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
       {
         type: 'link',
-        path: '/',
-        name: 'Visualizar todas as tags',
+        path: '/reclamacao',
+        name: 'Visualizar todas reclamações',
         img: 'assets/icones/operacoes/white/view_icon.svg',
       },
       {
-        type: 'modal',
-        tipoModal: ModalType.Adicao,
-        name: 'Criar nova tag para os usuários',
-        img: 'assets/icones/operacoes/white/add_icon.svg',
-      },
-      {
-        type: 'modal',
-        tipoModal: ModalType.Edicao,
-        name: 'Editar uma tag para os usuários',
-        img: 'assets/icones/operacoes/white/edit_icon.svg',
-      },
-      {
-        type: 'modal',
-        tipoModal: ModalType.Exclusao,
-        name: 'Excluir uma tag para os usuários',
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Excluir uma reclamação',
         img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
       {
@@ -205,6 +204,32 @@ export class MenuAdminComponent {
         path: '/doenca-inicial',
         name: 'Visualizar todas doenças',
         img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+    ],
+    [AdminSidebarOptions.Tag] : [
+      {
+        type: 'link',
+        path: '/tag-tabela',
+        name: 'Visualizar todas as tags',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Adicao,
+        name: 'Criar nova tag',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Edicao,
+        name: 'Editar uma tag',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Exclusao,
+        name: 'Excluir uma tag',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
     ],
     [AdminSidebarOptions.Responsaveis]: [
