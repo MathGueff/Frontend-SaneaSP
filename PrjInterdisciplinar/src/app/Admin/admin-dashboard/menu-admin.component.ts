@@ -157,9 +157,9 @@ export class MenuAdminComponent {
       },
       {
         type: 'link',
-        path: '/noticia-form',
-        name: 'Excluir uma notícia',
-        img: 'assets/icones/operacoes/white/delete_icon.svg',
+        path: '/dell-noticia',
+        nome: 'Excluir uma notícia',
+        img: 'assets/icones/icon_delete_white.svg',
       },
       {
         type: 'link',
