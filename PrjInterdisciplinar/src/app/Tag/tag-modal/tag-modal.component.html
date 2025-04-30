@@ -54,9 +54,13 @@
                 [validators]="[formValidatorsEnum.Required]"
               ></app-form-field>
 
-              @if(tagFound != undefined 
+            <!-- Compartilha a subscription para não precisar ficar recriando -->
+            <ng-container *ngIf="tagList$ | async as tags">
+              <!-- Mensagem de feedback indicando se a tag foi selecionada, 
+                ou no caso de nenhuma tag corresponder com o filtro -->
+                @if(tagFound != undefined 
                 || (tagFound == undefined 
-                && (tagList$ | async)?.length == 0 
+                && tags?.length == 0 
                 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0))
               {
                 <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
@@ -64,11 +68,14 @@
                   <span>{{ searchFeedback.message }} </span>
                 </div>
               } 
-              @if((tagList$ | async)?.length > 0 && tagFound == undefined){
-                <hr />
-                <span>Tags Sugeridas: (mostrando {{(tagList$ | async)?.length}} de {{tagCount$ | async}})</span>
+
+              <!-- Lista de tags disponíveis para seleção -->
+              @if(tags?.length > 0 && tagFound == undefined){
+                <hr/>
+                <span>Tags Sugeridas: (mostrando {{tags.length}} de {{tagCount$ | async}})</span>
+                <!-- Lista de tags encontradas com o filtro -->
                 <ul class="list-group tag-list m-2">
-                  @for (tagPesquisa of (tagList$ | async); track $index) {
+                  @for (tagPesquisa of tags; track $index) {
                   <li
                     (click)="selectTagFromList(tagPesquisa.nome)"
                     class="list-group-item"
@@ -77,14 +84,16 @@
                   </li>
                   }
                 </ul>
+                <button class="btn btn-primary" (click)="expandSearchList()">{{!isExpandedTagList ? "Expandir" : "Recolher"}}</button>
               } 
-              @else if ((tagList$ | async)?.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
+              <!-- Para quando não houver nenhuma tag cadastrada na tabela -->
+              @else if (tags.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
                 <hr>
                 <div class="d-flex justify-content-center align-items-center text-center">
                   <span>Nenhuma tag criada. Para começar a pesquisar, cadastre uma tag</span>
                 </div>
               }
-
+            </ng-container>
               @if(tagFound && FormGroupSelected == formEditTag){
                 <hr>
                 <app-form-field
@@ -125,6 +134,7 @@
 
 <app-toast></app-toast>
 
+<!-- Botões para abrir e fechar o modal via código -->
 <button
   class="d-none"
   [attr.data-bs-target]="'#modalTag'"
