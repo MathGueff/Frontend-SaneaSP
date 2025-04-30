@@ -17,6 +17,7 @@ import { ToastComponent } from "../../Common/toast/toast.component";
 import { ToastService } from '../../Services/toast.service';
 import { Observable, of } from 'rxjs';
 import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
+import { ITagListFilter } from '../../models/interface/ITagListFilter.interface';
 
 @Component({
   selector: 'app-tag-modal',
@@ -39,16 +40,15 @@ export class TagModalComponent implements AfterViewInit{
   private LIMIT_SEARCH : number = 5
 
   ngAfterViewInit(): void {
-    // Verifica se o código está rodando no navegador
     if (typeof document === 'undefined') return;
   
     if (!this.modalElement) return;
   
-    //MutationObserver para detectar sempre que a classe do elemento é alterada e executar o código
+    //MutationObserver para detectar sempre que a classe do elemento é alterada para show e executar o código
      this.observerModalOpen = new MutationObserver(() => {
       if (this.modalElement.nativeElement.classList.contains('show')) {
-        this.updateTagListOnOpen();
-        this.setTagOnOpen();
+        this.updateTagListOnOpenModal();
+        this.setTagOnOpenModal();
       }
     });
   
@@ -66,13 +66,13 @@ export class TagModalComponent implements AfterViewInit{
 
   //=== MODAL  ==============================
 
-  updateTagListOnOpen(){
+  updateTagListOnOpenModal(){
     if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
       this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
     }
   }
 
-  setTagOnOpen(){
+  setTagOnOpenModal(){
     if(this.tagSelectedInput == undefined)
       this.resetSearchForm();
     if((this.modalTypeSelected == ModalType.Edicao || this.modalTypeSelected == ModalType.Exclusao) && this.tagSelectedInput != undefined){
@@ -119,6 +119,7 @@ export class TagModalComponent implements AfterViewInit{
     message: '',
     imagePath: '',
   };
+  protected isExpandedTagList : boolean = false;
 
   protected tagList$ : Observable<any> = of([]);
   protected tagCount$ : Observable<number> = this.tagService.getTagCount();
@@ -323,11 +324,11 @@ export class TagModalComponent implements AfterViewInit{
   selectTagFromList(nomeSelecionado: string) {
     this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
     const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
-    this.updateTagFound(tagName);
+    this.setTagFound(tagName);
     this.tagList$ = of([])
   }
 
-  updateTagFound(tagName : string){
+  setTagFound(tagName : string){
     this.tagService.getTagByExactName(tagName).subscribe({
       next : (response) => {
         this.tagFound = response.data
@@ -337,6 +338,21 @@ export class TagModalComponent implements AfterViewInit{
         this.tagFound = undefined
         this.setSearchFeedback(err.error);
       }
+    })
+  }
+
+  expandSearchList(){
+    const searchInput = this.formPesquisaTag.controls.nomePesquisaTag.value
+    const query  : ITagListFilter = {}
+
+    if(searchInput.length > 0)
+      query.nome = searchInput
+    if(this.isExpandedTagList)
+      query.limit = this.LIMIT_SEARCH
+
+    this.tagService.getTagsList(query).subscribe((tags) => {
+      this.tagList$ =  of(tags || [])
+      this.isExpandedTagList = !this.isExpandedTagList
     })
   }
 
