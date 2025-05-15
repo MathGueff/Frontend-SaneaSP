@@ -39,16 +39,16 @@ export class TagService {
 
   //POST
   createNewTag(newTag: ITagCadastro) {
-    return this.httpClient.post<IResponse<ITag[]>>(`${this.apiUrl}`, newTag)
+    return this.httpClient.post<IResponse<ITag>>(`${this.apiUrl}`, newTag)
   }
 
   //DELETE
   deleteTag(idTag: number){
-    return this.httpClient.delete<IResponse<ITag[]>>(`${this.apiUrl}/${idTag}`)
+    return this.httpClient.delete<IResponse<ITag>>(`${this.apiUrl}/${idTag}`)
   }
 
   //PUT
   editTag(idTag: number, updatedTag: ITag) {
-    return this.httpClient.put<IResponse<ITag[]>>(`${this.apiUrl}/${idTag}`, updatedTag)
+    return this.httpClient.put<IResponse<ITag>>(`${this.apiUrl}/${idTag}`, updatedTag)
   }
 }
