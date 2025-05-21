@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Reclamacao } from "../models/class/reclamacao";
 import { Observable } from "rxjs";
-import { IReclamacao } from "../models/interface/IReclamacao.interface";
+import { ICreateReclamacao, IReclamacao } from "../models/interface/IReclamacao.interface";
 
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
@@ -18,8 +18,8 @@ export class ReclamacaoService{
      return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
   }
 
-  public postReclamacao(reclamcao: IReclamacao){
-    this.httpClient.post(`${this.urlApi}`, reclamcao)
+  public postReclamacao(reclamcao: ICreateReclamacao):Observable<IReclamacao>{
+   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamcao)
   }
 
 }

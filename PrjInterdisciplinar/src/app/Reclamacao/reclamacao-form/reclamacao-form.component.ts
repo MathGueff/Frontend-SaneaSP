@@ -1,3 +1,4 @@
+import { SweetAlertService } from './../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -7,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ViacepService } from '../../Services/viacep.service';
+import { ReclamacaoService } from '../../Services/reclamacao.service';
+import { ICreateReclamacao } from '../../models/interface/IReclamacao.interface';
 
 @Component({
   selector: 'app-reclamacao-form',
@@ -16,15 +19,17 @@ import { ViacepService } from '../../Services/viacep.service';
   styleUrl: './reclamacao-form.component.css',
 })
 export class ReclamacaoFormComponent implements OnInit {
+  private reclamacaoService = inject(ReclamacaoService);
   private formBuider = inject(NonNullableFormBuilder);
   private router = inject(Router);
   private viacepService = inject(ViacepService);
+  private sweetService = inject(SweetAlertService);
 
   rows: number = 2;
   src: any = null;
 
 
-  form = this.formBuider.group({
+   form = this.formBuider.group({
     titulo: ['', [Validators.required]],
     descricao: ['', [Validators.required]],
     cep: [
@@ -42,7 +47,19 @@ export class ReclamacaoFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      const reclamacao: ICreateReclamacao ={
+        ...this.form.value as ICreateReclamacao,
+        idUsuario:1
+      };
+      this.reclamacaoService.postReclamacao(reclamacao).subscribe({
+        next:() => {
+          this.sweetService.showMessage("Reclamação Criada com sucesso!");
+        },
+        error: (err) => {
+          this.sweetService.showMessage(`Não foi possivel criar Reclamação: ${err}`,true)
+        },
+      });
+
       this.router.navigate(['reclamacao-inicial']);
     }
   }
