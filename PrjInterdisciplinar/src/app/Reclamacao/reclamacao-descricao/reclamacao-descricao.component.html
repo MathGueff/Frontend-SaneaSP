@@ -1,7 +1,7 @@
 <div class="background d-flex">
   <!-- Verifica se encontrou a reclamação -->
-  @if (!vazio) {
-    <div *ngIf="dado$ | async as reclamacao" class="painel m-5 justifica rounded">
+  @if (existReclamcao) {
+    <div *ngIf="reclamacao$ | async as reclamacao" class="painel m-5 justifica rounded">
       <div class="header-painel p-3 mb-3 d-flex flex-line gap-5">
         <img
           class="imgPainel"

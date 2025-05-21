@@ -7,13 +7,19 @@ import { IReclamacao } from "../models/interface/IReclamacao.interface";
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
   private urlApi:string = "http://localhost:3000/reclamacao";
+  private listReclamcao !: IReclamacao[];
   constructor(private httpClient:HttpClient){}
 
-  public getListReclamacao() : Observable<IReclamacao[]> {
+  public getObservableReclamacao() : Observable<IReclamacao[]> {
     return this.httpClient.get<IReclamacao[]>(`${this.urlApi}/`)
   }
-  public getByIdReclamacao(id:number): Observable<IReclamacao>{
-    return this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}}`)
+
+  public getByIdReclamacao(id:number):Observable<IReclamacao>{
+     return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
+  }
+
+  public postReclamacao(reclamcao: IReclamacao){
+    this.httpClient.post(`${this.urlApi}`, reclamcao)
   }
 
 }

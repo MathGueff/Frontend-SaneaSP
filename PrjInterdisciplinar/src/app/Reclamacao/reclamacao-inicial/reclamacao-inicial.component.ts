@@ -28,7 +28,7 @@ export class ReclamacaoInicialComponent implements OnInit {
   TagSelect: FormGroup;
 
   constructor(private fb:FormBuilder){
-    this.reclamacoes$ = this.reclamacaoService.getListReclamacao();
+    this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
     this.TagSelect = this.fb.group({
         tagForm: ['Todos']
       }
@@ -39,11 +39,11 @@ export class ReclamacaoInicialComponent implements OnInit {
     this.TagSelect.valueChanges.subscribe(() => {
       //Verifica se nenhuma Tag foi selecionada
       if(this.TagSelect.value.tagForm === "Todos" || this.TagSelect.value.tagForm == ""){
-        this.reclamacoes$ = this.reclamacaoService.getListReclamacao();
+        this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
       }
       // Filtra o array de Reclamações pela tag selecionada
       else{
-        this.reclamacoes$ = this.reclamacaoService.getListReclamacao()
+        this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao()
       }
     });
     this.reclamacoes$.subscribe((reclamacoes)=>{
