@@ -56,23 +56,38 @@
 
             <!-- Compartilha a subscription para não precisar ficar recriando -->
             <ng-container *ngIf="tagList$ | async as tags">
-              <!-- Mensagem de feedback indicando se a tag foi selecionada, 
-                ou no caso de nenhuma tag corresponder com o filtro -->
-                @if(tagFound != undefined 
-                || (tagFound == undefined 
-                && tags?.length == 0 
-                && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0))
-              {
-                <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
-                  <img src="{{ searchFeedback.imagePath }}" alt="" />
-                  <span>{{ searchFeedback.message }} </span>
+              @if(tagFound){
+                <div class="d-flex justify-content-center align-items-center mt-2" id="remover-tag-selecionada">
+                  <img src="assets/icones/black/info_icon.svg" alt="ícone de informação">
+                  <span>Clique no campo para remover a seleção</span>
                 </div>
-              } 
+              }
+
+              @if(tagFound == undefined && tags?.length <= 1 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0){
+                <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
+                  <img src="{{
+                    tags.length == 1 
+                    ? 'assets/icones/operacoes/black/icon_success.svg' 
+                    : 'assets/icones/operacoes/black/icon_error.svg'}}" alt="" 
+                  />
+                  <span>
+                    {{
+                      tags.length == 1 
+                      ? 'Tag encontrada: clique para começar a editar' 
+                      : 'Nenhuma tag encontrada!'
+                    }}
+                  </span>
+                </div>
+              }
 
               <!-- Lista de tags disponíveis para seleção -->
               @if(tags?.length > 0 && tagFound == undefined){
                 <hr/>
                 <span>Tags Sugeridas: (mostrando {{tags.length}} de {{tagCount$ | async}})</span>
+                
+                <button class="btn btn-primary ms-2" (click)="expandSearchList()">
+                  {{!isExpandedTagList ? "Expandir" : "Recolher"}}
+                </button>
                 <!-- Lista de tags encontradas com o filtro -->
                 <ul class="list-group tag-list m-2">
                   @for (tagPesquisa of tags; track $index) {
@@ -84,7 +99,6 @@
                   </li>
                   }
                 </ul>
-                <button class="btn btn-primary" (click)="expandSearchList()">{{!isExpandedTagList ? "Expandir" : "Recolher"}}</button>
               } 
               <!-- Para quando não houver nenhuma tag cadastrada na tabela -->
               @else if (tags.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {

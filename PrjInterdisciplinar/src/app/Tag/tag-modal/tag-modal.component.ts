@@ -37,7 +37,7 @@ export class TagModalComponent implements AfterViewInit{
 
   //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
-  private LIMIT_SEARCH : number = 5
+  protected LIMIT_SEARCH : number = 5
 
   ngAfterViewInit(): void {
     if (typeof document === 'undefined') return;
@@ -297,13 +297,6 @@ export class TagModalComponent implements AfterViewInit{
       this.tagList$ = of(tags || []);
       //this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
       this.tagFound = undefined;
-
-      if (
-        tags.length == 0 &&
-        searchInput.value.length != 0
-      ) {
-        this.setSearchFeedback(true);
-      }
     });
   }
 
@@ -332,11 +325,10 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.getTagByExactName(tagName).subscribe({
       next : (response) => {
         this.tagFound = response.data
-        this.setSearchFeedback(response.error);
+        this.formPesquisaTag.controls.nomePesquisaTag.disable();
       },
       error: (err) => {
         this.tagFound = undefined
-        this.setSearchFeedback(err.error);
       }
     })
   }
@@ -350,19 +342,10 @@ export class TagModalComponent implements AfterViewInit{
     if(this.isExpandedTagList)
       query.limit = this.LIMIT_SEARCH
 
-    this.tagService.getTagsList(query).subscribe((tags) => {
+      this.tagService.getTagsList(query).subscribe((tags) => {
       this.tagList$ =  of(tags || [])
       this.isExpandedTagList = !this.isExpandedTagList
     })
-  }
-
-  setSearchFeedback(error: boolean) {
-    this.searchFeedback = {
-      message: !error ? 'Tag selecionada: ' + this.tagFound?.nome : 'Nenhuma tag encontrada!',
-      imagePath: !error 
-        ? 'assets/icones/operacoes/black/icon_success.svg' 
-        : 'assets/icones/operacoes/black/icon_error.svg'
-    };
   }
 
   //=== SWEETALERT  ==============================
