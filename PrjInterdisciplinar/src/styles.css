@@ -36,6 +36,7 @@
     --familia-primaria: poppins, sans-serif;
     --familia-secundaria: georgia, sans-serif;
     --cor-fonte-branca: #e2e2e2;
+    --cor-fonte-preta: #202020;
 
     /* Tamanho do texto */
     --fonte-primaria: 1rem;
@@ -185,34 +186,9 @@ div:focus-visible {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
 }
 
-.btn-primary, .btn-secondary{
-  transition: 0.4s transform ease, 0.6s opacity ease !important;
-  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
-}
-
-.btn-primary{
-  background-color: var(--cor-quaternaria) !important;
-  border-color: var(--cor-quaternaria) !important;
-}
-
-.btn-secondary{
-  background-color: var(--cor-botao-fechar) !important;
-  border-color: var(--cor-botao-fechar) !important;
-}
-
+/* Botão primário dentro de uma classe card */
 .card:hover .btn-primary:hover{
   transform: translateX(4px);
-  opacity: 0.8;
-}
-
-.btn-primary:hover, .btn-secondary:hover{
-  transform: translateY(-4px);
-  opacity: 0.9;
-}
-
-.btn-primary:active{
-  background-color: var(--cor-quaternaria);
-  border-color: var(--cor-quaternaria);
   opacity: 0.8;
 }
 
@@ -234,6 +210,50 @@ div:focus-visible {
     justify-content: center;
   }
 }
+
+/* --- INÍCIO CSS PADRÃO PARA BOTÕES --- */
+
+.btn-primary, .btn-secondary, .btn-terciary{
+  transition: 0.4s transform ease, 0.6s opacity ease !important;
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary{
+  background-color: var(--cor-quaternaria) !important;
+  border-color: var(--cor-quaternaria) !important;
+}
+
+.btn-secondary{
+  background-color: var(--cor-botao-fechar) !important;
+  border-color: var(--cor-botao-fechar) !important;
+}
+
+.btn-terciary{
+  background-color: var(--cor-terciaria) !important;
+  border-color: var(--cor-terciaria) !important;
+  color: var(--cor-fonte-preta);
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-terciary:hover{
+  transform: translateY(-4px);
+  opacity: 0.9;
+}
+
+.btn-primary:active{
+  background-color: var(--cor-quaternaria);
+  border-color: var(--cor-quaternaria);
+  opacity: 0.8;
+}
+
+.btn-terciary:hover{
+   color: var(--cor-fonte-preta) !important;
+}
+
+.btn-icon{
+  width: 16px;
+  height: 16px;
+}
+
 
 /* --- INÍCIO CSS PADRÃO PARA FORMULÁRIOS --- */
 /* Div do formulário */

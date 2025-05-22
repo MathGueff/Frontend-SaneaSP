@@ -68,7 +68,10 @@ export class TagModalComponent implements AfterViewInit{
 
   updateTagListOnOpenModal(){
     if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
-      this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+      this.tagService.getTagsList({limit : this.LIMIT_SEARCH}).subscribe((response) => {
+        this.tagList$ = of(response.data || []);
+      })
+      this.isExpandedTagList = false;
     }
   }
 
@@ -292,9 +295,9 @@ export class TagModalComponent implements AfterViewInit{
     }
     
     // Faz a busca e atualiza a lista de tags
-    this.tagService.getTagsList({nome : searchInput.value}).subscribe(tags => {
+    this.tagService.getTagsList({nome : searchInput.value, limit: this.LIMIT_SEARCH}).subscribe(response => {
       // Atualiza o Observable tagList$ com as novas tags
-      this.tagList$ = of(tags || []);
+      this.tagList$ = of(response.data || []);
       //this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
       this.tagFound = undefined;
     });
@@ -304,8 +307,11 @@ export class TagModalComponent implements AfterViewInit{
   
   //Limpa o objeto com a tag encontrada e redefine a lista de tags visiveis
   resetTagSearchProgress() {
-    this.tagList$ = this.tagService.getTagsList({limit : this.LIMIT_SEARCH})
+    this.tagService.getTagsList({limit : this.LIMIT_SEARCH}).subscribe((response) => {
+      this.tagList$ = of(response.data || [])
+    })
     this.tagFound = undefined;
+    this.isExpandedTagList = false;
   }
 
   //Utiliza o resetSearch e reseta o formulário
@@ -325,7 +331,7 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.getTagByExactName(tagName).subscribe({
       next : (response) => {
         this.tagFound = response.data
-        this.formPesquisaTag.controls.nomePesquisaTag.disable();
+        this.formEditTag.controls.nomeEditTag.setValue(tagName);
       },
       error: (err) => {
         this.tagFound = undefined
@@ -342,9 +348,9 @@ export class TagModalComponent implements AfterViewInit{
     if(this.isExpandedTagList)
       query.limit = this.LIMIT_SEARCH
 
-      this.tagService.getTagsList(query).subscribe((tags) => {
-      this.tagList$ =  of(tags || [])
-      this.isExpandedTagList = !this.isExpandedTagList
+      this.tagService.getTagsList(query).subscribe((response) => {
+        this.tagList$ =  of(response.data || [])
+        this.isExpandedTagList = !this.isExpandedTagList
     })
   }
 

@@ -4,6 +4,7 @@ import { IResponse } from '../models/interface/IResponse.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ITagCadastro } from '../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../models/interface/ITagListFilter.interface';
+import { IResponseList } from '../models/interface/IResponseList.model';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -21,7 +22,7 @@ export class TagService {
         }
       });
     }
-    return this.httpClient.get<ITag[]>(this.apiUrl,{params})
+    return this.httpClient.get<IResponseList<ITag[]>>(this.apiUrl,{params})
   }
 
   getTagByExactName(nameFilter: string){
