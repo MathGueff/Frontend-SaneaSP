@@ -4,6 +4,7 @@ import { IResponse } from '../models/interface/IResponse.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ITagCadastro } from '../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../models/interface/ITagListFilter.interface';
+import { IResponseList } from '../models/interface/IResponseList.model';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
@@ -21,7 +22,7 @@ export class TagService {
         }
       });
     }
-    return this.httpClient.get<ITag[]>(this.apiUrl,{params})
+    return this.httpClient.get<IResponseList<ITag[]>>(this.apiUrl,{params})
   }
 
   getTagByExactName(nameFilter: string){
@@ -39,16 +40,16 @@ export class TagService {
 
   //POST
   createNewTag(newTag: ITagCadastro) {
-    return this.httpClient.post<IResponse<ITag[]>>(`${this.apiUrl}`, newTag)
+    return this.httpClient.post<IResponse<ITag>>(`${this.apiUrl}`, newTag)
   }
 
   //DELETE
   deleteTag(idTag: number){
-    return this.httpClient.delete<IResponse<ITag[]>>(`${this.apiUrl}/${idTag}`)
+    return this.httpClient.delete<IResponse<ITag>>(`${this.apiUrl}/${idTag}`)
   }
 
   //PUT
   editTag(idTag: number, updatedTag: ITag) {
-    return this.httpClient.put<IResponse<ITag[]>>(`${this.apiUrl}/${idTag}`, updatedTag)
+    return this.httpClient.put<IResponse<ITag>>(`${this.apiUrl}/${idTag}`, updatedTag)
   }
 }

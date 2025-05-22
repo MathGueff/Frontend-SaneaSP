@@ -7,6 +7,22 @@
     opacity: 0.3;
 }
 
+#botao-voltar-header{
+    width: 40px;
+    height: 25px;
+    padding: 0px;
+}
+
+#botao-voltar-header img{
+    width: 15px;
+    height: 15px;
+}
+
+.texto-informativo{
+    font-size: 14px;
+    opacity: 0.85;
+}
+
 /* Sobrescrita do estilo do bootstrap */
 .btn:focus-visible {
     outline: var(--outline-tab-secundario) !important;

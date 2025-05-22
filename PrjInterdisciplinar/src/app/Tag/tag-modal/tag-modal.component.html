@@ -37,11 +37,23 @@
                 formValidatorsEnum.MinLength
               ]"
             ></app-form-field>
-            } 
-            @else if (modalTypeSelected == modalTypes.Exclusao ||
-            modalTypeSelected == modalTypes.Edicao) 
-            {
-              <app-form-field
+            } @else if (modalTypeSelected == modalTypes.Exclusao ||
+            modalTypeSelected == modalTypes.Edicao) {
+              <button 
+                type="button"
+                *ngIf="tagFound != undefined" 
+                class="btn btn-primary focus-secundario me-2" 
+                id="botao-voltar-header" (click)="resetSearchForm()"> 
+                  <img src="assets/icones/operacoes/white/voltar_icon.svg" alt="">
+              </button>
+              <span
+                >Editando a tag: passo {{ tagFound != undefined ? "2" : "1" }} de
+                2</span
+              >
+            <hr />
+
+            @if(tagFound == undefined || modalTypeSelected == modalTypes.Exclusao){
+            <app-form-field
                 [formGroup]="formPesquisaTag"
                 formName="form-edit-tag"
                 controlName="nomePesquisaTag"
@@ -53,50 +65,98 @@
                 [required]="true"
                 [validators]="[formValidatorsEnum.Required]"
               ></app-form-field>
+            }
 
-            <!-- Compartilha a subscription para não precisar ficar recriando -->
-            <ng-container *ngIf="tagList$ | async as tags">
-              <!-- Mensagem de feedback indicando se a tag foi selecionada, 
-                ou no caso de nenhuma tag corresponder com o filtro -->
-                @if(tagFound != undefined 
-                || (tagFound == undefined 
-                && tags?.length == 0 
-                && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0))
-              {
-                <div class="search-feedback-container d-flex w-100 text-center justify-content-center mt-2">
-                  <img src="{{ searchFeedback.imagePath }}" alt="" />
-                  <span>{{ searchFeedback.message }} </span>
-                </div>
-              } 
-
-              <!-- Lista de tags disponíveis para seleção -->
-              @if(tags?.length > 0 && tagFound == undefined){
-                <hr/>
-                <span>Tags Sugeridas: (mostrando {{tags.length}} de {{tagCount$ | async}})</span>
-                <!-- Lista de tags encontradas com o filtro -->
-                <ul class="list-group tag-list m-2">
-                  @for (tagPesquisa of tags; track $index) {
-                  <li
-                    (click)="selectTagFromList(tagPesquisa.nome)"
-                    class="list-group-item"
+            @if(tagFound == undefined){
+              
+              <!-- Compartilha a subscription para não precisar ficar recriando a comparação -->
+              <ng-container *ngIf="tagList$ | async as tags">
+                <!-- Texto informativo que aparece apenas enquanto não houver texto inserido -->
+                 @if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
+                  <div
+                    class="texto-informativo d-flex justify-content-center align-items-center mt-2 gap-2"
                   >
-                    {{ tagPesquisa.nome }}
-                  </li>
+                    <img
+                      src="assets/icones/black/info_icon.svg"
+                      alt="ícone de informação"
+                    />
+                    <span>Digite o nome da tag e selecione para começar a editar</span>
+                  </div>
+                 }
+                  
+                @if(tags?.length <= 1 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0){
+                  <div class="search-feedback-container d-flex text-center justify-content-center mt-2 p-1">
+                    <img
+                      src="assets/icones/operacoes/black/{{
+                        tags.length == 1
+                          ? 'success'
+                          : 'error'
+                      }}_icon.svg"
+                      alt=""
+                    />
+                    <span>
+                      {{
+                        tags.length == 1
+                          ? "Selecione abaixo para começar a editar"
+                          : "Nenhuma tag encontrada!"
+                      }}
+                    </span>
+                  </div>
+                }
+
+                <!-- Lista de tags disponíveis para seleção -->
+                @if(tags?.length > 0){
+                  <hr />
+                  
+                  @if(
+                    (tags?.length != 1 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0) 
+                    || this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
+                    <span
+                      >Tags Sugeridas: (mostrando {{ tags.length }} de
+                      {{ tagCount$ | async }})</span
+                    >
+
+                    <button
+                      *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
+                      class="btn btn-primary ms-2" (click)="expandSearchList()">
+                      Recolher
+                    </button>
                   }
-                </ul>
-                <button class="btn btn-primary" (click)="expandSearchList()">{{!isExpandedTagList ? "Expandir" : "Recolher"}}</button>
-              } 
-              <!-- Para quando não houver nenhuma tag cadastrada na tabela -->
-              @else if (tags.length == 0 && tagFound == undefined && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
-                <hr>
-                <div class="d-flex justify-content-center align-items-center text-center">
-                  <span>Nenhuma tag criada. Para começar a pesquisar, cadastre uma tag</span>
-                </div>
-              }
-            </ng-container>
-              @if(tagFound && FormGroupSelected == formEditTag){
-                <hr>
-                <app-form-field
+                  <!-- Lista de tags encontradas com o filtro -->
+                  <ul class="list-group tag-list m-2">
+                    @for (tagPesquisa of tags; track $index) {
+                    <li
+                      (click)="selectTagFromList(tagPesquisa.nome)"
+                      class="list-group-item"
+                    >
+                      {{ tagPesquisa.nome }}
+                    </li>
+                    }
+                  </ul>
+                  <div class="d-flex justify-content-center w-100">
+                    <button
+                      *ngIf="!isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
+                      class="btn btn-primary ms-2" (click)="expandSearchList()">
+                      Expandir
+                    </button> 
+                  </div>
+                 
+                }
+                <!-- Para quando não houver nenhuma tag cadastrada na tabela -->
+                @else if (tags.length == 0  && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0) {
+                  <hr/>
+                  <div
+                    class="d-flex justify-content-center align-items-center text-center"
+                  >
+                    <span
+                      >Nenhuma tag criada. Para começar a pesquisar, cadastre uma
+                      tag</span
+                    >
+                  </div>
+                }
+              </ng-container>
+            } @else if(tagFound != undefined && FormGroupSelected == formEditTag){
+              <app-form-field
                 [formGroup]="formEditTag"
                 formName="form-edit-tag"
                 controlName="nomeEditTag"
@@ -105,10 +165,21 @@
                 placeholder="Digite o novo nome da tag"
                 fieldType="input"
                 [required]="true"
-                [validators]="[formValidatorsEnum.Required, formValidatorsEnum.MinLength]"
+                [validators]="[
+                  formValidatorsEnum.Required,
+                  formValidatorsEnum.MinLength
+                ]"
               ></app-form-field>
-              }
-            }
+               <div
+                  class="texto-informativo d-flex justify-content-center align-items-center mt-2"
+                >
+                  <img
+                    src="assets/icones/black/info_icon.svg"
+                    alt="ícone de informação"
+                  />
+                  <span>Clique no botão de voltar para pesquisar por outra tag</span>
+              </div>
+            } }
           </div>
         </div>
         <div class="modal-footer">
@@ -117,13 +188,25 @@
             class="btn btn-secondary focus-secundario"
             data-bs-dismiss="modal"
           >
-            Cancelar
+            <img class="btn-icon" src="assets/icones/operacoes/white/cancel_icon.svg" alt="Ícone de voltar">
+            Fechar
+          </button>
+          <button
+            *ngIf="tagFound != undefined"
+            type="button"
+            class="btn btn-terciary focus-secundario"
+            id="botao-voltar-footer"
+            (click)="resetSearchForm()"
+          >
+            <img class="btn-icon" src="assets/icones/operacoes/black/voltar_icon.svg" alt="Ícone de voltar">
+            Voltar
           </button>
           <button
             type="submit"
             (click)="onSubmit()"
             class="btn btn-primary focus-secundario"
           >
+           <img class="btn-icon" src="assets/icones/operacoes/white/confirm_icon.svg" alt="Ícone de voltar">
             {{ ModalInfo.buttonText }}
           </button>
         </div>
