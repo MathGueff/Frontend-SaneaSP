@@ -12,7 +12,7 @@ export class ToastService {
    * @param response mensagem e erro (true ou false), pode ser passado com um retorno de uma chamada de service
   */
   show(response : IResponse) {
-    const image = response.error ? "icon_error.svg" : "icon_success.svg"
+    const image = response.error ? "error_icon.svg" : "success_icon.svg"
     const iconUrl = `assets/icones/operacoes/color/${image}`;
     const toast = {
       id : Date.now(), //Para evitar IDs repetidos, utilizando a data de criação 
