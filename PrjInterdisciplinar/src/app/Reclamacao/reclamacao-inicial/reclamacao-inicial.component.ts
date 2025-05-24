@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, toArray } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { UserService } from '../../Services/user.service';
 import { ReclamacaoService } from '../../Services/reclamacao.service';
+import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 
 
 
@@ -22,7 +23,7 @@ export class ReclamacaoInicialComponent implements OnInit {
   protected userService = inject(UserService);
   usuarioAtivo$ = this.userService.getObservableCurrentUser(); // Observable com as informações do admin
   protected reclamacaoService = inject(ReclamacaoService);
-  protected reclamacoes$ !: Observable<Reclamacao[]>
+  protected reclamacoes$ !: Observable<IReclamacao[]>
   protected vazio: boolean = false; //significa q
   erro : string = "";
   TagSelect: FormGroup;
@@ -52,7 +53,7 @@ export class ReclamacaoInicialComponent implements OnInit {
         this.erro = "Reclamações"
       }
     });
-    console.log(this.reclamacoes$);
+
   }
 
 }

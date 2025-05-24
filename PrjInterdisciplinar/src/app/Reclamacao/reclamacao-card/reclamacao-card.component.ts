@@ -1,9 +1,9 @@
 import { Component, inject, Input} from '@angular/core';
-import { Reclamacao } from '../../models/class/reclamacao';
 import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../../models/interface/IUser.model';
+import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 
 @Component({
   selector: 'app-reclamacao-card',
@@ -13,7 +13,7 @@ import { IUser } from '../../models/interface/IUser.model';
   styleUrl: './reclamacao-card.component.css'
 })
 export class ReclamacaoCardComponent   {
-  @Input () card !: Reclamacao;
+  @Input () card !: IReclamacao;
   @Input () user ?: IUser;
   private sweetAlert = inject(SweetAlertService);
 

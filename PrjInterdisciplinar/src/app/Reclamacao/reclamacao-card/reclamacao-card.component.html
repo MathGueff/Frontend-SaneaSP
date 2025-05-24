@@ -4,9 +4,14 @@
     <h3 class="h5">
       {{ card.titulo }}
     </h3>
-    <span class="tag d-flex align-items-center m-md-0 ">
-      {{ card.Tag }}
-    </span>
+
+    @if(card.tags.length > 0){
+      <div class="tags d-flex align-items-center m-md-0 gap-md-2 ">
+      <span class="tag" *ngFor="let tag of card.tags">
+          {{tag.nome}}
+        </span>
+      </div>
+    }
 
     @if (this.user) {
       <article id="mais-opcoes" role="listbox">

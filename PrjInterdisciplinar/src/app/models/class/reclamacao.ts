@@ -1,6 +1,7 @@
 import { StatusReclamacao } from '../enums/StatusReclamacao.enum';
 import { IEndereco } from '../interface/IEndereco.model';
 import { IReclamacao } from '../interface/IReclamacao.interface';
+import { ITag } from '../interface/ITag.model';
 import { IUser } from './../interface/IUser.model';
 
 
@@ -20,6 +21,6 @@ export class Reclamacao implements IReclamacao{
     complemento ?: string;
     Usuario ?: IUser;
     Imagem ?: string[];
-    Tag ?: string[];
+    tags !: ITag[];
 }
 

@@ -1,4 +1,5 @@
 import { StatusReclamacao } from "../enums/StatusReclamacao.enum";
+import { ITag } from "./ITag.model";
 import { IUser } from "./IUser.model";
 
 export interface IReclamacao{
@@ -16,7 +17,7 @@ export interface IReclamacao{
     complemento ?: string,
     Usuario ?: IUser,
     Imagem ?: string[],
-    Tag ?: string[],
+    tags : ITag[],
 }
 export interface ICreateReclamacao{
     titulo: string,
@@ -29,5 +30,5 @@ export interface ICreateReclamacao{
     complemento ?: string,
     idUsuario: number,
     Imagem ?: string,
-    Tag ?: string
+    tags ?: ITag
 }
