@@ -64,12 +64,23 @@
 /* --- INICIO ACESSIBILIDADE --- */
 
 /* Estilo global para as tags (pode ser sobrescrito utilizando as classes focus-primario, secundario e terciario */
-button:focus-visible,
-a:focus-visible,
 input:focus-visible, 
-textarea:focus-visible, 
-div:focus-visible {
+textarea:focus-visible{
   outline: var(--outline-tab-primario) !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible{
+  outline: var(--outline-tab-terciario) !important;
+}
+
+.btn{
+  color: var(--cor-fonte-branca) !important;
+}
+
+.btn:focus-visible{
+  box-shadow: none !important;
 }
 
 /* Estilo com outline azul escuro */
@@ -85,12 +96,6 @@ div:focus-visible {
 /* Estilo com outline preto */
 .focus-terciario:focus-visible{
   outline: var(--outline-tab-terciario) !important;
-}
-
-/* Sobrescrita do estilo do bootstrap */
-.btn:focus-visible{
-  outline: var(--outline-tab-primario) !important;
-  box-shadow: none !important;
 }
 
 /* INICIO ESTILOS DO MODAL */
@@ -117,7 +122,7 @@ div:focus-visible {
 
 /* INICIO ESTILOS DE LISTAS */
 
-.list-group li{
+.list-group .list-group-item{
     background-color: var(--cor-background) !important;
     color: var(--cor-primaria);
     text-align: center;
@@ -126,7 +131,7 @@ div:focus-visible {
     transition: 0.6s color ease, 0.8s background-color ease, 0.6s transform ease;
 }
 
-.list-group li:hover{
+.list-group .list-group-item:hover, .list-group .list-group-item:focus-visible{
     background-color: var(--cor-primaria) !important;
     color: var(--cor-fonte-branca);
     transform: translateX(2px);
@@ -231,7 +236,7 @@ div:focus-visible {
 .btn-terciary{
   background-color: var(--cor-terciaria) !important;
   border-color: var(--cor-terciaria) !important;
-  color: var(--cor-fonte-preta);
+  color: var(--cor-fonte-preta) !important;
 }
 
 .btn-primary:hover, .btn-secondary:hover, .btn-terciary:hover{

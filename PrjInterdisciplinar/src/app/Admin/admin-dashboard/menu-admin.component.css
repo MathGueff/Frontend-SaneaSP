@@ -36,7 +36,7 @@
 }
 
 .opcao-sidebar-selecionada{
-  outline: 2px solid var(--cor-terciaria);
+  border: 2px solid var(--cor-terciaria);
   border-radius: 10px;
 }
 

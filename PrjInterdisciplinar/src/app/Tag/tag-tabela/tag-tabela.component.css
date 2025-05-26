@@ -1,8 +1,5 @@
 .table-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  width: 90%;
 }
 
 /* Estilização da Tabela */
@@ -12,16 +9,15 @@
     border-collapse: collapse;
     background-color: var(--cor-form-login);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     overflow: hidden;
     text-align: center;
   }
   
   /* Cabeçalho da Tabela */
-  .tag-table thead {
+  .tag-table thead th{
     background-color: var(--cor-primaria);
     color: var(--cor-fonte-branca);
-    font-weight: var(--texto-bold);
+    font-weight: 500;
   }
   
   .tag-table th, .tag-table td{
@@ -30,15 +26,16 @@
   }
 
   .tag-table th{
-    padding: 12px 15px; /* Espessura interna das células */
+    padding: 8px 12px; /* Espessura interna das células */
   }
 
   .tag-table td{
-    padding: 6px 8px; /* Espessura interna das células */
+    padding: 4px 6px; /* Espessura interna das células */
     color: #333;
   }
 
   .tag-table tbody tr{
+    cursor: pointer;
     transition: .7s transform ease, .3s opacity ease;
   }
   
@@ -58,7 +55,7 @@
   margin-right: 10px;
   font-weight: var(--texto-semibold);
   font-size: 0.9rem;
-  transition: 0.3s ease;
+  transition: 0.3s transform ease, 0.3s background-color ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
