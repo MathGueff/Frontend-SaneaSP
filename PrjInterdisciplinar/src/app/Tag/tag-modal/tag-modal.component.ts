@@ -26,10 +26,9 @@ import { ITagListFilter } from '../../models/interface/ITagListFilter.interface'
   templateUrl: './tag-modal.component.html',
   styleUrl: './tag-modal.component.css',
 })
-export class TagModalComponent implements AfterViewInit{
-  
+export class TagModalComponent implements AfterViewInit, OnInit{
   // === INPUTS ==============================
-  @Input() tagSelectedInput ?: ITag;
+  @Input() tagPreloaded ?: ITag;
   @Input() modalTypeSelected !: ModalType;
   
   // === OUTPUT ==============================
@@ -39,16 +38,19 @@ export class TagModalComponent implements AfterViewInit{
   private observerModalOpen !: MutationObserver
   protected LIMIT_SEARCH : number = 5
 
+  ngOnInit(): void {
+    this.formExclusaoTag.controls.nomeExclusaoTag.disable();
+  }
+
   ngAfterViewInit(): void {
-    if (typeof document === 'undefined') return;
-  
-    if (!this.modalElement) return;
+    //Evita problemas com carregamento da página
+    if (typeof document === 'undefined' || !this.modalElement ) return;
   
     //MutationObserver para detectar sempre que a classe do elemento é alterada para show e executar o código
-     this.observerModalOpen = new MutationObserver(() => {
+    this.observerModalOpen = new MutationObserver(() => {
       if (this.modalElement.nativeElement.classList.contains('show')) {
         this.updateTagListOnOpenModal();
-        this.setTagOnOpenModal();
+        this.setTagSelectedOnOpenModal();
       }
     });
   
@@ -75,13 +77,16 @@ export class TagModalComponent implements AfterViewInit{
     }
   }
 
-  setTagOnOpenModal(){
-    if(this.tagSelectedInput == undefined)
+  setTagSelectedOnOpenModal(){
+    //Se não houver tag pré selecionada, reseta o formulário
+    if(!this.tagPreloaded){
       this.resetSearchForm();
-    if((this.modalTypeSelected == ModalType.Edicao || this.modalTypeSelected == ModalType.Exclusao) && this.tagSelectedInput != undefined){
-      this.formPesquisaTag.controls.nomePesquisaTag.setValue(this.tagSelectedInput?.nome || "")
-      this.selectTagFromList(this.tagSelectedInput?.nome || "")
+      return;
     }
+
+    //Caso contrário, carrega o formulário com as informações da tag passada (caso seja edicao/exclusao)
+    this.formPesquisaTag.controls.nomePesquisaTag.setValue(this.tagPreloaded?.nome || "")
+    this.setTagSelected(this.tagPreloaded?.nome || "")
   }
 
   closeModal() {
@@ -113,20 +118,21 @@ export class TagModalComponent implements AfterViewInit{
     nomeEditTag: ['', [Validators.required, Validators.minLength(2)]],
   });
 
+   protected formExclusaoTag = this.fb.group({
+    nomeExclusaoTag: ['', [Validators.required, Validators.minLength(2)]],
+  });
+
   // === ENUMS  ==============================
   formValidatorsEnum = FormValidatorEnum;
   modalTypes = ModalType;
 
-  //=== STATE VARIABLES  ==============================
-  protected searchFeedback: ISearchFeedback = {
-    message: '',
-    imagePath: '',
-  };
-  protected isExpandedTagList : boolean = false;
-
+  //=== Observables  ==============================
   protected tagList$ : Observable<any> = of([]);
   protected tagCount$ : Observable<number> = this.tagService.getTagCount();
-  protected tagFound: ITag | undefined;
+  
+  //=== VAR  ==============================
+  protected tagSelected: ITag | undefined; //Tag selecionada para edit/delete
+  protected isExpandedTagList : boolean = false;
 
   // === GETTERS  ==============================
   get ModalInfo(): IModalTagInfos {
@@ -158,6 +164,8 @@ export class TagModalComponent implements AfterViewInit{
         return this.formCadastroTag
       case ModalType.Edicao:
         return this.formEditTag
+      case ModalType.Exclusao:
+        return this.formExclusaoTag
       default:
         break;
     }
@@ -219,7 +227,7 @@ export class TagModalComponent implements AfterViewInit{
 
   //Quando o botão de Editar ou Excluir é pressionado
   handleTagEdit() {
-    if (this.tagFound == undefined){
+    if (!this.tagSelected){
       this.toastService.show({ 
         error: true,
         message: "Escolha uma tag válida para começar a editar"
@@ -236,11 +244,11 @@ export class TagModalComponent implements AfterViewInit{
     }
 
     const updatedTag = {
-      id: this.tagFound.id,
+      id: this.tagSelected.id,
       nome : this.formEditTag.controls.nomeEditTag.value
     }
 
-    this.tagService.editTag(this.tagFound.id, updatedTag).subscribe({
+    this.tagService.editTag(this.tagSelected.id, updatedTag).subscribe({
       next: (response) => {
         this.toastService.show(response)
         if(!response.error){
@@ -256,20 +264,20 @@ export class TagModalComponent implements AfterViewInit{
   }
 
   handleTagDelete(){
-    if (this.tagFound == undefined){
+    if (!this.tagSelected){
       this.toastService.show({ 
         error: true,
         message: "Escolha uma tag válida para excluir"
       })
       return
     } 
-    this.showDeleteConfirmation(`Deseja deletar a tag: "${this.tagFound.nome}"?`);
+    this.showDeleteConfirmation(`Deseja deletar a tag: "${this.tagSelected.nome}"?`);
   }
 
   handleTagConfirmationDelete(){
-    if(this.tagFound == undefined) 
+    if(!this.tagSelected) 
       return
-    this.tagService.deleteTag(this.tagFound.id).subscribe({
+    this.tagService.deleteTag(this.tagSelected.id).subscribe({
       next: (response) => {
         this.toastService.show(response);
         if(!response.error) {
@@ -298,8 +306,8 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.getTagsList({nome : searchInput.value, limit: this.LIMIT_SEARCH}).subscribe(response => {
       // Atualiza o Observable tagList$ com as novas tags
       this.tagList$ = of(response.data || []);
-      //this.updateTagFound(this.formPesquisaTag.controls.nomePesquisaTag.value);
-      this.tagFound = undefined;
+      //this.updatetagSelected(this.formPesquisaTag.controls.nomePesquisaTag.value);
+      this.tagSelected = undefined;
     });
   }
 
@@ -310,7 +318,8 @@ export class TagModalComponent implements AfterViewInit{
     this.tagService.getTagsList({limit : this.LIMIT_SEARCH}).subscribe((response) => {
       this.tagList$ = of(response.data || [])
     })
-    this.tagFound = undefined;
+    this.tagSelected = undefined;
+    this.tagPreloaded = undefined;
     this.isExpandedTagList = false;
   }
 
@@ -320,21 +329,25 @@ export class TagModalComponent implements AfterViewInit{
     this.resetTagSearchProgress();
   }
 
-  selectTagFromList(nomeSelecionado: string) {
-    this.formPesquisaTag.controls.nomePesquisaTag.setValue(nomeSelecionado);
-    const tagName = this.formPesquisaTag.controls.nomePesquisaTag.value
-    this.setTagFound(tagName);
-    this.tagList$ = of([])
-  }
-
-  setTagFound(tagName : string){
+  setTagSelected(tagName : string){
     this.tagService.getTagByExactName(tagName).subscribe({
       next : (response) => {
-        this.tagFound = response.data
-        this.formEditTag.controls.nomeEditTag.setValue(tagName);
+        this.tagSelected = response.data
+        switch(this.modalTypeSelected)
+        {
+          case ModalType.Edicao:
+            this.formEditTag.controls.nomeEditTag.setValue(tagName);
+            break;
+          case ModalType.Exclusao:
+            this.formExclusaoTag.controls.nomeExclusaoTag.setValue(tagName);
+            break;
+        }
+        if(response.data && !this.tagPreloaded)
+          this.toastService.show({message: `Tag "${response.data.nome}" selecionada`, error: false})
       },
       error: (err) => {
-        this.tagFound = undefined
+        this.tagSelected = undefined
+        this.toastService.show({message: 'Ocorreu um erro ao selecionar uma tag' + err, error: true})
       }
     })
   }
@@ -359,11 +372,12 @@ export class TagModalComponent implements AfterViewInit{
     this.closeModal();
     this.sweetAlertService
       .confirmExclusion(message)
-      .then((result) => {
-        if (result) {
+      .then((confirmed) => {
+        if (confirmed) {
           this.handleTagConfirmationDelete();
         }
-        this.OpenModal();
+        if(!this.tagPreloaded || !confirmed)
+          this.OpenModal();
       });
   }
 }
