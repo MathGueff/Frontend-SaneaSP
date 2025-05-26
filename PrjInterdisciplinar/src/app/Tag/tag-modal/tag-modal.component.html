@@ -14,7 +14,7 @@
           </h1>
           <button
             type="button"
-            class="btn-close focus-terciario"
+            class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
           ></button>
@@ -42,7 +42,7 @@
               <button 
                 type="button"
                 *ngIf="tagFound != undefined" 
-                class="btn btn-primary focus-secundario me-2" 
+                class="btn btn-primary focus-terciario me-2" 
                 id="botao-voltar-header" (click)="resetSearchForm()"> 
                   <img src="assets/icones/operacoes/white/voltar_icon.svg" alt="">
               </button>
@@ -55,7 +55,7 @@
             @if(tagFound == undefined || modalTypeSelected == modalTypes.Exclusao){
             <app-form-field
                 [formGroup]="formPesquisaTag"
-                formName="form-edit-tag"
+                formName="form-pesquisa-tag"
                 controlName="nomePesquisaTag"
                 icon="assets/icones/black/tag_icon.svg"
                 label="Nome da Tag:"
@@ -127,7 +127,9 @@
                     @for (tagPesquisa of tags; track $index) {
                     <li
                       (click)="selectTagFromList(tagPesquisa.nome)"
+                      (keydown.enter)="selectTagFromList(tagPesquisa.nome)"
                       class="list-group-item"
+                      tabindex="0"
                     >
                       {{ tagPesquisa.nome }}
                     </li>
@@ -185,7 +187,7 @@
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary focus-secundario"
+            class="btn btn-secondary"
             data-bs-dismiss="modal"
           >
             <img class="btn-icon" src="assets/icones/operacoes/white/cancel_icon.svg" alt="Ícone de voltar">
@@ -194,7 +196,7 @@
           <button
             *ngIf="tagFound != undefined"
             type="button"
-            class="btn btn-terciary focus-secundario"
+            class="btn btn-terciary"
             id="botao-voltar-footer"
             (click)="resetSearchForm()"
           >
@@ -204,7 +206,7 @@
           <button
             type="submit"
             (click)="onSubmit()"
-            class="btn btn-primary focus-secundario"
+            class="btn btn-primary"
           >
            <img class="btn-icon" src="assets/icones/operacoes/white/confirm_icon.svg" alt="Ícone de voltar">
             {{ ModalInfo.buttonText }}
