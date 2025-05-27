@@ -16,7 +16,7 @@
         @for (link of linksSidebar; track $index) {
         <div
           [class.opcao-sidebar-selecionada]="sidebarAtual == link.opcao"
-          class="opcao-sidebar focus-secundario d-flex align-items-center gap-2 p-2 flex-lg-row flex-column text-center"
+          class="opcao-sidebar focus-terciario d-flex align-items-center gap-2 p-2 flex-lg-row flex-column text-center"
           (click)="mudarOpcaoAtual(link.opcao)"
           (keydown.enter)="mudarOpcaoAtual(link.opcao)"
           (keydown.space)="mudarOpcaoAtual(link.opcao)"
