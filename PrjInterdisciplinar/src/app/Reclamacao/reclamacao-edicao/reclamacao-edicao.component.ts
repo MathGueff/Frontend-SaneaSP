@@ -43,8 +43,8 @@ export class ReclamacaoEdicaoComponent implements OnInit {
       bairro: [this.reclamacao?.bairro, [Validators.required]],
       rua: [this.reclamacao?.rua, [Validators.required]],
       complemento: [this.reclamacao?.complemento],
-      Tag: [this.reclamacao?.tags],
-      Imagem: [this.reclamacao?.Imagem],
+      Tag: [this.reclamacao?.Tags],
+      Imagem: [this.reclamacao?.Imagens],
     });
 
     onSubmit() {

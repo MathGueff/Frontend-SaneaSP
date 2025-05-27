@@ -52,6 +52,7 @@ export class ReclamacaoInicialComponent implements OnInit {
         this.vazio = true;
         this.erro = "Reclamações"
       }
+      console.log(reclamacoes)
     });
 
   }

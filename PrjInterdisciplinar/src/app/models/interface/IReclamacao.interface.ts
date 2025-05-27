@@ -1,4 +1,5 @@
 import { StatusReclamacao } from "../enums/StatusReclamacao.enum";
+import { IImagem } from "./IImagem.interface";
 import { ITag } from "./ITag.model";
 import { IUser } from "./IUser.model";
 
@@ -16,8 +17,8 @@ export interface IReclamacao{
     numero ?: string,
     complemento ?: string,
     Usuario ?: IUser,
-    Imagem ?: string[],
-    tags : ITag[],
+    Imagens : IImagem[],
+    Tags : ITag[],
 }
 export interface ICreateReclamacao{
     titulo: string,
@@ -29,6 +30,6 @@ export interface ICreateReclamacao{
     numero ?: string,
     complemento ?: string,
     idUsuario: number,
-    Imagem ?: string,
-    tags ?: ITag
+    Imagens ?: IImagem,
+    Tags ?: ITag
 }

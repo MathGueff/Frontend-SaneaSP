@@ -5,9 +5,9 @@
       {{ card.titulo }}
     </h3>
 
-    @if(card.tags.length > 0){
+    @if(card.Tags.length > 0){
       <div class="tags d-flex align-items-center m-md-0 gap-md-2 ">
-      <span class="tag" *ngFor="let tag of card.tags">
+      <span class="tag" *ngFor="let tag of card.Tags">
           {{tag.nome}}
         </span>
       </div>
@@ -45,7 +45,31 @@
     <div class="row justify-content-center">
       <!-- Imagem do card -->
       <div class="card-image-div col-lg-2 col-md-12 d-flex justify-content-lg-center">
-        <img src="{{ card.Imagem }}" alt="icone" class="card-icon-large">
+        @if (card.Imagens.length > 0) {
+
+          <div id="carouselImage" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active" *ngFor="let imagem of card.Imagens">
+                <img src="{{imagem.nome}}" class="card-icon-large" alt="Imagem da Reclamação">
+              </div>
+            </div>
+
+            @if(card.Imagens.length > 1){
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselImage" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselImage" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            }
+          </div>
+            <!-- <img src="{{ card.Imagens[0] }}" alt="icone" class="card-icon-large"> -->
+        }
+        @else {
+          <img src="image-not-found.svg" alt="icone" class="card-icon-large">
+        }
       </div>
       <!-- Informações do card -->
       <div class="col-lg-10 col-md-12">
