@@ -31,6 +31,7 @@
               type="search"
               class="form-select text-center borda"
               formControlName="tagForm"
+              (change)="PesquisarPorTag()"
             />
             <datalist id="box">
               <option selected>Todos</option>
@@ -40,6 +41,7 @@
               <option>Qualidade da Água</option>
             </datalist>
           </div>
+          <button class="btn btn-primary" (submit)="PesquisarPorTag()" type="submit">Buscar</button>
         </form>
         <!-- <app-tag-select></app-tag-select> -->
       </div>

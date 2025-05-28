@@ -1,3 +1,4 @@
+import { TagService } from './../../Services/tag.service';
 import { SweetAlertService } from './../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
@@ -10,6 +11,9 @@ import { Router, RouterLink } from '@angular/router';
 import { ViacepService } from '../../Services/viacep.service';
 import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { ICreateReclamacao } from '../../models/interface/IReclamacao.interface';
+import { ITag } from '../../models/interface/ITag.model';
+import { IResponseList } from '../../models/interface/IResponseList.model';
+
 
 @Component({
   selector: 'app-reclamacao-form',
@@ -24,7 +28,9 @@ export class ReclamacaoFormComponent implements OnInit {
   private router = inject(Router);
   private viacepService = inject(ViacepService);
   private sweetService = inject(SweetAlertService);
-
+  private tagService = inject(TagService);
+  public formTags !:ITag[]
+  public selectedTags : ITag[] = [];
   rows: number = 2;
   src: any = null;
 
@@ -41,7 +47,7 @@ export class ReclamacaoFormComponent implements OnInit {
     bairro: ['', [Validators.required]],
     rua: ['', [Validators.required]],
     complemento: [''],
-    tag: ['Nenhum'],
+    tag: [[]],
     imagem: [''],
   });
 
@@ -64,6 +70,9 @@ export class ReclamacaoFormComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.tagService.getTagsList().subscribe({
+      next: (tags) => this.formTags = tags.data
+    })
     this.form.controls.cep.valueChanges.subscribe(() => {
       if (
         this.form.controls.cep.valid &&
@@ -74,6 +83,7 @@ export class ReclamacaoFormComponent implements OnInit {
         this.resetAddressControls();
       }
     });
+    this.form.controls.tag.valueChanges.subscribe((tags)=> console.log(tags))
   }
   searchAddress() {
     this.viacepService.getAddress(this.form.controls.cep.value).subscribe({
@@ -134,5 +144,11 @@ export class ReclamacaoFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  protected SelectTags(){
+    this.form.controls.tag.valueChanges.subscribe((tags) =>{
+
+    })
   }
 }
