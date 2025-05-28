@@ -1,40 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ITag } from '../../models/interface/ITag.model';
+import { TagService } from '../../Services/tag.service';
 
 
 @Component({
   selector: 'app-tag-select',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './tag-select.component.html',
   styleUrl: './tag-select.component.css'
 })
 export class TagSelectComponent {
-  constructor(private formBuilder:FormBuilder){}
-  tags : ITag[] = [
-    {
-      id:1,
-      nomeTag : "Tag1"
-    },
-    {
-      id:2,
-      nomeTag : "Tag2"
-    },
-    {
-      id:3,
-      nomeTag : "Tag3"
-    },
-    {
-      id:4,
-      nomeTag : "Tag4"
-    },
-  ];
-  form = new FormGroup({
-    tagsSelecteds: new FormControl('')
-  });
-  selecionarTags(){
-    
+  private tagService = inject(TagService);
+  public formTags !: ITag[];
+  public select = new FormControl();
+  public formSelects : ITag[] = []
+  constructor() {
+    this.tagService.getTagsList().subscribe({
+      next: (tags) => this.formTags = tags.data
+    })
+    // this.select.valueChanges.subscribe((tag)=>{
+    //   if(tag){
+    //     if(tag.id !== 0)[
+    //       console.log(tag.nome)
+    //     ]
+    //   }
+    // })
   }
+
+  protected SelectTag(){
+    this.formSelects.includes(this.select.value)
+    console.log(this.formSelects)
+  }
+
+
+
 }

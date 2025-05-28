@@ -28,30 +28,30 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   protected vazio: boolean = true;
   protected erro : string = "";
   TagSelect : FormGroup;
-  reclamacoes: Reclamacao [] = [
-    {
-      id: 1,
-      titulo: "Falta de abastecimento de água",
-      descricao: "Há três dias o bairro está sem água, afetando diversas famílias. A situação está insustentável, pois as pessoas não conseguem realizar atividades básicas como cozinhar, tomar banho ou lavar roupas. Entramos em contato com a companhia de saneamento, mas até agora não houve retorno sobre o motivo da interrupção ou previsão de normalização.",
-      data: new Date("2024-11-28"),
-      Tag: ["Abastecimento"],
-      Imagem : ["img/paginas/reclamacoes/user1.jpg"],
-      Usuario :{
-        id: 1,
-        nome: 'Matheus',
-        email: 'gueff@gmail.com',
-        senha: 'math',
-        endereco:{
-          cep: '18075718',
-          bairro : 'Jardim Brasilândia',
-          logradouro : 'Rua Alonco Muchon',
-          cidade : 'Sorocaba'
-        }
-      },
-      pontuacao:200,
-      status:2
-    },
-  ];
+  // reclamacoes: Reclamacao [] = [
+  //   {
+  //     id: 1,
+  //     titulo: "Falta de abastecimento de água",
+  //     descricao: "Há três dias o bairro está sem água, afetando diversas famílias. A situação está insustentável, pois as pessoas não conseguem realizar atividades básicas como cozinhar, tomar banho ou lavar roupas. Entramos em contato com a companhia de saneamento, mas até agora não houve retorno sobre o motivo da interrupção ou previsão de normalização.",
+  //     data: new Date("2024-11-28"),
+  //     Tag: ["Abastecimento"],
+  //     Imagem : ["img/paginas/reclamacoes/user1.jpg"],
+  //     Usuario :{
+  //       id: 1,
+  //       nome: 'Matheus',
+  //       email: 'gueff@gmail.com',
+  //       senha: 'math',
+  //       endereco:{
+  //         cep: '18075718',
+  //         bairro : 'Jardim Brasilândia',
+  //         logradouro : 'Rua Alonco Muchon',
+  //         cidade : 'Sorocaba'
+  //       }
+  //     },
+  //     pontuacao:200,
+  //     status:2
+  //   },
+  // ];
 
   constructor(private fb:FormBuilder){
     this.TagSelect = this.fb.group({
@@ -80,18 +80,18 @@ export class ReclamacaoUsuariosComponent implements OnInit {
     this.TagSelect.valueChanges.subscribe(()=>{
       console.log("Esta funcionando");
     })
-    let lista : IReclamacao [];
-    lista = this.reclamacoes.filter((reclamacao) =>{
-      return (reclamacao.Usuario?.id === this.user?.id)
-    })
-    if(lista.length > 0 ){
-      this.vazio = false;
-      this.reclamacaoSubject.next(lista);
-    }
-    else{
-      this.vazio = true;
-      this.erro = "Nenhuma Reclamação encontrada";
-    }
+    // let lista : IReclamacao [];
+    // lista = this.reclamacoes.filter((reclamacao) =>{
+    //   return (reclamacao.Usuario?.id === this.user?.id)
+    // })
+    // if(lista.length > 0 ){
+    //   this.vazio = false;
+    //   this.reclamacaoSubject.next(lista);
+    // }
+    // else{
+    //   this.vazio = true;
+    //   this.erro = "Nenhuma Reclamação encontrada";
+    // }
   }
  private thisIsUser() : IUser{
     let user = this.userService.getCurrentUser();

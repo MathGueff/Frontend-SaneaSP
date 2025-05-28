@@ -53,8 +53,8 @@ export class ComentarioCentralComponent implements OnInit {
       titulo: "Falta de abastecimento de água",
       descricao: "Há três dias o bairro está sem água, afetando diversas famílias. A situação está insustentável, pois as pessoas não conseguem realizar atividades básicas como cozinhar, tomar banho ou lavar roupas. Entramos em contato com a companhia de saneamento, mas até agora não houve retorno sobre o motivo da interrupção ou previsão de normalização.",
       data: new Date("2024-11-28"),
-      Tag: ["Abastecimento"],
-      Imagem : ["img/paginas/reclamacoes/user1.jpg"],
+      Tags: [{id:5,nome:"Abasyecimento"}],
+      Imagens : [{id: 1,nome:"img/paginas/reclamacoes/user1.jpg"}],
       Usuario :{
         id: 1,
         nome: 'Matheus',

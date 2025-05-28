@@ -3,7 +3,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViacepService } from '../../Services/viacep.service';
-import { Reclamacao } from '../../models/class/reclamacao';
 import { UserService } from '../../Services/user.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
@@ -27,23 +26,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
     protected path :string = "../";
 
     private reclamacao ?: IReclamacao
-    reclamacoes: IReclamacao [] = [
-      {
-        id: 1,
-        titulo: "Falta de abastecimento de água",
-        descricao: "Há três dias o bairro está sem água, afetando diversas famílias. A situação está insustentável, pois as pessoas não conseguem realizar atividades básicas como cozinhar, tomar banho ou lavar roupas. Entramos em contato com a companhia de saneamento, mas até agora não houve retorno sobre o motivo da interrupção ou previsão de normalização.",
-        data: new Date ("2024-11-28"),
-        Tag: ["Abastecimento"],
-        Imagem : ["img/paginas/reclamacoes/user1.jpg"],
-        cep: '18075718',
-        bairro : 'Jardim Brasilândia',
-        rua : 'Rua Alonco Muchon',
-        cidade : 'Sorocaba',
-        pontuacao:200,
-        status: 1
-      },
 
-    ];
     rows: number = 2;
     src: any = null;
 
@@ -60,8 +43,8 @@ export class ReclamacaoEdicaoComponent implements OnInit {
       bairro: [this.reclamacao?.bairro, [Validators.required]],
       rua: [this.reclamacao?.rua, [Validators.required]],
       complemento: [this.reclamacao?.complemento],
-      Tag: [this.reclamacao?.Tag],
-      Imagem: [this.reclamacao?.Imagem],
+      Tag: [this.reclamacao?.Tags],
+      Imagem: [this.reclamacao?.Imagens],
     });
 
     onSubmit() {
@@ -72,9 +55,9 @@ export class ReclamacaoEdicaoComponent implements OnInit {
     }
     ngOnInit(): void {
       this.activeRouter.params.subscribe((params)=>{
-        this.reclamacao = this.reclamacoes.find((objReclamacao)=>{
-          return objReclamacao.id ===  Number(params['id']);
-        })
+        // this.reclamacao = this.reclamacoes.find((objReclamacao)=>{
+        //   return objReclamacao.id ===  Number(params['id']);
+        // })
         if(!this.reclamacao){
           this.vazio = true;
           this.erro = "Reclamação Inexistente";
