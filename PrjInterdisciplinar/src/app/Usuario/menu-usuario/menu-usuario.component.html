@@ -9,7 +9,7 @@
         <div
           routerLink="{{ card.path }}"
           class="card h-100"
-          (keydown.enter)="navigateTo(card.path)"
+          tabindex="-1"
         >
           <!-- Div do card-->
           <h5 class="card-header pt-3 pb-3">{{ card.nome }}</h5>
