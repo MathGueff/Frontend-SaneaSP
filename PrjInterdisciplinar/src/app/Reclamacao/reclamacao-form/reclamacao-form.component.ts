@@ -13,12 +13,13 @@ import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { ICreateReclamacao } from '../../models/interface/IReclamacao.interface';
 import { ITag } from '../../models/interface/ITag.model';
 import { IResponseList } from '../../models/interface/IResponseList.model';
+import { TagSelectComponent } from "../../Common/tag-select/tag-select.component";
 
 
 @Component({
   selector: 'app-reclamacao-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, TagSelectComponent],
   templateUrl: './reclamacao-form.component.html',
   styleUrl: './reclamacao-form.component.css',
 })
@@ -28,8 +29,7 @@ export class ReclamacaoFormComponent implements OnInit {
   private router = inject(Router);
   private viacepService = inject(ViacepService);
   private sweetService = inject(SweetAlertService);
-  private tagService = inject(TagService);
-  public formTags !:ITag[]
+
   public selectedTags : ITag[] = [];
   rows: number = 2;
   src: any = null;
@@ -70,9 +70,6 @@ export class ReclamacaoFormComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.tagService.getTagsList().subscribe({
-      next: (tags) => this.formTags = tags.data
-    })
     this.form.controls.cep.valueChanges.subscribe(() => {
       if (
         this.form.controls.cep.valid &&
@@ -144,11 +141,5 @@ export class ReclamacaoFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
-  }
-
-  protected SelectTags(){
-    this.form.controls.tag.valueChanges.subscribe((tags) =>{
-
-    })
   }
 }

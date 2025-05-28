@@ -178,47 +178,7 @@
 
         <hr />
 
-        <div class="col-md-12 col-sm-12 mb-3">
-          <img
-            class="form-icon me-1"
-            src="img/paginas/reclamacoes/tag-icon.svg"
-          />
-          <label for="tags" class="form-label">Tags:</label>
-          <select
-            formControlName="tag"
-            class="form-control text-center"
-            id="tags"
-            placeholder="Procure uma Tag"
-            (input)="SelectTags()"
-          >
-            <!-- <option *ngFor="let item of list" [value]="item">{{item}}</option> -->
-            <option selected>Nenhum</option>
-              @for (tag of formTags; track tag.id) {
-                <option value="{{tag}}">{{tag.nome}}</option>
-              }
-          </select>
-        </div>
-
-        <div class="col-md-12 col-sm-12 pe-0">
-          <label class="form-label">Tags selecionadas:</label>
-          <div class="tags-selected d-flex justify-content-between">
-            <div class="tag">
-              <span>Esgoto a céu aberto</span>
-            </div>
-            <div class="tag">
-              <span>Esgoto a céu aberto</span>
-            </div>
-            <div class="tag">
-              <span>Esgoto a céu aberto</span>
-            </div>
-            <div class="tag">
-              <span>Esgoto a céu aberto</span>
-            </div>
-            <div class="tag">
-              <span>Esgoto a céu aberto</span>
-            </div>
-          </div>
-        </div>
+      <app-tag-select></app-tag-select>
 
         <div class="col-md-12 col-sm-12 mb-3">
           <img
