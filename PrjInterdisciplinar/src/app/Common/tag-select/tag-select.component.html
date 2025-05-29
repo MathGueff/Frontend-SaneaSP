@@ -6,23 +6,22 @@
     class="form-control text-center"
     id="tags"
     placeholder="Procure uma Tag"
-    (input)="SelectTag()"
   >
     <!-- <option *ngFor="let item of list" [value]="item">{{item}}</option> -->
     <option  selected>Nenhum</option>
     @for (tag of formTags; track tag.id) {
-    <option value="{{ tag }}">{{ tag.nome }}</option>
+    <option [ngValue]="tag">{{ tag.nome }}</option>
     }
   </select>
 </div>
 
 <div class="col-md-12 col-sm-12 pe-0">
   <label class="form-label">Tags selecionadas:</label>
-  <div class="tags-selected d-flex justify-content-between">
+  <div class="tags-selected d-flex justify-content-around">
     @for (tag of formSelects; track tag.id) {
-      <div class="tag">
-        <span>{{tag.nome}}</span>
-      </div>
+      <button (click)="TirarTagSelect(tag)"  class="tag">
+        {{tag.nome}}
+      </button>
     }
   </div>
 </div>
