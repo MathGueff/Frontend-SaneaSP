@@ -77,16 +77,21 @@ export class FormLoginComponent{
   /* Verificação de login */
   login(email : string, senha : string){
     const autenticate = this.authService.autenticate(email, senha);
-    if(this.userService.validateUser(email, senha)){
-      /* Navega para a pagina principal */
-      this.router.navigate(['pagina-admin']);
-    }
-    else{
-      /* Usuário inexistente */
-      this.toastService.show({
-        message : 'Usuário inválido',
-        error: true
-      })
-    }
+
+    autenticate.subscribe({
+      next: response => {
+        /* Navega para a pagina principal */
+        this.router.navigate(['pagina-admin']);
+        this.userService.fazerLogin(Number(this.authService.getStorage("user-id-active")))
+      },
+      error: e => {
+        /* Usuário inexistente */
+        this.toastService.show({
+          message : e.error.message,
+          error: true
+        })
+      }
+    })
+    
   }
 }
