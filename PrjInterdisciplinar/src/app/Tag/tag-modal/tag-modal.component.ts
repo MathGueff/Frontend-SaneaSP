@@ -18,6 +18,7 @@ import { ToastService } from '../../Services/toast.service';
 import { Observable, of } from 'rxjs';
 import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../../models/interface/ITagListFilter.interface';
+import { UserService } from '../../Services/user.service';
 
 @Component({
   selector: 'app-tag-modal',
@@ -34,6 +35,13 @@ export class TagModalComponent implements AfterViewInit, OnInit{
   // === OUTPUT ==============================
   @Output() submitModalEvent: EventEmitter<void> = new EventEmitter<void>();
 
+  // === INJECTIONS  ==============================
+  private fb = inject(NonNullableFormBuilder);
+  protected tagService = inject(TagService);
+  private sweetAlertService = inject(SweetAlertService);
+  private toastService = inject(ToastService)
+  private userService = inject(UserService)
+
   //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
   protected LIMIT_SEARCH : number = 5
@@ -49,8 +57,19 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     //MutationObserver para detectar sempre que a classe do elemento é alterada para show e executar o código
     this.observerModalOpen = new MutationObserver(() => {
       if (this.modalElement.nativeElement.classList.contains('show')) {
-        this.updateTagListOnOpenModal();
-        this.setTagSelectedOnOpenModal();
+        if(this.userService.getCurrentUser()){
+          this.updateTagListOnOpenModal();
+          this.setTagSelectedOnOpenModal();
+        }
+        else{
+          this.toastService.show({
+            message: 'Você não pode acessar o modal de tags',
+            error: true
+          })
+          setTimeout(() => {
+            this.closeModal();
+          }, 500)
+        }
       }
     });
   
@@ -98,12 +117,6 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     //Chamada para botão de chamar modal (usado para interação entre modal e sweetAlert)
     this.botaoChamarModalRef.nativeElement.click();
   }
-
-  // === INJECTIONS  ==============================
-  private fb = inject(NonNullableFormBuilder);
-  protected tagService = inject(TagService);
-  private sweetAlertService = inject(SweetAlertService);
-  private toastService = inject(ToastService)
 
   //=== FORMS  ==============================
   protected formCadastroTag = this.fb.group({
