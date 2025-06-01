@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import { IAdmin } from "../models/interface/Iadmin.model";
+import { IAdmin } from '../models/interface/IAdmin.model';
 import { UserService } from "./user.service";
 import { Observable, of } from "rxjs";
 
