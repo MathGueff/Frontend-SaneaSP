@@ -4,6 +4,7 @@ import { NavbarLink } from '../../../models/class/navbar-link';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginLinkComponent } from "../login-link/login-link.component";
 import { UserService } from '../../../Services/user.service';
+import { AuthService } from '../../../Services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +15,10 @@ import { UserService } from '../../../Services/user.service';
 })
 export class NavbarComponent {
   protected userService = inject(UserService);
-  loginInfo$ =  this.userService.getObservableCurrentUser();
-  adminInfo$ = this.userService.admin$; // Observable com as informações do admin
+  protected authService = inject(AuthService);
+
+  loginInfo$ =  this.authService.activeUser$;
+  adminInfo$ = this.authService.admin$; // Observable com as informações do admin
   //Array com links de navegação da navbar
   links : NavbarLink[] =[
     {path: '/doenca-inicial', img: 'assets/icones/white/doenca_icon.svg', alt : 'Ícone do link para página de Doenças', nome : 'Doenças'},

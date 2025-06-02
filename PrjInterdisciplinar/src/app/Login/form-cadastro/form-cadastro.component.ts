@@ -10,11 +10,13 @@ import { ViacepService } from '../../Services/viacep.service';
 import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
 import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
+import { ToastService } from '../../Services/toast.service';
+import { ToastComponent } from '../../Common/toast/toast.component';
 
 @Component({
   selector: 'app-form-cadastro',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule, FormFieldComponent],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, FormFieldComponent, ToastComponent],
   templateUrl: './form-cadastro.component.html',
   styleUrls: ['./form-cadastro.component.css', '../links-redes.css']
 })
@@ -23,6 +25,7 @@ export class FormCadastroComponent implements OnInit{
   private router = inject(Router);
   private userService = inject(UserService);
   private viacepService = inject(ViacepService);
+  private toastService = inject(ToastService);
 
   formName : string = "cadastro"; //Nome do formulário para concatenar ao nome do control (email-cadastro)
   passwordMinLength = 6;
@@ -151,14 +154,6 @@ export class FormCadastroComponent implements OnInit{
     },
   ]
 
-  protected cadastroErrorStatus : CadastroErrorStatus = CadastroErrorStatus.None;
-   /*
-    *None -> Formulário sem problemas
-    *invalidControl -> Campo inválido
-    *invalidUser -> Usuário inexistente
-    *userExists -> Usuário já existente com o email fornecido
-  */
-
   onSubmit(){
     if(this.formCadastro.valid){  //Caso o formulário seja válido
       let senha = this.formCadastro.controls.senha.value;
@@ -195,44 +190,36 @@ export class FormCadastroComponent implements OnInit{
         }
         else {
           //Informa erro de usuário existente
-          this.cadastroErrorStatus = CadastroErrorStatus.userExists;
+          this.toastService.show({
+            message : 'Esse email já está sendo usado no sistema',
+            error : true
+          })
         }
       }
       else{
         //Informa erro de senhas não coincidentes
-        this.cadastroErrorStatus = CadastroErrorStatus.invalidPassword;
+        this.toastService.show({
+          message : 'As senhas não coincidem',
+          error : true
+        })
       }
     }
     else{
       //Informa erro de campos inválidos
-      this.cadastroErrorStatus = CadastroErrorStatus.invalidControl;
+      this.toastService.show({
+        message : 'Campos obrigatórios não preenchidos',
+        error : true
+      })
     }
   }
 
-  /* Método para verificar status do enum (CadastroErrorStatus.enum) */
-  checkIfFormError(status : string) : boolean{
-    /* Recebe o valor do enum (em string) e compara com o estado atual do formulário, se forem iguais, retorna true */
-    return this.cadastroErrorStatus == status
-  }
-
   ngOnInit() {
-    // Detecta mudanças nos campos para resetar o status do erro atual
-    Object.keys(this.formCadastro.controls).forEach(control => {
-      if(control != "cep"){
-        this.formCadastro.get(control)?.valueChanges.subscribe(() => {
-          // Limpando o erro quando o usuário alterar o valor do campo 'senha'
-          this.cadastroErrorStatus = CadastroErrorStatus.None;
-        });
-      }
-    });
-
     //VIACEP
     this.formCadastro.controls.cep.valueChanges.subscribe(() => {
       if(this.formCadastro.controls.cep.valid && this.formCadastro.controls.cep.value.length == 8){
         this.searchAddress();
       }
       else{
-        console.log("CEP INVÁLIDO")
         this.resetAddressControls();
       }
     });
@@ -250,13 +237,13 @@ export class FormCadastroComponent implements OnInit{
           if (response.bairro) {
             this.setAddressControl('bairro', response.bairro);
           } else {
-            console.log("O logradouro não foi encontrado para o CEP informado.");
+            console.log("O bairro não foi encontrado para o CEP informado.");
           }
 
           if (response.localidade) {
             this.setAddressControl('localidade', response.localidade);
           } else {
-            console.log("O logradouro não foi encontrado para o CEP informado.");
+            console.log("A cidade não foi encontrada para o CEP informado.");
           }
 
         },

@@ -41,22 +41,7 @@
 
       <!-- Texto explicativo e botão -->
       <span class="small mt-2 mb-2">Saiba porque precisamos dessas informações de contato <a
-          class="link-form">aqui</a></span>
-
-      <!-- Caso algum dos controls esteja inválido -->
-      <span *ngIf="checkIfFormError('invalid-control')" class="texto-validacao-erro-form mb-1">
-        <img src="assets/login/erro_icon.svg" alt=""> Campos obrigatórios não preenchidos ou inválidos
-      </span>
-      <!-- Método checkIfFormError retorna true caso o erro específico esteja ocorrendo (parametro é o valor de string do enum)-->
-
-      <!-- Caso as senhas não coincidam -->
-      <span *ngIf="checkIfFormError('invalid-password')" class="texto-validacao-erro-form mb-1">
-        <img src="assets/login/erro_icon.svg" alt=""> Senhas não coincidem
-      </span>
-
-      <!-- Caso já exista um usuário -->
-      <span *ngIf="checkIfFormError('user-exists')" class="texto-validacao-erro-form mb-1">
-        <img src="assets/login/erro_icon.svg" alt=""> Já existe um usuário com esse email
+          class="link-form">aqui</a>
       </span>
 
       <!-- Botão de entrar -->
@@ -74,4 +59,5 @@
       </div>
     </form> <!-- Fim do formulário -->
   </div>
+  <app-toast></app-toast>
 </div>

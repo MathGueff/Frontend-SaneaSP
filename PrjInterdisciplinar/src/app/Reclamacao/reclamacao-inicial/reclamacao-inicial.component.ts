@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { UserService } from '../../Services/user.service';
+import { AuthService } from '../../Services/auth.service';
 
 
 
@@ -19,7 +20,8 @@ import { UserService } from '../../Services/user.service';
 })
 export class ReclamacaoInicialComponent implements OnInit {
   protected userService = inject(UserService);
-  usuarioAtivo$ = this.userService.getObservableCurrentUser(); // Observable com as informações do admin
+  protected authService = inject(AuthService);
+  usuarioAtivo$ = this.authService.activeUser$; // Observable com as informações do admin
 
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
