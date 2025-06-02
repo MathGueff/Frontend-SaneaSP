@@ -21,7 +21,7 @@ import { AuthService } from '../../Services/auth.service';
 export class ReclamacaoInicialComponent implements OnInit {
   protected userService = inject(UserService);
   protected authService = inject(AuthService);
-  usuarioAtivo$ = this.authService.userAtivo$; // Observable com as informações do admin
+  usuarioAtivo$ = this.authService.activeUser$; // Observable com as informações do admin
 
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();

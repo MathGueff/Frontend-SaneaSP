@@ -19,7 +19,7 @@ export class LoginLinkComponent implements OnInit{
   
   ngOnInit(): void {
     /* Alterando o nome do usuário ativo com Observable */
-    this.authService.userAtivo$.subscribe({
+    this.authService.activeUser$.subscribe({
         next: (user) => {
           if(user){
             /* Caso não haja usuário ativo, é por padrão "login" */

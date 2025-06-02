@@ -37,7 +37,7 @@
       </li>
     }
     <!-- Caso o usuário atual seja um admin, mostre o link para a página do administrador -->
-     @if(this.adminInfo$ | async){
+     @if((this.adminInfo$ | async) != null){
     <li>
       <a
         routerLink="pagina-admin"
@@ -119,7 +119,7 @@
             </a>
           </div>
           }
-          @if(this.adminInfo$ | async){
+          @if((this.adminInfo$ | async) != null){
           <div class="col-12 pb-4 d-flex justify-content-center align-items-center">
             <a
               routerLink="pagina-admin"

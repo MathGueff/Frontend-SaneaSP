@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { IAdmin } from '../models/interface/IAdmin.model';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IUser } from '../models/interface/IUser.model';
 import { UserService } from './user.service';
 import { SweetAlertService } from './sweetAlert.service';
@@ -15,11 +14,11 @@ export class AuthService {
 
     /* Observable para avisar quando um novo usuário é logado */
     private userAtivoSubject = new BehaviorSubject<IUser | null>(null);
-    userAtivo$: Observable<IUser | null> = this.userAtivoSubject.asObservable();
+    activeUser$: Observable<IUser | null> = this.userAtivoSubject.asObservable();
 
     // Observable para rastrear se o usuário atual é admin
-    private adminSubject = new BehaviorSubject<IAdmin | null>(null);
-    admin$: Observable<IAdmin | null> = this.adminSubject.asObservable();
+    private adminSubject = new BehaviorSubject<IUser | null>(null);
+    admin$: Observable<IUser | null> = this.adminSubject.asObservable();
     
     autenticate(email : string, senha : string){
         const response = this.httpClient.post<{token : string}>(this.API_URL, {email, senha});
@@ -40,6 +39,9 @@ export class AuthService {
         this.userService.getUserById(id).subscribe({
             next: user => {
                 this.userAtivoSubject.next(user);
+                if(user.nivel == 1){
+                    this.adminSubject.next(user);
+                }
             }
         })
         this.sweetAlertService.showMessage("Login realizado com sucesso");
@@ -49,6 +51,7 @@ export class AuthService {
         this.remove("access-token")
         this.remove("user-id-active")
         this.userAtivoSubject.next(null);
+        this.adminSubject.next(null);
     }
 
     setStorage(userId : number, token : string){
@@ -64,12 +67,8 @@ export class AuthService {
         localStorage.removeItem(key)
     }
 
-    getCurrentUser() : IUser | null{
-        this.userService.getUserById(Number(this.getStorage("user-id-active"))).subscribe({
-            next: user => {
-                return user
-            }
-        })
-        return null
+    /* Adquire o IUser atual logado */
+    public getCurrentUser(): IUser | null {
+        return this.userAtivoSubject.value;
     }
 }

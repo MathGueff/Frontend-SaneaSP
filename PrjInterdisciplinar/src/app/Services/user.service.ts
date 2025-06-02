@@ -90,14 +90,14 @@ export class UserService {
     return this.users;
   }
 
+  //CADASTRO
+
   /* Criação de um novo usuário */
   public newUser(newUser: IUser) {
     this.users.push(newUser);
     this.sweetAlert.showMessage("Cadastrado com sucesso");
     console.log(this.users);
   }
-
-  //CADASTRO
 
   //* Verifica se já existe um usuário com esse email*/
   public checkEmailExists(newUser: IUser): boolean {
