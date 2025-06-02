@@ -9,8 +9,6 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { ToastService } from '../../Services/toast.service';
 import { ToastComponent } from '../../Common/toast/toast.component';
 import { AuthService } from '../../Services/auth.service';
-import { threadId } from 'worker_threads';
-
 
 @Component({
   selector: 'app-form-login',
@@ -81,8 +79,8 @@ export class FormLoginComponent{
     autenticate.subscribe({
       next: response => {
         /* Navega para a pagina principal */
+        this.authService.login(Number(this.authService.getStorage("user-id-active")))
         this.router.navigate(['pagina-admin']);
-        this.userService.fazerLogin(Number(this.authService.getStorage("user-id-active")))
       },
       error: e => {
         /* Usuário inexistente */

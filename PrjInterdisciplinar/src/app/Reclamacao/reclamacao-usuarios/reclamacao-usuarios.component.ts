@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Reclamacao } from '../../models/class/reclamacao';
 import { type } from 'os';
+import { AuthService } from '../../Services/auth.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { type } from 'os';
 })
 export class ReclamacaoUsuariosComponent implements OnInit {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   protected data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
@@ -171,7 +173,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
     }
   }
  private thisIsUser() : IUser{
-    let user = this.userService.getCurrentUser();
+    let user = this.authService.getCurrentUser();
     if(!user){
       this.router.navigate(['']);
     }

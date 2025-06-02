@@ -1,6 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../../Services/user.service';
+import { AuthService } from '../../../Services/auth.service';
 
 @Component({
   selector: 'app-login-link',
@@ -11,14 +12,14 @@ import { UserService } from '../../../Services/user.service';
 })
 export class LoginLinkComponent implements OnInit{
   userAtivo : string | null = null;
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
 
   @ViewChild('dropdown') dropdown !: ElementRef
   @ViewChild('dropdownLinks') linksDropdown !: ElementRef
   
   ngOnInit(): void {
     /* Alterando o nome do usuário ativo com Observable */
-    this.userService.userAtivo$.subscribe({
+    this.authService.userAtivo$.subscribe({
         next: (user) => {
           if(user){
             /* Caso não haja usuário ativo, é por padrão "login" */
@@ -35,7 +36,7 @@ export class LoginLinkComponent implements OnInit{
   }
 
   btnLogout(){
-    this.userService.logout();
+    this.authService.logout();
   }
 
   toggleLoginDropdown(){

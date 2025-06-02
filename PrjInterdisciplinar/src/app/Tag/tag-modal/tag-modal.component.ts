@@ -19,6 +19,7 @@ import { Observable, of } from 'rxjs';
 import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../../models/interface/ITagListFilter.interface';
 import { UserService } from '../../Services/user.service';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-tag-modal',
@@ -40,7 +41,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
   protected tagService = inject(TagService);
   private sweetAlertService = inject(SweetAlertService);
   private toastService = inject(ToastService)
-  private userService = inject(UserService)
+  private authService = inject(AuthService)
 
   //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
@@ -57,7 +58,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     //MutationObserver para detectar sempre que a classe do elemento é alterada para show e executar o código
     this.observerModalOpen = new MutationObserver(() => {
       if (this.modalElement.nativeElement.classList.contains('show')) {
-        if(this.userService.getCurrentUser()){
+        if(this.authService.getCurrentUser()){
           this.updateTagListOnOpenModal();
           this.setTagSelectedOnOpenModal();
         }

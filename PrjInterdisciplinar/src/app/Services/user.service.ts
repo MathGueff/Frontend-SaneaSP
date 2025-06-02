@@ -11,18 +11,15 @@ export class UserService {
   private API_URL = "http://localhost:3000/user/"
 
   constructor(private sweetAlert : SweetAlertService, private httpClient : HttpClient) {
-    this.loadUsers();
+    this.loadUsers(); //Para carregar os usuários local
   }
 
-  buscarUsuario(id : number){
-      const response = this.httpClient.get<IUser>(this.API_URL + id);
-      return response;
+  getUserById(id : number){
+    return this.httpClient.get<IUser>(this.API_URL + id);;
   }
   
-  //Injeção de Dependências
   private users: IUser[] = [];
 
-  // Método para carregar usuários da API
   private loadUsers(): void {
     this.users = [
       {
@@ -88,76 +85,27 @@ export class UserService {
     ];
   }
 
-  /* Observable para avisar quando um novo usuário é logado */
-  private userAtivoSubject = new BehaviorSubject<IUser | null>(null);
-  userAtivo$: Observable<IUser | null> = this.userAtivoSubject.asObservable();
-
-   // Observable para rastrear se o usuário atual é admin
-   private adminSubject = new BehaviorSubject<IAdmin | null>(null);
-   admin$: Observable<IAdmin | null> = this.adminSubject.asObservable();
-
-  //#region Login e Cadastro
-
-  public fazerLogin(userId: number) {
-    this.sweetAlert.showMessage("Login realizado com sucesso");
-    this.buscarUsuario(userId).subscribe({
-      next: user => {
-        this.userAtivoSubject.next(user);
-      }
-    })
-  }
-
-  public logout() {
-    this.userAtivoSubject.next(null);
+  /* Pega todos os usuários existentes local */
+  public getAllUsers(): IUser[] {
+    return this.users;
   }
 
   /* Criação de um novo usuário */
   public newUser(newUser: IUser) {
-    //this.userMockService.addUserToList(newUser); //Método POST
     this.users.push(newUser);
     this.sweetAlert.showMessage("Cadastrado com sucesso");
     console.log(this.users);
   }
 
-  //#endregion
-
-  //#region Validação
+  //CADASTRO
 
   //* Verifica se já existe um usuário com esse email*/
   public checkEmailExists(newUser: IUser): boolean {
     return this.users.some((user) => user.email === newUser.email);
   }
 
-  //#endregion
-
-  //#region Getters
-
-  /* Pega todos os usuários existentes */
-  public getAllUsers(): IUser[] {
-    return this.users;
-  }
-
   /* Pega a contagem atual do ID */
   public getCurrentID(): number {
     return this.users.length + 1;
-  }
-
-  /* Adquire o IUser atual logado */
-  public getCurrentUser(): IUser | null {
-    return this.userAtivoSubject.value;
-  }
-
-  public getObservableCurrentUser(): Observable<IUser | null>{
-    return this.userAtivo$;
-  }
-
-  // Procura um usuário de acordo com o ID
-  public findUserById(id: number): Observable<IUser> {
-    const user = this.users.find((user) => id === user.id);
-    if (user) {
-      return of(user);
-    } else {
-      throw new Error('Usuário não encontrado');
-    }
   }
 }
