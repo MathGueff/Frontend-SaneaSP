@@ -1,15 +1,24 @@
-button{
-  background-color: var(--cor-background);
+.tags-selected{
+
+}
+button, .tag{
+  background-color: var(--cor-backgroud-form);
   font-size: 1em;
   letter-spacing: 1.2px;
   border-radius: 5px;
   color: var(--cor-quaternaria);
   text-align: center;
-  padding: 0;
-  border: none
+  padding: 0 2px;
+  border: none;
+  transition: .2s;
+
 }
-button:focus{
-  border: none ;
+button:focus, button:hover{
+  border: 1px solid red ;
+  border-radius: 5px;
   color: red;
+  outline: none !important;
+  font-weight: 500;
 }
+
 
