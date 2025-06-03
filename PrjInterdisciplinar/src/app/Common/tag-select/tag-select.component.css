@@ -1,13 +1,15 @@
-.form-control, .form-select, .tags-selected{
-  width: 100% !important;
-  height: auto !important;
-}
-.tag{
+button{
+  background-color: var(--cor-background);
   font-size: 1em;
   letter-spacing: 1.2px;
   border-radius: 5px;
   color: var(--cor-quaternaria);
   text-align: center;
   padding: 0;
+  border: none
+}
+button:focus{
+  border: none ;
+  color: red;
 }
 
