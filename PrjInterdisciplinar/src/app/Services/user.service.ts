@@ -1,55 +1,26 @@
 import { IUser } from '../models/interface/IUser.model';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { UserMockService } from './user-mock.service';
-import { AdminService } from './admin.service';
-import { IAdmin } from '../models/interface/Iadmin.model';
+import { HttpClient } from '@angular/common/http';
 import { SweetAlertService } from './sweetAlert.service';
-import { isNull } from 'util';
+import { IAdmin } from '../models/interface/IAdmin.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  //Injeção de Dependências
-  private userMockService = inject(UserMockService);
+  private API_URL = "http://localhost:3000/user/"
+
+  constructor(private sweetAlert : SweetAlertService, private httpClient : HttpClient) {
+    this.loadUsers(); //Para carregar os usuários local
+  }
+
+  getUserById(id : number){
+    return this.httpClient.get<IUser>(this.API_URL + id);;
+  }
+  
   private users: IUser[] = [];
-  private adminService = inject(AdminService);
 
-  constructor(private sweetAlert : SweetAlertService) {
-    // Carrega os usuários ao inicializar o serviço
-    //this.loadUsers();
-    this.loadFallbackUsers();
-    // Verificando se o usuário ativo é admin
-    this.userAtivo$.subscribe((user) => {
-        if (user) {
-          this.checkIfAdmin(user);
-        } else {
-          this.adminSubject.next(null); // Nenhum usuário ativo implica não é admin
-        }
-      });
-  }
-
-  // Método para carregar usuários da API
   private loadUsers(): void {
-    this.userMockService.getUsersList().subscribe({
-      next: (response: any) => {
-        if (response.usuarios.length > 0) {
-          this.users = response.usuarios;
-          console.log(this.users);
-        } else {
-          console.warn('Nenhum usuário encontrado, carregando fallback.');
-          this.loadFallbackUsers(); // Para caso da API dar problema
-        }
-      },
-      error: (err: unknown) => {
-        console.error('Erro ao buscar usuários da API:', err);
-        this.loadFallbackUsers();
-      },
-    });
-  }
-
-  /* Método para carregar usuários padrão caso a API falhe */
-  private loadFallbackUsers(): void {
     this.users = [
       {
         id: 1,
@@ -112,52 +83,20 @@ export class UserService {
         }
       },
     ];
-    console.log('Usando dados de fallback.');
   }
 
-
-  /* Observable para avisar quando um novo usuário é logado */
-  private userAtivoSubject = new BehaviorSubject<IUser | null>(null);
-  userAtivo$: Observable<IUser | null> = this.userAtivoSubject.asObservable();
-
-   // Observable para rastrear se o usuário atual é admin
-   private adminSubject = new BehaviorSubject<IAdmin | null>(null);
-   admin$: Observable<IAdmin | null> = this.adminSubject.asObservable();
-
-  //#region Login e Cadastro
-
-  public fazerLogin(user: IUser) {
-    this.sweetAlert.showMessage("Login realizado com sucesso");
-    this.userAtivoSubject.next(user);
+  /* Pega todos os usuários existentes local */
+  public getAllUsers(): IUser[] {
+    return this.users;
   }
 
-  public logout() {
-    this.userAtivoSubject.next(null);
-  }
+  //CADASTRO
 
   /* Criação de um novo usuário */
   public newUser(newUser: IUser) {
-    //this.userMockService.addUserToList(newUser); //Método POST
     this.users.push(newUser);
     this.sweetAlert.showMessage("Cadastrado com sucesso");
     console.log(this.users);
-  }
-
-  //#endregion
-
-  //#region Validação
-
-  /* Verifica se o usuário com o email e senha passados existe */
-  public validateUser(email: string, senha: string): boolean {
-    const findUser = this.users.find(
-      (user) => user.email === email && user.senha === senha
-    );
-    if (findUser) {
-      this.fazerLogin(findUser);
-      return true;
-    }
-    /* Caso não tenha achado um usuário com email e senha fornecidos */
-    return false;
   }
 
   //* Verifica se já existe um usuário com esse email*/
@@ -165,54 +104,8 @@ export class UserService {
     return this.users.some((user) => user.email === newUser.email);
   }
 
-  //#endregion
-
-  //#region Getters
-
-  /* Pega todos os usuários existentes */
-  public getAllUsers(): IUser[] {
-    return this.users;
-  }
-
   /* Pega a contagem atual do ID */
   public getCurrentID(): number {
     return this.users.length + 1;
   }
-
-  /* Adquire o IUser atual logado */
-  public getCurrentUser(): IUser | null {
-    return this.userAtivoSubject.value;
-  }
-
-  public getObservableCurrentUser(): Observable<IUser | null>{
-    return this.userAtivo$;
-  }
-
-  // Procura um usuário de acordo com o ID
-  public findUserById(id: number): Observable<IUser> {
-    const user = this.users.find((user) => id === user.id);
-    if (user) {
-      return of(user);
-    } else {
-      throw new Error('Usuário não encontrado');
-    }
-  }
-
-  //#endregion
-
-  //#region Verificação de Admin
-
-  private checkIfAdmin(user: IUser): void {
-    this.adminService.isAdmin(user.id).subscribe({
-      next: (admin: IAdmin | null) => {
-        this.adminSubject.next(admin);
-      },
-      error: (err: any) => {
-        console.error('Erro ao verificar se é admin:', err);
-        this.adminSubject.next(null); // Em caso de erro, presume-se que não é admin
-      },
-    });
-  }
-
-  //#endregion
 }

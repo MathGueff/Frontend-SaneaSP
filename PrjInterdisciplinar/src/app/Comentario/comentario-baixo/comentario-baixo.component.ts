@@ -18,7 +18,7 @@ export class ComentarioBaixoComponent implements OnInit {
   ngOnInit(): void {
     if (this.comentario.objUsuario && this.comentario.objUsuario.id){
       if (this.comentario.objAdmin === null) {
-        this.userService.findUserById(this.comentario.objUsuario.id).subscribe({
+        this.userService.getUserById(this.comentario.objUsuario.id).subscribe({
           next: (user) => {
             if (user) {
               this.autor = user.nome;

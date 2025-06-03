@@ -12,6 +12,7 @@ import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { Router } from '@angular/router';
 import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-edicao-perfil',
@@ -24,10 +25,11 @@ export class EdicaoPerfilComponent implements OnInit {
   protected cadastroErrorStatus: CadastroErrorStatus = CadastroErrorStatus.None;
   private formBuilderService = inject(NonNullableFormBuilder);
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private viacepService = inject(ViacepService);
   private router = inject(Router);
 
-  protected user = this.userService.getCurrentUser(); // obtem o objeto Usuario
+  protected user = this.authService.getCurrentUser(); // obtem o objeto Usuario
 
   formName: string = 'cadastro'; //Nome do formulário para concatenar ao nome do control (email-cadastro)
   passwordMinLength = 6;
