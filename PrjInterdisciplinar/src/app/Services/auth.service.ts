@@ -19,7 +19,7 @@ export class AuthService {
     // Observable para rastrear se o usuário atual é admin
     private adminSubject = new BehaviorSubject<IUser | null>(null);
     admin$: Observable<IUser | null> = this.adminSubject.asObservable();
-    
+
     autenticate(email : string, senha : string){
         const response = this.httpClient.post<{token : string}>(this.API_URL, {email, senha});
 
@@ -34,7 +34,7 @@ export class AuthService {
 
         return response;
     }
-    
+
     login(id : number){
         this.userService.getUserById(id).subscribe({
             next: user => {
@@ -46,7 +46,7 @@ export class AuthService {
         })
         this.sweetAlertService.showMessage("Login realizado com sucesso");
     }
-    
+
     logout() {
         this.remove("access-token")
         this.remove("user-id-active")
@@ -70,5 +70,8 @@ export class AuthService {
     /* Adquire o IUser atual logado */
     public getCurrentUser(): IUser | null {
         return this.userAtivoSubject.value;
+    }
+    public getObservableCurrentUser():Observable<IUser | null>{
+      return this.userAtivoSubject
     }
 }
