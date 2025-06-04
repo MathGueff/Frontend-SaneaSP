@@ -14,23 +14,27 @@
       <div class="row mt-3">
         <!-- Inputs do formulário (título e descrição) -->
         @for (input of inputs; track $index) {
-        <app-form-field
-          [formGroup]="this.formNoticia"
-          formName="form-noticia"
-          controlName="{{ input.controlName }}"
-          icon="{{ input.icon }}"
-          label="{{ input.label }}"
-          placeholder="{{ input.placeholder }}"
-          [required]="input.required || false"
-          [validators]="input.validators || []"
-          [fieldType]="input.typeField || ''"
-        >
-        </app-form-field>
+          <div class="col-md-12 col-sm-12 mb-3">
+            <app-form-field
+              [formGroup]="this.formNoticia"
+              formName="form-noticia"
+              controlName="{{ input.controlName }}"
+              icon="{{ input.icon }}"
+              label="{{ input.label }}"
+              placeholder="{{ input.placeholder }}"
+              [required]="input.required || false"
+              [validators]="input.validators || []"
+              [fieldType]="input.typeField || ''"
+            >
+            </app-form-field>
+          </div>
         }
+        
 
         <!-- TAGS -->
         <!-- Input de adicionar tag -->
-        <app-form-field
+        <div class="col-md-12 col-sm-12 mb-3">
+          <app-form-field
           [formGroup]="this.formNoticia"
           class="col-md-6 col-12"
           formName="form-noticia"
@@ -41,10 +45,13 @@
           [required]="false"
           fieldType="input"
           (keydown.enter)="onEnter($event, 'tag-input')"
-        ></app-form-field>
+          ></app-form-field>
+        </div>
+        
 
         <!-- Select de Tags já existentes -->
-        <app-form-field
+        <div class="col-md-12 col-sm-12 mb-3">
+           <app-form-field
           [formGroup]="this.formNoticia"
           class="col-md-6 col-12"
           formName="form-noticia"
@@ -56,7 +63,9 @@
           [selectList]="['tag1', 'tag2']"
           (keydown.enter)="onEnter($event, 'tag-select')"
           (change)="onEnter($event, 'tag-select')"
-        ></app-form-field>
+          ></app-form-field>
+        </div>
+       
 
         <!-- Caso o usuário não tenha digitado a fonte -->
         <app-check-error
@@ -103,7 +112,8 @@
 
         <!-- FONTES -->
         <!-- Input de adicionar fonte -->
-        <app-form-field
+        <div class="col-md-12 col-sm-12 mb-3">
+          <app-form-field
           [formGroup]="this.formNoticia"
           formName="form-noticia"
           controlName="fonte"
@@ -113,7 +123,9 @@
           [required]="false"
           fieldType="input"
           (keydown.enter)="onEnter($event, 'fonte')"
-        ></app-form-field>
+          ></app-form-field>
+        </div>
+        
 
         <!-- Caso o usuário não tenha digitado a fonte -->
         <app-check-error
