@@ -74,13 +74,19 @@ export class FormLoginComponent{
 
   /* Verificação de login */
   login(email : string, senha : string){
-    const autenticate = this.authService.autenticate(email, senha);
-
-    autenticate.subscribe({
-      next: response => {
+    this.authService.autenticate(email, senha).subscribe({
+      next: () => {
         /* Navega para a pagina principal */
         this.authService.login(Number(this.authService.getStorage("user-id-active")))
-        this.router.navigate(['pagina-admin']);
+
+        setTimeout(()=> {
+          if(this.authService.getCurrentUser()?.nivel == 1){
+            this.router.navigate(['pagina-admin']);
+          }
+          else{
+            this.router.navigate(['']);
+          }
+        }, 500)
       },
       error: e => {
         /* Usuário inexistente */

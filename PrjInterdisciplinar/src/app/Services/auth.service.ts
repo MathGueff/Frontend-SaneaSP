@@ -26,7 +26,6 @@ export class AuthService {
         response.subscribe({
             next: data => {
                 const payload : any = jwtDecode(data.token)
-                //TODO: Acessar o payload para modificar os valores guardados no localStorage
                 this.setStorage(payload.id, data.token)
             },
             error: err => console.log(err)
@@ -35,16 +34,17 @@ export class AuthService {
         return response;
     }
     
-    login(id : number){
+    login(id : number) {
         this.userService.getUserById(id).subscribe({
             next: user => {
                 this.userAtivoSubject.next(user);
+                
+                this.sweetAlertService.showMessage("Login realizado com sucesso");
                 if(user.nivel == 1){
                     this.adminSubject.next(user);
                 }
             }
         })
-        this.sweetAlertService.showMessage("Login realizado com sucesso");
     }
     
     logout() {
