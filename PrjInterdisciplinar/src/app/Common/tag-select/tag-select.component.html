@@ -17,20 +17,14 @@
 
 <div class="col-md-12 col-sm-12 pe-0 h-auto">
   <label class="form-label">Tags selecionadas:</label>
-  <div class="tags-selected h-auto d-flex flex-column justify-content-around">
+  <div class="tags-selected h-auto p-1 flex-wrap d-flex flex-row justify-content-around gap-1">
     @for (tag of tagSelected; track tag.id; let i = $index ) {
-
-      <div class="d-flex flex-justify-content-around">
-      </div>
-      @if(i % 3 === 0){
-
-      }
-      <button (click)="RemoveTagSelect(tag)" class="tag my-auto">
-        {{tag.nome}}
+      <button (click)="RemoveTagSelect(tag)" class="tag w-25">
+        {{ tag.nome }}
       </button>
     }
     @empty {
-      <p class="tag m-auto">Nenhuma Tag selecionada</p>
+      <p class="tag w-100 m-auto">Nenhuma Tag selecionada</p>
     }
   </div>
 </div>
