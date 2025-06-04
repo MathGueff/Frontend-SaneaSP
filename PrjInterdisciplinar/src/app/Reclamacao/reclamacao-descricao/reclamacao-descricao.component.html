@@ -1,23 +1,23 @@
 <div class="background d-flex">
   <!-- Verifica se encontrou a reclamação -->
-  @if (!vazio) {
-    <div *ngIf="dado$ | async as reclamacao" class="painel m-5 justifica rounded">
+  @if (existReclamcao) {
+    <div *ngIf="reclamacao$ | async as reclamacao" class="painel m-5 justifica rounded">
       <div class="header-painel p-3 mb-3 d-flex flex-line gap-5">
         <img
           class="imgPainel"
-          src="{{ reclamacao.objImagem }}"
+          src="{{ reclamacao.Imagens }}"
           alt="imagem da reclamação"
         />
         <div>
-          <h2>{{ reclamacao.tituloReclamao }}</h2>
+          <h2>{{ reclamacao.titulo }}</h2>
           <span>
-            {{ reclamacao.dataReclamacao }}
+            {{ reclamacao.data }}
           </span>
         </div>
       </div>
       <div class="info pb-3 my-3 ms-3 me-4">
         <p class="paragraf-painel">
-          {{ reclamacao.descricaoReclamacao }}
+          {{ reclamacao.descricao }}
         </p>
       </div>
 
@@ -25,7 +25,7 @@
         <a class="btn btn-primary" routerLink="{{caminhoVoltar}}">Voltar</a>
         <a
           class="btn btn-primary"
-          routerLink="/comentario/{{ reclamacao.idReclamacao }}"
+          routerLink="/comentario/{{ reclamacao.id }}"
           >Ir para Comentários</a
         >
       </div>

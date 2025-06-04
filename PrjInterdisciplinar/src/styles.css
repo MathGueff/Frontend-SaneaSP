@@ -14,6 +14,7 @@
     --cor-secundaria: #7BAED2;
     --cor-terciaria: #D9D9D9;
     --cor-quaternaria: #0B6D8F;
+    --cor-background-form : #dfdddd;
 
     /* Cores de icones */
     --cor-icone-verde: #71FF87;
@@ -64,7 +65,7 @@
 /* --- INICIO ACESSIBILIDADE --- */
 
 /* Estilo global para as tags (pode ser sobrescrito utilizando as classes focus-primario, secundario e terciario */
-input:focus-visible, 
+input:focus-visible,
 textarea:focus-visible{
   outline: var(--outline-tab-primario) !important;
 }
@@ -139,7 +140,7 @@ button:focus-visible,
 
 /* --- INICIO ESTILOS DO SWEETALERT ---  */
 .sweet_popup{
-  padding: 10px; 
+  padding: 10px;
 }
 
 .sweet_title{
@@ -147,12 +148,12 @@ button:focus-visible,
 }
 
 .sweet_btn_success {
-  background-color: var(--cor-terciaria) !important;  
-  color: var(--cor-primaria) !important;              
-  border: none;               
-  padding: 10px 20px !important;        
-  font-size: 18px !important;          
-  transition: .4s opacity ease !important;  
+  background-color: var(--cor-terciaria) !important;
+  color: var(--cor-primaria) !important;
+  border: none;
+  padding: 10px 20px !important;
+  font-size: 18px !important;
+  transition: .4s opacity ease !important;
 }
 
 .sweet_btn_success:hover {
@@ -160,8 +161,8 @@ button:focus-visible,
 }
 
 .sweet_btn_success:focus {
-  outline: var(--outline-tab-terciario) !important; 
-  box-shadow: 0 0 5px var(--cor-secundaria) !important; 
+  outline: var(--outline-tab-terciario) !important;
+  box-shadow: 0 0 5px var(--cor-secundaria) !important;
 }
 /* Fim dos estilos do SweetAlert */
 
@@ -188,7 +189,7 @@ button:focus-visible,
 .card:hover{
   opacity: 0.9;
   transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);  
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Botão primário dentro de uma classe card */

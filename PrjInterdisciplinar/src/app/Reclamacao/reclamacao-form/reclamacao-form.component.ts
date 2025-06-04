@@ -1,3 +1,5 @@
+import { TagService } from './../../Services/tag.service';
+import { SweetAlertService } from './../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -7,24 +9,34 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ViacepService } from '../../Services/viacep.service';
+import { ReclamacaoService } from '../../Services/reclamacao.service';
+import { ICreateReclamacao } from '../../models/interface/IReclamacao.interface';
+import { ITag } from '../../models/interface/ITag.model';
+import { IResponseList } from '../../models/interface/IResponseList.model';
+import { TagSelectComponent } from "../../Common/tag-select/tag-select.component";
+
 
 @Component({
   selector: 'app-reclamacao-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, TagSelectComponent],
   templateUrl: './reclamacao-form.component.html',
   styleUrl: './reclamacao-form.component.css',
 })
 export class ReclamacaoFormComponent implements OnInit {
+
+  private reclamacaoService = inject(ReclamacaoService);
   private formBuider = inject(NonNullableFormBuilder);
   private router = inject(Router);
   private viacepService = inject(ViacepService);
-
+  private sweetService = inject(SweetAlertService);
+  private tagIDs:number[] = [];
+  public selectedTags : ITag[] = [];
   rows: number = 2;
   src: any = null;
 
 
-  form = this.formBuider.group({
+   form = this.formBuider.group({
     titulo: ['', [Validators.required]],
     descricao: ['', [Validators.required]],
     cep: [
@@ -36,13 +48,25 @@ export class ReclamacaoFormComponent implements OnInit {
     bairro: ['', [Validators.required]],
     rua: ['', [Validators.required]],
     complemento: [''],
-    tag: ['Nenhum'],
     imagem: [''],
   });
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      const reclamacao: ICreateReclamacao ={
+        ...this.form.value as ICreateReclamacao,
+        idUsuario:1,
+        Tags: this.tagIDs
+      };
+      this.reclamacaoService.postReclamacao(reclamacao).subscribe({
+        next:() => {
+          this.sweetService.showMessage("Reclamação Criada com sucesso!");
+        },
+        error: (err) => {
+          this.sweetService.showMessage(`Não foi possivel criar Reclamação: ${err}`,true)
+        },
+      });
+
       this.router.navigate(['reclamacao-inicial']);
     }
   }
@@ -117,5 +141,9 @@ export class ReclamacaoFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+  public tagsChange($event: ITag[]) {
+    this.selectedTags = $event;
+    this.tagIDs = this.selectedTags.map((tag)=>tag.id)
   }
 }

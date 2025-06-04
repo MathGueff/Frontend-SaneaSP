@@ -33,6 +33,7 @@ export class AuthService {
     }
   }
 
+
   /* Adquire o IUser atual logado */
   public getCurrentUser(): IUser | null {
     return this.activeUserSubject.value;
@@ -43,6 +44,7 @@ export class AuthService {
     this.activeUserSubject.next(user);
     if (user.nivel == 1) this.activeAdminSubject.next(user);
   }
+
 
   autenticate(email: string, senha: string) {
     return this.httpClient.post<{ token: string }>(this.API_URL, {
@@ -76,7 +78,7 @@ export class AuthService {
       const token = localStorage.getItem('access-token');
       if (token) return token;
     }
-
     return null;
   }
+
 }

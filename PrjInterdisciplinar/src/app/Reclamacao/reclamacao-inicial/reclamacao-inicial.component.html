@@ -31,6 +31,7 @@
               type="search"
               class="form-select text-center borda"
               formControlName="tagForm"
+              (change)="PesquisarPorTag()"
             />
             <datalist id="box">
               <option selected>Todos</option>
@@ -40,6 +41,7 @@
               <option>Qualidade da Água</option>
             </datalist>
           </div>
+          <button class="btn btn-primary" (submit)="PesquisarPorTag()" type="submit">Buscar</button>
         </form>
         <!-- <app-tag-select></app-tag-select> -->
       </div>
@@ -58,14 +60,14 @@
         </div>
       </div>
     }
-    
+
     <!-- row adicionar reclamação -->
     <div class="row mt-4 mb-4 cards-div">
       <!-- Row onde ficam os cards -->
       @if (!vazio) { <!-- Verifica se tem valor na lista -->
-        @if (data$ | async) {
+        @if (reclamacoes$ | async) {
           <!-- verificando se houve atualização da lista -->
-          <div class="col-12 p-4 ps-5 pe-5" *ngFor="let reclamacao of data$ | async">
+          <div class="col-12 p-4 ps-5 pe-5" *ngFor="let reclamacao of reclamacoes$ | async">
             <!-- Coluna do card-->
             <app-reclamacao-card [card]="reclamacao"></app-reclamacao-card>
           </div>
