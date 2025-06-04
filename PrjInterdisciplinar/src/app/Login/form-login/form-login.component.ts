@@ -9,6 +9,7 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { ToastService } from '../../Services/toast.service';
 import { ToastComponent } from '../../Common/toast/toast.component';
 import { AuthService } from '../../Services/auth.service';
+import { SweetAlertService } from '../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-form-login',
@@ -26,6 +27,7 @@ export class FormLoginComponent{
   private userService = inject(UserService)
   private authService = inject(AuthService)
   private toastService = inject(ToastService)
+  private sweetAlertService = inject(SweetAlertService)
 
   @ViewChild('formFeedback') formFeedback !: ElementRef;
   
@@ -74,16 +76,37 @@ export class FormLoginComponent{
 
   /* Verificação de login */
   login(email : string, senha : string){
-    const autenticate = this.authService.autenticate(email, senha);
-
-    autenticate.subscribe({
+    this.authService.autenticate(email, senha).subscribe({
       next: response => {
-        /* Navega para a pagina principal */
-        this.authService.login(Number(this.authService.getStorage("user-id-active")))
-        this.router.navigate(['pagina-admin']);
+        localStorage.setItem('access-token', response.token)
+        this.authService.login().subscribe({
+          next : response => {
+            this.authService.setCurrentUser(response)
+            if(this.authService.getCurrentUser()?.nivel == 1){
+              this.sweetAlertService.showMessage(
+                'Bem vindo ' + this.authService.getCurrentUser()?.nome,
+                false
+              )
+              this.router.navigate(['pagina-admin'])
+            }
+            else{
+              this.sweetAlertService.showMessage(
+                'Login realizado com sucesso',
+                false
+              )
+              this.router.navigate([''])
+            }
+          },
+          error : e => {
+              this.sweetAlertService.showMessage(
+                e.error.message,
+                false
+              )
+          }
+        })
       },
       error: e => {
-        /* Usuário inexistente */
+        /* Erro de autenticação */
         this.toastService.show({
           message : e.error.message,
           error: true

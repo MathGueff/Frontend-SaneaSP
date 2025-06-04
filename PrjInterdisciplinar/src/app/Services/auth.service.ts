@@ -1,77 +1,84 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IUser } from '../models/interface/IUser.model';
-import { UserService } from './user.service';
 import { SweetAlertService } from './sweetAlert.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    constructor(private httpClient : HttpClient, private userService : UserService, private sweetAlertService : SweetAlertService) {}
+  private API_URL = 'http://localhost:3000/auth';
 
-    private API_URL = 'http://localhost:3000/auth'
+  /* Observable para avisar quando um novo usuário é logado */
+  private activeUserSubject = new BehaviorSubject<IUser | null>(null);
+  activeUser$: Observable<IUser | null> = this.activeUserSubject.asObservable();
 
-    /* Observable para avisar quando um novo usuário é logado */
-    private userAtivoSubject = new BehaviorSubject<IUser | null>(null);
-    activeUser$: Observable<IUser | null> = this.userAtivoSubject.asObservable();
+  // Observable para rastrear se o usuário atual é admin
+  private activeAdminSubject = new BehaviorSubject<IUser | null>(null);
+  activeAdmin$: Observable<IUser | null> = this.activeAdminSubject.asObservable();
 
-    // Observable para rastrear se o usuário atual é admin
-    private adminSubject = new BehaviorSubject<IUser | null>(null);
-    admin$: Observable<IUser | null> = this.adminSubject.asObservable();
+  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService) 
+  {
+    if (this.getAuthToken()) {
+      this.login().subscribe({
+        next: (response) => {
+          this.setCurrentUser(response);
+        },
+        error: (e) => {
+          sweetAlertService.showMessage(
+            'Não foi possível realizar o login',
+            true
+          );
+        },
+      });
+    }
+  }
 
-    autenticate(email : string, senha : string){
-        const response = this.httpClient.post<{token : string}>(this.API_URL, {email, senha});
 
-        response.subscribe({
-            next: data => {
-                const payload : any = jwtDecode(data.token)
-                //TODO: Acessar o payload para modificar os valores guardados no localStorage
-                this.setStorage(payload.id, data.token)
-            },
-            error: err => console.log(err)
-        })
+  /* Adquire o IUser atual logado */
+  public getCurrentUser(): IUser | null {
+    return this.activeUserSubject.value;
+  }
 
-        return response;
+  /* Define o IUser atual logado */
+  public setCurrentUser(user: IUser) {
+    this.activeUserSubject.next(user);
+    if (user.nivel == 1) this.activeAdminSubject.next(user);
+  }
+
+
+  autenticate(email: string, senha: string) {
+    return this.httpClient.post<{ token: string }>(this.API_URL, {
+      email,
+      senha,
+    });
+  }
+
+  login() {
+    const token = this.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
     }
 
-    login(id : number){
-        this.userService.getUserById(id).subscribe({
-            next: user => {
-                this.userAtivoSubject.next(user);
-                if(user.nivel == 1){
-                    this.adminSubject.next(user);
-                }
-            }
-        })
-        this.sweetAlertService.showMessage("Login realizado com sucesso");
-    }
+    return this.httpClient.get<IUser>(this.API_URL + '/me', { headers });
+  }
 
-    logout() {
-        this.remove("access-token")
-        this.remove("user-id-active")
-        this.userAtivoSubject.next(null);
-        this.adminSubject.next(null);
-    }
 
-    setStorage(userId : number, token : string){
-        localStorage.setItem('user-id-active', userId.toString())
-        localStorage.setItem('access-token', token)
-    }
+  logout() {
+    localStorage.removeItem('access-token');
+    this.activeUserSubject.next(null);
+    this.activeAdminSubject.next(null);
+    this.sweetAlertService.showMessage('Você se desconectou da sua conta')
+  }
 
-    getStorage(key: 'user-id-active' | 'access-token') : string {
-        return localStorage.getItem(key) || ""
+  getAuthToken(): string | null {
+    //Verificando se localStorage está disponível
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('access-token');
+      if (token) return token;
     }
+    return null;
+  }
 
-    remove(key: 'user-id-active' | 'access-token'){
-        localStorage.removeItem(key)
-    }
-
-    /* Adquire o IUser atual logado */
-    public getCurrentUser(): IUser | null {
-        return this.userAtivoSubject.value;
-    }
-    public getObservableCurrentUser():Observable<IUser | null>{
-      return this.userAtivoSubject
-    }
 }

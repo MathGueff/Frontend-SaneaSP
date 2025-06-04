@@ -41,19 +41,22 @@
             @else if (modalTypeSelected == modalTypes.Exclusao 
               || modalTypeSelected == modalTypes.Edicao) 
             {
-              <button 
-                type="button"
-                *ngIf="tagSelected" 
-                class="btn btn-primary focus-terciario me-2" 
-                id="botao-voltar-header" (click)="resetSearchForm()"> 
-                  <img src="assets/icones/operacoes/white/return_icon.svg" alt="">
-              </button>
-              <span
-                >{{modalTypeSelected == modalTypes.Edicao ? 'Editando' : 'Excluindo'}} 
-                  a tag:<strong> passo {{ tagSelected ? "2" : "1" }} de
-                2</strong>
-              </span>
-              <hr />
+              @if(!this.tagPreloaded){
+                <button 
+                  type="button"
+                  *ngIf="tagSelected" 
+                  class="btn btn-primary focus-terciario me-2" 
+                  id="botao-voltar-header" (click)="resetSearchForm()"> 
+                    <img src="assets/icones/operacoes/white/return_icon.svg" alt="">
+                </button>
+                <span
+                  >{{modalTypeSelected == modalTypes.Edicao ? 'Editando' : 'Excluindo'}} 
+                    a tag:<strong> passo {{ tagSelected ? "2" : "1" }} de
+                  2</strong>
+                </span>
+                <hr />
+              }
+             
 
               @if(!tagSelected){
                 <app-form-field
@@ -183,15 +186,18 @@
                     ]"
                   ></app-form-field>
 
-                  <div
-                    class="texto-informativo d-flex justify-content-center align-items-center mt-2"
-                  >
-                    <img
-                      src="assets/icones/black/info_icon.svg"
-                      alt="ícone de informação"
-                    />
-                    <span>Clique no botão de voltar para pesquisar por outra tag</span>
-                  </div>
+                  @if(!this.tagPreloaded){
+                    <div
+                      class="texto-informativo d-flex justify-content-center align-items-center mt-2"
+                    >
+                      <img
+                        src="assets/icones/black/info_icon.svg"
+                        alt="ícone de informação"
+                      />
+                      <span>Clique no botão de voltar para pesquisar por outra tag</span>
+                    </div>
+                  }
+                 
                 }
                 @else if(FormGroupSelected == formExclusaoTag){
                   <app-form-field
@@ -216,16 +222,19 @@
             <img class="btn-icon" src="assets/icones/operacoes/white/cancel_icon.svg" alt="Ícone de voltar">
             Fechar
           </button>
-          <button
-            *ngIf="tagSelected"
-            type="button"
-            class="btn btn-terciary"
-            id="botao-voltar-footer"
-            (click)="resetSearchForm()"
-          >
-            <img class="btn-icon" src="assets/icones/operacoes/black/return_icon.svg" alt="Ícone de voltar">
-            Voltar
-          </button>
+          @if(!this.tagPreloaded){
+            <button
+              *ngIf="tagSelected"
+              type="button"
+              class="btn btn-terciary"
+              id="botao-voltar-footer"
+              (click)="resetSearchForm()"
+            >
+              <img class="btn-icon" src="assets/icones/operacoes/black/return_icon.svg" alt="Ícone de voltar">
+              Voltar
+            </button>
+          }
+          
           <button
             type="submit"
             (click)="onSubmit()"

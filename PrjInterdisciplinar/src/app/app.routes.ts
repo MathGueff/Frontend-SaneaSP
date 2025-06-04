@@ -21,36 +21,38 @@ import { ReclamacaoEdicaoComponent } from './Reclamacao/reclamacao-edicao/reclam
 import { TagTabelaComponent } from './Tag/tag-tabela/tag-tabela.component';
 import { UpNoticiaComponent } from './Noticias/up-noticia/up-noticia.component';
 import { DellNoticiaComponent } from './Noticias/dell-noticia/dell-noticia.component';
+import { AuthGuard } from './Guards/AuthGuard';
+import { AdminGuard } from './Guards/AdminGuard';
 
 
 export const routes: Routes = [
   //Home
   {path: '', component:MenuUsuarioComponent},
-  {path: 'pagina-admin', component:MenuAdminComponent},
+  {path: 'pagina-admin', component:MenuAdminComponent, canActivate: [AdminGuard]},
 
   //Reclamações
   {path: 'reclamacao', component: ReclamacaoInicialComponent},
-  {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent},
-  {path:'suas-reclamacoes/:id',component:ReclamacaoEdicaoComponent},
+  {path: 'reclamacao/reclamacao-form', component: ReclamacaoFormComponent, canActivate: [AuthGuard]},
+  {path:'suas-reclamacoes/:id',component:ReclamacaoEdicaoComponent, canActivate: [AuthGuard]},
   {path: 'reclamacao/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
-  {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent},
-  {path: 'suas-reclamacoes/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent},
+  {path: 'suas-reclamacoes', component: ReclamacaoUsuariosComponent, canActivate: [AuthGuard]},
+  {path: 'suas-reclamacoes/reclamacao-descricao/:id',component:ReclamacaoDescricaoComponent, canActivate: [AuthGuard]},
 
   //Doenças
   {path: 'doenca-inicial',component:DoencasInicialComponent},
   {path: 'doenca-detalhada', component:DoencaDetalhesComponent},
   {path: 'doenca-detalhada/:id', component:DoencaDetalhesComponent},
-  {path: 'doenca-form', component: FormDoencaComponent},
+  {path: 'doenca-form', component: FormDoencaComponent, canActivate: [AdminGuard]},
 
   //Noticia
   {path: 'noticia-inicial', component:NoticiasInicialComponent},
   {path: 'noticia-detalhe', component:NoticiasDetalhesComponent},
   {path: 'noticia-detalhe/:id', component:NoticiasDetalhesComponent},
-  {path: 'noticia-form', component: FormNoticiaComponent},
+  {path: 'noticia-form', component: FormNoticiaComponent, canActivate: [AdminGuard]},
   {path: 'dell-noticia', component: DellNoticiaComponent},
 
   //Tags
-  {path: 'tag-tabela', component: TagTabelaComponent},
+  {path: 'tag-tabela', component: TagTabelaComponent, canActivate: [AdminGuard]},
 
   //{path: 'dell-noticia', component: DellNoticiaComponent},
   {path: 'up-noticia/', component: UpNoticiaComponent},
@@ -60,7 +62,7 @@ export const routes: Routes = [
   {path: 'login', component:FormLoginComponent},
   {path: 'cadastro', component:FormCadastroComponent},
   {path: 'comentario/:idReclamamacao',component:ComentarioCentralComponent},
-  {path: 'editar-perfil', component: EdicaoPerfilComponent},
+  {path: 'editar-perfil', component: EdicaoPerfilComponent, canActivate: [AuthGuard]},
   {path: 'responsaveis', component: ResponsaveisComponent},
 
 ];

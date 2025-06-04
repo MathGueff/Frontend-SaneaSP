@@ -5,8 +5,8 @@ import { ModalType } from '../../models/enums/ModalType.enum';
 import { TagModalComponent } from '../tag-modal/tag-modal.component';
 import { ITag } from '../../models/interface/ITag.model';
 import { Observable, of } from 'rxjs';
-import { IResponseList } from '../../models/interface/IResponseList.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { SweetAlertService } from '../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-update-tag',
@@ -18,6 +18,9 @@ import { RouterModule } from '@angular/router';
 export class TagTabelaComponent implements OnInit{
 
   private tagService = inject(TagService)
+  private router = inject(Router)
+  private sweetAlertService = inject(SweetAlertService)
+
   protected currentModalType : ModalType = ModalType.None;
   protected tagSelected: ITag | undefined = undefined;
   ModalTypeEnum = ModalType
@@ -47,9 +50,16 @@ export class TagTabelaComponent implements OnInit{
   }
 
   updateTable(){
-    this.tagService.getTagsList().subscribe(tags => {
-      // Atualiza o Observable tagList$ com as novas tags
-      this.tags$ = of(tags.data || []);
+    this.tagService.getTagsList().subscribe({
+      next : tags => {
+        // Atualiza o Observable tagList$ com as novas tags
+        this.tags$ = of(tags.data || []);
+      },
+      error : err => {
+        this.sweetAlertService.showMessage(err.error.message, true).then(() => {
+          this.router.navigate([''])
+        })
+      }
     });
   }
 }

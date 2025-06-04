@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuUsuario } from '../../models/class/menu-usuario';
 import { RouterLink, Router} from '@angular/router';
+import { ToastComponent } from '../../Common/toast/toast.component';
 
 @Component({
   selector: 'app-menu-usuario',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, ToastComponent],
   templateUrl: './menu-usuario.component.html',
   styleUrl: './menu-usuario.component.css'
 })
