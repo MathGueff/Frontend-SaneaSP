@@ -6,6 +6,7 @@ import { TagModalComponent } from '../tag-modal/tag-modal.component';
 import { ITag } from '../../models/interface/ITag.model';
 import { Observable, of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { SweetAlertService } from '../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-update-tag',
@@ -17,7 +18,8 @@ import { Router, RouterModule } from '@angular/router';
 export class TagTabelaComponent implements OnInit{
 
   private tagService = inject(TagService)
-  private router = inject(Router);
+  private router = inject(Router)
+  private sweetAlertService = inject(SweetAlertService)
 
   protected currentModalType : ModalType = ModalType.None;
   protected tagSelected: ITag | undefined = undefined;
@@ -54,7 +56,9 @@ export class TagTabelaComponent implements OnInit{
         this.tags$ = of(tags.data || []);
       },
       error : err => {
-        this.router.navigate(['']);
+        this.sweetAlertService.showMessage(err.error.message, true).then(() => {
+          this.router.navigate([''])
+        })
       }
     });
   }

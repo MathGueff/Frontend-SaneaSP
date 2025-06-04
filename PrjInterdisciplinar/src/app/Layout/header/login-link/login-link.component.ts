@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../Services/user.service';
 import { AuthService } from '../../../Services/auth.service';
 
@@ -13,6 +13,7 @@ import { AuthService } from '../../../Services/auth.service';
 export class LoginLinkComponent implements OnInit{
   userAtivo : string | null = null;
   private authService = inject(AuthService);
+  private router = inject(Router)
 
   @ViewChild('dropdown') dropdown !: ElementRef
   @ViewChild('dropdownLinks') linksDropdown !: ElementRef
@@ -37,6 +38,7 @@ export class LoginLinkComponent implements OnInit{
 
   btnLogout(){
     this.authService.logout();
+    this.router.navigate([''])
   }
 
   toggleLoginDropdown(){

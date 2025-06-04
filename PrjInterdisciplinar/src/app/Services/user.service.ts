@@ -32,7 +32,8 @@ export class UserService {
           bairro : 'Jardim Brasilândia',
           logradouro : 'Rua Alonco Muchon',
           cidade : 'Sorocaba'
-        }
+        },
+        nivel:1
       },
       {
         id: 2,
@@ -44,7 +45,8 @@ export class UserService {
           bairro : 'Jardim Europa',
           logradouro : 'Rua Rock',
           cidade : 'Votorantim'
-        }
+        },
+        nivel:1
       },
       {
         id: 3,
@@ -56,7 +58,8 @@ export class UserService {
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        }
+        },
+        nivel:1
       },
       {
         id: 4,
@@ -68,7 +71,8 @@ export class UserService {
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        }
+        },
+        nivel:1
       },
       {
         id: 5,
@@ -80,7 +84,8 @@ export class UserService {
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
           cidade : 'Sorocaba'
-        }
+        },
+        nivel:1
       },
     ];
   }
