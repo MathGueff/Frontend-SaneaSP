@@ -28,7 +28,7 @@ export class AdminGuard implements CanActivate {
     return this.authService.login().pipe(
       map(user => {
         this.authService.setCurrentUser(user);
-        if(user.nivel === 1) return true
+        if(Number(user.nivel) === 1) return true
         this.showGuardMessage('Você não tem acesso a esse recurso');
         this.router.navigate(['']);
         return false;
