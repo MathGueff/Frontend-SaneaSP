@@ -1,55 +1,114 @@
 import { Injectable } from '@angular/core';
 import { ITag } from '../models/interface/ITag.model';
 import { IResponse } from '../models/interface/IResponse.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ITagCadastro } from '../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../models/interface/ITagListFilter.interface';
 import { IResponseList } from '../models/interface/IResponseList.model';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class TagService {
+  private apiUrl = 'http://localhost:3000/tag';
+  constructor(
+    private httpClient: HttpClient,
+    private authService: AuthService
+  ) {}
 
-  private apiUrl = 'http://localhost:3000/tag'
-  constructor(private httpClient : HttpClient) {}
-  
   //GET
-  getTagsList(filters ?: ITagListFilter) {
+  getTagsList(filters?: ITagListFilter) {
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
     let params = new HttpParams();
-    if(filters){
+    if (filters) {
       Object.entries(filters).forEach(([key, value]) => {
-        if(value != undefined && value != null){
-          params = params.set(key,value)
+        if (value != undefined && value != null) {
+          params = params.set(key, value);
         }
       });
     }
-    return this.httpClient.get<IResponseList<ITag[]>>(this.apiUrl,{params})
+    return this.httpClient.get<IResponseList<ITag[]>>(this.apiUrl, {
+      params,
+      headers,
+    });
   }
 
-  getTagByExactName(nameFilter: string){
-    return this.httpClient.get<IResponse<ITag>>(`${this.apiUrl}/nome/${nameFilter}`)
+  getTagByExactName(nameFilter: string) {
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.get<IResponse<ITag>>(
+      `${this.apiUrl}/nome/${nameFilter}`,
+      { headers }
+    );
   }
 
   //GET/:id
-  getTagById(id: number){
-    return this.httpClient.get<ITag>(`${this.apiUrl}/${id}`)
+  getTagById(id: number) {
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.get<ITag>(`${this.apiUrl}/${id}`, { headers });
   }
 
-  getTagCount(){
-    return this.httpClient.get<number>(`${this.apiUrl}/total`)
+  getTagCount() {
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.get<number>(`${this.apiUrl}/total`, { headers });
   }
 
   //POST
   createNewTag(newTag: ITagCadastro) {
-    return this.httpClient.post<IResponse<ITag>>(`${this.apiUrl}`, newTag)
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.post<IResponse<ITag>>(`${this.apiUrl}`, newTag, {
+      headers,
+    });
   }
 
   //DELETE
-  deleteTag(idTag: number){
-    return this.httpClient.delete<IResponse<ITag>>(`${this.apiUrl}/${idTag}`)
+  deleteTag(idTag: number) {
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.delete<IResponse<ITag>>(`${this.apiUrl}/${idTag}`, {
+      headers,
+    });
   }
 
   //PUT
   editTag(idTag: number, updatedTag: ITag) {
-    return this.httpClient.put<IResponse<ITag>>(`${this.apiUrl}/${idTag}`, updatedTag)
+    const token = this.authService.getAuthToken();
+
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.set('Authorization', token);
+    }
+    return this.httpClient.put<IResponse<ITag>>(
+      `${this.apiUrl}/${idTag}`,
+      updatedTag,
+      { headers }
+    );
   }
 }

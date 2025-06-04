@@ -18,7 +18,7 @@ export class NavbarComponent {
   protected authService = inject(AuthService);
 
   loginInfo$ =  this.authService.activeUser$;
-  adminInfo$ = this.authService.admin$; // Observable com as informações do admin
+  adminInfo$ = this.authService.activeAdmin$; // Observable com as informações do admin
   //Array com links de navegação da navbar
   links : NavbarLink[] =[
     {path: '/doenca-inicial', img: 'assets/icones/white/doenca_icon.svg', alt : 'Ícone do link para página de Doenças', nome : 'Doenças'},

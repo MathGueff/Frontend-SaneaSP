@@ -20,6 +20,7 @@ import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../../models/interface/ITagListFilter.interface';
 import { UserService } from '../../Services/user.service';
 import { AuthService } from '../../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tag-modal',
@@ -41,7 +42,8 @@ export class TagModalComponent implements AfterViewInit, OnInit{
   protected tagService = inject(TagService);
   private sweetAlertService = inject(SweetAlertService);
   private toastService = inject(ToastService)
-  private authService = inject(AuthService)
+  private router = inject(Router)
+
 
   //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
@@ -58,19 +60,8 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     //MutationObserver para detectar sempre que a classe do elemento é alterada para show e executar o código
     this.observerModalOpen = new MutationObserver(() => {
       if (this.modalElement.nativeElement.classList.contains('show')) {
-        if(this.authService.getCurrentUser()){
           this.updateTagListOnOpenModal();
           this.setTagSelectedOnOpenModal();
-        }
-        else{
-          this.toastService.show({
-            message: 'Você não pode acessar o modal de tags',
-            error: true
-          })
-          setTimeout(() => {
-            this.closeModal();
-          }, 500)
-        }
       }
     });
   
@@ -90,8 +81,15 @@ export class TagModalComponent implements AfterViewInit, OnInit{
 
   updateTagListOnOpenModal(){
     if(this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
-      this.tagService.getTagsList({limit : this.LIMIT_SEARCH}).subscribe((response) => {
-        this.tagList$ = of(response.data || []);
+      this.tagService.getTagsList({limit : this.LIMIT_SEARCH}).subscribe({
+        next : response => {
+          this.tagList$ = of(response.data || []);
+        },
+        error: e => {
+          this.sweetAlertService.showMessage(e.error.message, true).then(() => {
+            this.closeModal()
+          });
+        }
       })
       this.isExpandedTagList = false;
     }
@@ -142,7 +140,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
 
   //=== Observables  ==============================
   protected tagList$ : Observable<any> = of([]);
-  protected tagCount$ : Observable<number> = this.tagService.getTagCount();
+  protected tagCount$ : Observable<number> = this.tagService.getTagCount()
   
   //=== VAR  ==============================
   protected tagSelected: ITag | undefined; //Tag selecionada para edit/delete
@@ -234,7 +232,8 @@ export class TagModalComponent implements AfterViewInit, OnInit{
         
       },
       error: (err) => {
-        this.toastService.show(err.error)
+        console.log(err.error)
+        this.toastService.show({message: err.error.message, error: true})
       }
     });
   }
@@ -281,7 +280,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     if (!this.tagSelected){
       this.toastService.show({ 
         error: true,
-        message: "Escolha uma tag válida para excluir"
+        message: "Escolha uma t válida para excluir"
       })
       return
     } 
