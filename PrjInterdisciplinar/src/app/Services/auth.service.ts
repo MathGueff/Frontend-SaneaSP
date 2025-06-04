@@ -16,7 +16,7 @@ export class AuthService {
   private activeAdminSubject = new BehaviorSubject<IUser | null>(null);
   activeAdmin$: Observable<IUser | null> = this.activeAdminSubject.asObservable();
 
-  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService) 
+  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService)
   {
     if (this.getAuthToken()) {
       this.login().subscribe({
@@ -81,4 +81,7 @@ export class AuthService {
     return null;
   }
 
+  getObservableCurrentUser():Observable<IUser|null >{
+    return this.activeUser$
+  }
 }
