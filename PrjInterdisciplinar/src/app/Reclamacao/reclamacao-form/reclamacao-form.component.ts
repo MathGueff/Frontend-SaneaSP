@@ -24,12 +24,13 @@ import { TagSelectComponent } from "../../Common/tag-select/tag-select.component
   styleUrl: './reclamacao-form.component.css',
 })
 export class ReclamacaoFormComponent implements OnInit {
+
   private reclamacaoService = inject(ReclamacaoService);
   private formBuider = inject(NonNullableFormBuilder);
   private router = inject(Router);
   private viacepService = inject(ViacepService);
   private sweetService = inject(SweetAlertService);
-
+  private tagIDs:number[] = [];
   public selectedTags : ITag[] = [];
   rows: number = 2;
   src: any = null;
@@ -47,7 +48,6 @@ export class ReclamacaoFormComponent implements OnInit {
     bairro: ['', [Validators.required]],
     rua: ['', [Validators.required]],
     complemento: [''],
-    tag: [[]],
     imagem: [''],
   });
 
@@ -55,7 +55,8 @@ export class ReclamacaoFormComponent implements OnInit {
     if (this.form.valid) {
       const reclamacao: ICreateReclamacao ={
         ...this.form.value as ICreateReclamacao,
-        idUsuario:1
+        idUsuario:1,
+        Tags: this.tagIDs
       };
       this.reclamacaoService.postReclamacao(reclamacao).subscribe({
         next:() => {
@@ -80,7 +81,6 @@ export class ReclamacaoFormComponent implements OnInit {
         this.resetAddressControls();
       }
     });
-    this.form.controls.tag.valueChanges.subscribe((tags)=> console.log(tags))
   }
   searchAddress() {
     this.viacepService.getAddress(this.form.controls.cep.value).subscribe({
@@ -141,5 +141,9 @@ export class ReclamacaoFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+  public tagsChange($event: ITag[]) {
+    this.selectedTags = $event;
+    this.tagIDs = this.selectedTags.map((tag)=>tag.id)
   }
 }
