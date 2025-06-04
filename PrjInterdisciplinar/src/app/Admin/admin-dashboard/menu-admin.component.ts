@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { AdminSidebarOptions} from '../../models/enums/AdminSidebarOptions';
 import { ModalType } from '../../models/enums/ModalType.enum';
 import { TagModalComponent } from '../../Tag/tag-modal/tag-modal.component';
 import { ILinkPanelAdmin, ILinkSidebarAdmin } from '../../models/interface/ILink.model';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-menu-admin',
@@ -14,8 +15,14 @@ import { ILinkPanelAdmin, ILinkSidebarAdmin } from '../../models/interface/ILink
   templateUrl: './menu-admin.component.html',
   styleUrl: './menu-admin.component.css',
 })
-export class MenuAdminComponent {
-  constructor(private router: Router) {}
+export class MenuAdminComponent implements OnInit {
+  constructor(private router: Router, private authService : AuthService) {}
+
+  ngOnInit(): void {
+    if(!this.authService.getCurrentUser()){
+      this.router.navigate([''])
+    }
+  }
 
   // ***** Modal *****
   modalTypes = ModalType;

@@ -27,8 +27,8 @@
               Excluir</button>
           </div>
       </div>
-  
-      <div class="row justify-content-center">
+      @if(1 > 2){
+        <div class="row justify-content-center">
           <table class="tag-table">
             <thead>
               <tr>
@@ -60,7 +60,11 @@
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> <!-- Fim da tabela -->
+      }
+      @else {
+
+      }
       </div>
   </div>
 
