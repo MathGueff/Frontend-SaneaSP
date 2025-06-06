@@ -16,23 +16,23 @@ export class AuthService {
   private activeAdminSubject = new BehaviorSubject<IUser | null>(null);
   activeAdmin$: Observable<IUser | null> = this.activeAdminSubject.asObservable();
 
-  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService)
-  {
+  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService){
+    this.loginAtStartApplication()
+  }
+
+  /* Realiza o login ao iniciar o site (ou recarregar) */
+  private loginAtStartApplication(){
     if (this.getAuthToken()) {
       this.login().subscribe({
         next: (response) => {
           this.setCurrentUser(response);
         },
         error: (e) => {
-          sweetAlertService.showMessage(
-            'Não foi possível realizar o login',
-            true
-          );
+          this.sweetAlertService.showMessage('Não foi possível realizar o login',true);
         },
       });
     }
   }
-
 
   /* Adquire o IUser atual logado */
   public getCurrentUser(): IUser | null {
@@ -45,15 +45,16 @@ export class AuthService {
     if (user.nivel == 1) this.activeAdminSubject.next(user);
   }
 
-
-  autenticate(email: string, senha: string) {
+  /* Gera o token JWT para login */
+  public autenticate(email: string, senha: string) {
     return this.httpClient.post<{ token: string }>(this.API_URL, {
       email,
       senha,
     });
   }
 
-  login() {
+  /* Adquire dados do usuário atual utilizando o token JWT gerado */
+  public login() {
     const token = this.getAuthToken();
 
     let headers = new HttpHeaders();
@@ -64,15 +65,16 @@ export class AuthService {
     return this.httpClient.get<IUser>(this.API_URL + '/me', { headers });
   }
 
-
-  logout() {
+  /* Remove todos os dados armazenados do usuário logado */
+  public logout() {
     localStorage.removeItem('access-token');
     this.activeUserSubject.next(null);
     this.activeAdminSubject.next(null);
     this.sweetAlertService.showMessage('Você se desconectou da sua conta')
   }
 
-  getAuthToken(): string | null {
+  /* Adquire o token JWT armazenado no localStorage */
+  public getAuthToken(): string | null {
     //Verificando se localStorage está disponível
     if (typeof window !== 'undefined' && window.localStorage) {
       const token = localStorage.getItem('access-token');
@@ -81,7 +83,8 @@ export class AuthService {
     return null;
   }
 
-  getObservableCurrentUser():Observable<IUser|null >{
+  /* Adquire o Observable de usuario ativo */
+  getObservableCurrentUser():Observable<IUser|null>{
     return this.activeUser$
   }
 }
