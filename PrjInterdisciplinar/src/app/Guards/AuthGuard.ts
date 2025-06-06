@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
         return true;
       }),
       catchError(() => {
-        this.showGuardMessage('Faça login para ter acesso');
+        this.showGuardMessage('Faça login para ter acesso');  
         this.router.navigate(['/login']);
         return of(false);
       })
