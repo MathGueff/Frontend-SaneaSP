@@ -2,6 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../Services/user.service';
 import { AuthService } from '../../../Services/auth.service';
+import { SweetAlertService } from '../../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-login-link',
@@ -13,6 +14,7 @@ import { AuthService } from '../../../Services/auth.service';
 export class LoginLinkComponent implements OnInit{
   userAtivo : string | null = null;
   private authService = inject(AuthService);
+  private sweetAlertService = inject(SweetAlertService);
   private router = inject(Router)
 
   @ViewChild('dropdown') dropdown !: ElementRef
@@ -38,7 +40,8 @@ export class LoginLinkComponent implements OnInit{
 
   btnLogout(){
     this.authService.logout();
-    this.router.navigate([''])
+    this.router.navigate(['/login'])
+    this.sweetAlertService.showMessage('Você se desconectou da sua conta')
   }
 
   toggleLoginDropdown(){
