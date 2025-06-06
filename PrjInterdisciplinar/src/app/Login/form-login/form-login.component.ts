@@ -78,7 +78,7 @@ export class FormLoginComponent{
   login(email : string, senha : string){
     this.authService.autenticate(email, senha).subscribe({
       next: token => {
-        localStorage.setItem('access-token', token)
+        this.authService.setAuthToken(token)
         this.authService.login().subscribe({
           next : response => {
             this.authService.setCurrentUser(response)

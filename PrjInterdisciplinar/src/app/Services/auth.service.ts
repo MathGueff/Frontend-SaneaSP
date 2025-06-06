@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IUser } from '../models/interface/IUser.model';
 import { SweetAlertService } from './sweetAlert.service';
+import { LocalStorageService } from './localStorage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,7 +17,10 @@ export class AuthService {
   private activeAdminSubject = new BehaviorSubject<IUser | null>(null);
   activeAdmin$: Observable<IUser | null> = this.activeAdminSubject.asObservable();
 
-  constructor( private httpClient: HttpClient,private sweetAlertService: SweetAlertService){
+  constructor( 
+    private httpClient: HttpClient,
+    private sweetAlertService: SweetAlertService,
+    private localStorageService : LocalStorageService){
     this.loginAtStartApplication()
   }
 
@@ -28,7 +32,8 @@ export class AuthService {
           this.setCurrentUser(response);
         },
         error: (e) => {
-          this.sweetAlertService.showMessage('Não foi possível realizar o login',true);
+          this.logout()
+          this.sweetAlertService.showMessage(e.error.message, true);
         },
       });
     }
@@ -67,20 +72,23 @@ export class AuthService {
 
   /* Remove todos os dados armazenados do usuário logado */
   public logout() {
-    localStorage.removeItem('access-token');
+    this.removeAuthToken();
     this.activeUserSubject.next(null);
     this.activeAdminSubject.next(null);
-    this.sweetAlertService.showMessage('Você se desconectou da sua conta')
   }
 
   /* Adquire o token JWT armazenado no localStorage */
   public getAuthToken(): string | null {
-    //Verificando se localStorage está disponível
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const token = localStorage.getItem('access-token');
-      if (token) return token;
-    }
-    return null;
+    return this.localStorageService.get('access-token')
+  }
+
+  /* Adquire o token JWT armazenado no localStorage */
+  public setAuthToken(token : string){
+    this.localStorageService.set('access-token',token)
+  }
+
+  public removeAuthToken(){
+    this.localStorageService.remove('access-token')
   }
 
   /* Adquire o Observable de usuario ativo */
