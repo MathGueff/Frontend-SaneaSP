@@ -77,8 +77,8 @@ export class FormLoginComponent{
   /* Verificação de login */
   login(email : string, senha : string){
     this.authService.autenticate(email, senha).subscribe({
-      next: response => {
-        localStorage.setItem('access-token', response.token)
+      next: token => {
+        localStorage.setItem('access-token', token)
         this.authService.login().subscribe({
           next : response => {
             this.authService.setCurrentUser(response)
