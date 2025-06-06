@@ -47,7 +47,7 @@ export class AuthService {
 
   /* Gera o token JWT para login */
   public autenticate(email: string, senha: string) {
-    return this.httpClient.post<{ token: string }>(this.API_URL, {
+    return this.httpClient.post<string>(this.API_URL, {
       email,
       senha,
     });
