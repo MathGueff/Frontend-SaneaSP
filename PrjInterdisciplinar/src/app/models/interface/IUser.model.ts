@@ -5,7 +5,7 @@ import { IEndereco } from "./IEndereco.model";
 */
 
 export interface IUser{
-    id : number,
+    id ?: number,
     nome: string,
     senha: string,
     email: string,

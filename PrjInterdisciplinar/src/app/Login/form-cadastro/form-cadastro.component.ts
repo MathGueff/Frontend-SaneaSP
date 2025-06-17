@@ -16,10 +16,11 @@ import { ToastComponent } from '../../Common/toast/toast.component';
 @Component({
   selector: 'app-form-cadastro',
   standalone: true,
-  imports: [RouterLink, CommonModule, ReactiveFormsModule, FormFieldComponent, ToastComponent],
+  imports: [RouterLink, CommonModule, FormFieldComponent, ToastComponent, ReactiveFormsModule],
   templateUrl: './form-cadastro.component.html',
   styleUrls: ['./form-cadastro.component.css', '../links-redes.css']
 })
+
 export class FormCadastroComponent implements OnInit{
   private formBuilderService = inject(NonNullableFormBuilder);
   private router = inject(Router);
@@ -151,7 +152,7 @@ export class FormCadastroComponent implements OnInit{
       label:'Complemento:',
       placeholder: 'Digite seu complemento',
       required: false,
-    },
+    }
   ]
 
   onSubmit(){
@@ -178,7 +179,8 @@ export class FormCadastroComponent implements OnInit{
           senha : this.formCadastro.controls.senha.value,
           endereco : userAddress,
           telefone : this.formCadastro.controls.telefone.value,
-          cpf : this.formCadastro.controls.cpf.value
+          cpf : this.formCadastro.controls.cpf.value,
+          nivel: 0  //Nivel default
         }
 
         //Chamando função para verificar se usuário já existe com base no email

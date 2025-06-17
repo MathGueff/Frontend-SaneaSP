@@ -67,10 +67,10 @@ export class UserService {
         email: 'ryan@gmail.com',
         senha: 'ryan',
         endereco:{
-          cep: '11111111',
+          cep: '77777777777',
           bairro : 'Bairro tal',
           logradouro : 'Rua tal',
-          cidade : 'Sorocaba'
+          cidade : 'Cidade tal'
         },
         nivel:1
       },
