@@ -180,33 +180,7 @@
 
       <app-tag-select (alertSelected)="tagsChange($event)"></app-tag-select>
 
-        <div class="col-md-12 col-sm-12 mb-3">
-          <img
-            class="form-icon me-1"
-            src="img/paginas/reclamacoes/image-icon.svg"
-          />
-          <label for="confirma-senha-login" class="form-label">Imagem:</label>
-          <input
-            type="file"
-            formControlName="imagem"
-            class="form-control"
-            id=""
-            placeholder="Confirmação da sua senha"
-            (change)="setPreview($event)"
-          />
-        </div>
-
-        <div class="col-md-12 col-sm-12 mb-3">
-          <div class="preview d-flex flex-column align-items-center">
-            <label class="form-label">Pré-visualização</label>
-            <img
-              class="preview-img img-fluid"
-              [src]="src"
-              id="imgPreview"
-              *ngIf="src;"
-            />
-          </div>
-        </div>
+      <app-image-select></app-image-select>
       </form>
       <!-- Botão de entrar -->
       <div class="botoes d-flex justify-content-between w-100 align-items-center">

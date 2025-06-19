@@ -14,12 +14,13 @@ import { ICreateReclamacao } from '../../models/interface/IReclamacao.interface'
 import { ITag } from '../../models/interface/ITag.model';
 import { IResponseList } from '../../models/interface/IResponseList.model';
 import { TagSelectComponent } from "../../Common/tag-select/tag-select.component";
+import { ImageSelectComponent } from "../../Common/image-select/image-select.component";
 
 
 @Component({
   selector: 'app-reclamacao-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, TagSelectComponent],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, TagSelectComponent, ImageSelectComponent],
   templateUrl: './reclamacao-form.component.html',
   styleUrl: './reclamacao-form.component.css',
 })
@@ -33,7 +34,7 @@ export class ReclamacaoFormComponent implements OnInit {
   private tagIDs:number[] = [];
   public selectedTags : ITag[] = [];
   rows: number = 2;
-  src: any = null;
+
 
 
    form = this.formBuider.group({
@@ -129,17 +130,6 @@ export class ReclamacaoFormComponent implements OnInit {
       }
     } else {
       this.rows = 2;
-    }
-  }
-  protected setPreview(event: any){
-    const file:File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.src = e.target.result;
-
-      };
-      reader.readAsDataURL(file);
     }
   }
   public tagsChange($event: ITag[]) {
