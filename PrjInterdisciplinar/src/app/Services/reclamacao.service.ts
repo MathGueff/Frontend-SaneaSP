@@ -6,7 +6,7 @@ import { ICreateReclamacao, IReclamacao } from "../models/interface/IReclamacao.
 
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
-  private urlApi:string = "http://localhost:3000/reclamacao";
+  private urlApi:string = "https://backend-saneasp.onrender.com/reclamacao";
   private listReclamcao !: IReclamacao[];
   constructor(private httpClient:HttpClient){}
 

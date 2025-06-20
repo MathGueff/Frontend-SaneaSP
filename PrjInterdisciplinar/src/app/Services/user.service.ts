@@ -8,7 +8,7 @@ import { IAdmin } from '../models/interface/IAdmin.model';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private API_URL = "http://localhost:3000/user/"
+  private API_URL = "https://backend-saneasp.onrender.com/user/"
 
   constructor(private sweetAlert : SweetAlertService, private httpClient : HttpClient) {
     this.loadUsers(); //Para carregar os usuários local
