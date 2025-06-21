@@ -35,5 +35,13 @@ export class ReclamacaoService{
     }
     return this.httpClient.put<IReclamacao>(`${this.urlApi}/${idReclamacao}`,reclamacao, {headers})
   }
+  public deleteReclamacao(idReclamacao:number){
+    const token = this.authService.getAuthToken();
+    let headers = new HttpHeaders();
+    if(token){
+      headers = headers.set('Authorization',token)
+    }
+    return this.httpClient.delete<IReclamacao>(`${this.urlApi}/${idReclamacao}`,{headers})
+  }
 
 }
