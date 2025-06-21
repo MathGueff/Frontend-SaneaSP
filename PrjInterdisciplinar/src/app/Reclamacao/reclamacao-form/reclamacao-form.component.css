@@ -1,3 +1,6 @@
+button{
+  text-transform: uppercase;
+}
 .form-control, .form-select, .tags-selected{
   width: 100% !important;
   height: auto !important;

@@ -31,7 +31,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
     protected path :string = "../";
     private tagsID:number[] = [];
     private images : string[] = [];
-    private reclamacao ?: IReclamacao;
+    protected reclamacao !: IReclamacao;
 
     rows: number = 5;
     src: any = null;

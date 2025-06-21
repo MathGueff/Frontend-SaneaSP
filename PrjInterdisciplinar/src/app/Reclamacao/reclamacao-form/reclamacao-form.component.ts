@@ -36,8 +36,6 @@ export class ReclamacaoFormComponent implements OnInit {
   private tagIDs:number[] = [];
   rows: number = 2;
 
-
-
    form = this.formBuider.group({
     titulo: ['', [Validators.required]],
     descricao: ['', [Validators.required]],

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 })
 export class ImageSelectComponent {
   src: any = null;
-  selectImages : File[] = [];
+  @Input() public selectImages : File[] = [];
   @Output() public alertImageSelect = new EventEmitter<File[]>();
 
   protected addImageList(event: any){
