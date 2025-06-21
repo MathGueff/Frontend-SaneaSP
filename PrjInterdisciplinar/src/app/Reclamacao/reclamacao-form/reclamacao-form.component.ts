@@ -34,7 +34,6 @@ export class ReclamacaoFormComponent implements OnInit {
 
   private images : string[] = []
   private tagIDs:number[] = [];
-  public selectedTags : ITag[] = [];
   rows: number = 2;
 
 
@@ -138,8 +137,7 @@ export class ReclamacaoFormComponent implements OnInit {
     }
   }
   public tagsChange($event: ITag[]) {
-    this.selectedTags = $event;
-    this.tagIDs = this.selectedTags.map((tag)=>tag.id)
+    this.tagIDs = $event.map((tag)=>tag.id)
   }
   public imagesChange($event: File[]){
     if($event.length > 0){
