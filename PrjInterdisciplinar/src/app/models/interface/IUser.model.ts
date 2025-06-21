@@ -4,13 +4,13 @@ import { IEndereco } from "./IEndereco.model";
     Endereco agrupa logradouro, cidade, bairro, numero e cep no mesmo campo
 */
 
-export interface IUser{
-    id ?: number,
+export interface IUser {
+    id?: number,
     nome: string,
     senha: string,
     email: string,
     telefone?: string,
     cpf?: string,
     endereco?: IEndereco,
-    nivel ?: number
+    nivel?: number
 }

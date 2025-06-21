@@ -4,14 +4,15 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SweetAlertService } from './sweetAlert.service';
 import { IAdmin } from '../models/interface/IAdmin.model';
+import { error } from 'console';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private API_URL = "https://backend-saneasp.onrender.com/user/"
+  private API_URL = "https://backend-saneasp.onrender.com/user"
 
   constructor(private sweetAlert : SweetAlertService, private httpClient : HttpClient) {
-    this.loadUsers(); //Para carregar os usuários local
+    //this.loadUsers(); Para carregar os usuários local
   }
 
   getUserById(id : number){
@@ -20,6 +21,7 @@ export class UserService {
   
   private users: IUser[] = [];
 
+  /*
   private loadUsers(): void {
     this.users = [
       {
@@ -89,6 +91,7 @@ export class UserService {
       },
     ];
   }
+  */
 
   /* Pega todos os usuários existentes local */
   public getAllUsers(): IUser[] {
@@ -99,9 +102,7 @@ export class UserService {
 
   /* Criação de um novo usuário */
   public newUser(newUser: IUser) {
-    this.users.push(newUser);
-    this.sweetAlert.showMessage("Cadastrado com sucesso");
-    console.log(this.users);
+    return this.httpClient.post<IUser>(`${this.API_URL}`, newUser);
   }
 
   //* Verifica se já existe um usuário com esse email*/
