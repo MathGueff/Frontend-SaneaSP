@@ -24,8 +24,8 @@ export class ReclamacaoCardComponent   {
     const confirm = await this.sweetAlert.confirmExclusion(`Deseja mesmo exluir a Reclamação: ${id}?`);
     if(confirm){
       this.reclamacaoService.deleteReclamacao(id).subscribe({
-        next:()=>{
-          this.sweetAlert.showMessage("Reclamação excluída com sucesso");
+        next: async()=>{
+          await this.sweetAlert.showMessage("Reclamação excluída com sucesso");
           window.location.reload()
         },
         error:(err)=>{
