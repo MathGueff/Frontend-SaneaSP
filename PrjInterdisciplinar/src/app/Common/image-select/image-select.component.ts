@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-image-select',
@@ -11,16 +11,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class ImageSelectComponent {
   src: any = null;
+  selectImages : File[] = [];
+  @Output() public alertImageSelect = new EventEmitter<File[]>();
 
-  protected setPreview(event: any){
-    const file:File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.src = e.target.result;
-
-      };
-      reader.readAsDataURL(file);
+  protected addImageList(event: any){
+    const files:FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      if(this.selectImages.find((file)=> file.name === files[i].name)){
+        continue;
+      }
+      this.selectImages.push(files[i])
     }
+    this.alertImageSelect.emit(this.selectImages)
   }
 }

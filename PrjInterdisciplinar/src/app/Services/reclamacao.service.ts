@@ -1,12 +1,13 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Reclamacao } from "../models/class/reclamacao";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ICreateReclamacao, IReclamacao } from "../models/interface/IReclamacao.interface";
+import { AuthService } from "./auth.service";
 
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
   private urlApi:string = "http://localhost:3000/reclamacao";
+  private authService = inject(AuthService);
   private listReclamcao !: IReclamacao[];
   constructor(private httpClient:HttpClient){}
 
@@ -19,7 +20,12 @@ export class ReclamacaoService{
   }
 
   public postReclamacao(reclamcao: ICreateReclamacao):Observable<IReclamacao>{
-   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamcao)
+    const token = this.authService.getAuthToken();
+    let headers = new HttpHeaders();
+    if(token){
+      headers = headers.set('Authorization',token)
+    }
+   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamcao,{headers})
   }
 
 }
