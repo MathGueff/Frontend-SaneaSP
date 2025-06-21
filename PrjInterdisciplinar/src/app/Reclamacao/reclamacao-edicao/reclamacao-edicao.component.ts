@@ -11,6 +11,7 @@ import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { TagSelectComponent } from "../../Common/tag-select/tag-select.component";
 import { ImageSelectComponent } from "../../Common/image-select/image-select.component";
 import { ITag } from '../../models/interface/ITag.model';
+import { SweetAlertService } from '../../Services/sweetAlert.service';
 
 @Component({
   selector: 'app-reclamacao-edicao',
@@ -21,11 +22,12 @@ import { ITag } from '../../models/interface/ITag.model';
 })
 export class ReclamacaoEdicaoComponent implements OnInit {
     private reclamacaoService = inject(ReclamacaoService);
+    private sweetAlertService = inject(SweetAlertService);
     private formBuider = inject(NonNullableFormBuilder);
     private router = inject(Router);
     private viacepService = inject(ViacepService);
-
     private activeRouter = inject(ActivatedRoute);
+
     protected erro : string = "";
     protected vazio : boolean = false;
     protected path :string = "../";
@@ -51,15 +53,23 @@ export class ReclamacaoEdicaoComponent implements OnInit {
       complemento: [this.reclamacao?.complemento]
     });
 
-    onSubmit() {
-      if (this.form.valid) {
+   async onSubmit() {
+      const response = await this.sweetAlertService.confirmUpdate("Confirmar Atualização");
+      if (this.form.valid && response) {
           const updateReclamacao: ICreateReclamacao = {
             ...this.form.value as ICreateReclamacao,
             Imagens: this.images,
             Tags: this.tagsID
           }
-          console.log(updateReclamacao)
-       // this.router.navigate(['reclamacao-inicial']);
+          this.reclamacaoService.putReclamacao(updateReclamacao,this.reclamacao.id).subscribe({
+            next: ()=>{
+              this.sweetAlertService.showMessage("Reclamação Atualizada com sucesso");
+              this.router.navigate(['reclamacao']);
+            },
+            error:()=>{
+              this.sweetAlertService.showMessage("Erro ao atualizar reclamação",true)
+            }
+          })
       }
     }
     ngOnInit(): void {
@@ -159,6 +169,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
         numero:reclamacao.numero
       });
       this.autoResize()
+      this.imagesChange([]);
     }
 
   protected tagsChange($event: ITag[]) {
@@ -167,6 +178,9 @@ export class ReclamacaoEdicaoComponent implements OnInit {
   protected imagesChange($event: File[]){
     if($event.length > 0){
       $event.map((file)=> this.images.push(file.name));
+    }
+    else{
+      this.reclamacao.Imagens.map((image)=>this.images.push(image.nome))
     }
   }
 }

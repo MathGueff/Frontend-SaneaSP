@@ -19,13 +19,21 @@ export class ReclamacaoService{
      return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
   }
 
-  public postReclamacao(reclamcao: ICreateReclamacao):Observable<IReclamacao>{
+  public postReclamacao(reclamacao: ICreateReclamacao):Observable<IReclamacao>{
     const token = this.authService.getAuthToken();
     let headers = new HttpHeaders();
     if(token){
       headers = headers.set('Authorization',token)
     }
-   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamcao,{headers})
+   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamacao,{headers})
+  }
+  public putReclamacao(reclamacao:ICreateReclamacao, idReclamacao: number){
+    const token = this.authService.getAuthToken();
+    let headers = new HttpHeaders();
+    if(token){
+      headers = headers.set('Authorization',token)
+    }
+    return this.httpClient.put<IReclamacao>(`${this.urlApi}/${idReclamacao}`,reclamacao, {headers})
   }
 
 }
