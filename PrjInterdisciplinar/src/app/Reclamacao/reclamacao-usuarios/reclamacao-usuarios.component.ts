@@ -9,12 +9,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
+import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
 
 
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent, NotFoundComponent, CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [ReclamacaoCardComponent, NotFoundComponent, CommonModule, RouterLink, ReactiveFormsModule,TagSelectComponent],
   templateUrl: './reclamacao-usuarios.component.html',
   styleUrl: './reclamacao-usuarios.component.css'
 })
@@ -53,8 +54,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
         this.erro = "Você não possuí Reclamações"
         console.error(err)
       }
-    }
-    );
+    });
 
 
     this.TagSelect.valueChanges.subscribe(() => {

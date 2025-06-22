@@ -9,13 +9,14 @@ import { BehaviorSubject, Observable, toArray } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { AuthService } from '../../Services/auth.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
+import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
 
 
 
 @Component({
   selector: 'app-reclamacao-inicial',
   standalone: true,
-  imports: [CommonModule, ReclamacaoCardComponent, RouterLink, ReactiveFormsModule,NotFoundComponent],
+  imports: [CommonModule, ReclamacaoCardComponent, RouterLink, ReactiveFormsModule,NotFoundComponent,TagSelectComponent],
   templateUrl: './reclamacao-inicial.component.html',
   styleUrl: '../reclamacao-usuarios/reclamacao-usuarios.component.css'
 })

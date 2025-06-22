@@ -21,10 +21,9 @@
   align-content: space-between;
   align-items: center;
 }
-.tags .pesquisa-tag, .adicionar .adicionar-btn {
+.tag, .adicionar .adicionar-btn {
   display:  flex;
   justify-content: center;
-  gap: 60px;
   background-color: var(--cor-terciaria);
   align-items: center;
 }
@@ -32,16 +31,7 @@
   text-align: center;
   width: 50%;
 }
-.adicionar-btn a{
-  width: 40%;
-  height: 46px;
-  font-size: var(--login-botao);
-  background-color: var(--cor-quaternaria);
-  color: #fff;
-  border: 2px solid var(--cor-quaternaria);
-  border-radius: 5px;
-  filter: drop-shadow(13px 1px 13px #575757);
-}
+  
 .cards{
   gap: 40px;
   margin: 40px 20px 20px 20px;
@@ -56,11 +46,3 @@
   font-size: 0.875rem;
 }
 
-#mais-opcoes button:focus{
-
-}
-
-@media(max-width:720px){
-
-
-}

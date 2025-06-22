@@ -21,6 +21,7 @@ export class TagSelectComponent implements OnInit {
   }
   public select = new FormControl<ITag>(this.tagNull);
   @Input() public tagSelected : ITag[] = [];
+  @Input( ) public isFiltro : boolean = false;
   @Output() public alertSelected = new EventEmitter<ITag[]>();
 
   ngOnInit(): void {
