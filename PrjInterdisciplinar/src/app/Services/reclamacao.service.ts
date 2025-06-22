@@ -7,7 +7,7 @@ import { AuthService } from "./auth.service";
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
 
-  private urlApi:string = "https://backend-saneasp.onrender.com/reclamacao";
+  private urlApi:string = "http://localhost:3000/reclamacao";
 
   private authService = inject(AuthService);
   private listReclamcao !: IReclamacao[];
@@ -18,32 +18,37 @@ export class ReclamacaoService{
   }
 
   public getByIdReclamacao(id:number):Observable<IReclamacao>{
-     return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
+    return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
   }
 
   public postReclamacao(reclamacao: ICreateReclamacao):Observable<IReclamacao>{
-    const token = this.authService.getAuthToken();
-    let headers = new HttpHeaders();
-    if(token){
-      headers = headers.set('Authorization',token)
+    const headers = this.setHeader();
+    const user = this.authService.getCurrentUser();
+    if(user){
+      reclamacao.idUsuario = user.id as number;
     }
-   return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamacao,{headers})
+    return this.httpClient.post<IReclamacao>(`${this.urlApi}`, reclamacao,{headers})
   }
   public putReclamacao(reclamacao:ICreateReclamacao, idReclamacao: number){
-    const token = this.authService.getAuthToken();
-    let headers = new HttpHeaders();
-    if(token){
-      headers = headers.set('Authorization',token)
-    }
+    const headers = this.setHeader();
     return this.httpClient.put<IReclamacao>(`${this.urlApi}/${idReclamacao}`,reclamacao, {headers})
   }
   public deleteReclamacao(idReclamacao:number){
+    const headers = this.setHeader();
+    return this.httpClient.delete<IReclamacao>(`${this.urlApi}/${idReclamacao}`,{headers})
+  }
+
+  public getByUser():Observable<IReclamacao[]>{
+    const headers = this.setHeader();
+    return this.httpClient.get<IReclamacao[]>(`${this.urlApi}/usuario`,{headers})
+  }
+
+  private setHeader():HttpHeaders{
     const token = this.authService.getAuthToken();
     let headers = new HttpHeaders();
     if(token){
       headers = headers.set('Authorization',token)
     }
-    return this.httpClient.delete<IReclamacao>(`${this.urlApi}/${idReclamacao}`,{headers})
+    return headers
   }
-
 }
