@@ -5,7 +5,6 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../../Services/user.service';
 import { IUser } from '../../models/interface/IUser.model';
 import { IEndereco } from '../../models/interface/IEndereco.model';
-import { CadastroErrorStatus } from '../../models/enums/CadastroErrorStatus.enum';
 import { ViacepService } from '../../Services/viacep.service';
 import { IFieldForm } from '../../models/interface/IFieldForm.model';
 import { FormFieldComponent } from "../../Common/form-field/form-field.component";
@@ -165,41 +164,35 @@ export class FormCadastroComponent implements OnInit {
       if (senha === confirmSenha) {
         //Interface de endereço para guardar as informações de endereço
         const userAddress: IEndereco = {
-          cep: this.formCadastro.controls.cep.value,
-          bairro: this.formCadastro.controls.bairro.value,
-          logradouro: this.formCadastro.controls.logradouro.value,
-          cidade: this.formCadastro.controls.localidade.value,
-          numero: this.formCadastro.controls.numero.value,
-          complemento: this.formCadastro.controls.complemento.value
+          cep: this.formCadastro.controls.cep.value || undefined,
+          bairro: this.formCadastro.controls.bairro.value || undefined,
+          logradouro: this.formCadastro.controls.logradouro.value || undefined,
+          cidade: this.formCadastro.controls.localidade.value || undefined,
+          numero: this.formCadastro.controls.numero.value || undefined,
+          complemento: this.formCadastro.controls.complemento.value || undefined
         }
 
         //Interface de usuário para guardar as informações do usuário e passar para o userService
         const newUser: IUser = {
-          id: this.userService.getCurrentID(),
           nome: this.formCadastro.controls.nome.value,
           email: this.formCadastro.controls.email.value,
           senha: this.formCadastro.controls.senha.value,
           endereco: userAddress,
-          telefone: this.formCadastro.controls.telefone.value,
-          cpf: this.formCadastro.controls.cpf.value,
+          telefone: this.formCadastro.controls.telefone.value || undefined,
+          cpf: this.formCadastro.controls.cpf.value || undefined,
           nivel: 0  //Nivel default
         }
 
-        //Chamando função para verificar se usuário já existe com base no email
-        if (!this.userService.checkEmailExists(newUser)) {
-          //Caso não haja usuário, cadastra um novo com os dados preenchidos
-          this.userService.newUser(newUser);
-          this.sweetAlertService.showMessage('Cadastro realizado com sucesso');
-          //Retorna à pagina de login para que o usuário possa logar
-          this.router.navigate(['/login']);
-        }
-        else {
-          //Informa erro de usuário existente
-          this.toastService.show({
-            message: 'Esse email já está sendo usado no sistema',
-            error: true
-          })
-        }
+        this.userService.newUser(newUser)?.subscribe({
+          next : () => {
+            this.sweetAlertService.showMessage('Cadastro realizado com sucesso');
+            //Retorna à pagina de login para que o usuário possa logar
+            this.router.navigate(['/login']);
+          },
+          error: (e) => {
+            this.sweetAlertService.showMessage(e.error.message, e.error.error);
+          }
+        });
       }
       else {
         //Informa erro de senhas não coincidentes
