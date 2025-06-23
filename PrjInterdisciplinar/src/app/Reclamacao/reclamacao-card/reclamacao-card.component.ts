@@ -19,6 +19,9 @@ export class ReclamacaoCardComponent   {
   private sweetAlert = inject(SweetAlertService);
   private reclamacaoService = inject(ReclamacaoService);
   private router = inject(Router)
+  constructor(){
+    console.log(this.card);
+  }
   // Função para excluir Reclamacao. Função assincrona: precisa usar async e await
   protected async exclusaoReclamacao(id:number){
     const confirm = await this.sweetAlert.confirmExclusion(`Deseja mesmo exluir a Reclamação: ${id}?`);

@@ -11,7 +11,6 @@
 }
 
 .imgPainel{
-  width: 300px;
   border: 2px solid #fff;
   border-radius: 5px;
 }
@@ -19,3 +18,21 @@
   text-indent: 50px;
   text-align: justify;
 }
+
+.tag{
+  border-radius: 30px;
+  color:rgb(34, 34, 34);
+  padding: 2px 15px;
+  background-color: white;
+  font-size: 0.9rem;
+  min-height: 30px;
+  height: auto;
+}
+
+.pontuacao span{
+  color: #0CD1FE;
+}
+.situacao span{
+  color: #F89C40;
+}
+

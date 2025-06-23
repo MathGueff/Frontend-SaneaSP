@@ -15,11 +15,11 @@
   </select>
 </div>
 
-<div class="col-md-12 col-sm-12 pe-0 h-auto">
+<div class="col-md-12 col-sm-12 pe-0 h-auto mb-2">
   <label for="tag-selecionada" class="form-label">Tags selecionadas:</label>
   <div class="tags-selected h-auto p-1 flex-wrap d-flex flex-row justify-content-around gap-1" id="tag-selecionada">
     @for (tag of tagSelected; track tag.id) {
-      <button (click)="RemoveTagSelect(tag)" class="tag w-25">
+      <button (click)="RemoveTagSelect(tag)" class="tag w-25 rounded-pill">
         {{ tag.nome }}
       </button>
     }
@@ -27,4 +27,8 @@
       <p class="tag w-100 m-auto">Nenhuma Tag selecionada</p>
     }
   </div>
+</div>
+
+<div class="col-md-12 col-sm-12 pe-0 text-center my-3">
+  <button class="btn btn-primary w-25 rounded-pill py-3">Buscar</button>
 </div>
