@@ -28,8 +28,8 @@
                 formName="form-cadastro-tag"
                 controlName="nomeNovaTag"
                 icon="assets/icones/black/tag_icon.svg"
-                label="Nome da Tag:"
-                placeholder="Digite o nome da tag"
+                label="Nome da categoria:"
+                placeholder="Digite o nome da categoria"
                 [required]="true"
                 fieldType="input"
                 [validators]="[
@@ -51,7 +51,7 @@
                 </button>
                 <span
                   >{{modalTypeSelected == modalTypes.Edicao ? 'Editando' : 'Excluindo'}} 
-                    a tag:<strong> passo {{ tagSelected ? "2" : "1" }} de
+                    a categoria:<strong> passo {{ tagSelected ? "2" : "1" }} de
                   2</strong>
                 </span>
                 <hr />
@@ -64,8 +64,8 @@
                   formName="form-pesquisa-tag"
                   controlName="nomePesquisaTag"
                   icon="assets/icones/operacoes/black/search_icon.svg"
-                  label="Pesquise pelo nome da tag:"
-                  placeholder="Digite o nome da tag:"
+                  label="Pesquise pelo nome da categoria:"
+                  placeholder="Digite o nome da categoria:"
                   fieldType="input"
                   (input)="onInputTag()"
                   [required]="true"
@@ -104,7 +104,7 @@
                       {{
                         tags.length == 1
                           ? "Selecione abaixo para começar a editar"
-                          : "Nenhuma tag encontrada!"
+                          : "Nenhuma categoria encontrada!"
                       }}
                     </span>
                   </div>
@@ -118,7 +118,7 @@
                     (tags?.length != 1 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0) 
                     || this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
                     <span
-                      >Tags Sugeridas: (mostrando {{ tags.length }} de
+                      >Categorias encontradas: (mostrando {{ tags.length }} de
                       {{ tagCount$ | async }})</span
                     >
 
@@ -163,8 +163,8 @@
                     class="d-flex justify-content-center align-items-center text-center"
                   >
                     <span
-                      >Nenhuma tag criada. Para começar a pesquisar, cadastre uma
-                      tag</span
+                      >Nenhuma categoria criada. Para começar a pesquisar, cadastre uma.
+                    </span
                     >
                   </div>
                 }
@@ -176,8 +176,8 @@
                     formName="form-edit-tag"
                     controlName="nomeEditTag"
                     icon="assets/icones/black/tag_icon.svg"
-                    label="Nome da tag:"
-                    placeholder="Digite o novo nome da tag"
+                    label="Nome da categoria:"
+                    placeholder="Digite o novo nome da categoria"
                     fieldType="input"
                     [required]="true"
                     [validators]="[
@@ -194,7 +194,7 @@
                         src="assets/icones/black/info_icon.svg"
                         alt="ícone de informação"
                       />
-                      <span>Clique no botão de voltar para pesquisar por outra tag</span>
+                      <span>Clique no botão de voltar para pesquisar por outra categoria</span>
                     </div>
                   }
                  
@@ -205,7 +205,7 @@
                     formName="form-exclusao-tag"
                     controlName="nomeExclusaoTag"
                     icon="assets/icones/black/tag_icon.svg"
-                    label="Tag a ser excluída:"
+                    label="Nome da categoria:"
                     fieldType="input"
                   ></app-form-field>
                 }

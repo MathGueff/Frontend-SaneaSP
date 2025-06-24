@@ -80,7 +80,12 @@ export class TagModalComponent implements AfterViewInit, OnInit{
           this.tagList$ = of(response.data || []);
         },
         error: e => {
-          this.sweetAlertService.showMessage(e.error.message, true).then(() => {
+          const errorMessage =
+          e.status === 0
+            ? 'Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.'
+            : e.error?.message || 'Erro inesperado ao buscar as categorias.';
+
+          this.sweetAlertService.showMessage(errorMessage, true).then(() => {
             this.closeModal()
           });
         }
@@ -148,15 +153,15 @@ export class TagModalComponent implements AfterViewInit, OnInit{
         buttonText: 'Tipo faltando',
       },
       [ModalType.Adicao]: {
-        title: 'Cadastre uma nova tag',
-        buttonText: 'Salvar tag',
+        title: 'Cadastre uma nova categoria',
+        buttonText: 'Salvar categoria',
       },
       [ModalType.Edicao]: {
-        title: 'Edite a tag',
+        title: 'Edite a categoria',
         buttonText: 'Confirmar edição',
       },
       [ModalType.Exclusao]: {
-        title: 'Excluir a tag',
+        title: 'Excluir a categoria',
         buttonText: 'Excluir',
       },
     };
@@ -206,9 +211,9 @@ export class TagModalComponent implements AfterViewInit, OnInit{
   handleTagCreation() {
     if (this.formCadastroTag.invalid){
       if(this.formCadastroTag.controls.nomeNovaTag.value.length == 0)
-        this.toastService.show({error: true, message: "Digite o nome da Tag"})
+        this.toastService.show({error: true, message: "Digite o nome da categoria"})
       else if(this.formCadastroTag.controls.nomeNovaTag.invalid)
-        this.toastService.show({error: true, message: "O nome da tag deve ser maior"})
+        this.toastService.show({error: true, message: "O nome da categoria deve ser maior"})
       return;
     };
 
@@ -237,14 +242,14 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     if (!this.tagSelected){
       this.toastService.show({ 
         error: true,
-        message: "Escolha uma tag válida para começar a editar"
+        message: "Escolha uma categoria válida para começar a editar"
       })
       return
     } 
   
     if(this.formEditTag.invalid){
       this.toastService.show({ 
-        message: this.formEditTag.controls.nomeEditTag.value.length == 0 ? 'Digite o novo nome para a tag' : 'O nome da tag deve ser maior',
+        message: this.formEditTag.controls.nomeEditTag.value.length == 0 ? 'Digite o novo nome para a categoria' : 'O nome da categoria deve ser maior',
         error: true,
       })
       return
@@ -274,11 +279,11 @@ export class TagModalComponent implements AfterViewInit, OnInit{
     if (!this.tagSelected){
       this.toastService.show({ 
         error: true,
-        message: "Escolha uma t válida para excluir"
+        message: "Escolha uma categoria válida para excluir"
       })
       return
     } 
-    this.showDeleteConfirmation(`Deseja deletar a tag: "${this.tagSelected.nome}"?`);
+    this.showDeleteConfirmation(`Deseja deletar a categoria: "${this.tagSelected.nome}"?`);
   }
 
   handleTagConfirmationDelete(){
@@ -350,7 +355,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
             break;
         }
         if(response.data && !this.tagPreloaded)
-          this.toastService.show({message: `Tag "${response.data.nome}" selecionada`, error: false})
+          this.toastService.show({message: `Categoria "${response.data.nome}" selecionada`, error: false})
       },
       error: (err) => {
         this.tagSelected = undefined

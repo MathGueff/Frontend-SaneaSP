@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AdminGuard implements CanActivate {
 
   constructor(
@@ -26,7 +27,7 @@ export class AdminGuard implements CanActivate {
       return of(false);
     }
 
-    return this.authService.login().pipe(
+    return this.authService.getAutenticateUser().pipe(
       map(user => {
         this.authService.setCurrentUser(user);
 

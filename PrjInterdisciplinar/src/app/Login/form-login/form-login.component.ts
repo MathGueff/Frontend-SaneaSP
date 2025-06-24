@@ -79,7 +79,7 @@ export class FormLoginComponent{
     this.authService.autenticate(email, senha).subscribe({
       next: token => {
         this.authService.setAuthToken(token)
-        this.authService.login().subscribe({
+        this.authService.getAutenticateUser().subscribe({
           next : response => {
             this.authService.setCurrentUser(response)
             if(this.authService.getCurrentUser()?.nivel == 1){
