@@ -9,7 +9,7 @@ import { ErrorService } from './error.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //https://backend-saneasp.onrender.com/auth
-  private API_URL = 'http://localhost:3000/auth';
+  private API_URL = 'https://backend-saneasp.onrender.com/auth';
 
   /* Observable para avisar quando um novo usuário é logado */
   private currentUserSubject = new BehaviorSubject<IUser | null>(null);
@@ -30,12 +30,8 @@ export class AuthService {
   /* Realiza o login ao iniciar o site (ou recarregar) */
   private initializeAuth(){
     const token = this.getAuthToken();
-    const cachedUser = this.getCachedUser();
 
     if(token){
-      if(cachedUser)
-        this.currentUserSubject.next(cachedUser);
-      
       this.fetchUser().subscribe(); // Atualiza o usuário ativo após realizar req
     }
     else
@@ -85,12 +81,10 @@ export class AuthService {
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
     this.currentUserSubject.next(user);
-    this.setCachedUser(user);
   }
 
   public clearAuth(){
     this.removeAuthToken();
-    this.removeCachedUser();
     this.currentUserSubject.next(null);
   }
 
@@ -107,20 +101,5 @@ export class AuthService {
   /* Remove o token JWT armazenado no localStorage */
   public removeAuthToken(){
     this.localStorageService.remove('access-token')
-  }
-
-  /* Adquire o usuário de cache armazenado no localStorage */
-  public getCachedUser(): IUser | null {
-    return this.localStorageService.getObject('cached-user')
-  }
-
-  /* Define o usuário de cache armazenado no localStorage */
-  public setCachedUser(user : IUser){
-    this.localStorageService.setObject<IUser>('cached-user', user)
-  }
-
-  /* Remove o usuário de cache armazenado no localStorage */
-  public removeCachedUser(){
-    this.localStorageService.remove('cached-user')
   }
 }
