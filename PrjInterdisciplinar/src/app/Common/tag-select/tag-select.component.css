@@ -10,7 +10,7 @@ button, .tag{
   transition: .2s;
 
 }
-button:focus, button:hover{
+.tag:focus, .tag:hover{
   border: 1px solid red ;
   border-radius: 5px;
   color: red;

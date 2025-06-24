@@ -28,7 +28,8 @@
     }
   </div>
 </div>
-
-<div class="col-md-12 col-sm-12 pe-0 text-center my-3">
-  <button class="btn btn-primary w-25 rounded-pill py-3">Buscar</button>
-</div>
+@if(isFiltro){
+  <div class="col-md-12 col-sm-12 pe-0 text-center my-3">
+    <button type="button" (click)="Buscar.emit()" class="btn btn-primary w-25 rounded-pill py-3">Buscar</button>
+  </div>
+}

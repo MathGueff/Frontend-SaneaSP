@@ -1,3 +1,4 @@
+import { ITag } from './../models/interface/ITag.model';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -19,6 +20,18 @@ export class ReclamacaoService{
 
   public getByIdReclamacao(id:number):Observable<IReclamacao>{
     return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
+  }
+
+  public getByTag(tags:ITag[],idUsuario?:number):Observable<IReclamacao[]>{
+    let query:string = ""
+    tags.forEach((tag,i)=>{
+      query += `tags=${tag.id}`;
+      if(i+1 !== tags.length) query += '&'
+    })
+    if(idUsuario){
+      query += `&idUsuario=${idUsuario}`
+    }
+    return this.httpClient.get<IReclamacao[]>(`${this.urlApi}/tags/?${query}`)
   }
 
   public postReclamacao(reclamacao: ICreateReclamacao):Observable<IReclamacao>{

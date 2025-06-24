@@ -107,7 +107,7 @@
 
         <hr />
 
-        <app-tag-select (alertSelected)="tagsChange($event)"></app-tag-select>
+        <app-tag-select [isFiltro]="false" (alertSelected)="tagsChange($event)"></app-tag-select>
 
         <app-image-select (alertImageSelect)="imagesChange($event)"></app-image-select>
 
