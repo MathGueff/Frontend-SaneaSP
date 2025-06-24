@@ -1,3 +1,4 @@
+import { ITag } from './../models/interface/ITag.model';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -7,7 +8,7 @@ import { AuthService } from "./auth.service";
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
 
-  private urlApi:string = "https://backend-saneasp.onrender.com/reclamacao";
+  private urlApi:string = "http://localhost:3000/reclamacao";
 
   private authService = inject(AuthService);
   private listReclamcao !: IReclamacao[];
@@ -19,6 +20,15 @@ export class ReclamacaoService{
 
   public getByIdReclamacao(id:number):Observable<IReclamacao>{
     return  this.httpClient.get<IReclamacao>(`${this.urlApi}/${id}`);
+  }
+
+  public getByTag(tags:ITag[]):Observable<IReclamacao[]>{
+    let query:string = ""
+    tags.forEach((tag,i)=>{
+      query += `tags=${tag.id}`;
+      if(i+1 !== tags.length) query += '&'
+    })
+    return this.httpClient.get<IReclamacao[]>(`${this.urlApi}/tags/?${query}`)
   }
 
   public postReclamacao(reclamacao: ICreateReclamacao):Observable<IReclamacao>{

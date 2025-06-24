@@ -10,6 +10,8 @@ import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { AuthService } from '../../Services/auth.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
+import { ITag } from '../../models/interface/ITag.model';
+import { event } from 'jquery';
 
 
 
@@ -28,6 +30,7 @@ export class ReclamacaoInicialComponent implements OnInit {
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
   protected vazio: boolean = false;
+  private tags: ITag[] = []
   erro : string = "";
   TagSelect: FormGroup;
 
@@ -45,18 +48,13 @@ export class ReclamacaoInicialComponent implements OnInit {
         this.vazio = true;
         this.erro = "Reclamações"
       }
-      console.log(reclamacoes)
     });
 
   }
-  protected PesquisarPorTag(){
-      if(this.TagSelect.value.tagForm === "Todos" || this.TagSelect.value.tagForm == ""){
-        this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
-      }
-      // Filtra o array de Reclamações pela tag selecionada
-      else{
-        this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao()
-      }
+  protected ChangeTagsSelect($event: ITag[]){
+    this.tags = $event;
   }
-
+  protected PesquisarPorTag(){
+    this.reclamacoes$ = this.reclamacaoService.getByTag(this.tags)
+  }
 }

@@ -23,6 +23,7 @@ export class TagSelectComponent implements OnInit {
   @Input() public tagSelected : ITag[] = [];
   @Input( ) public isFiltro : boolean = false;
   @Output() public alertSelected = new EventEmitter<ITag[]>();
+  @Output() public Buscar = new EventEmitter()
 
   ngOnInit(): void {
     this.tagService.getTagsList().subscribe({
