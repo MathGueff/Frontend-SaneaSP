@@ -76,43 +76,13 @@ export class FormLoginComponent{
 
   /* Verificação de login */
   login(email : string, senha : string){
-    this.authService.autenticate(email, senha).subscribe({
-      next: token => {
-        this.authService.setAuthToken(token)
-        this.authService.getAutenticateUser().subscribe({
-          next : response => {
-            this.authService.setCurrentUser(response)
-            if(this.authService.getCurrentUser()?.nivel == 1){
-              this.sweetAlertService.showMessage(
-                'Bem vindo ' + this.authService.getCurrentUser()?.nome,
-                false
-              )
-              this.router.navigate(['pagina-admin'])
-            }
-            else{
-              this.sweetAlertService.showMessage(
-                'Login realizado com sucesso',
-                false
-              )
-              this.router.navigate([''])
-            }
-          },
-          error : e => {
-              this.sweetAlertService.showMessage(
-                e.error.message,
-                false
-              )
-          }
-        })
-      },
-      error: e => {
-        /* Erro de autenticação */
-        this.toastService.show({
-          message : e.error.message,
-          error: true
-        })
+    this.authService.login(email, senha).subscribe({
+      next : (user) => {
+        this.router.navigate([user.nivel == 0
+          ? '/'
+          : '/pagina-admin'
+        ])
       }
     })
-    
   }
 }

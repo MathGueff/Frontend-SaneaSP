@@ -6,7 +6,7 @@ import { TagModalComponent } from '../tag-modal/tag-modal.component';
 import { ITag } from '../../models/interface/ITag.model';
 import { Observable, of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
-import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { ErrorService } from '../../Services/error.service';
 
 @Component({
   selector: 'app-update-tag',
@@ -19,7 +19,7 @@ export class TagTabelaComponent implements OnInit{
 
   private tagService = inject(TagService)
   private router = inject(Router)
-  private sweetAlertService = inject(SweetAlertService)
+  private errorService = inject(ErrorService)
 
   protected currentModalType : ModalType = ModalType.None;
   protected tagSelected: ITag | undefined = undefined;
@@ -56,19 +56,8 @@ export class TagTabelaComponent implements OnInit{
         this.tags$ = of(tags.data || []);
       },
       error : err => {
-        const errorMessage =
-        err.status === 0
-          ? 'Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.'
-          : err.error?.message || 'Erro inesperado ao buscar as categorias.';
-
-        this.sweetAlertService.showMessage(errorMessage, true).then(() => {
-          this.router.navigate([''])
-        })
+        this.errorService.handleError(err).then(() => this.router.navigate(['/']))
       }
     });
   }
-
-  trackById(index: number, tag: any): number {
-  return tag.id; // Ou a propriedade única que identifica sua tag
-}
 }

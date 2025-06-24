@@ -27,8 +27,10 @@ import { ITag } from '../../models/interface/ITag.model';
 export class ReclamacaoInicialComponent implements OnInit {
   protected authService = inject(AuthService);
   protected reclamacaoService = inject(ReclamacaoService);
-  usuarioAtivo$ = this.authService.getObservableCurrentUser(); // Observable com as informações do admin
-  reclamacoes$!: Observable<IReclamacao[]>;
+  usuarioAtivo$ = this.authService.currentUser$; // Observable com as informações do admin
+  reclamacoes$ !: Observable<IReclamacao[]>
+  private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
+  data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
   protected vazio: boolean = false;
   private tags: ITag[] = [];
   erro: string = 'Não foi possível encontrar nenhuma Reclamação';

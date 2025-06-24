@@ -18,6 +18,12 @@ export class LocalStorageService {
         }    
     }
 
+    getObject<T>(item : string) : T | null{
+        const value = this.get(item);
+
+        return value ? JSON.parse(value) as T : null
+    }
+
     set(item : string, value : string){
        if(!this.verifyLocalStorageAvailable()) return
         
@@ -26,6 +32,16 @@ export class LocalStorageService {
         } catch (error) {
             console.warn(error)
         }    
+    }
+
+    setObject<T>(item : string, value : T){
+        if(!this.verifyLocalStorageAvailable()) return
+
+        try {
+            localStorage.setItem(item,JSON.stringify(value))
+        } catch (error) {
+            console.warn(error)
+        }  
     }
 
     remove(item : string){
