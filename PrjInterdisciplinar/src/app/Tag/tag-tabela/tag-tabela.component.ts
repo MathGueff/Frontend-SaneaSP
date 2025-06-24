@@ -56,10 +56,19 @@ export class TagTabelaComponent implements OnInit{
         this.tags$ = of(tags.data || []);
       },
       error : err => {
-        this.sweetAlertService.showMessage(err.error.message, true).then(() => {
+        const errorMessage =
+        err.status === 0
+          ? 'Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.'
+          : err.error?.message || 'Erro inesperado ao buscar as categorias.';
+
+        this.sweetAlertService.showMessage(errorMessage, true).then(() => {
           this.router.navigate([''])
         })
       }
     });
   }
+
+  trackById(index: number, tag: any): number {
+  return tag.id; // Ou a propriedade única que identifica sua tag
+}
 }

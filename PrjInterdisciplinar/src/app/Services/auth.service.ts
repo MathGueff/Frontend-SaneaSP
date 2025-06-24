@@ -26,8 +26,8 @@ export class AuthService {
 
   /* Realiza o login ao iniciar o site (ou recarregar) */
   private loginAtStartApplication(){
-    if (this.getAuthToken()) {
-      this.login().subscribe({
+    if (this.getAuthToken() && !this.getCurrentUser()) {
+      this.getAutenticateUser().subscribe({
         next: (response) => {
           this.setCurrentUser(response);
         },
@@ -46,6 +46,7 @@ export class AuthService {
 
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
+    console.log('Definindo usuário ativo: ' + user.nome)
     this.activeUserSubject.next(user);
     if (user.nivel == 1) this.activeAdminSubject.next(user);
   }
@@ -59,7 +60,7 @@ export class AuthService {
   }
 
   /* Adquire dados do usuário atual utilizando o token JWT gerado */
-  public login() {
+  public getAutenticateUser() {
     const token = this.getAuthToken();
 
     let headers = new HttpHeaders();

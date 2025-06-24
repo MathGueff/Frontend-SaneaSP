@@ -46,7 +46,7 @@
       <!-- verificando se houve atualização da lista -->
       <article class="col-12 p-4 ps-5 pe-5" *ngFor="let reclamacao of reclamacoes$ | async">
         <!-- Coluna do card-->
-        <app-reclamacao-card [card]="reclamacao" [user]="user" ></app-reclamacao-card>
+        <app-reclamacao-card (onDelete)="getUserReclamacoes()" [card]="reclamacao" [user]="user" ></app-reclamacao-card>
       </article>
       <!-- Fim da Coluna do card -->
 

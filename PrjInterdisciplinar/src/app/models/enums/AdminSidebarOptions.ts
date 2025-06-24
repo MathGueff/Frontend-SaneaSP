@@ -3,7 +3,6 @@ export enum AdminSidebarOptions{
     Noticia,
     Reclamacao,
     Tag,
-    Responsaveis,
-    Log,
-    Login
+    Comentario,
+    Log
 }

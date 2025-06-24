@@ -11,57 +11,66 @@ import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
 
-
 @Component({
   selector: 'app-reclamacao-usuarios',
   standalone: true,
-  imports: [ReclamacaoCardComponent, NotFoundComponent, CommonModule, RouterLink, ReactiveFormsModule,TagSelectComponent],
+  imports: [
+    ReclamacaoCardComponent,
+    NotFoundComponent,
+    CommonModule,
+    RouterLink,
+    ReactiveFormsModule,
+    TagSelectComponent,
+  ],
   templateUrl: './reclamacao-usuarios.component.html',
-  styleUrl: './reclamacao-usuarios.component.css'
+  styleUrl: './reclamacao-usuarios.component.css',
 })
 export class ReclamacaoUsuariosComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private reclamacaoService = inject(ReclamacaoService);
 
-  protected reclamacoes$ !: Observable<IReclamacao[]>;
-  protected user !: IUser;
+  protected reclamacoes$!: Observable<IReclamacao[]>;
+  protected user!: IUser;
   protected vazio: boolean = false;
-  protected erro: string = "";
+  protected erro: string = '';
   TagSelect: FormGroup;
 
   constructor(private fb: FormBuilder) {
     this.TagSelect = this.fb.group({
-      tagForm: ['Nenhum']
-    })
+      tagForm: ['Nenhum'],
+    });
   }
 
   ngOnInit(): void {
     this.user = this.thisIsUser();
 
-    this.reclamacoes$ = this.reclamacaoService.getByUser()
+    this.getUserReclamacoes();
+  }
+
+  protected getUserReclamacoes() {
+    this.reclamacoes$ = this.reclamacaoService.getByUser();
 
     this.reclamacoes$.subscribe({
       next: (reclamacoes) => {
-        console.log(reclamacoes)
+        console.log(reclamacoes);
         if (reclamacoes.length === 0) {
           this.vazio = true;
-          this.erro = "Você não possuí Reclamações"
+          this.erro = 'Você não possuí Reclamações';
         }
       },
       error: (err) => {
         this.vazio = true;
-        this.erro = "Você não possuí Reclamações"
-        console.error(err)
-      }
+        this.erro = 'Você não possuí Reclamações';
+        console.error(err);
+      },
     });
 
-
     this.TagSelect.valueChanges.subscribe(() => {
-      console.log("Esta funcionando");
-    })
-
+      console.log('Esta funcionando');
+    });
   }
+
   private thisIsUser(): IUser {
     let user = this.authService.getCurrentUser();
     if (!user) {
