@@ -6,7 +6,7 @@
     @if (!vazio) {
 
     <div class="form d-flex justify-content-center align-items-center flex-column m-3 p-4 rounded">
-      <h1 class="mb-4 h2">Adicionar Nova Reclamação</h1>
+      <h1 class="mb-4 h2">Editar Denúncia</h1>
       <!-- Campos do formulário -->
       <form [formGroup]="this.form" class="row mt-3" style="width: 100%; max-width: 600px"
         formenctype="multipart/form-data">
@@ -15,7 +15,7 @@
           <label for="titulo" class="form-label">Título:
             <span class="required-form">*</span>
           </label>
-          <input type="text" formControlName="titulo" class="form-control" placeholder="Título da Reclamação" id="titulo"/>
+          <input type="text" formControlName="titulo" class="form-control" placeholder="Título da Deúncia" id="titulo"/>
           <div *ngIf="form.get('titulo')?.invalid && form.get('titulo')?.touched">
             <p class="invalid-form ms-3">Campo obrigatório</p>
           </div>
@@ -26,7 +26,7 @@
           <label for="descricao" class="form-label">Descricao:
             <span class="required-form">*</span>
           </label>
-          <textarea class="form-control" formControlName="descricao" rows="5" placeholder="Explique sua reclamação"
+          <textarea class="form-control" formControlName="descricao" rows="5" placeholder="Explique sua Deúncia"
             (input)="autoResize()" id="descricao"></textarea>
           <div *ngIf="
               form.get('descricao')?.invalid && form.get('descricao')?.touched

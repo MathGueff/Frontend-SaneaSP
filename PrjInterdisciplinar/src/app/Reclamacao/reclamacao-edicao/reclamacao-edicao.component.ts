@@ -63,11 +63,11 @@ export class ReclamacaoEdicaoComponent implements OnInit {
           }
           this.reclamacaoService.putReclamacao(updateReclamacao,this.reclamacao.id).subscribe({
             next: ()=>{
-              this.sweetAlertService.showMessage("Reclamação Atualizada com sucesso");
+              this.sweetAlertService.showMessage("Denúncia Atualizada com sucesso");
               this.router.navigate(['reclamacao']);
             },
             error:()=>{
-              this.sweetAlertService.showMessage("Erro ao atualizar reclamação",true)
+              this.sweetAlertService.showMessage("Erro ao atualizar denúncia",true)
             }
           })
       }
@@ -82,7 +82,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
           error:() => {
             if(!this.reclamacao){
               this.vazio = true;
-              this.erro = "Reclamação Inexistente";
+              this.erro = "Denúncia Inexistente";
               return;
             }
           },

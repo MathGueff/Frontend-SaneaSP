@@ -32,7 +32,7 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   protected reclamacoes$!: Observable<IReclamacao[]>;
   protected user!: IUser;
   protected vazio: boolean = false;
-  protected erro: string = 'Você não possuí Reclamações';
+  protected erro: string = 'Você não possuí Denúncias';
 
 
 
@@ -73,12 +73,10 @@ export class ReclamacaoUsuariosComponent implements OnInit {
         console.log(reclamacoes);
         if (reclamacoes.length === 0) {
           this.vazio = true;
-          this.erro = 'Você não possuí Reclamações';
         }
       },
       error: (err) => {
         this.vazio = true;
-        this.erro = 'Você não possuí Reclamações';
         console.error(err);
       },
     });

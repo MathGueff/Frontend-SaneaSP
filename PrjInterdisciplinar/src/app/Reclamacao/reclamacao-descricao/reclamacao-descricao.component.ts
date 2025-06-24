@@ -34,7 +34,7 @@ export class ReclamacaoDescricaoComponent implements OnInit {
 
       if(!this.reclamacao$){
         this.existReclamcao = false;
-        this.erro = "Reclamação"
+        this.erro = "Denúncia Inexistente"
       }
     }
     )

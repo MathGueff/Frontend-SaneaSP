@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output} from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
 import { IUser } from '../../models/interface/IUser.model';
@@ -19,21 +19,18 @@ export class ReclamacaoCardComponent   {
   @Output() onDelete = new EventEmitter<number>();
   private sweetAlert = inject(SweetAlertService);
   private reclamacaoService = inject(ReclamacaoService);
-  private router = inject(Router)
-  constructor(){
-    console.log(this.card);
-  }
+
   // Função para excluir Reclamacao. Função assincrona: precisa usar async e await
   protected async exclusaoReclamacao(id:number){
-    const confirm = await this.sweetAlert.confirmExclusion(`Deseja mesmo exluir a Reclamação: ${id}?`);
+    const confirm = await this.sweetAlert.confirmExclusion(`Deseja mesmo exluir essa Dénuncia: ${this.card.titulo}?`);
     if(confirm){
       this.reclamacaoService.deleteReclamacao(id).subscribe({
         next: async()=>{
-          await this.sweetAlert.showMessage("Reclamação excluída com sucesso");
+          await this.sweetAlert.showMessage("Denúncia excluída com sucesso");
           this.onDelete.emit(id)
         },
-        error:(err)=>{
-          this.sweetAlert.showMessage("Não foi possível excluir Reclamação");
+        error:()=>{
+          this.sweetAlert.showMessage("Não foi possível excluir Denúncia");
         }
       })
     }
