@@ -17,6 +17,7 @@ import { ToastService } from '../../Services/toast.service';
 import { Observable, of } from 'rxjs';
 import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
 import { ITagListFilter } from '../../models/interface/ITagListFilter.interface';
+import { ErrorService } from '../../Services/error.service';
 
 @Component({
   selector: 'app-tag-modal',
@@ -38,6 +39,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
   protected tagService = inject(TagService);
   private sweetAlertService = inject(SweetAlertService);
   private toastService = inject(ToastService)
+  private errorService = inject(ErrorService)
 
   //=== Ng  ==============================
   private observerModalOpen !: MutationObserver
@@ -80,14 +82,9 @@ export class TagModalComponent implements AfterViewInit, OnInit{
           this.tagList$ = of(response.data || []);
         },
         error: e => {
-          const errorMessage =
-          e.status === 0
-            ? 'Não foi possível conectar ao servidor. Verifique sua conexão ou tente novamente mais tarde.'
-            : e.error?.message || 'Erro inesperado ao buscar as categorias.';
-
-          this.sweetAlertService.showMessage(errorMessage, true).then(() => {
+          this.errorService.handleError(e).then(() => {
             this.closeModal()
-          });
+          })
         }
       })
       this.isExpandedTagList = false;
@@ -231,8 +228,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
         
       },
       error: (err) => {
-        console.log(err.error)
-        this.toastService.show({message: err.error.message, error: true})
+        this.handleErrorToast(err)
       }
     });
   }
@@ -270,7 +266,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
         }
       },
       error: (err) =>{
-        this.toastService.show(err.error)
+        this.handleErrorToast(err)
       }
     })
   }
@@ -298,11 +294,14 @@ export class TagModalComponent implements AfterViewInit, OnInit{
         }
       },
       error : (err) => {
-        this.toastService.show(err.error);
+        this.handleErrorToast(err)
         this.resetSearchForm();
       }
     })
-    
+  }
+
+  handleErrorToast(err : unknown){
+    this.toastService.show({message: this.errorService.getErrorMessage(err), error: true})
   }
 
   //Quando uma tag é digitada em um campo nos modais de pesquisa
@@ -359,7 +358,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
       },
       error: (err) => {
         this.tagSelected = undefined
-        this.toastService.show({message: err.error.message, error: true})
+        this.handleErrorToast(err)
       }
     })
   }
@@ -374,7 +373,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
       query.limit = this.LIMIT_SEARCH
 
       this.tagService.getTagsList(query).subscribe((response) => {
-        this.tagList$ =  of(response.data || [])
+        this.tagList$ = of(response.data || [])
         this.isExpandedTagList = !this.isExpandedTagList
     })
   }

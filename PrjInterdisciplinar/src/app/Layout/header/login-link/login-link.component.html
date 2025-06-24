@@ -1,19 +1,7 @@
 <div>
-  <!-- Se não existir um usuário ativo exibe o botão de login -->
-  @if (this.userAtivo == null) {
-  <div class="login-link">
-    <a
-      class="focus-secundario d-flex justify-content-center align-items-center"
-      routerLink="/login"
-    >
-      <img src="assets/icones/white/login_icon.svg" id="icon_login" />
-      <!-- Caso haja um usuário, exibe o nome, caso contrário, escreve login-->
-      <span>Login</span>
-    </a>
-  </div>
-  }
-  <!-- Caso contrário, exibe o dropdown, com links para logout e edição de perfil -->
-  @else {
+  <!-- Se não existir um usuário ativo -->
+  @if (authService.currentUser$ | async; as user) {
+  <!-- Caso contrário, exibe o dropdown -->
   <div class="login-menu dropdown">
     <a
       #dropdown
@@ -25,8 +13,8 @@
       (keydown.space)="toggleLoginDropdown()"
     >
       <img src="assets/icones/white/login_icon.svg" id="icon_login" />
-      <!-- Caso haja um usuário, exibe o nome, caso contrário, escreve login-->
-      <span>{{ this.userAtivo }}</span>
+      <span>{{ user.nome }}</span>
+      <!-- Corrigido para user.nome -->
     </a>
     <ul
       #dropdownLinks
@@ -38,7 +26,11 @@
           class="focus-secundario dropdown-item"
           routerLink="/editar-perfil"
         >
-          <img src="assets/icones/white/edit_profile_icon.svg" class="me-1" alt="" />
+          <img
+            src="assets/icones/white/edit_profile_icon.svg"
+            class="me-1"
+            alt=""
+          />
           Editar seu perfil
         </a>
       </li>
@@ -55,6 +47,16 @@
         </a>
       </li>
     </ul>
+  </div>
+  } @else {
+  <div class="login-link">
+    <a
+      class="focus-secundario d-flex justify-content-center align-items-center"
+      routerLink="/login"
+    >
+      <img src="assets/icones/white/login_icon.svg" id="icon_login" />
+      <span>Login</span>
+    </a>
   </div>
   }
 </div>

@@ -38,7 +38,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let tag of tags$ | async ; trackBy: trackById" (click)="openTagModal(ModalTypeEnum.Edicao, tag)">
+              <tr *ngFor="let tag of tags$ | async" (click)="openTagModal(ModalTypeEnum.Edicao, tag)">
                 <td>{{ tag.id }}</td>
                 <td>{{ tag.nome }}</td>
                 <td>Branco</td>

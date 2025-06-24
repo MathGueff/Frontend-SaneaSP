@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { SweetAlertService } from '../Services/sweetAlert.service';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, filter, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,38 +18,18 @@ export class AdminGuard implements CanActivate {
   ) {}
 
   canActivate(): Observable<boolean> {
-    const token = this.authService.getAuthToken();
-
-    //Caso não haja token armazenado no localStorage
-    if (!token) {
-      this.authService.logout()
-      this.router.navigate(['/login']);
-      return of(false);
-    }
-
-    return this.authService.getAutenticateUser().pipe(
+    return this.authService.currentUser$.pipe(
+      filter(user => user !== null || !this.authService.getAuthToken()),
+      take(1),
       map(user => {
-        this.authService.setCurrentUser(user);
+        if (user && user.nivel == 1) return true;
 
-        //Caso o usuário não seja admin
-        if(Number(user.nivel) !== 1) {
-          this.router.navigate(['']);
-          return false;
-        }
-        
-        return true
-      }),
-      catchError((e) => {
-        //Se receber 401, 403 ou outro retorno inesperado
-        this.showGuardMessage(e.error.message)
-        this.authService.logout()
-        this.router.navigate(['/login']);
-        return of(false);
+        this.router.navigate([user && user.nivel == 0
+          ? '/'
+          : '/login'
+        ]);
+        return false;
       })
     );
-  }
-
-  private showGuardMessage(message: string) {
-    this.sweetAlertService.showMessage(message, true);
   }
 }

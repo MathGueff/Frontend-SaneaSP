@@ -23,7 +23,7 @@ import { TagSelectComponent } from '../../Common/tag-select/tag-select.component
 export class ReclamacaoInicialComponent implements OnInit {
   protected authService = inject(AuthService);
   protected reclamacaoService = inject(ReclamacaoService);
-  usuarioAtivo$ = this.authService.getObservableCurrentUser(); // Observable com as informações do admin
+  usuarioAtivo$ = this.authService.currentUser$; // Observable com as informações do admin
   reclamacoes$ !: Observable<IReclamacao[]>
   private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
