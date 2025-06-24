@@ -1,4 +1,4 @@
-import { Component, inject, Input} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ import { ReclamacaoService } from '../../Services/reclamacao.service';
 export class ReclamacaoCardComponent   {
   @Input () card !: IReclamacao;
   @Input () user ?: IUser;
+  @Output() onDelete = new EventEmitter<number>();
   private sweetAlert = inject(SweetAlertService);
   private reclamacaoService = inject(ReclamacaoService);
   private router = inject(Router)
@@ -29,7 +30,7 @@ export class ReclamacaoCardComponent   {
       this.reclamacaoService.deleteReclamacao(id).subscribe({
         next: async()=>{
           await this.sweetAlert.showMessage("Reclamação excluída com sucesso");
-          window.location.reload()
+          this.onDelete.emit(id)
         },
         error:(err)=>{
           this.sweetAlert.showMessage("Não foi possível excluir Reclamação");
