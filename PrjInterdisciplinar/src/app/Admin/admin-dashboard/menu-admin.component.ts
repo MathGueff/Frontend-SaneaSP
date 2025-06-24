@@ -63,9 +63,19 @@ export class MenuAdminComponent implements OnInit {
   //Array de Objetos de links da sidebar do Menu de Admin
   linksSidebar: ILinkSidebarAdmin[] = [
     {
-      name: 'Gerenciar Reclamações',
+      name: 'Gerenciar reclamações',
       img: 'assets/icones/white/reclamacao_icon.svg',
       opcao: AdminSidebarOptions.Reclamacao,
+    },
+    {
+      name: 'Gerenciar comentários',
+      img: 'assets/icones/white/reclamacao_icon.svg',
+      opcao: AdminSidebarOptions.Comentario,
+    },
+    {
+      name: 'Gerenciar categorias do site',
+      img: 'assets/icones/white/tag_icon.svg',
+      opcao: AdminSidebarOptions.Tag,
     },
     {
       name: 'Gerenciar notícias do site',
@@ -76,16 +86,6 @@ export class MenuAdminComponent implements OnInit {
       name: 'Gerenciar doenças do site',
       img: 'assets/icones/white/doenca_icon.svg',
       opcao: AdminSidebarOptions.Doenca,
-    },
-    {
-      name: 'Gerenciar Tags do site',
-      img: 'assets/icones/white/tag_icon.svg',
-      opcao: AdminSidebarOptions.Tag,
-    },
-    {
-      name: 'Responsável pelo saneamento',
-      img: 'assets/icones/white/responsavel_icon.svg',
-      opcao: AdminSidebarOptions.Responsaveis,
     },
     {
       name: 'Log',
@@ -100,30 +100,6 @@ export class MenuAdminComponent implements OnInit {
    */
   menuLink: Record<AdminSidebarOptions, ILinkPanelAdmin[]> = {
     [AdminSidebarOptions.Reclamacao]: [
-      {
-        type: 'link',
-        path: '/reclamacao',
-        name: 'Seus comentários',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/reclamacao',
-        name: 'Adicionar comentário',
-        img: 'assets/icones/operacoes/white/add_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/reclamacao',
-        name: 'Editar comentário',
-        img: 'assets/icones/operacoes/white/edit_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/reclamacao',
-        name: 'Remover um comentário',
-        img: 'assets/icones/operacoes/white/delete_icon.svg',
-      },
       {
         type: 'link',
         path: '/reclamacao',
@@ -147,6 +123,58 @@ export class MenuAdminComponent implements OnInit {
         path: '/',
         name: 'Visualizar filtragem geográfica',
         img: 'assets/icones/white/geo_icon.svg',
+      },
+    ],
+    [AdminSidebarOptions.Comentario]: [
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Ver seus comentários',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Adicionar comentário',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Editar comentário',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'link',
+        path: '/reclamacao',
+        name: 'Remover um comentário',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
+      },
+    ],
+    [AdminSidebarOptions.Tag] : [
+      {
+        type: 'link',
+        path: '/tag-tabela',
+        name: 'Visualizar todas as categorias',
+        img: 'assets/icones/operacoes/white/view_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Adicao,
+        name: 'Criar nova categoria',
+        img: 'assets/icones/operacoes/white/add_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Edicao,
+        name: 'Editar uma categoria',
+        img: 'assets/icones/operacoes/white/edit_icon.svg',
+      },
+      {
+        type: 'modal',
+        tipoModal: ModalType.Exclusao,
+        name: 'Excluir uma categoria',
+        img: 'assets/icones/operacoes/white/delete_icon.svg',
       },
     ],
     [AdminSidebarOptions.Noticia]: [
@@ -213,40 +241,6 @@ export class MenuAdminComponent implements OnInit {
         img: 'assets/icones/operacoes/white/view_icon.svg',
       },
     ],
-    [AdminSidebarOptions.Tag] : [
-      {
-        type: 'link',
-        path: '/tag-tabela',
-        name: 'Visualizar todas as tags',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-      {
-        type: 'modal',
-        tipoModal: ModalType.Adicao,
-        name: 'Criar nova tag',
-        img: 'assets/icones/operacoes/white/add_icon.svg',
-      },
-      {
-        type: 'modal',
-        tipoModal: ModalType.Edicao,
-        name: 'Editar uma tag',
-        img: 'assets/icones/operacoes/white/edit_icon.svg',
-      },
-      {
-        type: 'modal',
-        tipoModal: ModalType.Exclusao,
-        name: 'Excluir uma tag',
-        img: 'assets/icones/operacoes/white/delete_icon.svg',
-      },
-    ],
-    [AdminSidebarOptions.Responsaveis]: [
-      {
-        type: 'link',
-        path: '/responsaveis',
-        name: 'Visualizar página dos responsáveis pelo saneamento básico',
-        img: 'assets/icones/white/responsavel_icon.svg',
-      },
-    ],
     [AdminSidebarOptions.Log]: [
       {
         type: 'link',
@@ -254,8 +248,7 @@ export class MenuAdminComponent implements OnInit {
         name: 'Visualizar log de comentários',
         img: 'assets/icones/white/log_icon.svg',
       },
-    ],
-    [AdminSidebarOptions.Login]: [],
+    ]
   };
 
   //Variável para guardar a opção atual selecionada no sidebar (inicia com o primeiro elemento de linksSidebar)
