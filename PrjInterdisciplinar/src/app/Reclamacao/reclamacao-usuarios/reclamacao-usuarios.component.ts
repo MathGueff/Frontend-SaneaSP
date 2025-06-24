@@ -5,11 +5,11 @@ import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { ReclamacaoService } from '../../Services/reclamacao.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
+import { ITag } from '../../models/interface/ITag.model';
 
 @Component({
   selector: 'app-reclamacao-usuarios',
@@ -19,7 +19,6 @@ import { TagSelectComponent } from '../../Common/tag-select/tag-select.component
     NotFoundComponent,
     CommonModule,
     RouterLink,
-    ReactiveFormsModule,
     TagSelectComponent,
   ],
   templateUrl: './reclamacao-usuarios.component.html',
@@ -29,18 +28,13 @@ export class ReclamacaoUsuariosComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private reclamacaoService = inject(ReclamacaoService);
-
+  private tags: ITag[] = []
   protected reclamacoes$!: Observable<IReclamacao[]>;
   protected user!: IUser;
   protected vazio: boolean = false;
-  protected erro: string = '';
-  TagSelect: FormGroup;
+  protected erro: string = 'Você não possuí Reclamações';
 
-  constructor(private fb: FormBuilder) {
-    this.TagSelect = this.fb.group({
-      tagForm: ['Nenhum'],
-    });
-  }
+
 
   ngOnInit(): void {
     this.user = this.thisIsUser();
@@ -50,7 +44,30 @@ export class ReclamacaoUsuariosComponent implements OnInit {
 
   protected getUserReclamacoes() {
     this.reclamacoes$ = this.reclamacaoService.getByUser();
+    this.getReclamacao();
+  }
 
+  private thisIsUser(): IUser {
+    let user = this.authService.getCurrentUser();
+    if (!user) {
+      this.router.navigate(['']);
+    }
+    return user as IUser;
+  }
+
+  protected ChangeTag($event:ITag[]){
+    this.tags = $event;
+  }
+  protected PesquisarPorTag(){
+    if(this.tags.length > 0){
+      this.reclamacoes$ = this.reclamacaoService.getByTag(this.tags,this.user.id);
+    }
+    else{
+      this.reclamacoes$ = this.reclamacaoService.getByUser();
+    }
+    this.getReclamacao();
+  }
+  private getReclamacao(){
     this.reclamacoes$.subscribe({
       next: (reclamacoes) => {
         console.log(reclamacoes);
@@ -65,17 +82,5 @@ export class ReclamacaoUsuariosComponent implements OnInit {
         console.error(err);
       },
     });
-
-    this.TagSelect.valueChanges.subscribe(() => {
-      console.log('Esta funcionando');
-    });
-  }
-
-  private thisIsUser(): IUser {
-    let user = this.authService.getCurrentUser();
-    if (!user) {
-      this.router.navigate(['']);
-    }
-    return user as IUser;
   }
 }
