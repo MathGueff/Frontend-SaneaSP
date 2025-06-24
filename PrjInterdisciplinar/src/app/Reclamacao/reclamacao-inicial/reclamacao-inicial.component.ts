@@ -4,57 +4,71 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '../reclamacao-card/reclamacao-card.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject, Observable, toArray } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { AuthService } from '../../Services/auth.service';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 import { TagSelectComponent } from '../../Common/tag-select/tag-select.component';
 import { ITag } from '../../models/interface/ITag.model';
-import { event } from 'jquery';
-
-
 
 @Component({
   selector: 'app-reclamacao-inicial',
   standalone: true,
-  imports: [CommonModule, ReclamacaoCardComponent, RouterLink, ReactiveFormsModule,NotFoundComponent,TagSelectComponent],
+  imports: [
+    CommonModule,
+    ReclamacaoCardComponent,
+    RouterLink,
+    NotFoundComponent,
+    TagSelectComponent,
+  ],
   templateUrl: './reclamacao-inicial.component.html',
-  styleUrl: '../reclamacao-usuarios/reclamacao-usuarios.component.css'
+  styleUrl: '../reclamacao-usuarios/reclamacao-usuarios.component.css',
 })
 export class ReclamacaoInicialComponent implements OnInit {
   protected authService = inject(AuthService);
   protected reclamacaoService = inject(ReclamacaoService);
   usuarioAtivo$ = this.authService.getObservableCurrentUser(); // Observable com as informações do admin
-  reclamacoes$ !: Observable<IReclamacao[]>
-  private reclamacaoSubject =new BehaviorSubject<Reclamacao[]>([] as any);
-  data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
+  reclamacoes$!: Observable<IReclamacao[]>;
   protected vazio: boolean = false;
-  private tags: ITag[] = []
-  erro : string = "";
-  TagSelect: FormGroup;
+  private tags: ITag[] = [];
+  erro: string = 'Não foi possível encontrar nenhuma Reclamação';
 
-  constructor(private fb:FormBuilder){
+  ngOnInit(): void {
     this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
-    this.TagSelect = this.fb.group({
-        tagForm: ['Todos']
-      }
-    );
-  }
-
-  ngOnInit():void{
-    this.reclamacoes$.subscribe((reclamacoes)=>{
-      if(reclamacoes.length === 0){
+    this.reclamacoes$.subscribe((reclamacoes) => {
+      if (reclamacoes.length === 0) {
         this.vazio = true;
-        this.erro = "Reclamações"
+      }
+      else{
+          this.vazio = false;
       }
     });
-
   }
-  protected ChangeTagsSelect($event: ITag[]){
+  protected ChangeTagsSelect($event: ITag[]) {
     this.tags = $event;
   }
-  protected PesquisarPorTag(){
-    this.reclamacoes$ = this.reclamacaoService.getByTag(this.tags)
+  protected PesquisarPorTag() {
+    if (this.tags.length === 0) {
+      this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
+      this.reclamacoes$.subscribe((reclamacoes) => {
+        if (reclamacoes.length === 0) {
+          this.vazio = true;
+        }
+        else{
+           this.vazio = false;
+        }
+      });
+
+    } else {
+      this.reclamacoes$ = this.reclamacaoService.getByTag(this.tags);
+      this.reclamacoes$.subscribe((reclamacoes) => {
+        if (reclamacoes.length === 0) {
+          this.vazio = true;
+        }
+        else{
+           this.vazio = false;
+        }
+      });
+    }
   }
 }

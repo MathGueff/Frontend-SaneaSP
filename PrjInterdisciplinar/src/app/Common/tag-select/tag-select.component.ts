@@ -48,8 +48,8 @@ export class TagSelectComponent implements OnInit {
   let index = this.tagSelected.indexOf(tag)
   if(index !== -1){
     this.tagSelected.splice(index,1);
-    this.alertSelected.emit(this.tagSelected);
   }
+  this.alertSelected.emit(this.tagSelected);
  }
 
 }
