@@ -35,14 +35,7 @@ export class ReclamacaoInicialComponent implements OnInit {
 
   ngOnInit(): void {
     this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
-    this.reclamacoes$.subscribe((reclamacoes) => {
-      if (reclamacoes.length === 0) {
-        this.vazio = true;
-      }
-      else{
-          this.vazio = false;
-      }
-    });
+    this.getReclamacao()
   }
   protected ChangeTagsSelect($event: ITag[]) {
     this.tags = $event;
@@ -50,25 +43,26 @@ export class ReclamacaoInicialComponent implements OnInit {
   protected PesquisarPorTag() {
     if (this.tags.length === 0) {
       this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();
-      this.reclamacoes$.subscribe((reclamacoes) => {
-        if (reclamacoes.length === 0) {
-          this.vazio = true;
-        }
-        else{
-           this.vazio = false;
-        }
-      });
-
     } else {
       this.reclamacoes$ = this.reclamacaoService.getByTag(this.tags);
-      this.reclamacoes$.subscribe((reclamacoes) => {
+    }
+    this.getReclamacao()
+  }
+  private getReclamacao(){
+    this.reclamacoes$.subscribe({
+      next: (reclamacoes) => {
+        console.log(reclamacoes);
         if (reclamacoes.length === 0) {
           this.vazio = true;
         }
         else{
-           this.vazio = false;
+          this.vazio = false;
         }
-      });
-    }
+      },
+      error: (err) => {
+        this.vazio = true;
+        console.error(err);
+      },
+    });
   }
 }
