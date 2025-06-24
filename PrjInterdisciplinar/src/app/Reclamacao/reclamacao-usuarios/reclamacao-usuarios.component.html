@@ -35,7 +35,7 @@
   </section>
   <section class="row mb-5 w-75 m-auto tag h-auto">
     <h2 class="text-center">Filtre pelas Categorias</h2>
-    <app-tag-select></app-tag-select>
+    <app-tag-select [isFiltro]="true"  (Buscar)="PesquisarPorTag()" (alertSelected)="ChangeTag($event)"></app-tag-select>
 
   </section>
 
