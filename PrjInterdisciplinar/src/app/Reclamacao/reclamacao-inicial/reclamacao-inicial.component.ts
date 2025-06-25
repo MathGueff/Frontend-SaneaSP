@@ -33,7 +33,7 @@ export class ReclamacaoInicialComponent implements OnInit {
   data$:Observable<Reclamacao[]> = this.reclamacaoSubject.asObservable();
   protected vazio: boolean = false;
   private tags: ITag[] = [];
-  erro: string = 'Não foi possível encontrar nenhuma Reclamação';
+  erro: string = 'Não foi possível encontrar nenhuma Denúncia';
 
   ngOnInit(): void {
     this.reclamacoes$ = this.reclamacaoService.getObservableReclamacao();

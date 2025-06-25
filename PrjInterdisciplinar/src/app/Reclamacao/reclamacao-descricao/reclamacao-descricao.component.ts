@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, TemplateRef } from '@angular/core';
 import { Reclamacao } from '../../models/class/reclamacao';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIfContext } from '@angular/common';
 import { NotFoundComponent } from '../../Common/not-found/not-found.component';
 import { IReclamacao } from '../../models/interface/IReclamacao.interface';
 import { ReclamacaoService } from '../../Services/reclamacao.service';
+import { StatusReclamacao } from '../../models/enums/StatusReclamacao.enum';
 
 @Component({
   selector: 'app-reclamacao-descricao',
@@ -21,9 +22,9 @@ export class ReclamacaoDescricaoComponent implements OnInit {
 
   //variaveis para poder controlar o componente NotFound
   protected existReclamcao: boolean = true;
-  erro: string = ""
+  erro: string = "";
+  protected situation:string = "";
   caminhoVoltar : string = "../../"; //caminho para voltar para reclamação inicial
-
   constructor(private activedrouter : ActivatedRoute){}
   ngOnInit(): void {
     this.activedrouter.params.subscribe( (parametros) =>{
@@ -31,12 +32,33 @@ export class ReclamacaoDescricaoComponent implements OnInit {
       const idParametro = Number(parametros['id']);
       // procura a reclamação que tenha o ID da URL
       this.reclamacao$ = this.reclamacaoService.getByIdReclamacao(idParametro);
-
-      if(!this.reclamacao$){
-        this.existReclamcao = false;
-        this.erro = "Reclamação"
-      }
+      this.reclamacao$.subscribe({
+        next:(reclamacao)=> {
+          if(reclamacao){
+            this.situationDenuncia(reclamacao.status)
+          }
+          else{
+            this.existReclamcao = false;
+            this.erro = "Denúncia Inexistente"}
+        },
+      })
     }
     )
+  }
+  protected situationDenuncia(situacao: StatusReclamacao){
+    switch (situacao) {
+      case 0:
+        this.situation = 'Aberto';
+        break;
+      case 1:
+        this.situation = 'Visualizada';
+        break;
+      case 2:
+        this.situation = 'Análise';
+        break;
+      default:
+        this.situation = 'Resolvida';
+        break;
+    }
   }
 }

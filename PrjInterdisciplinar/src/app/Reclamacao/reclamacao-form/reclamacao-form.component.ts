@@ -59,13 +59,12 @@ export class ReclamacaoFormComponent implements OnInit {
         Imagens: this.images
       };
       this.reclamacaoService.postReclamacao(reclamacao).subscribe({
-        next:() => {
-          this.sweetService.showMessage("Reclamação Criada com sucesso!");
+        next: async() => {
+          await this.sweetService.showMessage("Denúncia Criada com sucesso!");
           this.router.navigate(['reclamacao']);
         },
-        error: (err) => {
-          this.sweetService.showMessage(`Não foi possivel criar Reclamação. Verifique se preencheu corretamente o formulário`,true)
-          console.log(err);
+        error: () => {
+          this.sweetService.showMessage(`Não foi possivel criar Denúncia. Verifique se preencheu corretamente o formulário`,true)
         },
       });
     }
