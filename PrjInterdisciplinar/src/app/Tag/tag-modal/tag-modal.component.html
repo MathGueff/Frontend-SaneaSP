@@ -117,16 +117,18 @@
                   @if(
                     (tags?.length != 1 && this.formPesquisaTag.controls.nomePesquisaTag.value.length > 0) 
                     || this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0){
-                    <span
-                      >Categorias encontradas: (mostrando {{ tags.length }} de
-                      {{ tagCount$ | async }})</span
-                    >
+                      <div class="d-flex justify-content-around align-items-center">
+                        <span
+                          >Categorias encontradas: (mostrando {{ tags.length }} de
+                          {{ tagCount$ | async }})</span
+                        >
 
-                    <button
-                      *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
-                      class="btn btn-primary ms-2" (click)="expandSearchList()">
-                      <img class="btn-icon" src="assets/icones/operacoes/white/collapse_icon.svg" alt="">
-                    </button>
+                        <button
+                          *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
+                          class="btn btn-primary ms-2" (click)="expandSearchList()">
+                          <img class="btn-icon" src="assets/icones/operacoes/white/collapse_icon.svg" alt="">
+                        </button>
+                      </div>
                   }
                   <!-- Lista de tags encontradas com o filtro -->
                   <ul class="list-group tag-list m-2">
@@ -144,12 +146,14 @@
                   <div class="d-flex justify-content-center w-100">
                     <button
                       *ngIf="!isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
+                      type="button"
                       class="btn btn-primary ms-2" (click)="expandSearchList()">
                       <img class="btn-icon" src="assets/icones/operacoes/white/expand_icon.svg" alt="">
                     </button> 
 
                      <button
                         *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
+                        type="button"
                         class="btn btn-primary ms-2" (click)="expandSearchList()">
                         <img class="btn-icon" src="assets/icones/operacoes/white/collapse_icon.svg" alt="">
                       </button>
@@ -213,34 +217,34 @@
             }
           </div>
         </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            <img class="btn-icon" src="assets/icones/operacoes/white/cancel_icon.svg" alt="Ícone de voltar">
-            Fechar
-          </button>
+        <div class="modal-footer d-flex justify-content-center justify-content-md-end">
           @if(!this.tagPreloaded){
             <button
               *ngIf="tagSelected"
               type="button"
-              class="btn btn-terciary"
+              class="btn btn-quaternary"
               id="botao-voltar-footer"
               (click)="resetSearchForm()"
             >
-              <img class="btn-icon" src="assets/icones/operacoes/black/return_icon.svg" alt="Ícone de voltar">
+              <img class="btn-icon" src="assets/icones/operacoes/white/return_icon.svg" alt="Ícone de voltar">
               Voltar
             </button>
           }
-          
+          <button
+            type="button"
+            class="btn btn-terciary"
+            data-bs-dismiss="modal"
+          >
+            <img class="btn-icon" src="assets/icones/operacoes/black/cancel_icon.svg" alt="Ícone de voltar">
+            Cancelar
+          </button>
           <button
             type="submit"
             (click)="onSubmit()"
-            class="btn btn-primary"
+            class="btn btn-{{modalTypeSelected == modalTypes.Exclusao ? 'secondary' : 'primary'}}"
+            *ngIf="tagSelected || modalTypeSelected == modalTypes.Adicao"
           >
-           <img class="btn-icon" src="assets/icones/operacoes/white/{{modalTypeSelected == modalTypes.Exclusao ? 'delete' : 'confirm'}}_icon.svg" alt="Ícone de voltar">
+           <img class="btn-icon" src="assets/icones/operacoes/white/{{ModalInfo.icon}}_icon.svg" alt="Ícone de voltar">
             {{ ModalInfo.buttonText }}
           </button>
         </div>
@@ -248,8 +252,6 @@
     </div>
   </div>
 </div>
-
-<app-toast></app-toast>
 
 <!-- Botões para abrir e fechar o modal via código -->
 <button

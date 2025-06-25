@@ -12,7 +12,6 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { TagService } from '../../Services/tag.service';
 import { ITag } from '../../models/interface/ITag.model';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
-import { ToastComponent } from "../../Common/toast/toast.component";
 import { ToastService } from '../../Services/toast.service';
 import { Observable, of } from 'rxjs';
 import { ITagCadastro } from '../../models/interface/ITagCadastro.model';
@@ -22,7 +21,7 @@ import { ErrorService } from '../../Services/error.service';
 @Component({
   selector: 'app-tag-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent, ToastComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormFieldComponent],
   templateUrl: './tag-modal.component.html',
   styleUrl: './tag-modal.component.css',
 })
@@ -144,22 +143,31 @@ export class TagModalComponent implements AfterViewInit, OnInit{
 
   // === GETTERS  ==============================
   get ModalInfo(): IModalTagInfos {
+    /** 
+     * Ícones são usados com 
+     * - prefixo assets/icones/operacoes/white
+     * - sufixo _icon.svg, por isso uso apenas o nome
+     */
     const modalInfoMap: Record<ModalType, IModalTagInfos> = {
       [ModalType.None]: {
         title: 'Informe o tipo de modal',
         buttonText: 'Tipo faltando',
+        icon: 'none',
       },
       [ModalType.Adicao]: {
         title: 'Cadastre uma nova categoria',
         buttonText: 'Salvar categoria',
+        icon: 'confirm',
       },
       [ModalType.Edicao]: {
         title: 'Edite a categoria',
-        buttonText: 'Confirmar edição',
+        buttonText: 'Editar categoria',
+        icon: 'edit',
       },
       [ModalType.Exclusao]: {
         title: 'Excluir a categoria',
-        buttonText: 'Excluir',
+        buttonText: 'Excluir categoria',
+        icon: 'delete',
       },
     };
     return modalInfoMap[this.modalTypeSelected] || modalInfoMap[ModalType.None];
@@ -279,7 +287,7 @@ export class TagModalComponent implements AfterViewInit, OnInit{
       })
       return
     } 
-    this.showDeleteConfirmation(`Deseja deletar a categoria: "${this.tagSelected.nome}"?`);
+    this.showDeleteConfirmation(`Deseja excluir a categoria: "${this.tagSelected.nome}"?`);
   }
 
   handleTagConfirmationDelete(){

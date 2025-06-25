@@ -23,7 +23,7 @@
     /* Cores de componentes */
     --cor-form-login: #DADADA;
     --cor-background: #e8e3e3;
-    --cor-botao-fechar: #b1180e;
+    --cor-botao-danger: #b1180e;
 
     /* Box Shadow */
     --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
@@ -49,7 +49,12 @@
     /* Header  */
     --header-altura: 90px;
     --header-texto: 1.01rem;
-}
+
+    /* Toast notification */
+    --tempo-toast: 4s;
+    --tempo-surgimento: 0.3s;
+    --tempo-dismiss: 0.5s;
+  }
 
 /* INICIO PADRÕES */
 
@@ -144,16 +149,20 @@ button:focus-visible,
 }
 
 .sweet_title{
-  font-size: 1.2rem;
+  font-size: 1.7rem !important;
+  font-weight: 400 !important;
+}
+
+.sweet_btn{
+  border: none;
+  padding: 10px 20px !important;
+  font-size: 18px !important;
+  transition: .4s opacity ease !important;
 }
 
 .sweet_btn_success {
   background-color: var(--cor-terciaria) !important;
   color: var(--cor-primaria) !important;
-  border: none;
-  padding: 10px 20px !important;
-  font-size: 18px !important;
-  transition: .4s opacity ease !important;
 }
 
 .sweet_btn_success:hover {
@@ -161,6 +170,20 @@ button:focus-visible,
 }
 
 .sweet_btn_success:focus {
+  outline: var(--outline-tab-terciario) !important;
+  box-shadow: 0 0 5px var(--cor-secundaria) !important;
+}
+
+.sweet_btn_danger {
+  background-color: var(--cor-botao-danger) !important;
+  color: var(--cor-fonte-branca) !important;
+}
+
+.sweet_btn_danger:hover {
+  opacity: 0.5 !important
+}
+
+.sweet_btn_danger:focus {
   outline: var(--outline-tab-terciario) !important;
   box-shadow: 0 0 5px var(--cor-secundaria) !important;
 }
@@ -219,7 +242,7 @@ button:focus-visible,
 
 /* --- INÍCIO CSS PADRÃO PARA BOTÕES --- */
 
-.btn-primary, .btn-secondary, .btn-terciary{
+.btn-primary, .btn-secondary, .btn-terciary, .btn-quaternary{
   transition: 0.4s transform ease, 0.6s opacity ease !important;
   box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
 }
@@ -230,14 +253,20 @@ button:focus-visible,
 }
 
 .btn-secondary{
-  background-color: var(--cor-botao-fechar) !important;
-  border-color: var(--cor-botao-fechar) !important;
+  background-color: var(--cor-botao-danger) !important;
+  border-color: var(--cor-botao-danger) !important;
 }
 
 .btn-terciary{
   background-color: var(--cor-terciaria) !important;
   border-color: var(--cor-terciaria) !important;
   color: var(--cor-fonte-preta) !important;
+}
+
+.btn-quaternary{
+  background-color: transparent !important;
+  border: 2px solid var(--cor-secundaria) !important;
+  color: var(--cor-fonte-branca) !important;
 }
 
 .btn-primary:hover, .btn-secondary:hover, .btn-terciary:hover{
@@ -252,7 +281,12 @@ button:focus-visible,
 }
 
 .btn-terciary:hover{
-   color: var(--cor-fonte-preta) !important;
+  color: var(--cor-fonte-preta) !important;
+}
+
+.btn-quaternary:hover{
+  transform: translateX(-5px);
+  opacity: 0.8;
 }
 
 .btn-icon{

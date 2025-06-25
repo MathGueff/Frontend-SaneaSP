@@ -29,7 +29,7 @@ Cor de fundo exclusiva para formulários de login, proporcionando contraste suav
 - `--cor-background: #e8e3e3;`  
 Cor de fundo principal do site, garantindo uma leitura confortável.
 
-- `--cor-botao-fechar: #b1180e;`  
+- `--cor-botao-danger: #b1180e;`  
 Cor de destaque para botões de fechar ou ações destrutivas (vermelho sóbrio).
 
 ---
