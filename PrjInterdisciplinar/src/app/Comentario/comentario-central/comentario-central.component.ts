@@ -34,7 +34,7 @@ export class ComentarioCentralComponent implements OnInit {
   //variaveis para poder controlar o componente NotFound
   protected vazio: boolean = true;
   erro: string = "" // mensaagem de erro
-  caminhoVoltar: string = ""; //caminho para voltar para reclamação descricao
+  caminhoVoltar: string = "../../"; //caminho para voltar para reclamação descricao
 
 
   //Observable Comentário
@@ -131,15 +131,15 @@ export class ComentarioCentralComponent implements OnInit {
     });
     this.reclamacao$.subscribe({
       next:(reclamacao)=> {
-        if(!reclamacao){
-          this.erro = "Denúncia não existe"
+        if(reclamacao){
+          this.erro = "Não existe comentário para esta Denúncia"
           this.vazio = true;
         }
-        else{
-          this.erro = "Não existe comentário para esta Reclamação"
-        }
-        this.caminhoVoltar = "../../"
       },
+      error:()=>{
+        this.erro = "Denúncia não existe"
+        this.vazio = true;
+      }
     })
   }
 }
