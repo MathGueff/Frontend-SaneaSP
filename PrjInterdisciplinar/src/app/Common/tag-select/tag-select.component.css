@@ -1,4 +1,4 @@
-button, .tag{
+button, .tag, .Nottag{
   background-color: var(--cor-backgroud-form);
   font-size: 1em;
   letter-spacing: 1.2px;
