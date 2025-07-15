@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "PrjIntegrador": {
+    "sanea-sp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "PrjIntegrador:build:production"
+              "buildTarget": "sanea-sp:build:production"
             },
             "development": {
-              "buildTarget": "PrjIntegrador:build:development"
+              "buildTarget": "sanea-sp:build:development"
             }
           },
           "defaultConfiguration": "development"
