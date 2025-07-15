@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-
   private API_URL = "https://backend-saneasp.onrender.com/user"
 
   constructor(private httpClient : HttpClient) {}

@@ -7,8 +7,8 @@ import { AuthService } from "./auth.service";
 
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
-  //https://backend-saneasp.onrender.com/reclamacao
-  private urlApi:string = "http://localhost:3000/reclamacao";
+  //
+  private urlApi:string = "https://backend-saneasp.onrender.com/reclamacao";
 
   private authService = inject(AuthService);
   private listReclamcao !: IReclamacao[];
