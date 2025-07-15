@@ -78,16 +78,6 @@ export class MenuAdminComponent implements OnInit {
       opcao: AdminSidebarOptions.Tag,
     },
     {
-      name: 'Gerenciar notícias do site',
-      img: 'assets/icones/white/noticia_icon.svg',
-      opcao: AdminSidebarOptions.Noticia,
-    },
-    {
-      name: 'Gerenciar doenças do site',
-      img: 'assets/icones/white/doenca_icon.svg',
-      opcao: AdminSidebarOptions.Doenca,
-    },
-    {
       name: 'Log',
       img: 'assets/icones/white/log_icon.svg',
       opcao: AdminSidebarOptions.Log,
@@ -175,70 +165,6 @@ export class MenuAdminComponent implements OnInit {
         tipoModal: ModalType.Exclusao,
         name: 'Excluir uma categoria',
         img: 'assets/icones/operacoes/white/delete_icon.svg',
-      },
-    ],
-    [AdminSidebarOptions.Noticia]: [
-      {
-        type: 'link',
-        path: '/noticia-form',
-        name: 'Cadastrar uma nova notícia',
-        img: 'assets/icones/operacoes/white/add_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/noticia-form',
-        name: 'Editar uma notícia',
-        img: 'assets/icones/operacoes/white/edit_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/dell-noticia',
-        name: 'Excluir uma notícia',
-        img: 'assets/icones/operacoes/white/delete_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/noticia-inicial',
-        name: 'Visualizar suas notícias criadas',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/noticia-inicial',
-        name: 'Visualizar todas notícias',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-    ],
-    [AdminSidebarOptions.Doenca]: [
-      {
-        type: 'link',
-        path: '/doenca-form',
-        name: 'Cadastrar uma nova doença',
-        img: 'assets/icones/operacoes/white/add_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/doenca-form',
-        name: 'Editar uma doença',
-        img: 'assets/icones/operacoes/white/edit_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/doenca-form',
-        name: 'Excluir uma doença',
-        img: 'assets/icones/operacoes/white/delete_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/doenca-inicial',
-        name: 'Visualizar suas doenças cadastradas',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
-      },
-      {
-        type: 'link',
-        path: '/doenca-inicial',
-        name: 'Visualizar todas doenças',
-        img: 'assets/icones/operacoes/white/view_icon.svg',
       },
     ],
     [AdminSidebarOptions.Log]: [
