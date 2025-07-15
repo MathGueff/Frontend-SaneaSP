@@ -55,7 +55,7 @@ export class ReclamacaoFormComponent implements OnInit {
       const reclamacao: ICreateReclamacao ={
         ...this.form.value as ICreateReclamacao,
         idUsuario:1,
-        Tags: this.tagIDs,
+        Categorias: this.tagIDs,
         Imagens: this.images
       };
       this.reclamacaoService.postReclamacao(reclamacao).subscribe({

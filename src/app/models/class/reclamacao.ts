@@ -22,6 +22,6 @@ export class Reclamacao implements IReclamacao{
     complemento ?: string;
     Usuario ?: IUser;
     Imagens !: IImagem[];
-    Tags !: ITag[];
+    Categorias !: ITag[];
 }
 

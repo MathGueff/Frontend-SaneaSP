@@ -1,10 +1,6 @@
 import { IUser } from '../models/interface/IUser.model';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { SweetAlertService } from './sweetAlert.service';
-import { IAdmin } from '../models/interface/IAdmin.model';
-import { error } from 'console';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -26,8 +22,5 @@ export class UserService {
 
   //CADASTRO
 
-  /* Criação de um novo usuário */
-  public newUser(newUser: IUser) {
-    return this.httpClient.post<IUser>(`${this.API_URL}`, newUser);
-  }
+  
 }

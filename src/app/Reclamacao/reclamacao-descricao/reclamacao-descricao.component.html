@@ -47,9 +47,9 @@
           Pontuação:<span> {{ reclamacao.pontuacao }}</span>
         </div>
       </section>
-      @if(reclamacao.Tags.length > 0){
+      @if(reclamacao.Categorias.length > 0){
       <section class="tags d-flex align-items-center me-md-0 mt-md-4 m-md-0 gap-md-2">
-        <span class="tag text-center" *ngFor="let tag of reclamacao.Tags">
+        <span class="tag text-center" *ngFor="let tag of reclamacao.Categorias">
           {{ tag.nome }}
         </span>
       </section>
