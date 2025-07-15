@@ -18,7 +18,7 @@ export interface IReclamacao{
     complemento ?: string,
     Usuario ?: IUser,
     Imagens : IImagem[],
-    Tags : ITag[],
+    Categorias : ITag[],
 }
 export interface ICreateReclamacao{
     titulo: string,
@@ -31,5 +31,5 @@ export interface ICreateReclamacao{
     complemento ?: string,
     idUsuario: number,
     Imagens : string[],
-    Tags : number[]
+    Categorias : number[]
 }

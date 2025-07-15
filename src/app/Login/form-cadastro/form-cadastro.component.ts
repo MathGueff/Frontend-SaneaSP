@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../Services/user.service';
 import { IUser } from '../../models/interface/IUser.model';
 import { IEndereco } from '../../models/interface/IEndereco.model';
 import { ViacepService } from '../../Services/viacep.service';
@@ -12,6 +11,7 @@ import { FormValidatorEnum } from '../../models/enums/FormValidatorEnum.enum';
 import { ToastService } from '../../Services/toast.service';
 import { ToastComponent } from '../../Common/toast/toast.component';
 import { SweetAlertService } from '../../Services/sweetAlert.service';
+import { AuthService } from '../../Services/auth.service';
 
 @Component({
   selector: 'app-form-cadastro',
@@ -24,7 +24,7 @@ import { SweetAlertService } from '../../Services/sweetAlert.service';
 export class FormCadastroComponent implements OnInit {
   private formBuilderService = inject(NonNullableFormBuilder);
   private router = inject(Router);
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
   private viacepService = inject(ViacepService);
   private toastService = inject(ToastService);
   private sweetAlertService = inject(SweetAlertService);
@@ -183,7 +183,7 @@ export class FormCadastroComponent implements OnInit {
           nivel: 0  //Nivel default
         }
 
-        this.userService.newUser(newUser)?.subscribe({
+        this.authService.register(newUser)?.subscribe({
           next : () => {
             this.sweetAlertService.showMessage('Cadastro realizado com sucesso');
             //Retorna à pagina de login para que o usuário possa logar

@@ -9,7 +9,7 @@ import { ErrorService } from './error.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   //https://backend-saneasp.onrender.com/auth
-  private API_URL = 'https://backend-saneasp.onrender.com/auth';
+  private API_URL = 'http://localhost:3000/auth';
 
   /* Observable para avisar quando um novo usuário é logado */
   private currentUserSubject = new BehaviorSubject<IUser | null>(null);
@@ -40,7 +40,7 @@ export class AuthService {
 
   /* Gera o token JWT para login */
   public login(email: string, senha: string) {
-    return this.httpClient.post<string>(this.API_URL, {
+    return this.httpClient.post<string>(`${this.API_URL}/login`, {
       email,
       senha,
     }).pipe(
@@ -53,6 +53,11 @@ export class AuthService {
         throw err
       })
     );
+  }
+
+  /* Criação de um novo usuário */
+  public register(newUser: IUser) {
+    return this.httpClient.post<IUser>(`${this.API_URL}/register`, newUser);
   }
 
   /* Adquire dados do usuário atual utilizando o token JWT gerado */

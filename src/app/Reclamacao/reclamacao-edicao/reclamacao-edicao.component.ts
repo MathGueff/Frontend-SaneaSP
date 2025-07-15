@@ -59,7 +59,7 @@ export class ReclamacaoEdicaoComponent implements OnInit {
           const updateReclamacao: ICreateReclamacao = {
             ...this.form.value as ICreateReclamacao,
             Imagens: this.images,
-            Tags: this.tagsID
+            Categorias: this.tagsID
           }
           this.reclamacaoService.putReclamacao(updateReclamacao,this.reclamacao.id).subscribe({
             next: ()=>{

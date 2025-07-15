@@ -5,9 +5,9 @@
       {{ card.titulo }}
     </h3>
 
-    @if(card.Tags.length > 0){
+    @if(card.Categorias.length > 0){
       <div class="tags d-flex align-items-center m-md-0 gap-md-2 ">
-      <span class="tag" *ngFor="let tag of card.Tags">
+      <span class="tag" *ngFor="let tag of card.Categorias">
           {{tag.nome}}
         </span>
       </div>
