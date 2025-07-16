@@ -1,20 +1,20 @@
-import { MenuUsuarioComponent } from './Usuario/menu-usuario/menu-usuario.component';
+import { MenuUsuarioComponent } from '@features/usuario/pages/menu-usuario/menu-usuario.component';
 import { Routes } from '@angular/router';
-import { ReclamacaoDescricaoComponent } from './Reclamacao/reclamacao-descricao/reclamacao-descricao.component';
-import { ReclamacaoInicialComponent } from './Reclamacao/reclamacao-inicial/reclamacao-inicial.component';
-import { SobrenosComponent } from './Layout/sobrenos/sobrenos.component';
-import { MenuAdminComponent } from './Admin/admin-dashboard/menu-admin.component';
-import { FormLoginComponent } from './Login/form-login/form-login.component';
-import { FormCadastroComponent } from './Login/form-cadastro/form-cadastro.component';
-import { ComentarioCentralComponent } from './Comentario/comentario-central/comentario-central.component';
-import { ReclamacaoFormComponent } from './Reclamacao/reclamacao-form/reclamacao-form.component';
-import { EdicaoPerfilComponent } from './Usuario/edicao-perfil/edicao-perfil.component';
-import { ResponsaveisComponent } from './responsaveis/responsaveis/responsaveis.component';
-import { ReclamacaoUsuariosComponent } from './Reclamacao/reclamacao-usuarios/reclamacao-usuarios.component';
-import { ReclamacaoEdicaoComponent } from './Reclamacao/reclamacao-edicao/reclamacao-edicao.component';
-import { TagTabelaComponent } from './Tag/tag-tabela/tag-tabela.component';
-import { AuthGuard } from './Guards/AuthGuard';
-import { AdminGuard } from './Guards/AdminGuard';
+import { ReclamacaoDescricaoComponent } from '@features/reclamacao/pages/reclamacao-descricao/reclamacao-descricao.component';
+import { ReclamacaoInicialComponent } from '@features/reclamacao/pages/reclamacao-inicial/reclamacao-inicial.component';
+import { SobrenosComponent } from '@core/layout/sobrenos/sobrenos.component';
+import { MenuAdminComponent } from '@features/administrador/pages/admin-dashboard/menu-admin.component';
+import { FormLoginComponent } from '@features/autenticacao/pages/form-login/form-login.component';
+import { FormCadastroComponent } from '@features/autenticacao/pages/form-cadastro/form-cadastro.component';
+import { ComentarioCentralComponent } from '@features/comentario/components/comentario-central/comentario-central.component';
+import { ReclamacaoFormComponent } from "@features/reclamacao/pages/reclamacao-form/reclamacao-form.component";
+import { EdicaoPerfilComponent } from '@features/usuario/pages/edicao-perfil/edicao-perfil.component';
+import { ResponsaveisComponent } from '@features/responsavel/pages/responsaveis/responsaveis.component';
+import { ReclamacaoUsuariosComponent } from '@features/reclamacao/pages/reclamacao-usuarios/reclamacao-usuarios.component';
+import { ReclamacaoEdicaoComponent } from '@features/reclamacao/pages/reclamacao-edicao/reclamacao-edicao.component';
+import { TagTabelaComponent } from '@features/categoria/pages/tag-tabela/tag-tabela.component';
+import { AuthGuard } from '@core/guards/AuthGuard';
+import { AdminGuard } from '@core/guards/AdminGuard';
 
 
 export const routes: Routes = [
