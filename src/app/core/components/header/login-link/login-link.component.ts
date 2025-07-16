@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

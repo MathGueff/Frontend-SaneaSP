@@ -1,4 +1,4 @@
-import { MenuUsuario } from './menu-usuario';
+import { MenuUsuario } from './menu-usuario.model';
 
 describe('MenuUsuario', () => {
   it('should create an instance', () => {

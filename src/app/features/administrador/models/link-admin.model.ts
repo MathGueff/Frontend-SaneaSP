@@ -1,6 +1,6 @@
 import { ModalType } from "@features/categoria/models/ModalType.enum";
 import { ILink } from "@shared/models/link.model";
-import { AdminSidebarOptions } from "./AdminSidebarOptions";
+import { AdminSidebarOptions } from "./admin-sidebar-options.enum";
 
 export interface ILinkPanelAdmin extends ILink{
     type : 'link' | 'modal'; //Link (routerLink) ou modal(data-bs-target)

@@ -9,7 +9,7 @@ import { ReclamacaoService } from '@core/services/reclamacao.service';
 import { TagSelectComponent } from "@shared/components/tag-select/tag-select.component";
 import { ImageSelectComponent } from "@shared/components/image-select/image-select.component";
 import { ICategoria } from '@core/models/categoria.model';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 
 @Component({
   selector: 'app-reclamacao-edicao',

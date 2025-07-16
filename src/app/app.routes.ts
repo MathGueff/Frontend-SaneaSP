@@ -2,7 +2,7 @@ import { MenuUsuarioComponent } from '@features/usuario/pages/menu-usuario/menu-
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from '@features/reclamacao/pages/reclamacao-descricao/reclamacao-descricao.component';
 import { ReclamacaoInicialComponent } from '@features/reclamacao/pages/reclamacao-inicial/reclamacao-inicial.component';
-import { SobrenosComponent } from '@core/layout/sobrenos/sobrenos.component';
+import { SobrenosComponent } from '@core/components/sobrenos/sobrenos.component';
 import { MenuAdminComponent } from '@features/administrador/pages/admin-dashboard/menu-admin.component';
 import { FormLoginComponent } from '@features/autenticacao/pages/form-login/form-login.component';
 import { FormCadastroComponent } from '@features/autenticacao/pages/form-cadastro/form-cadastro.component';
@@ -13,8 +13,8 @@ import { ResponsaveisComponent } from '@features/responsavel/pages/responsaveis/
 import { ReclamacaoUsuariosComponent } from '@features/reclamacao/pages/reclamacao-usuarios/reclamacao-usuarios.component';
 import { ReclamacaoEdicaoComponent } from '@features/reclamacao/pages/reclamacao-edicao/reclamacao-edicao.component';
 import { TagTabelaComponent } from '@features/categoria/pages/tag-tabela/tag-tabela.component';
-import { AuthGuard } from '@core/guards/AuthGuard';
-import { AdminGuard } from '@core/guards/AdminGuard';
+import { AuthGuard } from '@core/guards/auth.guard';
+import { AdminGuard } from '@core/guards/auth-admin.guard';
 
 
 export const routes: Routes = [

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalType } from '../../models/ModalType.enum';
-import { IModalTagInfos } from '../../models/IModalTagInfos';
+import { IModalTagInfos } from '../../models/modal-tag-info.model';
 import {
   NonNullableFormBuilder,
   ReactiveFormsModule,
@@ -8,15 +8,15 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
-import { FormValidatorEnum } from '@shared/enums/FormValidatorEnum.enum';
+import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
 import { TagService } from '@core/services/tag.service';
 import { ICategoria } from '@core/models/categoria.model';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 import { Observable, of } from 'rxjs';
-import { ITagCadastro } from '../../models/ITagCadastro.model';
-import { ITagListFilter } from '../../models/ITagListFilter.interface';
-import { ErrorService } from '@core/services/error.service';
+import { ITagCadastro } from '../../models/tag-cadastro.model';
+import { ITagListFilter } from '../../models/tag-list-filter.model';
+import { ErrorService } from '@core/services/error-handler.service';
 
 @Component({
   selector: 'app-tag-modal',

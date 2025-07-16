@@ -3,12 +3,12 @@ import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core'
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '@core/services/user.service';
-import { IFieldForm } from '@shared/models/fieldForm.model';
+import { IFieldForm } from '@shared/models/field-form.model';
 import { FormFieldComponent } from "@shared/components/form-field/form-field.component";
-import { FormValidatorEnum } from '@shared/enums/FormValidatorEnum.enum';
+import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
 import { ToastService } from '@shared/services/toast.service';
 import { AuthService } from '@core/services/auth.service';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 
 @Component({
   selector: 'app-form-login',

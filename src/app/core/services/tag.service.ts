@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ICategoria } from '../models/categoria.model';
 import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ITagCadastro } from '@features/categoria/models/ITagCadastro.model';
-import { ITagListFilter } from '@features/categoria/models/ITagListFilter.interface';
+import { ITagCadastro } from '@features/categoria/models/tag-cadastro.model';
+import { ITagListFilter } from '@features/categoria/models/tag-list-filter.model';
 import { IResponseList } from '@shared/models/response.model';
 import { AuthService } from './auth.service';
 

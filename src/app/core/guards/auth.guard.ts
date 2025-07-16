@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { Observable } from 'rxjs';
 import { map, take, filter } from 'rxjs/operators';
 

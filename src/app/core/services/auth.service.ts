@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
 import { IUser } from '../models/usuario.model';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
-import { LocalStorageService } from './localStorage.service';
-import { ErrorService } from './error.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
+import { LocalStorageService } from './local-storage.service';
+import { ErrorService } from './error-handler.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

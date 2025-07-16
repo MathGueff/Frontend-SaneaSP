@@ -2,10 +2,10 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
-import { AdminSidebarOptions} from '@features/administrador/models/AdminSidebarOptions';
+import { AdminSidebarOptions} from '@features/administrador/models/admin-sidebar-options.enum';
 import { ModalType } from '@features/categoria/models/ModalType.enum';
 import { TagModalComponent } from '@features/categoria/components/tag-modal/tag-modal.component';
-import { ILinkPanelAdmin, ILinkSidebarAdmin } from '@features/administrador/models/ILinkAdmin.model';
+import { ILinkPanelAdmin, ILinkSidebarAdmin } from '@features/administrador/models/link-admin.model';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({

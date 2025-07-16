@@ -5,11 +5,11 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { IUser } from '@core/models/usuario.model';
 import { IEndereco } from '@core/models/endereco.model';
 import { ViacepService } from '@shared/services/viacep.service';
-import { IFieldForm } from '@shared/models/fieldForm.model';
+import { IFieldForm } from '@shared/models/field-form.model';
 import { FormFieldComponent } from "@shared/components/form-field/form-field.component";
-import { FormValidatorEnum } from '@shared/enums/FormValidatorEnum.enum';
+import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
 import { ToastService } from '@shared/services/toast.service';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({

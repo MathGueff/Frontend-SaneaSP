@@ -1,4 +1,4 @@
-import { FormValidatorEnum } from "../enums/FormValidatorEnum.enum";
+import { FormValidatorEnum } from "../enums/form-validator.enum";
 
 export interface IFieldForm{
     controlName : string; //Atributo formControlName do ReactiveForm

@@ -6,7 +6,7 @@ import { TagModalComponent } from '../../components/tag-modal/tag-modal.componen
 import { ICategoria } from '@core/models/categoria.model';
 import { Observable, of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
-import { ErrorService } from '@core/services/error.service';
+import { ErrorService } from '@core/services/error-handler.service';
 
 @Component({
   selector: 'app-update-tag',

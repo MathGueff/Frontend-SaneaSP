@@ -8,10 +8,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { IFieldForm } from '@shared/models/fieldForm.model';
-import { CadastroErrorStatus } from '@shared/enums/CadastroErrorStatus.enum';
+import { IFieldForm } from '@shared/models/field-form.model';
+import { RegistrationErrorEnum } from '@shared/enums/registration-error.enum';
 import { Router } from '@angular/router';
-import { FormValidatorEnum } from '@shared/enums/FormValidatorEnum.enum';
+import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
@@ -22,7 +22,7 @@ import { AuthService } from '@core/services/auth.service';
   styleUrl: './edicao-perfil.component.css',
 })
 export class EdicaoPerfilComponent implements OnInit {
-  protected cadastroErrorStatus: CadastroErrorStatus = CadastroErrorStatus.None;
+  protected cadastroErrorStatus: RegistrationErrorEnum = RegistrationErrorEnum.None;
   private formBuilderService = inject(NonNullableFormBuilder);
   private userService = inject(UserService);
   private authService = inject(AuthService);
@@ -193,7 +193,7 @@ export class EdicaoPerfilComponent implements OnInit {
       if (control != 'cep') {
         this.formCadastro.get(control)?.valueChanges.subscribe(() => {
           // Limpando o erro quando o usuário alterar o valor do campo 'senha'
-          this.cadastroErrorStatus = CadastroErrorStatus.None;
+          this.cadastroErrorStatus = RegistrationErrorEnum.None;
         });
       }
     });

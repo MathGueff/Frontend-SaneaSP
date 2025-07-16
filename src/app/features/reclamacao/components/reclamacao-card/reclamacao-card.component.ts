@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { SweetAlertService } from '@shared/services/sweetAlert.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { CommonModule } from '@angular/common';
 import { IUser } from '@core/models/usuario.model';
 import { IReclamacao } from '@core/models/reclamacao.model';

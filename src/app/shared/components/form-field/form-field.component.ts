@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormValidatorEnum } from '@shared/enums/FormValidatorEnum.enum';
+import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
 
 /**
  * COMPONENTE FORM-FIELD
