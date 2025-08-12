@@ -1,8 +1,8 @@
-import { MenuUsuarioComponent } from '@features/usuario/pages/menu-usuario/menu-usuario.component';
+import { MenuUsuarioComponent } from '@features/home/pages/menu-usuario/menu-usuario.component';
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from '@features/reclamacao/pages/reclamacao-descricao/reclamacao-descricao.component';
 import { ReclamacaoInicialComponent } from '@features/reclamacao/pages/reclamacao-inicial/reclamacao-inicial.component';
-import { SobrenosComponent } from '@core/components/sobrenos/sobrenos.component';
+import { SobrenosComponent } from '@features/sobre-nos/pages/sobrenos/sobrenos.component';
 import { MenuAdminComponent } from '@features/administrador/pages/admin-dashboard/menu-admin.component';
 import { FormLoginComponent } from '@features/autenticacao/pages/form-login/form-login.component';
 import { FormCadastroComponent } from '@features/autenticacao/pages/form-cadastro/form-cadastro.component';

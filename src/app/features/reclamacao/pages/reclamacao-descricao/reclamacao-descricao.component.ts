@@ -3,9 +3,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
-import { IReclamacao } from '@core/models/reclamacao.model';
-import { ReclamacaoService } from '@core/services/reclamacao.service';
-import { StatusReclamacao } from '@core/models/reclamacao.model';
+import { IReclamacao } from '@features/reclamacao/models/reclamacao.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
+import { StatusReclamacao } from '@features/reclamacao/models/reclamacao.model';
 
 @Component({
   selector: 'app-reclamacao-descricao',

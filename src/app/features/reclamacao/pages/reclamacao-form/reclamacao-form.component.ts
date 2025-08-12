@@ -8,9 +8,9 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ViacepService } from '@shared/services/viacep.service';
-import { ReclamacaoService } from '@core/services/reclamacao.service';
-import { ICreateReclamacao } from '@core/models/reclamacao.model';
-import { ICategoria } from '@core/models/categoria.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
+import { ICreateReclamacao } from '@features/reclamacao/models/reclamacao.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 import { TagSelectComponent } from "@shared/components/tag-select/tag-select.component";
 import { ImageSelectComponent } from "@shared/components/image-select/image-select.component";
 

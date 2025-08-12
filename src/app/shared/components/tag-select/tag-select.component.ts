@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { ICategoria } from '@core/models/categoria.model';
-import { TagService } from '@core/services/tag.service';
+import { ICategoria } from '@features/categoria/models/categoria.model';
+import { TagService } from '@features/categoria/services/tag.service';
 
 
 @Component({

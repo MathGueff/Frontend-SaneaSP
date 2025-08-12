@@ -9,8 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
-import { TagService } from '@core/services/tag.service';
-import { ICategoria } from '@core/models/categoria.model';
+import { TagService } from '@features/categoria/services/tag.service';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 import { Observable, of } from 'rxjs';

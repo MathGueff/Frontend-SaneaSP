@@ -1,4 +1,4 @@
-import { IEndereco } from "./endereco.model";
+import { IEndereco } from "@shared/models/endereco.model";
 /*
     Campos com ?. são opcionais, podem não ser informados nos inputs
     Endereco agrupa logradouro, cidade, bairro, numero e cep no mesmo campo

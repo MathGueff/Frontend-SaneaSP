@@ -1,5 +1,5 @@
-import { Reclamacao } from "@core/models/reclamacao.model";
-import { IUser } from "@core/models/usuario.model";
+import { Reclamacao } from "@features/reclamacao/models/reclamacao.model";
+import { IUser } from "@features/usuario/models/usuario.model";
 
 export class Comentario {
   id: number | null = 0;

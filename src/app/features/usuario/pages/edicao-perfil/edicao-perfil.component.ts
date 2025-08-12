@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@features/usuario/services/user.service';
 import { ViacepService } from '@shared/services/viacep.service';
 import {
   NonNullableFormBuilder,

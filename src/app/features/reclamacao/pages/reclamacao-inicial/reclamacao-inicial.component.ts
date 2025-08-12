@@ -1,5 +1,5 @@
-import { ReclamacaoService } from '@core/services/reclamacao.service';
-import { Reclamacao } from '@core/models/reclamacao.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
+import { Reclamacao } from '@features/reclamacao/models/reclamacao.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '../../components/reclamacao-card/reclamacao-card.component';
 import { CommonModule } from '@angular/common';
@@ -7,9 +7,9 @@ import { RouterLink } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
 import { AuthService } from '@core/services/auth.service';
-import { IReclamacao } from '@core/models/reclamacao.model';
+import { IReclamacao } from '@features/reclamacao/models/reclamacao.model';
 import { TagSelectComponent } from '@shared/components/tag-select/tag-select.component';
-import { ICategoria } from '@core/models/categoria.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 
 @Component({
   selector: 'app-reclamacao-inicial',

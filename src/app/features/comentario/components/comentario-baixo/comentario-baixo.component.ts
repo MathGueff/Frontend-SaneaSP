@@ -1,4 +1,4 @@
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@features/usuario/services/user.service';
 import { Comentario } from '../../models/comentario.model';
 import { Component, inject, Input, OnInit } from '@angular/core';
 

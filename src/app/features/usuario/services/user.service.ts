@@ -1,4 +1,4 @@
-import { IUser } from '../models/usuario.model';
+import { IUser } from '@features/usuario/models/usuario.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 

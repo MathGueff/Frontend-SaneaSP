@@ -1,14 +1,14 @@
-import { ICategoria } from '../models/categoria.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ICreateReclamacao, IReclamacao } from "../models/reclamacao.model";
-import { AuthService } from "./auth.service";
+import { ICreateReclamacao, IReclamacao } from "@features/reclamacao/models/reclamacao.model";
+import { AuthService } from "@core/services/auth.service";
 
 @Injectable ({providedIn:'root'})
 export class ReclamacaoService{
   //
-  private urlApi:string = "https://backend-saneasp.onrender.com/reclamacao";
+  private urlApi:string = "https://backend-saneasp.onrender.com/denuncia";
 
   private authService = inject(AuthService);
   private listReclamcao !: IReclamacao[];

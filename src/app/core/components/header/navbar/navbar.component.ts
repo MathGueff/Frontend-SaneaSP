@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { NavbarLink } from '@shared/models/navbar-link.model';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginLinkComponent } from "../login-link/login-link.component";
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@features/usuario/services/user.service';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({

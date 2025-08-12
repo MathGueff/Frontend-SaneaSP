@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuUsuario } from '../../models/menu-usuario.model';
+import { MenuUsuario } from '@features/usuario/models/menu-usuario.model';
 import { RouterLink, Router} from '@angular/router';
 
 @Component({

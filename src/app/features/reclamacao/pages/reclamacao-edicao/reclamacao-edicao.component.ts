@@ -4,11 +4,11 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { ViacepService } from '@shared/services/viacep.service';
 import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
-import { ICreateReclamacao, IReclamacao } from '@core/models/reclamacao.model';
-import { ReclamacaoService } from '@core/services/reclamacao.service';
+import { ICreateReclamacao, IReclamacao } from '@features/reclamacao/models/reclamacao.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
 import { TagSelectComponent } from "@shared/components/tag-select/tag-select.component";
 import { ImageSelectComponent } from "@shared/components/image-select/image-select.component";
-import { ICategoria } from '@core/models/categoria.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 
 @Component({
