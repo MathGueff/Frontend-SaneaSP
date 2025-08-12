@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
-import { IUser } from '../models/usuario.model';
+import { IUser } from '@features/usuario/models/usuario.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '@core/services/local-storage.service';
 import { ErrorService } from './error-handler.service';
 
 @Injectable({ providedIn: 'root' })

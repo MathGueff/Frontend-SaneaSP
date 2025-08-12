@@ -1,6 +1,6 @@
 import { IImagem } from "@features/reclamacao/models/imagem.model";
-import { ICategoria } from "./categoria.model";
-import { IUser } from "./usuario.model";
+import { ICategoria } from "@features/categoria/models/categoria.model";
+import { IUser } from "@features/usuario/models/usuario.model";
 
 export enum StatusReclamacao{
     Aberto,

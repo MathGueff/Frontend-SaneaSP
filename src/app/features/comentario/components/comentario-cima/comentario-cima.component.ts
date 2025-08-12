@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Reclamacao } from '@core/models/reclamacao.model';
+import { Reclamacao } from '@features/reclamacao/models/reclamacao.model';
 
 @Component({
   selector: 'app-comentario-cima',

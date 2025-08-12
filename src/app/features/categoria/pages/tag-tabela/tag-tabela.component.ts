@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { TagService } from '@core/services/tag.service';
+import { TagService } from '@features/categoria/services/tag.service';
 import { ModalType } from '../../models/ModalType.enum';
 import { TagModalComponent } from '../../components/tag-modal/tag-modal.component';
-import { ICategoria } from '@core/models/categoria.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 import { Observable, of } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { ErrorService } from '@core/services/error-handler.service';

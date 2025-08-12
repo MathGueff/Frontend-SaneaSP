@@ -1,4 +1,4 @@
-import { IUser } from '@core/models/usuario.model';
+import { IUser } from '@features/usuario/models/usuario.model';
 import { Component, inject, OnInit } from '@angular/core';
 import { ReclamacaoCardComponent } from '@features/reclamacao/components/reclamacao-card/reclamacao-card.component';
 import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '@core/services/auth.service';
-import { ReclamacaoService } from '@core/services/reclamacao.service';
-import { IReclamacao } from '@core/models/reclamacao.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
+import { IReclamacao } from '@features/reclamacao/models/reclamacao.model';
 import { TagSelectComponent } from '@shared/components/tag-select/tag-select.component';
-import { ICategoria } from '@core/models/categoria.model';
+import { ICategoria } from '@features/categoria/models/categoria.model';
 
 @Component({
   selector: 'app-reclamacao-usuarios',

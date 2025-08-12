@@ -6,10 +6,10 @@ import { ComentarioInputComponent } from '../comentario-input/comentario-input.c
 import { Comentario } from '../../models/comentario.model';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@features/usuario/services/user.service';
 import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
-import { IReclamacao } from '@core/models/reclamacao.model';
-import { ReclamacaoService } from '@core/services/reclamacao.service';
+import { IReclamacao } from '@features/reclamacao/models/reclamacao.model';
+import { ReclamacaoService } from '@features/reclamacao/services/reclamacao.service';
 
 @Component({
   selector: 'app-comentario-central',

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from '@core/services/user.service';
+import { UserService } from '@features/usuario/services/user.service';
 import { IFieldForm } from '@shared/models/field-form.model';
 import { FormFieldComponent } from "@shared/components/form-field/form-field.component";
 import { FormValidatorEnum } from '@shared/enums/form-validator.enum';
