@@ -1,12 +1,61 @@
-## Repositório com os arquivos relacionados ao Projeto Integrador 2 Semestre - SaneaSP
+# SaneaSP
+Aplicação web feita em Angular que permite que cidadãos denunciem problemas de saneamento básico em suas regiões. Organizações parceiras podem responder às denúncias, personalizar as experiências 
 
-# DESCRIÇÃO DO PROJETO 
+## 🧾 Descrição
+O SaneaSP tem como objetivo aproximar os cidadãos das organizações responsáveis pelo saneamento básico na cidade. A plataforma oferece um processo simples e acessível para a criação de denúncias, ao mesmo tempo em que disponibiliza um ambiente completo e gerenciável para que as organizações possam responder e administrar as ocorrências com eficiência.
 
-Proposta do Software:
-O presente projeto tem como objetivo abranger duas ODSs: Água Potável e Saneamento (ODS6) e Saúde e Bem-Estar (ODS3), por meio de um website. A função do site SaneaSP é auxiliar a prefeitura ou o órgão responsável pelo saneamento básico e administração da água da cidade, disponibilizando de forma rápida e organizada uma série de comentários e denúncias de problemas que estão ocorrendo na região, servindo como um centro de informações para os responsáveis. Além disso, o site disponibilizará informações aos usuários, permitindo o acesso aos dados sobre saneamento e água potável de forma rápida e fácil, ajudando os usuários a se prevenirem de doenças e a ficarem atentos às notícias recentes sobre esse assunto. Dessa forma, o projeto prevê reduzir a invisibilidade dos problemas de saneamento na sua cidade, contribuindo tanto para os responsáveis quanto para os cidadãos do local. 
+## Tecnologias Utilizadas
+Framework: Angular 18+
 
-Justificativa:
-Foram escolhidas as ODSs seis e três (Água Potável e Saneamento, e Saúde e Bem-Estar, respectivamente), pois operam uma relação de causa e consequência entre si, já que populações com saneamento básico e água potável estão protegidas de uma ampla gama de doenças. Todavia, problemas de saneamento e esgoto, como as fossas a céu aberto e canos de água estourados não recebem a devida atenção dos órgãos responsáveis. Mesmo com a infraestrutura para resolver tais problemas, muitas vezes não há a percepção de que esses problemas sequer estão acontecendo. Além disso, a desinformação da população em relação as consequências da falta de saneamento básico, como as doenças que ela dissemina, dificulta a comunicação entre a governança e a população, pois ambos não sabem que existe um problema a ser resolvido. Somado a isso, a má divulgação dificulta que a população saiba se a prefeitura está se mobilizando para resolver estes problemas, o que a desestimula a denunciá-los. Portanto, haja vista esses obstáculos, foi analisada uma chance de colaborar para a redução desses problemas, por meio de um site focado justamente em tornar a manutenção do saneamento básico e as atitudes da governança mais visíveis e mostrar os problemas do cotidiano, informar, e divulgar notícias para a população. 
+Linguagem: TypeScript
 
-Levantamento de Requisitos:
-Para o levantamento de requisitos, foi observado como é o cotidiano do saneamento básico em Votorantim que é a cidade alvo do projeto, então foi percebida a necessidade da criação de um site que reúna informações e que torne a comunicação da população mais fácil. Uma das ferramentas que foi utilizada como base é o site Reclame Aqui, que dispõe uma comunicação entre o usuário e o serviço que ele avalia, assim como o site deste projeto, que busca criar essa facilidade para os responsáveis pelo saneamento da cidade, com o sistema de comentários e respostas.
+Estilo: CSS puro
+
+Bibliotecas adicionais: 
+- SweetAlert2 – modais e alertas personalizados
+- Bootstrap – sistema de grid e componentes prontos
+
+## Instalação
+
+```
+# Clone o repositório
+git clone https://github.com/MathGueff/FrontEnd-SaneaSP
+
+# Acesse a pasta do projeto
+cd FrontEnd-SaneaSP
+
+# Instale as dependências
+npm install
+
+# Rode a aplicação
+npm start
+
+```
+## Estrutura das pastas
+
+```bash
+src/
+└── app/
+    ├── core/
+    │   ├── guards/
+    │   ├── components/ 
+    │   ├── services/
+    │   └── models/
+    ├── shared/
+    │   ├── components/
+    │   ├── services/
+    │   ├── models/
+    │   └── enums/
+    └── features/
+        ├── reclamacao/
+        │   ├── services/
+        │   ├── components/
+        │   ├── pages/
+        │   └── models/
+        ├── usuario/
+        │   ├── services/
+        │   ├── components/
+        │   ├── pages/
+        │   └── models/
+        └── ...
+```
