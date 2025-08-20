@@ -64,7 +64,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'nome',
       type: 'text',
-      icon: 'assets/login/usuario_icon.svg',
+      icon: 'images/login/usuario_icon.svg',
       label: 'Nome:',
       placeholder: 'Nome de usuário',
       required: true,
@@ -73,7 +73,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'email',
       type: 'email',
-      icon: 'assets/login/email_icon.svg',
+      icon: 'images/login/email_icon.svg',
       label: 'Email:',
       placeholder: 'Email de usuário',
       required: true,
@@ -82,7 +82,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'senha',
       type: 'password',
-      icon: 'assets/login/senha_icon.svg',
+      icon: 'images/login/senha_icon.svg',
       label: 'Senha:',
       placeholder: 'Senha de login',
       required: true,
@@ -91,7 +91,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'confirmaSenha',
       type: 'password',
-      icon: 'assets/login/senha_icon.svg',
+      icon: 'images/login/senha_icon.svg',
       label: 'Confirme sua senha:',
       placeholder: 'Confirmação da senha',
       required: true,
@@ -100,7 +100,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'telefone',
       type: 'tel',
-      icon: 'assets/login/telefone_icon.svg',
+      icon: 'images/login/telefone_icon.svg',
       label: 'Telefone:',
       placeholder: 'Telefone para contato',
       required: false,
@@ -109,7 +109,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'cpf',
       type: 'text',
-      icon: 'assets/login/cpf_icon.svg',
+      icon: 'images/login/cpf_icon.svg',
       label: 'CPF:',
       placeholder: 'Digite seu CPF',
       required: false,
@@ -121,7 +121,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'cep',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'CEP:',
       placeholder: 'Digite seu CEP',
       required: false,
@@ -130,7 +130,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'logradouro',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'Rua:',
       placeholder: 'Digite sua rua',
       required: false,
@@ -138,7 +138,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'bairro',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'Bairro:',
       placeholder: 'Digite seu bairro',
       required: false,
@@ -146,7 +146,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'localidade',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'Cidade:',
       placeholder: 'Digite sua cidade',
       required: false,
@@ -154,7 +154,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'numero',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'Número:',
       placeholder: 'Digite seu número',
       required: false,
@@ -162,7 +162,7 @@ export class EdicaoPerfilComponent implements OnInit {
     {
       controlName: 'complemento',
       type: 'text',
-      icon: 'assets/login/endereco_icon.svg',
+      icon: 'images/login/endereco_icon.svg',
       label: 'Complemento:',
       placeholder: 'Digite seu complemento',
       required: false,

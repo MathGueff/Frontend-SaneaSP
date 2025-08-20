@@ -27,7 +27,7 @@
                 [formGroup]="formCadastroTag"
                 formName="form-cadastro-tag"
                 controlName="nomeNovaTag"
-                icon="assets/icones/black/tag_icon.svg"
+                icon="icons/shared/black/tag_icon.svg"
                 label="Nome da categoria:"
                 placeholder="Digite o nome da categoria"
                 [required]="true"
@@ -47,7 +47,7 @@
                   *ngIf="tagSelected" 
                   class="btn btn-primary focus-terciario me-2" 
                   id="botao-voltar-header" (click)="resetSearchForm()"> 
-                    <img src="assets/icones/operacoes/white/return_icon.svg" alt="">
+                    <img src="icons/ui/white/return_icon.svg" alt="">
                 </button>
                 <span
                   >{{modalTypeSelected == modalTypes.Edicao ? 'Editando' : 'Excluindo'}} 
@@ -63,7 +63,7 @@
                   [formGroup]="formPesquisaTag"
                   formName="form-pesquisa-tag"
                   controlName="nomePesquisaTag"
-                  icon="assets/icones/operacoes/black/search_icon.svg"
+                  icon="icons/actions/black/search_icon.svg"
                   label="Pesquise pelo nome da categoria:"
                   placeholder="Digite o nome da categoria:"
                   fieldType="input"
@@ -80,7 +80,7 @@
                     class="texto-informativo d-flex justify-content-center align-items-center mt-2 gap-2"
                   >
                     <img
-                      src="assets/icones/black/info_icon.svg"
+                      src="icons/ui/black/info_icon.svg"
                       alt="ícone de informação"
                     />
                     <span>Filtre pelo nome e selecione abaixo para começar a editar</span>
@@ -93,7 +93,7 @@
                   <div class="search-feedback-container
                      d-flex text-center justify-content-center mt-2 p-1">
                     <img
-                      src="assets/icones/operacoes/black/{{
+                      src="icons/ui/black/{{
                         tags.length == 1
                           ? 'success'
                           : 'error'
@@ -126,7 +126,7 @@
                         <button
                           *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
                           class="btn btn-primary ms-2" (click)="expandSearchList()">
-                          <img class="btn-icon" src="assets/icones/operacoes/white/collapse_icon.svg" alt="">
+                          <img class="btn-icon" src="icons/ui/white/collapse_icon.svg" alt="">
                         </button>
                       </div>
                   }
@@ -148,14 +148,14 @@
                       *ngIf="!isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
                       type="button"
                       class="btn btn-primary ms-2" (click)="expandSearchList()">
-                      <img class="btn-icon" src="assets/icones/operacoes/white/expand_icon.svg" alt="">
+                      <img class="btn-icon" src="icons/ui/white/expand_icon.svg" alt="">
                     </button> 
 
                      <button
                         *ngIf="isExpandedTagList && this.formPesquisaTag.controls.nomePesquisaTag.value.length == 0"
                         type="button"
                         class="btn btn-primary ms-2" (click)="expandSearchList()">
-                        <img class="btn-icon" src="assets/icones/operacoes/white/collapse_icon.svg" alt="">
+                        <img class="btn-icon" src="icons/ui/white/collapse_icon.svg" alt="">
                       </button>
                   </div>
                 }
@@ -179,7 +179,7 @@
                     [formGroup]="formEditTag"
                     formName="form-edit-tag"
                     controlName="nomeEditTag"
-                    icon="assets/icones/black/tag_icon.svg"
+                    icon="icons/shared/black/tag_icon.svg"
                     label="Nome da categoria:"
                     placeholder="Digite o novo nome da categoria"
                     fieldType="input"
@@ -195,7 +195,7 @@
                       class="texto-informativo d-flex justify-content-center align-items-center mt-2"
                     >
                       <img
-                        src="assets/icones/black/info_icon.svg"
+                        src="icons/ui/black/info_icon.svg"
                         alt="ícone de informação"
                       />
                       <span>Clique no botão de voltar para pesquisar por outra categoria</span>
@@ -208,7 +208,7 @@
                     [formGroup]="formExclusaoTag"
                     formName="form-exclusao-tag"
                     controlName="nomeExclusaoTag"
-                    icon="assets/icones/black/tag_icon.svg"
+                    icon="icons/shared/black/tag_icon.svg"
                     label="Nome da categoria:"
                     fieldType="input"
                   ></app-form-field>
@@ -226,7 +226,7 @@
               id="botao-voltar-footer"
               (click)="resetSearchForm()"
             >
-              <img class="btn-icon" src="assets/icones/operacoes/white/return_icon.svg" alt="Ícone de voltar">
+              <img class="btn-icon" src="icons/ui/white/return_icon.svg" alt="Ícone de voltar">
               Voltar
             </button>
           }
@@ -235,7 +235,7 @@
             class="btn btn-terciary"
             data-bs-dismiss="modal"
           >
-            <img class="btn-icon" src="assets/icones/operacoes/black/cancel_icon.svg" alt="Ícone de voltar">
+            <img class="btn-icon" src="icons/ui/black/cancel_icon.svg" alt="Ícone de voltar">
             Cancelar
           </button>
           <button
@@ -244,7 +244,7 @@
             class="btn btn-{{modalTypeSelected == modalTypes.Exclusao ? 'secondary' : 'primary'}}"
             *ngIf="tagSelected || modalTypeSelected == modalTypes.Adicao"
           >
-           <img class="btn-icon" src="assets/icones/operacoes/white/{{ModalInfo.icon}}_icon.svg" alt="Ícone de voltar">
+           <img class="btn-icon" src="icons/actions/white/{{ModalInfo.icon}}_icon.svg" alt="Ícone de voltar">
             {{ ModalInfo.buttonText }}
           </button>
         </div>
