@@ -8,7 +8,7 @@ import { ErrorService } from './error-handler.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private API_URL = 'https://backend-saneasp.onrender.com/auth';
+  private API_URL = 'http://localhost:3000/auth';
 
   /* Observable para avisar quando um novo usuário é logado */
   private currentUserSubject = new BehaviorSubject<IUser | null>(null);

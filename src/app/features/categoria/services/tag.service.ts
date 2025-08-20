@@ -10,7 +10,7 @@ import { AuthService } from '@core/services/auth.service';
 @Injectable({ providedIn: 'root' })
 export class TagService {
   //
-  private apiUrl = 'https://backend-saneasp.onrender.com/categoria';
+  private apiUrl = 'http://localhost:3000/categoria';
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService
