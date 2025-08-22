@@ -1,7 +1,7 @@
 .input{
   width: 90%;
   border-radius: 20px;
-  background-color: var(--cor-terciaria);
+  background-color: var(--secondary-color);
   padding: 0 15px;
   resize: none;
   align-content: center;
@@ -18,5 +18,5 @@
   height: 50px;
 }
 .enviar:hover{
-  background-color: var(--cor-secundaria);
+  background-color: var(--terciary-color);
 }

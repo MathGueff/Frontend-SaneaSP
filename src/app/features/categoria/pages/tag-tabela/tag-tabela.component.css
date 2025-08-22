@@ -14,8 +14,8 @@
   
   /* Cabeçalho da Tabela */
   .tag-table thead th{
-    background-color: var(--cor-primaria);
-    color: var(--cor-fonte-branca);
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
     font-weight: 500;
   }
   
@@ -63,7 +63,7 @@
 }
 
 .btn-acoes:hover {
-  background-color: var(--cor-primaria);
+  background-color: var(--primary-color);
   transform: translateY(-2px);
   cursor: pointer;
 }

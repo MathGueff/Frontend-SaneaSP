@@ -30,7 +30,7 @@ section{
 /***** Objetivo *****/
 
 .objetivo{
-  background-color: var(--cor-secundaria);
+  background-color: var(--terciary-color);
   gap: 50px;
 }
  .objetivo .col img{

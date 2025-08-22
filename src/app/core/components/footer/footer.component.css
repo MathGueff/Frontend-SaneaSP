@@ -5,16 +5,16 @@
 }
 .footer{
   height: auto;
-  background-color: var(--cor-primaria);
+  background-color: var(--primary-color);
   font-size: 1.1em;
 }
 h5{
   padding-top: 12px;
-  color: var(--cor-fonte-branca);
+  color: var(--white-font-color);
   font-weight: bold;
 }
 .links-footer a, span{
-  color: var(--cor-fonte-branca);
+  color: var(--white-font-color);
   text-decoration: none;
   transition: transform .3s, text-decoration .3s;
   display: inline-block;

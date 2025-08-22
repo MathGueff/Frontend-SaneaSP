@@ -8,8 +8,8 @@
 .toast{
   width: 350px;
   height: 70px;
-  background-color: var(--cor-primaria);
-  color: var(--cor-fonte-branca);
+  background-color: var(--primary-color);
+  color: var(--white-font-color);
   font-weight: 500;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   border-radius: 4px;

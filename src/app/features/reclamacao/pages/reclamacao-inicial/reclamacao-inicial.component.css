@@ -27,7 +27,7 @@
   display:  flex;
   justify-content: center;
   gap: 60px;
-  background-color: var(--cor-terciaria);
+  background-color: var(--secondary-color);
   width: 60%;
   align-items: center;
 }
@@ -50,7 +50,7 @@
   margin: 40px 20px 20px 20px;
 }
 .cards-item{
-  background-color: var(--cor-secundaria);
+  background-color: var(--terciary-color);
   padding: 20px;
   border-radius: 20px;
   width: 70%;

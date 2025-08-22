@@ -7,13 +7,13 @@ Este documento lista todas as variáveis de cor utilizadas no projeto, organizad
 
 ## 🌍 Paleta de Cores Global
 
-- `--cor-primaria: #295A80;`  
+- `--primary-color: #295A80;`  
 Cor principal do projeto. Utilizada para elementos de destaque, botões principais e links.
 
-- `--cor-secundaria: #7BAED2;`  
+- `--terciary-color: #7BAED2;`  
 Cor complementar clara. Normalmente aplicada em fundos secundários ou detalhes de componentes.
 
-- `--cor-terciaria: #D9D9D9;`  
+- `--secondary-color: #D9D9D9;`  
 Cinza neutro, utilizado como base para backgrounds e áreas de suporte.
 
 - `--cor-quaternaria: #0B6D8F;`  
@@ -26,7 +26,7 @@ Versão mais escura do azul, aplicada em títulos, ícones e botões quando se b
 - `--cor-form-login: #DADADA;`  
 Cor de fundo exclusiva para formulários de login, proporcionando contraste suave.
 
-- `--cor-background: #e8e3e3;`  
+- `--background-color: #e8e3e3;`  
 Cor de fundo principal do site, garantindo uma leitura confortável.
 
 - `--cor-botao-danger: #b1180e;`  
@@ -36,7 +36,7 @@ Cor de destaque para botões de fechar ou ações destrutivas (vermelho sóbrio)
 
 ## ♿ Cores de Acessibilidade (Focus Outline)
 
-- `--outline-tab-primario: 2px solid var(--cor-primaria);`  
+- `--outline-tab-primario: 2px solid var(--primary-color);`  
 Borda que sinaliza o foco de navegação com teclado em elementos principais.
 
 - `--outline-tab-secundario: 2px solid #fff;`  
@@ -55,7 +55,7 @@ Fonte padrão do projeto, moderna e legível.
 - `--familia-secundaria: georgia, sans-serif;`  
 Fonte de apoio, utilizada para chamadas específicas e destaques.
 
-- `--cor-fonte-branca: #e2e2e2;`  
+- `--white-font-color: #e2e2e2;`  
 Cor clara para textos sobre fundos escuros, proporcionando contraste.
 
 ---

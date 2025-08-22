@@ -1,5 +1,6 @@
-/* Import da fonte Poppins */
+/* Import da fonte Poppins e MontSerrat */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 *{
   margin: 0px;
@@ -10,45 +11,29 @@
 /* --- INICIO VARIÁVEIS DO CSS GLOBAL  --- */
 :root{
     /* Cores de fundo */
-    --cor-primaria: #295A80;
-    --cor-secundaria: #7BAED2;
-    --cor-terciaria: #D9D9D9;
-    --cor-quaternaria: #0B6D8F;
-    --cor-background-form : #dfdddd;
+    --background-dark-color: #AEB7BD;
+    --background-color: #D9D9D9;
+    --primary-color: #295A80;
+    --primary-dark-color: #345976;
+    --secondary-color: #006992;
+    --secondary-dark-color: #226185;
+    --terciary-color: #8BB5D4;
+    --terciary-dark-color: #496D87;
 
-    /* Cores de icones */
-    --cor-icone-verde: #71FF87;
-    --cor-icone-vermelho: #FF877E;
+    --white-font-color: #FAF9F6;
+    --black-font-color: #1c1c1c;
+    --text-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.25);
 
-    /* Cores de componentes */
-    --cor-form-login: #DADADA;
-    --cor-background: #e8e3e3;
-    --cor-botao-danger: #b1180e;
-
-    /* Box Shadow */
-    --box-shadow-padrao: 0 10px 15px -8px rgba(0, 0, 0, 0.3);
+    --green-color: #428029;
+    --red-color: #802B29;
 
     /* Acessibilidade */
-    --outline-tab-primario: 2px solid var(--cor-primaria);
+    --outline-tab-primario: 2px solid var(--primary-color);
     --outline-tab-secundario: 2px solid #fff;
     --outline-tab-terciario: 2px solid #000;
 
     /* Fontes */
-    --familia-primaria: poppins, sans-serif;
-    --familia-secundaria: georgia, sans-serif;
-    --cor-fonte-branca: #e2e2e2;
-    --cor-fonte-preta: #202020;
-
-    /* Tamanho do texto */
-    --fonte-primaria: 1rem;
-    --fonte-secundaria: 1.063rem;
-    --fonte-terciaria: 1.875rem;
-    --texto-bold: bold;
-    --texto-semibold: 600;
-
-    /* Header  */
-    --header-altura: 90px;
-    --header-texto: 1.01rem;
+    --familia-primaria: Montserrat, sans-serif;
 
     /* Toast notification */
     --tempo-toast: 4s;
@@ -64,7 +49,7 @@
 
 /* --- Background das páginas --- */
 .background{
-  background-color: var(--cor-background);
+  background-color: var(--background-color);
 }
 
 /* --- INICIO ACESSIBILIDADE --- */
@@ -82,7 +67,7 @@ button:focus-visible,
 }
 
 .btn{
-  color: var(--cor-fonte-branca) !important;
+  color: var(--white-font-color) !important;
 }
 
 .btn:focus-visible{
@@ -107,11 +92,11 @@ button:focus-visible,
 /* INICIO ESTILOS DO MODAL */
 
 .modal-content{
-  background-color: var(--cor-primaria) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .modal-header, .modal-footer {
-  color: var(--cor-fonte-branca);
+  color: var(--white-font-color);
 }
 
 .modal-header{
@@ -129,17 +114,17 @@ button:focus-visible,
 /* INICIO ESTILOS DE LISTAS */
 
 .list-group .list-group-item{
-    background-color: var(--cor-background) !important;
-    color: var(--cor-primaria);
+    background-color: var(--background-color) !important;
+    color: var(--primary-color);
     text-align: center;
-    border: 1px solid var(--cor-primaria);
+    border: 1px solid var(--primary-color);
     cursor: pointer;
     transition: 0.6s color ease, 0.8s background-color ease, 0.6s transform ease;
 }
 
 .list-group .list-group-item:hover, .list-group .list-group-item:focus-visible{
-    background-color: var(--cor-primaria) !important;
-    color: var(--cor-fonte-branca);
+    background-color: var(--primary-color) !important;
+    color: var(--white-font-color);
     transform: translateX(2px);
 }
 
@@ -161,8 +146,8 @@ button:focus-visible,
 }
 
 .sweet_btn_success {
-  background-color: var(--cor-terciaria) !important;
-  color: var(--cor-primaria) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--primary-color) !important;
 }
 
 .sweet_btn_success:hover {
@@ -171,12 +156,12 @@ button:focus-visible,
 
 .sweet_btn_success:focus {
   outline: var(--outline-tab-terciario) !important;
-  box-shadow: 0 0 5px var(--cor-secundaria) !important;
+  box-shadow: 0 0 5px var(--terciary-color) !important;
 }
 
 .sweet_btn_danger {
   background-color: var(--cor-botao-danger) !important;
-  color: var(--cor-fonte-branca) !important;
+  color: var(--white-font-color) !important;
 }
 
 .sweet_btn_danger:hover {
@@ -185,7 +170,7 @@ button:focus-visible,
 
 .sweet_btn_danger:focus {
   outline: var(--outline-tab-terciario) !important;
-  box-shadow: 0 0 5px var(--cor-secundaria) !important;
+  box-shadow: 0 0 5px var(--terciary-color) !important;
 }
 /* Fim dos estilos do SweetAlert */
 
@@ -199,8 +184,8 @@ button:focus-visible,
 }
 
 .card-header, .header-painel, .header-comentario{
-  background-color: var(--cor-primaria) !important;
-  color: var(--cor-fonte-branca) !important;
+  background-color: var(--primary-color) !important;
+  color: var(--white-font-color) !important;
   font-size: 1.2rem;
 }
 
@@ -258,15 +243,15 @@ button:focus-visible,
 }
 
 .btn-terciary{
-  background-color: var(--cor-terciaria) !important;
-  border-color: var(--cor-terciaria) !important;
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
   color: var(--cor-fonte-preta) !important;
 }
 
 .btn-quaternary{
   background-color: transparent !important;
-  border: 2px solid var(--cor-secundaria) !important;
-  color: var(--cor-fonte-branca) !important;
+  border: 2px solid var(--terciary-color) !important;
+  color: var(--white-font-color) !important;
 }
 
 .btn-primary:hover, .btn-secondary:hover, .btn-terciary:hover{
@@ -300,7 +285,7 @@ button:focus-visible,
 .form{
   /* Width e Height devem ser definidos no CSS do componente, dentro dessa classe */
    background-color: var(--cor-form-login);
-   border: 6px solid var(--cor-primaria);
+   border: 6px solid var(--primary-color);
    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -322,7 +307,7 @@ button:focus-visible,
 
 .form-control:focus, .form-select:focus{
    transform: translate(2px) !important;
-   border: 3px solid var(--cor-primaria) !important;
+   border: 3px solid var(--primary-color) !important;
    outline: none !important;
 }
 

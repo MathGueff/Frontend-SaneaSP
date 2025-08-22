@@ -24,7 +24,7 @@
 .tag, .adicionar .adicionar-btn {
   display:  flex;
   justify-content: center;
-  background-color: var(--cor-terciaria);
+  background-color: var(--secondary-color);
   align-items: center;
 }
 .titulo-reclamacao, .tag-reclamacao{
@@ -37,7 +37,7 @@
   margin: 40px 20px 20px 20px;
 }
 .cards-item{
-  background-color: var(--cor-secundaria);
+  background-color: var(--terciary-color);
   padding: 20px;
   border-radius: 20px;
   width: 70%;
