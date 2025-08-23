@@ -1,0 +1,31 @@
+<!-- FAQ Section -->
+  <section class="faq">
+    <div class="faq-content">
+      <h2 class="faq-title">Perguntas frequentes</h2>
+      <div class="faq-row">
+        <!-- Cidadão FAQ -->
+        <div class="faq-column">
+          <h3 class="faq-column-title">Cidadão</h3>
+          @for (question of cid_questions; track $index) {
+            <div class="faq-item">
+              <button class="faq-question">
+                {{question.title}}
+              </button>
+            </div>
+          }
+        </div>
+        <!-- Organizações FAQ -->
+        <div class="faq-column">
+          <h3 class="faq-column-title">Organizações</h3>
+           @for (question of org_questions; track $index) {
+            <div class="faq-item">
+              <button class="faq-question">
+                {{question.title}}
+                <!-- <span class="faq-icon">▼</span> -->
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>

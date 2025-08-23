@@ -1,0 +1,7 @@
+<header class="d-flex justify-content-center align-items-center">
+  <nav class="container d-flex justify-content-center align-items-center">
+    @for (link of navbarLinks; track $index) { 
+      <a href="{{link.path}}" class="nav-link">{{link.name}}</a> 
+    }
+  </nav>
+</header>

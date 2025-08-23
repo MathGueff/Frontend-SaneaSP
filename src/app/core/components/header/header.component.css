@@ -2,7 +2,6 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 52px;
     background-image: 
         linear-gradient(rgba(0, 0, 0, 0.5)), 
         url("/background.png");
