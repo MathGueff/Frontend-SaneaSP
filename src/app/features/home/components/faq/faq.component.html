@@ -5,24 +5,37 @@
       <div class="faq-row">
         <!-- Cidadão FAQ -->
         <div class="faq-column">
-          <h3 class="faq-column-title">Cidadão</h3>
+          <h3 class="faq-column-title">Cidadãos</h3>
           @for (question of cid_questions; track $index) {
             <div class="faq-item">
-              <button class="faq-question">
+              <button class="faq-question" type="button" 
+                  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-cid-' + $index"
+                  aria-expanded="false" aria-controls="collapseExample">
                 {{question.title}}
               </button>
+              <div class="collapse" id="collapse-cid-{{$index}}">
+                <div class="card card-body">
+                 {{question.content}}
+                </div>
+              </div>
             </div>
           }
         </div>
         <!-- Organizações FAQ -->
         <div class="faq-column">
           <h3 class="faq-column-title">Organizações</h3>
-           @for (question of org_questions; track $index) {
+            @for (question of org_questions; track $index) {
             <div class="faq-item">
-              <button class="faq-question">
+              <button class="faq-question" type="button" 
+                  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-org-' + $index"
+                  aria-expanded="false" aria-controls="collapseExample">
                 {{question.title}}
-                <!-- <span class="faq-icon">▼</span> -->
               </button>
+              <div class="collapse" id="collapse-org-{{$index}}">
+                <div class="card card-body">
+                 {{question.content}}
+                </div>
+              </div>
             </div>
           }
         </div>

@@ -1,8 +1,6 @@
 /* Header */
 header {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5)), url("/background.png");
-  background-size: cover;
-  background-position: center;
+  background-image: var(--background-image);
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -13,12 +11,20 @@ header {
 nav {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: var(--space-8);
 }
 
 .nav-link {
   color: var(--white-font-color);
-  font-size: 0.9rem;
+  font-size: var(--sm-text);
   text-decoration: none;
-  font-weight: 300;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+  }
 }

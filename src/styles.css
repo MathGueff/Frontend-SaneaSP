@@ -28,7 +28,7 @@
     --red-color: #802B29;
 
     /* Imagem de fundo destaque do site */
-    --background-image: url("/background-sanea.svg");
+    --background-image: url("/background.svg");
 
     /* Acessibilidade */
     --outline-tab-primario: 2px solid var(--primary-color);

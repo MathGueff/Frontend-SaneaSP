@@ -1,4 +1,4 @@
-import { MenuUsuarioComponent } from '@features/home/pages/menu-usuario/menu-usuario.component';
+import { HomeComponent } from '@features/home/pages/home/home.component';
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from '@features/reclamacao/pages/reclamacao-descricao/reclamacao-descricao.component';
 import { ReclamacaoInicialComponent } from '@features/reclamacao/pages/reclamacao-inicial/reclamacao-inicial.component';
@@ -19,7 +19,7 @@ import { AdminGuard } from '@core/guards/auth-admin.guard';
 
 export const routes: Routes = [
   //Home
-  {path: '', component:MenuUsuarioComponent},
+  {path: '', component:HomeComponent},
   {path: 'pagina-admin', component:MenuAdminComponent, canActivate: [AdminGuard]},
 
   //Reclamações

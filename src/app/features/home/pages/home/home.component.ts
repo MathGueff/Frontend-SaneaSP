@@ -8,11 +8,11 @@ import { MainComponent } from '@features/home/components/main/main.component';
 import { FaqComponent } from '@features/home/components/faq/faq.component';
 
 @Component({
-  selector: 'app-menu-usuario',
+  selector: 'app-home',
   standalone: true,
   imports: [CommonModule, HeaderComponent, BannerComponent, MainComponent, FaqComponent ,AboutUsComponent],
-  templateUrl: './menu-usuario.component.html',
-  styleUrl: './menu-usuario.component.css'
+  templateUrl: './home.component.html',
+  styleUrl : './home.component.css'
 })
-export class MenuUsuarioComponent{
+export class HomeComponent{
 }

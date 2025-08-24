@@ -1,49 +1,54 @@
 /* About Section */
 .about {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5)), url("/background.png");
-  background-size: cover;
-  background-position: center;
   color: var(--white-font-color);
-  padding: 2.5rem 2rem;
+  padding: var(--space-10) var(--space-8);
 }
 
 .about-title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: var(--h1);
+  margin-bottom: var(--space-8);
   font-weight: 400;
   text-shadow: var(--text-shadow);
 }
 
 .about-description {
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
+  font-size: var(--lg-text);
+  margin-bottom: var(--space-12);
 }
 
 .about-logo {
-  margin-bottom: 3rem;
+  margin-bottom: var(--space-12);
 }
 
 .about-logo img {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 
 .team-avatars {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .avatar {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.2);
   overflow: hidden;
+  box-shadow: var(--home-button-shadow);
 }
 
 .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .team-avatars {
+    flex-wrap: wrap;
+  }
 }
