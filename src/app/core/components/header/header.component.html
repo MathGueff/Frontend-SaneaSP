@@ -1,9 +1,13 @@
-<header>
-    <div><img src="logo/logo_saneasp.svg" alt="Logo do SaneaSP"></div>
-    <div>
-        <app-navbar></app-navbar>
-    </div>
-    <div>
-        <app-login-link></app-login-link>
-    </div>
+<header class="d-flex justify-content-center align-items-center">
+  @switch (currentContext) {
+    @case ("principal") {
+      <app-header-landing></app-header-landing>
+    }
+    @case ("cidadao") {
+      <app-header-cidadao></app-header-cidadao>
+    }
+    @case ("organizacao") {
+      <app-header-cidadao></app-header-cidadao>
+    }
+  }
 </header>

@@ -47,10 +47,12 @@
     /* Baseado em escalas de 4px */
     --h1: 36px;  
     --h2: 32px;  
-    --h3: 24px;  
+    --h3: 28px;  
+    --h4: 24px;  
     --lg-text: 20px; 
     --md-text: 16px; 
-    --sm-text: 12px; 
+    --sm-text: 14px; 
+    --xs-text: 12px; 
 
     /* PADDING, MARGIN E GAP - SPACINGS */
     /* Baseados em escalas de 4px

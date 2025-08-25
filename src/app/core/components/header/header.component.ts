@@ -1,15 +1,42 @@
-import { Component } from '@angular/core';
-import { NavbarComponent } from "./navbar/navbar.component";
-import { RouterLink } from '@angular/router';
-import { LoginLinkComponent } from './login-link/login-link.component';
+import { Component } from "@angular/core";
+import { NavigationEnd, Router } from "@angular/router";
+import { HeaderLandingComponent } from "./header-landing/header-landing.component";
+import { HeaderCidadaoComponent } from "./header-cidadao/header-cidadao.component";
+import { Subject, filter, takeUntil } from "rxjs";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-header',
+  selector: "app-header",
   standalone: true,
-  imports: [NavbarComponent,RouterLink, LoginLinkComponent],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  imports: [CommonModule, HeaderLandingComponent, HeaderCidadaoComponent],
+  templateUrl: "./header.component.html",
+  styleUrl: "./header.component.css",
 })
 export class HeaderComponent {
+  public currentContext: "principal" | "cidadao" | "organizacao" = "principal";
+  private destroy$ = new Subject<void>();
 
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((event: NavigationEnd) => {
+        if (event.url.startsWith("/cidadao")) {
+          this.currentContext = "cidadao";
+        } else if (event.url.startsWith("/organizacao")) {
+          this.currentContext = "organizacao";
+        } else {
+          this.currentContext = "principal";
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

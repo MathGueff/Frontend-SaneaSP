@@ -1,4 +1,4 @@
-import { HomeComponent } from '@features/home/pages/home/home.component';
+import { HomePageComponent } from '@features/home/pages/home-page/home-page.component';
 import { Routes } from '@angular/router';
 import { ReclamacaoDescricaoComponent } from '@features/reclamacao/pages/reclamacao-descricao/reclamacao-descricao.component';
 import { ReclamacaoInicialComponent } from '@features/reclamacao/pages/reclamacao-inicial/reclamacao-inicial.component';
@@ -15,11 +15,22 @@ import { ReclamacaoEdicaoComponent } from '@features/reclamacao/pages/reclamacao
 import { TagTabelaComponent } from '@features/categoria/pages/tag-tabela/tag-tabela.component';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AdminGuard } from '@core/guards/auth-admin.guard';
+import { CidadaoLayoutComponent } from '@features/cidadao/pages/layout/layout.component';
 
 
 export const routes: Routes = [
+  //Página inicial
+  {path: '', component:HomePageComponent},
+
+  //Área do cidadão
+  {
+    path: 'cidadao', component:CidadaoLayoutComponent,
+    children: [
+      // {path : 'menu'}
+    ]
+  },
+  
   //Home
-  {path: '', component:HomeComponent},
   {path: 'pagina-admin', component:MenuAdminComponent, canActivate: [AdminGuard]},
 
   //Reclamações

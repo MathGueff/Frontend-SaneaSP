@@ -3,13 +3,13 @@
   background-image: var(--background-image);
   color: var(--white-font-color);
   text-align: center;
-  padding: var(--space-8);
-  height: 80vh;
+  padding: var(--space-10);
 }
 
 .banner-content {
   width: 75vw;
   gap: var(--space-12);
+  padding: var(--space-5);
 }
 
 .banner-text{
@@ -38,11 +38,11 @@
   cursor: pointer;
   transition: background 0.3s ease;
   box-shadow: var(--button-shadow);
-  width: 300px;
+  width: 350px;
 }
 
 @media (max-width: 768px) {
   .banner-title {
-    font-size: var(--h3);
+    font-size: var(--h4);
   }
 }
