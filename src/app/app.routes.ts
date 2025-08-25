@@ -16,7 +16,7 @@ import { TagTabelaComponent } from '@features/categoria/pages/tag-tabela/tag-tab
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AdminGuard } from '@core/guards/auth-admin.guard';
 import { CidadaoLayoutComponent } from '@features/cidadao/pages/layout/layout.component';
-
+import { MenuCidadaoComponent } from '@features/cidadao/pages/menu-cidadao/menu-cidadao.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -26,7 +26,7 @@ export const routes: Routes = [
   {
     path: 'cidadao', component:CidadaoLayoutComponent,
     children: [
-      // {path : 'menu'}
+      {path : '', component:MenuCidadaoComponent}
     ]
   },
   
