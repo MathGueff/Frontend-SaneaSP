@@ -17,10 +17,10 @@
     --primary-dark-color: #345976;
     --secondary-color: #006992;
     --secondary-dark-color: #226185;
-    --terciary-color: #8BB5D4;
-    --terciary-dark-color: #496D87;
+    --tertiary-color: #8BB5D4;
+    --tertiary-dark-color: #496D87;
 
-    --white-font-color: #FAF9F6;
+    --white-font-color: #faf9f6;
     --black-font-color: #1c1c1c;
     --text-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.25);
 
@@ -184,7 +184,7 @@ button:focus-visible,
 
 .sweet_btn_success:focus {
   outline: var(--outline-tab-terciario) !important;
-  box-shadow: 0 0 5px var(--terciary-color) !important;
+  box-shadow: 0 0 5px var(--tertiary-color) !important;
 }
 
 .sweet_btn_danger {
@@ -198,7 +198,7 @@ button:focus-visible,
 
 .sweet_btn_danger:focus {
   outline: var(--outline-tab-terciario) !important;
-  box-shadow: 0 0 5px var(--terciary-color) !important;
+  box-shadow: 0 0 5px var(--tertiary-color) !important;
 }
 /* Fim dos estilos do SweetAlert */
 
@@ -255,7 +255,7 @@ button:focus-visible,
 
 /* --- INÍCIO CSS PADRÃO PARA BOTÕES --- */
 
-.btn-primary, .btn-secondary, .btn-terciary, .btn-quaternary{
+.btn-primary, .btn-secondary, .btn-tertiary, .btn-quaternary{
   transition: 0.4s transform ease, 0.6s opacity ease !important;
   box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.15);
 }
@@ -270,7 +270,7 @@ button:focus-visible,
   border-color: var(--cor-botao-danger) !important;
 }
 
-.btn-terciary{
+.btn-tertiary{
   background-color: var(--secondary-color) !important;
   border-color: var(--secondary-color) !important;
   color: var(--cor-fonte-preta) !important;
@@ -278,11 +278,11 @@ button:focus-visible,
 
 .btn-quaternary{
   background-color: transparent !important;
-  border: 2px solid var(--terciary-color) !important;
+  border: 2px solid var(--tertiary-color) !important;
   color: var(--white-font-color) !important;
 }
 
-.btn-primary:hover, .btn-secondary:hover, .btn-terciary:hover{
+.btn-primary:hover, .btn-secondary:hover, .btn-tertiary:hover{
   transform: translateY(-4px);
   opacity: 0.9;
 }
@@ -293,7 +293,7 @@ button:focus-visible,
   opacity: 0.8;
 }
 
-.btn-terciary:hover{
+.btn-tertiary:hover{
   color: var(--cor-fonte-preta) !important;
 }
 

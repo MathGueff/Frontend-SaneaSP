@@ -10,7 +10,7 @@ Este documento lista todas as variáveis de cor utilizadas no projeto, organizad
 - `--primary-color: #295A80;`  
 Cor principal do projeto. Utilizada para elementos de destaque, botões principais e links.
 
-- `--terciary-color: #7BAED2;`  
+- `--tertiary-color: #7BAED2;`  
 Cor complementar clara. Normalmente aplicada em fundos secundários ou detalhes de componentes.
 
 - `--secondary-color: #D9D9D9;`  

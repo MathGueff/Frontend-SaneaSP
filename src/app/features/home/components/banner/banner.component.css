@@ -30,7 +30,7 @@
 .cta-button {
   background: none;
   color: var(--white-font-color);
-  border: 2px solid var(--terciary-color);
+  border: 2px solid var(--tertiary-color);
   font-size: var(--md-text);
   font-weight: 500;
   padding: var(--space-3) var(--space-7);
