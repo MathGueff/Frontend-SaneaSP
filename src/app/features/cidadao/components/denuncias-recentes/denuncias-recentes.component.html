@@ -1,1 +1,22 @@
-<p>denuncias-recentes works!</p>
+<section>
+  <h2>Denúncias mais recentes</h2>
+  <hr />
+  <div class="row cards">
+    @for (item of teste; track $index) {
+    <div class="card-denuncia col-3">
+      <div class="card-header">
+        <img src="images/home/davy.webp" alt="Logo da organização" />
+        <span>Há uma semana</span>
+      </div>
+      <div class="card-body">
+        <img src="images/home/gueff.webp" alt="Imagem da denúncia" />
+        <h4>Título da denuncia</h4>
+        <span>{{item.description}}</span>
+      </div>
+      <div class="card-footer">
+        <button>Ver mais</button>
+      </div>
+    </div>
+    }
+  </div>
+</section>
