@@ -1,20 +1,20 @@
 <section>
-  <h2>Denúncias mais recentes</h2>
+  <h1 class="section-blue-title">Denúncias mais recentes</h1>
   <hr />
   <div class="row cards">
     @for (item of teste; track $index) {
     <div class="card-denuncia col-3">
       <div class="card-header">
-        <img src="images/home/davy.webp" alt="Logo da organização" />
+        <img src="wireframe/logo.jpg" alt="Logo da organização" />
         <span>Há uma semana</span>
       </div>
       <div class="card-body">
-        <img src="images/home/gueff.webp" alt="Imagem da denúncia" />
-        <h4>Título da denuncia</h4>
-        <span>{{item.description}}</span>
+        <img src="wireframe/denuncia.jpg" alt="Imagem da denúncia" />
+        <h3>Título da denuncia</h3>
+        <p>{{item.description}}</p>
       </div>
       <div class="card-footer">
-        <button>Ver mais</button>
+        <button class="action-button">Ver mais</button>
       </div>
     </div>
     }
