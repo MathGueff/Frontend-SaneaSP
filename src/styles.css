@@ -70,6 +70,20 @@
     --space-16: 64px; /* 16 * 4px */
   }
 
+/* Padronização dos headings */
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); }
+h4 { font-size: var(--h4); }
+
+/* Utilitários de texto */
+.text-h1 { font-size: var(--h1); }
+.text-h2 { font-size: var(--h2); }
+.text-h3 { font-size: var(--h3); }
+.text-lg  { font-size: var(--lg-text); }
+.text-md  { font-size: var(--md-text); }
+.text-sm  { font-size: var(--sm-text); }
+.text-xs  { font-size: var(--xs-text); }
 
 .section-blue-title, .section-black-title{
   font-size: var(--h2);
