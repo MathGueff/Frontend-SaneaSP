@@ -11,7 +11,7 @@
 :root{
     /* Cores de fundo */
     --background-dark-color: #AEB7BD;
-    --background-color: #D9D9D9;
+    --background-color: #f8f8f8; /* Antigamente D9D9D9 */
     --primary-color: #295A80;
     --primary-dark-color: #345976;
     --secondary-color: #006992;
