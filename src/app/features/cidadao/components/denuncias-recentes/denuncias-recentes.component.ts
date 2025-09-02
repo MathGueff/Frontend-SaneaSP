@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './denuncias-recentes.component.html',
-  styleUrl: './denuncias-recentes.component.css'
+  styleUrls: ['./denuncias-recentes.component.css', '../../pages/menu-cidadao/menu-cidadao.component.css']
 })
 export class DenunciasRecentesComponent {
   teste: { description: string }[] = [

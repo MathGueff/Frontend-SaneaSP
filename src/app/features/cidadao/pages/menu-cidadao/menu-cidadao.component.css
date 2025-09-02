@@ -1,0 +1,15 @@
+.title-separator{
+    color: var(--primary-color);
+    background-color: var(--primary-color);
+    height: 4px;
+    width: 50px;
+    opacity: 1;
+}
+
+.section-separator{
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+    opacity: 1;
+    height: 50px;
+}
+
