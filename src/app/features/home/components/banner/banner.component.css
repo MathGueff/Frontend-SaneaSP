@@ -6,28 +6,28 @@
   padding: var(--space-10);
 }
 
-.banner-content {
+.banner__content {
   width: 75vw;
   gap: var(--space-12);
   padding: var(--space-5);
 }
 
-.banner-text{
+.banner__text{
   gap: var(--space-8);
 }
 
-.banner-title {
+.banner__title {
   font-size: var(--h1);
   font-weight: 400;
   text-shadow: var(--text-shadow);
 }
 
-.banner-subtitle {
+.banner__subtitle {
   font-size: var(--md-text);
   font-weight: 300;
 }
 
-.cta-button {
+.button--cta {
   background: none;
   color: var(--white-font-color);
   border: 2px solid var(--tertiary-color);
@@ -42,7 +42,7 @@
 }
 
 @media (max-width: 768px) {
-  .banner-title {
+  .banner__title {
     font-size: var(--h4);
   }
 }

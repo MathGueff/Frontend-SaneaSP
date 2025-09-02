@@ -1,14 +1,14 @@
-<section>
-    <h1 class="section-blue-title">Principais categorias</h1>
+<section class="categories">
+    <h1 class="section__title--blue">Principais categorias</h1>
     <hr class="title-separator">
-    <div class="categories">
+    <div class="categories__grid">
         @for (categorie of categories; track $index) {
-            <div class="card-categorie">
+            <div class="categories__card">
                 <img src="wireframe/logo.jpg" alt="">
                 <span>1</span>
                 <span>{{categorie.name}}</span>
             </div>
         }
     </div>
-    <button class="action-button">Procurar denuncias</button>
+    <button class="button button--action">Procurar denuncias</button>
 </section>

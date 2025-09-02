@@ -1,44 +1,44 @@
 <!-- FAQ Section -->
-  <section class="faq">
-    <div class="faq-content">
-      <h2 class="faq-title">Perguntas frequentes</h2>
-      <div class="faq-row">
-        <!-- Cidadão FAQ -->
-        <div class="faq-column">
-          <h3 class="faq-column-title">Cidadãos</h3>
-          @for (question of cid_questions; track $index) {
-            <div class="faq-item">
-              <button class="faq-question" type="button" 
-                  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-cid-' + $index"
-                  aria-expanded="false" aria-controls="collapseExample">
-                {{question.title}}
-              </button>
-              <div class="collapse" id="collapse-cid-{{$index}}">
-                <div class="card card-body">
-                 {{question.content}}
-                </div>
+<section class="faq">
+  <div class="faq__content">
+    <h2 class="faq__title">Perguntas frequentes</h2>
+    <div class="faq__row">
+      <!-- Cidadão FAQ -->
+      <div class="faq__column">
+        <h3 class="faq__column-title">Cidadãos</h3>
+        @for (question of cid_questions; track $index) {
+          <div class="faq__item">
+            <button class="faq__question" type="button" 
+                data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-cid-' + $index"
+                aria-expanded="false" aria-controls="collapseExample">
+              {{question.title}}
+            </button>
+            <div class="collapse" id="collapse-cid-{{$index}}">
+              <div class="card card-body">
+               {{question.content}}
               </div>
             </div>
-          }
-        </div>
-        <!-- Organizações FAQ -->
-        <div class="faq-column">
-          <h3 class="faq-column-title">Organizações</h3>
-            @for (question of org_questions; track $index) {
-            <div class="faq-item">
-              <button class="faq-question" type="button" 
-                  data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-org-' + $index"
-                  aria-expanded="false" aria-controls="collapseExample">
-                {{question.title}}
-              </button>
-              <div class="collapse" id="collapse-org-{{$index}}">
-                <div class="card card-body">
-                 {{question.content}}
-                </div>
+          </div>
+        }
+      </div>
+      <!-- Organizações FAQ -->
+      <div class="faq__column">
+        <h3 class="faq__column-title">Organizações</h3>
+        @for (question of org_questions; track $index) {
+          <div class="faq__item">
+            <button class="faq__question" type="button" 
+                data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse-org-' + $index"
+                aria-expanded="false" aria-controls="collapseExample">
+              {{question.title}}
+            </button>
+            <div class="collapse" id="collapse-org-{{$index}}">
+              <div class="card card-body">
+               {{question.content}}
               </div>
             </div>
-          }
-        </div>
+          </div>
+        }
       </div>
     </div>
-  </section>
+  </div>
+</section>

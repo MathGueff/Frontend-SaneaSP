@@ -1,4 +1,4 @@
-section {
+.categories {
     text-align: center;
     display: flex;
     justify-content: center;
@@ -9,7 +9,7 @@ section {
     gap: var(--space-4);
 }
 
-.categories{
+.categories__grid{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,7 +17,7 @@ section {
     gap: var(--space-8);
 }
 
-.card-categorie{
+.categories__card{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -28,7 +28,7 @@ section {
     gap: var(--space-6);
 }
 
-.card-categorie img{
+.categories__card img{
     background-color: var(--background-dark-color);
     border-radius: 50%;
     width: 32px;
@@ -36,7 +36,8 @@ section {
     object-fit: cover;
 }
 
-.action-button{
+/*  Sobrescrita do estilo global */
+.button--action{
     padding: var(--space-4) var(--space-8);
     margin-top: var(--space-6);
 }

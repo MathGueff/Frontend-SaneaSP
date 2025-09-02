@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
   styleUrls: [
     './denuncias-recentes.component.css', 
     '../../pages/menu-cidadao/menu-cidadao.component.css',
-    '../../styles/denuncia.css'
   ]
 })
 export class DenunciasRecentesComponent {

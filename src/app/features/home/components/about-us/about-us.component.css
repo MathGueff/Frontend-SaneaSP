@@ -5,34 +5,34 @@
   padding: var(--space-10) var(--space-8);
 }
 
-.about-title {
+.about__title {
   font-size: var(--h1);
   margin-bottom: var(--space-8);
   font-weight: 400;
   text-shadow: var(--text-shadow);
 }
 
-.about-description {
+.about__description {
   font-size: var(--lg-text);
   margin-bottom: var(--space-12);
 }
 
-.about-logo {
+.about__logo {
   margin-bottom: var(--space-12);
 }
 
-.about-logo img {
+.about__logo img{
   width: 100px;
   height: 100px;
 }
 
-.team-avatars {
+.about__team-avatars {
   display: flex;
   justify-content: center;
   gap: var(--space-4);
 }
 
-.avatar {
+.about__avatar {
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -41,14 +41,14 @@
   box-shadow: var(--home-button-shadow);
 }
 
-.avatar img {
+.about__avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 @media (max-width: 768px) {
-  .team-avatars {
+  .about__team-avatars {
     flex-wrap: wrap;
   }
 }

@@ -85,7 +85,8 @@ h4 { font-size: var(--h4); }
 .text-sm  { font-size: var(--sm-text); }
 .text-xs  { font-size: var(--xs-text); }
 
-.section-blue-title, .section-black-title{
+/* Títulos de sections */
+.section__title--blue, .section__title--black{
   font-size: var(--h2);
   font-weight: 400;
   text-align: center;
@@ -93,21 +94,106 @@ h4 { font-size: var(--h4); }
   text-shadow: var(--text-shadow);
 } 
 
-.section-black-title{
+.section__title--black{
   color: var(--black-font-color);
 }
 
-.section-blue-title{
+.section__title--blue{
   color: var(--primary-color);
 }
 
-.action-button{
-  background-color: var(--secondary-color); 
-  color: var(--white-font-color);
+/*--- Padrão de botões ---*/
+.button{
   padding: var(--space-2) var(--space-6);
   border: none;
   border-radius: 5px;
-  font-size: var(--md-text);
   cursor: pointer;
+  font-size: var(--md-text);
+  box-shadow: var(--home-button-shadow);
+}
+/* Botão de ação */
+.button--action{
+  background-color: var(--secondary-color); 
+  color: var(--white-font-color);
 }
 
+/*--- Padrão de cards para denuncias ---*/
+/* Container de todos os cards */
+.complaint-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-5);
+}
+
+/* Card individual */
+.complaint-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 275px;
+}
+
+/* Cabeçalho do card */
+.complaint-card__header{
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.complaint-card__header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.complaint-card__header span {
+  color: var(--black-font-color);
+  font-size: var(--sm-text);
+}
+
+/* Corpo do card */
+.complaint-card__body {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: var(--space-2);
+  flex-grow: 1; 
+}
+
+.complaint-card__body img {
+  width: 100%; 
+  height: 180px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: var(--space-3);
+}
+
+.complaint-card__body h3 {
+  font-size: var(--lg-text);
+  font-weight: 500;
+  color: var(--black-font-color);
+  margin: 0 0 var(--space-1);
+}
+
+.complaint-card__body p {
+  font-size: var(--sm-text);
+  color: var(--black-font-color);
+  line-height: 1.4;
+  text-align: justify;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Rodapé do card */
+.complaint-card__footer {
+  margin-top: var(--space-3);
+  text-align: center;
+}

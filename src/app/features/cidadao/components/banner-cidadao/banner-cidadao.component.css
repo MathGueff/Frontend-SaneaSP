@@ -1,4 +1,4 @@
-section {
+.banner {
     background-image: var(--background-image);
     color: var(--white-font-color);
     display: flex;
@@ -9,21 +9,21 @@ section {
     gap: var(--space-6);
 }
 
-.banner-text{
+.banner__text{
     width: 50%;
     text-align: center;
     margin-top: var(--space-3);
 }
 
-.banner-text p{
+.banner__text p{
     font-size: var(--sm-text);
 }
 
-h1{
+.banner__title{
     font-size: var(--h3);
 }
 
-.banner-buttons{
+.banner__buttons{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@ h1{
     gap: var(--space-5);
 }
 
-.button{
+.banner__button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +45,7 @@ h1{
     font-size: var(--xs-text);
 }
 
-.button img {
+.banner__button img {
     width: 60px;
     height: 60px;
     border-radius: 50%;
