@@ -1,1 +1,22 @@
-<p>denuncias-gerais works!</p>
+<section>
+  <h1 class="section-blue-title">Denúncias mais recentes</h1>
+  <hr class="title-separator" />
+  <div class="row cards">
+    @for (item of teste; track $index) {
+    <div class="card-denuncia col-3">
+      <div class="card-header">
+        <img src="wireframe/logo.jpg" alt="Logo da organização" />
+        <span>Há uma semana</span>
+      </div>
+      <div class="card-body">
+        <img src="wireframe/denuncia.jpg" alt="Imagem da denúncia" />
+        <h3>Título da denuncia</h3>
+        <p>{{item.description}}</p>
+      </div>
+      <div class="card-footer">
+        <button class="action-button">Ver mais</button>
+      </div>
+    </div>
+    }
+  </div>
+</section>
