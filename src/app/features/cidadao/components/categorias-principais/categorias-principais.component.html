@@ -1,1 +1,14 @@
-<p>categorias-principais works!</p>
+<section>
+    <h1 class="section-blue-title">Principais categorias</h1>
+    <hr class="title-separator">
+    <div class="categories">
+        @for (categorie of categories; track $index) {
+            <div class="card-categorie">
+                <img src="wireframe/logo.jpg" alt="">
+                <span>1</span>
+                <span>{{categorie.name}}</span>
+            </div>
+        }
+    </div>
+    <button class="action-button">Procurar denuncias</button>
+</section>
