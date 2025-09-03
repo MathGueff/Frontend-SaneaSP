@@ -14,11 +14,12 @@ nav {
   gap: var(--space-8);
 }
 
-.nav-link {
+.nav__link {
   color: var(--white-font-color);
   font-size: var(--sm-text);
   text-decoration: none;
   font-weight: 400;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

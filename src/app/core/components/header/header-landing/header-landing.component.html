@@ -1,6 +1,6 @@
 <nav class="container d-flex justify-content-center align-items-center">
     @for (link of navbarLinks; track $index) { 
-        <button (click)="scrollTo(link.path)" class="nav-link">{{link.name}}</button> 
+        <a (click)="scrollTo(link.path)" class="nav__link">{{link.name}}</a> 
     }
 </nav>
 

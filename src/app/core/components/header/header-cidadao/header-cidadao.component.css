@@ -1,0 +1,40 @@
+.nav-cidadao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-10);
+}
+
+.nav-cidadao__logo{
+    width: 36px;
+    height: 36px;
+    transition: 1s all ease;
+}
+
+.nav-cidadao__logo:hover{
+    /* transform: translate(-8px); */
+}
+
+.nav__link--home{
+    cursor: pointer;
+}
+
+.nav-cidadao__links, .nav-cidadao__buttons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-cidadao__links{
+    gap: var(--space-6);
+}
+
+.nav-cidadao__buttons{
+    gap: var(--space-2);
+}
+
+.nav__login, .nav__register{
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
