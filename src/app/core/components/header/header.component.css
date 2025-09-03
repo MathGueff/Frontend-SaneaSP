@@ -1,5 +1,9 @@
 /* Header */
-header {
+.main-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-8);
   background-image: var(--background-image);
   position: sticky;
   top: 0;
@@ -12,6 +16,16 @@ nav {
   display: flex;
   justify-content: center;
   gap: var(--space-8);
+}
+
+.nav__link--home{
+    cursor: pointer;
+}
+
+.nav__logo {
+  width: 64px;
+  height: 64px;
+  transition: 1s all ease;
 }
 
 .nav__link {

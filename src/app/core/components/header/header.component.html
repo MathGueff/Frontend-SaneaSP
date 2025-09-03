@@ -1,4 +1,7 @@
-<header class="d-flex justify-content-center align-items-center">
+<header class="main-header">
+  <div class="nav__link--home" routerLink="/">
+      <img class="nav__logo" src="logo_sanea_sp.png" alt="">
+  </div>
   @switch (currentContext) {
     @case ("principal") {
       <app-header-landing></app-header-landing>

@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavigationEnd, Router } from "@angular/router";
+import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { HeaderLandingComponent } from "./header-landing/header-landing.component";
 import { HeaderCidadaoComponent } from "./header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
 @Component({
   selector: "app-header",
   standalone: true,
-  imports: [CommonModule, HeaderLandingComponent, HeaderCidadaoComponent],
+  imports: [CommonModule, HeaderLandingComponent, HeaderCidadaoComponent, RouterLink],
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.css",
 })

@@ -1,7 +1,4 @@
 <nav class="nav-cidadao">
-    <div class="nav__link--home" routerLink="/">
-        <img class="nav-cidadao__logo" src="icon_saneaSP.ico" alt="">
-    </div>
     <div class="nav-cidadao__links">
         @for (link of navbarLinks; track $index) { 
             <a routerLink="{{link.path}}" class="nav__link">{{link.name}}</a> 
