@@ -1,9 +1,9 @@
 /* Header */
 .main-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--space-8);
+  padding: 0 var(--space-6);
   background-image: var(--background-image);
   position: sticky;
   top: 0;
@@ -18,8 +18,8 @@ nav {
   gap: var(--space-8);
 }
 
-.nav__link--home{
-    cursor: pointer;
+.nav__link--home {
+  cursor: pointer;
 }
 
 .nav__logo {
@@ -34,6 +34,18 @@ nav {
   text-decoration: none;
   font-weight: 400;
   cursor: pointer;
+}
+
+.nav-cidadao__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav__login, .nav__register{
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
