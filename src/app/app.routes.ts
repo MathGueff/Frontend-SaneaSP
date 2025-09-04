@@ -4,6 +4,7 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { AdminGuard } from '@core/guards/auth-admin.guard';
 import { CidadaoLayoutComponent } from '@features/cidadao/pages/layout/layout.component';
 import { MenuCidadaoComponent } from '@features/cidadao/pages/menu-cidadao/menu-cidadao.component';
+import { LoginComponent as CidadaoLoginComponent} from '@features/cidadao/pages/login/login.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -15,5 +16,11 @@ export const routes: Routes = [
     children: [
       {path : '', component:MenuCidadaoComponent}
     ]
-  }
+  },
+
+  //Login
+  {path: 'login', component:CidadaoLoginComponent},
+
+  //Cadastro
+  {path: 'register', component:CidadaoLoginComponent}
 ];

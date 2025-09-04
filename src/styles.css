@@ -111,6 +111,7 @@ h4 { font-size: var(--h4); }
   font-size: var(--md-text);
   box-shadow: var(--home-button-shadow);
 }
+
 /* Botão de ação */
 .button--action{
   background-color: var(--secondary-color); 
