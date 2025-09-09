@@ -12,9 +12,9 @@ export const routes: Routes = [
 
   //Área do cidadão
   {
-    path: 'cidadao', component:CidadaoLayoutComponent,
+    path: 'cidadao', component:MenuCidadaoComponent,
     children: [
-      {path : '', component:MenuCidadaoComponent}
+      
     ]
   },
 
