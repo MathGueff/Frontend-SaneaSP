@@ -14,10 +14,10 @@
     }
   }
   <div class="nav-cidadao__buttons">
-      <a routerLink="/login" class="button nav__login">
+      <a (click)="buttonOnClick('login')" class="button nav__login">
           Entrar
       </a>
-      <a routerLink="/register" class="button nav__register">
+      <a (click)="buttonOnClick('register')" class="button nav__register">
           Cadastrar
       </a>
   </div>

@@ -1,0 +1,72 @@
+<div class="form-step">
+  <h2 class="form-step__title section__title--blue">Cadastro - Etapa 1</h2>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form-step__form">
+    
+    <!-- Nome -->
+    <div class="form-step__group">
+      <label class="form-step__label" for="nome">Nome</label>
+      <input
+        id="nome"
+        type="text"
+        formControlName="nome"
+        class="form-step__input"
+        placeholder="Digite seu nome"
+      />
+      <span *ngIf="cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.invalid" class="form-step__error">
+        Nome é obrigatório e deve ter ao menos 3 caracteres.
+      </span>
+    </div>
+
+    <!-- Email -->
+    <div class="form-step__group">
+      <label class="form-step__label" for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-step__input"
+        placeholder="Digite seu email"
+      />
+      <span *ngIf="cadastroForm.get('email')?.touched && cadastroForm.get('email')?.invalid" class="form-step__error">
+        Email inválido.
+      </span>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-step__group">
+      <label class="form-step__label" for="telefone">Telefone</label>
+      <input
+        id="telefone"
+        type="tel"
+        formControlName="telefone"
+        class="form-step__input"
+        placeholder="(00) 00000-0000"
+      />
+      <span *ngIf="cadastroForm.get('telefone')?.touched && cadastroForm.get('telefone')?.invalid" class="form-step__error">
+        Telefone é obrigatório.
+      </span>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-step__group">
+      <label class="form-step__label" for="senha">Senha</label>
+      <input
+        id="senha"
+        type="password"
+        formControlName="senha"
+        class="form-step__input"
+        placeholder="Digite sua senha"
+      />
+      <span *ngIf="cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.invalid" class="form-step__error">
+        Senha deve ter ao menos 6 caracteres.
+      </span>
+    </div>
+
+    <!-- Botão -->
+    <div class="form-step__actions">
+      <button type="submit" class="button button--action">Próximo</button>
+    </div>
+
+  </form>
+</div>
