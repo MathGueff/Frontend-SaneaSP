@@ -1,4 +1,4 @@
-<section class="login-section">
+<section class="auth-section">
     <div class="form">
         <header class="form__header">
             <h1 class="form__title">
@@ -6,17 +6,17 @@
             </h1>
         </header>
 
-        <hr class="login__header-separator">
+        <hr class="form__separator--header">
 
         <div class="form__body">
             <div class="form__field">
                 <label for="" class="form__label">Email</label>
-                <input type="text" class="form__input" placeholder="john@gmail.com">
+                <input type="email" class="form__input" placeholder="john@gmail.com">
             </div>
             <div class="password-container">
                 <div class="form__field">
                     <label for="" class="form__label">Senha</label>
-                    <input type="text" class="form__input" placeholder="Sua senha">
+                    <input type="password" class="form__input" placeholder="Sua senha">
                 </div>
                 <span class="forget-password">Esqueci minha senha</span>
             </div>
@@ -24,7 +24,7 @@
        
         <footer class="form__footer">
             <div class="footer__buttons">
-                <button class="button button--action form__button--submit">
+                <button class="button form__button--submit">
                     ENTRAR
                 </button>
                 <button class="button form__button--google">
@@ -32,8 +32,10 @@
                     Login com google
                 </button>
             </div>
-            <hr class="login__footer-separator">
-            <span class="footer__link">Não possui conta? <span class="to-register-link">Crie uma</span></span>
+            <p class="footer__link">
+                Não possui uma conta ainda? 
+                <a routerLink="/cidadao/register" class="footer__link--anchor">Crie uma</a>
+            </p>
         </footer>
     </div>
 </section>
