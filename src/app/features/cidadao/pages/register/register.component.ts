@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
 cadastroForm: FormGroup;
@@ -16,8 +17,8 @@ cadastroForm: FormGroup;
     this.cadastroForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      telefone: ['', [Validators.required]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
+      confirmacao_senha: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

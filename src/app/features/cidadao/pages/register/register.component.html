@@ -1,72 +1,82 @@
-<div class="form-step">
-  <h2 class="form-step__title section__title--blue">Cadastro - Etapa 1</h2>
+<section class="auth-section">
+  <div class="form">
+    <header class="form__header">
+      <h1 class="form__title">Crie sua conta</h1>
+      <hr class="form__separator--header" />
+      <span>Digite as informações necessárias para o seu cadastro</span>
+    </header>
 
-  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form-step__form">
-    
-    <!-- Nome -->
-    <div class="form-step__group">
-      <label class="form-step__label" for="nome">Nome</label>
-      <input
-        id="nome"
-        type="text"
-        formControlName="nome"
-        class="form-step__input"
-        placeholder="Digite seu nome"
-      />
-      <span *ngIf="cadastroForm.get('nome')?.touched && cadastroForm.get('nome')?.invalid" class="form-step__error">
-        Nome é obrigatório e deve ter ao menos 3 caracteres.
-      </span>
+    <div class="form__body">
+      <img class="form__img" src="images/register/register_vector.webp" alt="">
+      <form
+        [formGroup]="cadastroForm"
+        (ngSubmit)="onSubmit()"
+        class="form__form"
+      >
+        <!-- Nome -->
+        <div class="form__field">
+          <label for="nome" class="form__label">Nome</label>
+          <input
+            id="nome"
+            type="text"
+            formControlName="nome"
+            class="form__input"
+            placeholder="Digite seu nome"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="form__field">
+          <label for="email" class="form__label">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form__input"
+            placeholder="Digite seu email"
+          />
+        </div>
+
+        <!-- Senha -->
+        <div class="form__field">
+          <label for="telefone" class="form__label">Senha</label>
+          <input
+            id="senha"
+            type="password"
+            formControlName="senha"
+            class="form__input"
+            placeholder="Digite uma senha segura"
+          />
+        </div>
+
+        <!-- Confirmação de senha -->
+        <div class="form__field">
+          <label for="senha" class="form__label">Confirme sua senha</label>
+          <input
+            id="confirmacao_senha"
+            type="password"
+            formControlName="confirmacao_senha"
+            class="form__input"
+            placeholder="Confirme a senha"
+          />
+        </div>
+      </form>
     </div>
-
-    <!-- Email -->
-    <div class="form-step__group">
-      <label class="form-step__label" for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        formControlName="email"
-        class="form-step__input"
-        placeholder="Digite seu email"
-      />
-      <span *ngIf="cadastroForm.get('email')?.touched && cadastroForm.get('email')?.invalid" class="form-step__error">
-        Email inválido.
-      </span>
-    </div>
-
-    <!-- Telefone -->
-    <div class="form-step__group">
-      <label class="form-step__label" for="telefone">Telefone</label>
-      <input
-        id="telefone"
-        type="tel"
-        formControlName="telefone"
-        class="form-step__input"
-        placeholder="(00) 00000-0000"
-      />
-      <span *ngIf="cadastroForm.get('telefone')?.touched && cadastroForm.get('telefone')?.invalid" class="form-step__error">
-        Telefone é obrigatório.
-      </span>
-    </div>
-
-    <!-- Senha -->
-    <div class="form-step__group">
-      <label class="form-step__label" for="senha">Senha</label>
-      <input
-        id="senha"
-        type="password"
-        formControlName="senha"
-        class="form-step__input"
-        placeholder="Digite sua senha"
-      />
-      <span *ngIf="cadastroForm.get('senha')?.touched && cadastroForm.get('senha')?.invalid" class="form-step__error">
-        Senha deve ter ao menos 6 caracteres.
-      </span>
-    </div>
-
-    <!-- Botão -->
-    <div class="form-step__actions">
-      <button type="submit" class="button button--action">Próximo</button>
-    </div>
-
-  </form>
-</div>
+    <footer class="form__footer">
+      <div class="footer__buttons">
+        <button
+          type="submit"
+          form="cadastroForm"
+          class="button form__button--submit"
+        >
+          CRIAR
+        </button>
+      </div>
+      <hr class="form__separator--footer">
+      <p class="footer__link">
+        Já possui uma conta? 
+        <a routerLink="/cidadao/login" class="footer__link--anchor">Faça login</a>
+      </p>
+    </footer>
+  </div>
+</section>
