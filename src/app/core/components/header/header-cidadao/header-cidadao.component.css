@@ -12,6 +12,5 @@
 }
 
 .nav-cidadao__links{
-    gap: var(--space-6);
+    gap: var(--space-10);
 }
-

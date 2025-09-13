@@ -1,24 +1,26 @@
 <header class="main-header">
   <div class="nav__link--home" routerLink="/">
-      <img class="nav__logo" src="logo/sanea_sp.png" alt="">
+      <img class="nav__logo" src="logo/sanea_sp.png" alt="Voltar para o menu">
   </div>
-  @switch (currentContext) {
-    @case ("principal") {
-      <app-header-landing></app-header-landing>
-    }
-    @case ("cidadao") {
-      <app-header-cidadao></app-header-cidadao>
-    }
-    @case ("organizacao") {
-      <app-header-cidadao></app-header-cidadao>
-    }
+  <div>
+    @switch (currentContext) {
+      @case ("principal") {
+        <app-header-landing></app-header-landing>
+      }
+      @case ("cidadao") {
+        <app-header-cidadao></app-header-cidadao>
+      }
+      @case ("organizacao") {
+        <app-header-cidadao></app-header-cidadao>
+      }
   }
-  <div class="nav-cidadao__buttons">
-      <a (click)="buttonOnClick('login')" class="button nav__login">
-          Entrar
-      </a>
-      <a (click)="buttonOnClick('register')" class="button nav__register">
-          Cadastrar
-      </a>
   </div>
-</header>
+  @if(!this.user){
+    <div class="nav__buttons">
+      <a (click)="buttonOnClick('login')" class="button nav__login"> Entrar </a>
+      <a (click)="buttonOnClick('register')" class="button nav__register">
+        Cadastrar
+      </a>
+    </div>
+  }
+</header> 

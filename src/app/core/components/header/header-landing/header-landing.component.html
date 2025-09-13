@@ -1,4 +1,4 @@
-<nav class="container d-flex justify-content-center align-items-center">
+<nav class="nav-landing">
     @for (link of navbarLinks; track $index) { 
         <a (click)="linkAction(link)" class="nav__link">{{link.name}}</a> 
     }

@@ -1,7 +1,5 @@
-import { Component, inject } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 import { INavbarLink } from "@core/models/navbar-link.model";
-import { HeaderComponent } from "../header.component";
 import { HeaderBase } from "../header-base";
 
 @Component({
@@ -14,8 +12,6 @@ import { HeaderBase } from "../header-base";
 export class HeaderLandingComponent extends HeaderBase{
   navbarLinks: INavbarLink[] = [
     { path: "cidadao", name: "Criar denúncia", type : "page"},
-    { path: "cidadao", name: "Administrar minha região", type : "page"},
-    { path: "about-us", name: "Sobrenós", type : "section" },
-    { path: "faq", name: "Perguntas frequentes", type : "section" },
+    { path: "cidadao", name: "Administrar minha organização", type : "page"}
   ];
 }

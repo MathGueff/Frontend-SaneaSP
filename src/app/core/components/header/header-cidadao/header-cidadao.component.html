@@ -1,8 +1,8 @@
 <nav class="nav-cidadao">
-    <div class="nav-cidadao__links">
-        @for (link of navbarLinks; track $index) { 
-            <a (click)="linkAction(link)" class="nav__link">{{link.name}}</a> 
-        }
-    </div>
-    
+  @for (link of navbarLinks; track $index) {
+  <a (click)="linkAction(link)" class="nav__link">{{ link.name }}</a>
+  }
+
+  
 </nav>
+
