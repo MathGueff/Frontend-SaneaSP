@@ -7,7 +7,7 @@ import { LoginComponent as CidadaoLoginComponent} from '@features/cidadao/pages/
 import { RegisterComponent as CidadaoRegisterComponent } from '@features/cidadao/pages/register/register.component';
 import { ProfileComponent as CidadaoProfileComponent } from '@features/cidadao/pages/profile/profile.component';
 import { LayoutCidadaoComponent } from '@features/layout/layout-cidadao/layout-cidadao.component';
-import { PersonalDataComponent } from '@features/cidadao/components/personal-data/personal-data.component';
+import { PersonalDataComponent } from '@features/cidadao/components/dados-pessoais/dados-pessoais.component';
 
 export const routes: Routes = [
   //Página inicial
