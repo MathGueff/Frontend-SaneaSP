@@ -1,11 +1,12 @@
 import { Component, inject } from "@angular/core";
-import { ActivatedRoute, NavigationEnd, Router, RouterLink } from "@angular/router";
+import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { HeaderLandingComponent } from "./header-landing/header-landing.component";
 import { HeaderCidadaoComponent } from "./header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { PathService } from "@shared/services/path.service";
 import { AuthService } from "@core/services/auth.service";
+import { HeaderButtonsType, HeaderType } from "@core/models/header.model";
 
 @Component({
   selector: "app-header",
@@ -15,17 +16,20 @@ import { AuthService } from "@core/services/auth.service";
   styleUrl: "./header.component.css",
 })
 export class HeaderComponent {
+  //Enums para utilização no HTML
+  protected HeaderType = HeaderType;
+  protected HeaderButtonsType = HeaderButtonsType;
+  
   private authService = inject(AuthService);
+
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute, 
+    private router: Router,
     private path : PathService
   ) {}
 
   protected user = this.authService.getCurrentUser();
-  public currentContext: "principal" | "cidadao" | "organizacao" = "principal";
+  public currentContext: HeaderType = HeaderType.PRINCIPAL;
   private destroy$ = new Subject<void>();
-  
   
   ngOnInit() {
     this.router.events
@@ -43,10 +47,11 @@ export class HeaderComponent {
     this.destroy$.complete();
   }
 
-  buttonOnClick(method : 'login' | 'register'){
+  buttonOnClick(method : HeaderButtonsType){
     const currentUrl = this.router.url;
     const parent = this.path.getActualParent(currentUrl);
-    if(parent != 'principal')
-      this.router.navigate([`${parent}/${method}`]);
+    const route = `${parent}/${method}`;
+    if(parent != HeaderType.PRINCIPAL)
+      this.router.navigate([route]);
   }
 }

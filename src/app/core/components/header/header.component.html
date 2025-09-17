@@ -4,22 +4,24 @@
   </div>
   <div>
     @switch (currentContext) {
-      @case ("principal") {
+      @case (HeaderType.PRINCIPAL) {
         <app-header-landing></app-header-landing>
       }
-      @case ("cidadao") {
+      @case (HeaderType.CIDADAO) {
         <app-header-cidadao></app-header-cidadao>
       }
-      @case ("organizacao") {
+      @case (HeaderType.ORGANIZACAO) {
         <app-header-cidadao></app-header-cidadao>
       }
   }
   </div>
   @if(!this.user){
     <div class="nav__buttons">
-      <a (click)="buttonOnClick('login')" class="button nav__login"> Entrar </a>
-      <a (click)="buttonOnClick('register')" class="button nav__register">
+      <a (click)="buttonOnClick(HeaderButtonsType.LOGIN)" class="button nav__login"> Entrar </a>
+      <a (click)="buttonOnClick(HeaderButtonsType.REGISTER)" class="button nav__register">
         Cadastrar
+      </a><a (click)="buttonOnClick(HeaderButtonsType.PROFILE)" class="button nav__register">
+        Perfil
       </a>
     </div>
   }

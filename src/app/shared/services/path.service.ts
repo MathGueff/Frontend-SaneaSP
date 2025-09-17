@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HeaderType } from '@core/models/header.model';
 
 @Injectable({ providedIn: 'root' })
 export class PathService {
-    public getActualParent(url: string): 'principal' | 'cidadao' | 'organizacao' {
+    public getActualParent(url: string): HeaderType {
         if (url.startsWith("/cidadao")) {
-            return "cidadao";
+            return HeaderType.CIDADAO;
         } else if (url.startsWith("/organizacao")) {
-            return "organizacao";
+            return HeaderType.ORGANIZACAO;
         } else {
-            return "principal";
+            return HeaderType.PRINCIPAL;
         }
     }
 }
