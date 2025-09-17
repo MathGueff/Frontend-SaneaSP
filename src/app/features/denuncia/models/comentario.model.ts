@@ -1,4 +1,4 @@
-import { Reclamacao } from "@features/reclamacao/models/reclamacao.model";
+import { Reclamacao } from "@features/denuncia/models/reclamacao.model";
 import { IUser } from "@features/usuario/models/usuario.model";
 
 export class Comentario {
