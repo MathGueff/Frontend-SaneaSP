@@ -7,6 +7,7 @@ import { LoginComponent as CidadaoLoginComponent} from '@features/cidadao/pages/
 import { RegisterComponent as CidadaoRegisterComponent } from '@features/cidadao/pages/register/register.component';
 import { ProfileComponent as CidadaoProfileComponent } from '@features/cidadao/pages/profile/profile.component';
 import { LayoutCidadaoComponent } from '@features/layout/layout-cidadao/layout-cidadao.component';
+import { PersonalDataComponent } from '@features/cidadao/components/personal-data/personal-data.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -23,7 +24,7 @@ export const routes: Routes = [
       {
         path: 'profile', component: CidadaoProfileComponent, 
         children : [
-          {path: 'me', component: CidadaoProfileComponent}, 
+          {path: 'me', component: PersonalDataComponent}, 
           {path: 'complaints', component: CidadaoProfileComponent}, 
           {path: 'saved-addresses', component: CidadaoProfileComponent}, 
           {path: 'menu', component: CidadaoProfileComponent}, 

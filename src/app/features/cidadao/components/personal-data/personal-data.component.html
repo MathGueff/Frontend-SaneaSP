@@ -1,0 +1,14 @@
+<section class="personal-data">
+    @for (group of profileGroups; track $index) {
+        <div [class]="'personal-data__group personal-data__group--'+ group.modifier">
+            <h2 class="personal-data__group-title">{{group.title}}</h2>
+            @for (field of group.fields; track $index) {
+                <div class="personal-data__field">
+                    <h4 class="personal-data__field-title">{{field.label}}</h4>
+                    <span class="personal-data__field-value">{{field.value}}</span>
+                </div>
+            }
+            <button class="button button--edit-profile">Editar</button>
+        </div>
+    }
+</section>
