@@ -1,0 +1,18 @@
+<div class="complaint-cards">
+  @for (denuncia of denuncias; track $index) {
+  <div class="complaint-card">
+    <div class="complaint-card__header">
+      <img src="wireframe/logo.jpg" alt="Logo da organização" />
+      <span>Há uma semana</span>
+    </div>
+    <div class="complaint-card__body">
+      <img src="wireframe/denuncia.jpg" alt="Imagem da denúncia" />
+      <h3>Título da denuncia</h3>
+      <p>{{ denuncia.descricao }}</p>
+    </div>
+    <div class="complaint-card__footer">
+      <button class="button button--action">Ver mais</button>
+    </div>
+  </div>
+  }
+</div>
