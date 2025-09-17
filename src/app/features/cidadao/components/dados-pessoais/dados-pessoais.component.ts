@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { IField } from '@shared/models/field.model';
 
 @Component({
-  selector: 'app-personal-data',
+  selector: 'app-dados-pessoais',
   standalone: true,
   imports: [],
-  templateUrl: './personal-data.component.html',
-  styleUrl: './personal-data.component.css'
+  templateUrl: './dados-pessoais.component.html',
+  styleUrl: './dados-pessoais.component.css'
 })
 export class PersonalDataComponent {
   accessFields: IField[] = [
