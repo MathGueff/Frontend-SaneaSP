@@ -1,5 +1,5 @@
 export interface ILink{
-    name ?: string,
-    path ?: string
+    name : string,
+    path : string
     img ?: string
 }
