@@ -5,6 +5,7 @@ import { AdminGuard } from '@core/guards/auth-admin.guard';
 import { MenuCidadaoComponent } from '@features/cidadao/pages/menu-cidadao/menu-cidadao.component';
 import { LoginComponent as CidadaoLoginComponent} from '@features/cidadao/pages/login/login.component';
 import { RegisterComponent as CidadaoRegisterComponent } from '@features/cidadao/pages/register/register.component';
+import { ProfileComponent as CidadaoProfileComponent } from '@features/cidadao/pages/profile/profile.component';
 import { LayoutCidadaoComponent } from '@features/layout/layout-cidadao/layout-cidadao.component';
 
 export const routes: Routes = [
@@ -18,7 +19,17 @@ export const routes: Routes = [
       {path: '', redirectTo: 'menu', pathMatch: 'full' },
       {path: 'menu', component: MenuCidadaoComponent},
       {path: 'login', component: CidadaoLoginComponent},
-      {path: 'register', component: CidadaoRegisterComponent}
+      {path: 'register', component: CidadaoRegisterComponent},
+      {
+        path: 'profile', component: CidadaoProfileComponent, 
+        children : [
+          {path: 'me', component: CidadaoProfileComponent}, 
+          {path: 'complaints', component: CidadaoProfileComponent}, 
+          {path: 'saved-addresses', component: CidadaoProfileComponent}, 
+          {path: 'menu', component: CidadaoProfileComponent}, 
+          {path: 'notifications', component: CidadaoProfileComponent}, 
+        ]
+      }
     ]
   }
 ];
