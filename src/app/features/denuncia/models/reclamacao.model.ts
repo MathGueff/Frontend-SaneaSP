@@ -2,19 +2,19 @@ import { IImagem } from "@features/denuncia/models/imagem.model";
 import { ICategoria } from "@features/categoria/models/categoria.model";
 import { IUser } from "@features/usuario/models/usuario.model";
 
-export enum StatusReclamacao{
+export enum StatusDenuncia{
     Aberto,
     Visualizada,
     Analise,
     Resolvida
 }
 
-export class Reclamacao implements IReclamacao{
+export class Denuncia implements IDenuncia{
     id !: number;
     titulo !: string;
     descricao !: string;
     data!: Date;
-    status !: StatusReclamacao;
+    status !: StatusDenuncia;
     pontuacao !: number;
     cep ?: string;
     cidade ?: string;
@@ -27,12 +27,12 @@ export class Reclamacao implements IReclamacao{
     Categorias !: ICategoria[];
 }
 
-export interface IReclamacao{
+export interface IDenuncia{
     id : number,
     titulo: string,
     descricao: string,
     data: Date,
-    status: StatusReclamacao,
+    status: StatusDenuncia,
     pontuacao: number,
     cep ?: string,
     cidade ?: string,
@@ -44,7 +44,7 @@ export interface IReclamacao{
     Imagens : IImagem[],
     Categorias : ICategoria[],
 }
-export interface ICreateReclamacao{
+export interface ICreateDenuncia{
     titulo: string,
     descricao: string,
     cep ?: string,

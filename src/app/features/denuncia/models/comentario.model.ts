@@ -1,4 +1,4 @@
-import { Reclamacao } from "@features/denuncia/models/reclamacao.model";
+import { Denuncia } from "@features/denuncia/models/reclamacao.model";
 import { IUser } from "@features/usuario/models/usuario.model";
 
 export class Comentario {
@@ -6,6 +6,6 @@ export class Comentario {
   descricaoComentario:string = '';
   dataComentario: string = ''; //por enquanto é tipo String
   objAdmin: string | null = null; // ObjAdmin será do tipo number, como usa-lo como se fosse o Id do Admin. O tipo null é para poder controlar o comentario
-  objReclamacao !: Reclamacao;
+  objReclamacao !: Denuncia;
   objUsuario !: IUser;
 }
