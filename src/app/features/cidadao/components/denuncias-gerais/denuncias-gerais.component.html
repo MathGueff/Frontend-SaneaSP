@@ -21,23 +21,5 @@
       </div>
     </div>
   </div>
-  <div class="complaint-cards">
-    @for (item of teste; track $index) {
-    <!-- TODO: separar em componente feature/denuncia/components/complaint-card -->
-    <div class="complaint-card">
-      <div class="complaint-card__header">
-        <img src="wireframe/logo.jpg" alt="Logo da organização" />
-        <span>Há uma semana</span>
-      </div>
-      <div class="complaint-card__body">
-        <img src="wireframe/denuncia.jpg" alt="Imagem da denúncia" />
-        <h3>Título da denuncia</h3>
-        <p>{{item.description}}</p>
-      </div>
-      <div class="complaint-card__footer">
-        <button class="button button--action">Ver mais</button>
-      </div>
-    </div>
-    }
-  </div>
+  <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
 </section>
