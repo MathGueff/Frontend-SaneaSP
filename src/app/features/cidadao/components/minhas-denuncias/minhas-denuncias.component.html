@@ -1,1 +1,15 @@
-<p>minhas-denuncias works!</p>
+<section class="minhas-denuncias">
+    <app-denuncia-pesquisa></app-denuncia-pesquisa>
+    <!-- DENUNCIAS EM ABERTO -->
+    <h2 class="minhas-denuncias__title">Denuncias em aberto</h2>
+    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+    <!-- DENUNCIAS VISUALIZADAS -->
+    <h2 class="minhas-denuncias__title">Denuncias visualizadas</h2>
+    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+    <!-- DENUNCIAS EM ANALISE -->
+    <h2 class="minhas-denuncias__title">Denuncias em análise</h2>
+    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+    <!-- DENUNCIAS RESOLVIDA -->
+    <h2 class="minhas-denuncias__title">Denuncias resolvidas</h2>
+    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+</section>

@@ -8,7 +8,7 @@ import { IField } from '@shared/models/field.model';
   templateUrl: './dados-pessoais.component.html',
   styleUrl: './dados-pessoais.component.css'
 })
-export class PersonalDataComponent {
+export class DadosPessoaisComponent {
   accessFields: IField[] = [
     { label: "Email", value: "gueffmatheus@gmail.com" },
     { label: "Senha", value: "********" }
