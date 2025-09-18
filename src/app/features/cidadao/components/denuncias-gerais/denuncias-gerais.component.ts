@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { DenunciasGridComponent } from "@features/denuncia/components/denuncias-grid/denuncias-grid.component";
 import { IDenuncia, StatusDenuncia } from '@features/denuncia/models/denuncia.model';
+import { DenunciaPesquisaComponent } from "@features/denuncia/components/denuncia-pesquisa/denuncia-pesquisa.component";
 
 @Component({
   selector: 'app-denuncias-gerais',
   standalone: true,
-  imports: [DenunciasGridComponent],
+  imports: [DenunciasGridComponent, DenunciaPesquisaComponent],
   templateUrl: './denuncias-gerais.component.html',
   styleUrls: [
     './denuncias-gerais.component.css',
