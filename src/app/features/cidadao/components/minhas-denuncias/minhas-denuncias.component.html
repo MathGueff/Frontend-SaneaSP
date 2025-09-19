@@ -1,15 +1,55 @@
 <section class="minhas-denuncias">
-    <app-denuncia-pesquisa></app-denuncia-pesquisa>
-    <!-- DENUNCIAS EM ABERTO -->
-    <h2 class="minhas-denuncias__title">Denuncias em aberto</h2>
+  <div class="minhas-denuncias__status-search">
+    <h2>Procurar denúncias</h2>
+    <div class="minhas-denuncias__filters">
+      <button class="minhas-denuncias__filter button">
+        <img src="icons/ui/white/denuncia_icon.svg" alt="Em aberto">
+        Em aberto
+      </button>
+      <button class="minhas-denuncias__filter button">
+        <img src="icons/ui/white/denuncia_icon.svg" alt="Visualizada">
+        Visualizada
+      </button>
+      <button class="minhas-denuncias__filter button">
+        <img src="icons/ui/white/denuncia_icon.svg" alt="Em análise">
+        Em análise
+      </button>
+      <button class="minhas-denuncias__filter button">
+        <img src="icons/ui/white/denuncia_icon.svg" alt="Concluída">
+        Concluída
+      </button>
+    </div>
+  </div>
+
+  <section class="complaint-list complaint-list--opened">
+    <header class="complaint-list__header">
+      <h2 class="minhas-denuncias__title">Denúncias em aberto</h2>
+      <p class="minhas-denuncias__description">Aguarde até que sua denúncia seja visualizada</p>
+    </header>
     <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-    <!-- DENUNCIAS VISUALIZADAS -->
-    <h2 class="minhas-denuncias__title">Denuncias visualizadas</h2>
+  </section>
+
+  <section class="complaint-list complaint-list--viewed">
+    <header class="complaint-list__header">
+      <h2 class="minhas-denuncias__title">Denúncias visualizadas</h2>
+      <p class="minhas-denuncias__description">Sua denúncia logo será respondida</p>
+    </header>
     <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-    <!-- DENUNCIAS EM ANALISE -->
-    <h2 class="minhas-denuncias__title">Denuncias em análise</h2>
+  </section>
+
+  <section class="complaint-list complaint-list--reviewed">
+    <header class="complaint-list__header">
+      <h2 class="minhas-denuncias__title">Denúncias em análise</h2>
+      <p class="minhas-denuncias__description">Sendo encaminhada para outra organização</p>
+    </header>
     <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-    <!-- DENUNCIAS RESOLVIDA -->
-    <h2 class="minhas-denuncias__title">Denuncias resolvidas</h2>
+  </section>
+
+  <section class="complaint-list complaint-list--completed">
+    <header class="complaint-list__header">
+      <h2 class="minhas-denuncias__title">Denúncias finalizadas</h2>
+      <p class="minhas-denuncias__description">Seu problema foi resolvido</p>
+    </header>
     <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+  </section>
 </section>

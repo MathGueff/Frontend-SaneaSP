@@ -21,6 +21,33 @@ export class MinhasDenunciasComponent {
       pontuacao: 10,
       Imagens: [],
       Categorias: []
-    }
+    },{
+      id: 1,
+      titulo: "Vazamento de esgoto",
+      descricao: "Há um vazamento de esgoto em frente à minha casa.",
+      data: new Date("2025-09-15"),
+      status: StatusDenuncia.Aberto,
+      pontuacao: 10,
+      Imagens: [],
+      Categorias: []
+    },{
+      id: 1,
+      titulo: "Vazamento de esgoto",
+      descricao: "Há um vazamento de esgoto em frente à minha casa.",
+      data: new Date("2025-09-15"),
+      status: StatusDenuncia.Aberto,
+      pontuacao: 10,
+      Imagens: [],
+      Categorias: []
+    },{
+      id: 1,
+      titulo: "Vazamento de esgoto",
+      descricao: "Há um vazamento de esgoto em frente à minha casa.",
+      data: new Date("2025-09-15"),
+      status: StatusDenuncia.Aberto,
+      pontuacao: 10,
+      Imagens: [],
+      Categorias: []
+    },
   ];
 }
