@@ -122,6 +122,18 @@ h4 {
   font-size: var(--xs-text);
 }
 
+/* Ícones */
+
+.small-icon{
+  width: 24px;
+  height: 24px;
+}
+
+.large-icon{
+  width: 56px;
+  height: 56px;
+}
+
 /* Títulos de sections */
 .section__title--blue,
 .section__title--black {
