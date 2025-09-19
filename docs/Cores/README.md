@@ -49,7 +49,7 @@ Borda de foco escura para elementos sobre fundos claros.
 
 ## ✍️ Tipografia
 
-- `--familia-primaria: poppins, sans-serif;`  
+- `--primary-font: poppins, sans-serif;`  
 Fonte padrão do projeto, moderna e legível.
 
 - `--familia-secundaria: georgia, sans-serif;`  

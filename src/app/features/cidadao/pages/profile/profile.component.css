@@ -25,6 +25,7 @@
     border: 2px solid var(--primary-color);
     padding: var(--space-2) var(--space-4);
     font-size: var(--sm-text);
+    box-shadow: var(--card-shadow);
     border-radius: 4px;
     text-decoration: none;
 }
