@@ -1,5 +1,8 @@
 export interface ILink{
     name : string,
     path : string
-    icon ?: string
+    icon ?: {
+        folder: string,
+        name: string
+    }
 }

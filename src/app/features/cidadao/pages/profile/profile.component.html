@@ -5,7 +5,7 @@
             [routerLink]="[link.path]" 
             routerLinkActive="profile__navbar-link--active"
             #rla="routerLinkActive">
-                <img class="small-icon" src="icons/ui/{{rla.isActive ? 'white' : 'black'}}/{{link.icon}}.svg" alt="{{link.name}}">
+                <img class="small-icon" src="icons/{{link.icon?.folder}}/{{rla.isActive ? 'white' : 'black'}}/{{link.icon?.name}}.svg" alt="{{link.name}}">
                 {{link.name}}
             </a>
         }
