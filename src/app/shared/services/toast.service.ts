@@ -15,7 +15,7 @@ export class ToastService {
    * @description Exibe uma mensagem na tela no canto inferior direito
   */
   show(response : IResponse) {
-    const image = response.error ? "error_icon.svg" : "success_icon.svg"
+    const image = response.error ? "error.svg" : "success.svg"
     const iconUrl = `icons/ui/color/${image}`;
 
     const toast : IToast= {

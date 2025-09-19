@@ -72,7 +72,7 @@ export class FormFieldComponent{
   }
   
   protected showPassword : boolean = false;
-  protected passwordIcon : string = 'show_password_icon'
+  protected passwordIcon : string = 'show_password'
 
   changeType(){
     this.showPassword = !this.showPassword;
