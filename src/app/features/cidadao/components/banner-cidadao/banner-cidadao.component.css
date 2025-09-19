@@ -44,9 +44,3 @@
     padding: var(--space-3);
     font-size: var(--xs-text);
 }
-
-.banner__button img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-}

@@ -11,10 +11,10 @@ import { ILink } from '@shared/models/link.model';
 })
 export class ProfileComponent {
   navbarLinks : ILink[] = [
-    {name : "Início", path: "menu"},
-    {name : "Meus dados", path: "me"},
-    {name : "Minhas denuncias", path: "complaints"},
-    {name : "Notificações", path: "notifications"},
-    {name : "Endereços salvos", path: "saved-addresses"}
+    {name : "Início", path: "menu", icon: "home"},
+    {name : "Meus dados", path: "me", icon: "user"},
+    {name : "Minhas denuncias", path: "complaints",  icon: "complaint"},
+    {name : "Notificações", path: "notifications", icon: "notification"},
+    {name : "Endereços salvos", path: "saved-addresses",  icon: "address"}
   ]
 }

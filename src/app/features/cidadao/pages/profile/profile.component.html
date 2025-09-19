@@ -3,9 +3,10 @@
         @for (link of navbarLinks; track $index) {
             <a class="profile__navbar-link button" 
             [routerLink]="[link.path]" 
-            routerLinkActive="profile__navbar-link--active">
-            <img src="icons/ui/black/info.svg" alt="Denuncia">
-            {{link.name}}
+            routerLinkActive="profile__navbar-link--active"
+            #rla="routerLinkActive">
+                <img class="small-icon" src="icons/ui/{{rla.isActive ? 'white' : 'black'}}/{{link.icon}}.svg" alt="{{link.name}}">
+                {{link.name}}
             </a>
         }
     </nav>
