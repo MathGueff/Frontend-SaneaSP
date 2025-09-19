@@ -16,7 +16,7 @@
     padding: var(--space-4) var(--space-6);
     gap: var(--space-5);
     width: 100%;
-    box-shadow: var(--container-shadow);
+    box-shadow: var(--card-shadow);
 }
 
 .personal-data__group-title{
