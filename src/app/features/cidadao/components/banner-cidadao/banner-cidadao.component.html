@@ -1,23 +1,22 @@
-<section class="banner">
-    <h1 class="banner__title">Bem vindo à Área do Cidadão</h1>
+<section class="banner flex-column">
+    <h1 class="banner__title">SaneaSP - Melhorando seu Saneamento básico e seu bem-estar</h1>
     <div class="banner__text">
         <p> 
-            Aqui você pode acompanhar problemas relacionados ao saneamento básico da 
-            sua região — como falta de água, esgoto a céu aberto, lixo acumulado e muito mais.
+            Trabalhando juntos para garantir agilidade, apoio e soluções de saneamento básico para todo o Estado de São Paulo
         </p>
-    </div>
-    <div class="banner__buttons">
-        <div class="banner__button">
-            <img class="large-icon" src="icons/actions/white/add.svg" alt="">
-            <p>Cadastre sua denúncia</p>
+    </div> 
+    <div class="banner__buttons flex-row">
+        <div class="banner__button banner__button--citizen flex-column">
+            <img class="large-icon" src="icons/entities/white/citizen.svg" 
+                [src]="getButtonIcon('citizen')"
+                alt="">
+            <p>Para Cidadãos</p>
         </div>
-        <div class="banner__button">
-            <img class="large-icon"src="icons/navigation/white/suas-denuncias.svg" alt="">
-            <p>Verifique suas denúncias</p>
-        </div>
-        <div class="banner__button">
-            <img class="large-icon"src="icons/entities/white/complaint.svg" alt="">
-            <p>Veja todas as denúncias</p>
+        <div class="banner__button banner__button--organization flex-column">
+            <img class="large-icon"src="icons/entities/white/organization.svg" 
+                [src]="getButtonIcon('organization')"
+                alt="">
+            <p>Para Organizações</p>
         </div>
     </div>
 </section>

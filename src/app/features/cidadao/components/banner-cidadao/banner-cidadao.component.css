@@ -1,10 +1,6 @@
 .banner {
     background-image: var(--background-image);
     color: var(--white-font-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     padding: var(--space-12);
     gap: var(--space-6);
 }
@@ -21,26 +17,60 @@
 
 .banner__title{
     font-size: var(--h3);
+    font-weight: 400;
 }
 
 .banner__buttons{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-5);
+    gap: var(--space-12);
 }
 
 .banner__button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
     width: 116px;
     height: 160px;
     gap: var(--space-4);
-    border: 2px solid var(--tertiary-color);
     padding: var(--space-3);
     font-size: var(--xs-text);
+    box-shadow: var(--button-shadow);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.5s all ease-out;
+}
+
+
+.banner__button p, .banner__button img{
+    transition: 0.5s all ease;
+}
+
+.banner__button--citizen{
+    border: 2px solid #31b776;
+}
+
+.banner__button--organization{
+    border: 2px solid var(--tertiary-color);
+}
+
+.banner__button--organization:hover{
+    background-color: var(--secondary-color);
+    transform: translateX(4px);
+}
+
+.banner__button--organization:hover p{
+    transform: translateX(2px);
+}
+
+.banner__button--organization:hover img{
+    transform: translateX(1px);
+}
+
+.banner__button--citizen:hover{
+    background-color: #198a54;
+    transform: translateX(-4px);
+}
+
+.banner__button--citizen:hover p{
+    transform: translateX(-2px);
+}
+
+.banner__button--citizen:hover img{
+    transform: translateX(-1px);
 }
