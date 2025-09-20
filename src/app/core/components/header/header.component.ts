@@ -1,6 +1,5 @@
 import { Component, inject } from "@angular/core";
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
-import { HeaderLandingComponent } from "./header-landing/header-landing.component";
 import { HeaderCidadaoComponent } from "./header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
 import { CommonModule } from "@angular/common";
@@ -11,7 +10,7 @@ import { HeaderButtonsType, HeaderType } from "@core/models/header.model";
 @Component({
   selector: "app-header",
   standalone: true,
-  imports: [CommonModule, HeaderLandingComponent, HeaderCidadaoComponent, RouterLink],
+  imports: [CommonModule, HeaderCidadaoComponent, RouterLink],
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.css",
 })
@@ -28,7 +27,7 @@ export class HeaderComponent {
   ) {}
 
   protected user = this.authService.getCurrentUser();
-  public currentContext: HeaderType = HeaderType.PRINCIPAL;
+  public currentContext: HeaderType = HeaderType.CIDADAO;
   private destroy$ = new Subject<void>();
   
   ngOnInit() {
@@ -51,7 +50,6 @@ export class HeaderComponent {
     const currentUrl = this.router.url;
     const parent = this.path.getActualParent(currentUrl);
     const route = `${parent}/${method}`;
-    if(parent != HeaderType.PRINCIPAL)
-      this.router.navigate([route]);
+    this.router.navigate([route]);
   }
 }

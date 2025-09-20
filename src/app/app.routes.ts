@@ -1,4 +1,3 @@
-import { HomePageComponent } from '@features/home/pages/home-page/home-page.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AdminGuard } from '@core/guards/auth-admin.guard';
@@ -12,7 +11,7 @@ import { MinhasDenunciasComponent } from '@features/cidadao/components/minhas-de
 
 export const routes: Routes = [
   //Página inicial
-  {path: '', component:HomePageComponent},
+  {path: '', redirectTo: 'cidadao', pathMatch: 'full' },
 
   //Área do cidadão
   {
@@ -25,7 +24,7 @@ export const routes: Routes = [
       {
         path: 'profile', component: CidadaoProfileComponent, 
         children : [
-          {path: '', component: DadosPessoaisComponent}, 
+          {path: '', redirectTo: 'me', pathMatch: 'full' },
           {path: 'me', component: DadosPessoaisComponent}, 
           {path: 'complaints', component: MinhasDenunciasComponent}, 
           {path: 'saved-addresses', component: CidadaoProfileComponent}, 

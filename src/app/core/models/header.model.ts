@@ -1,5 +1,4 @@
 export enum HeaderType{
-    PRINCIPAL = "",
     CIDADAO = "cidadao",
     ORGANIZACAO = "organizacao"
 }
