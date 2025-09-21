@@ -1,55 +1,33 @@
-<section class="minhas-denuncias">
-  <div class="minhas-denuncias__status-search">
+<section class="minhas-denuncias flex-column">
+  <div class="minhas-denuncias__status-search flex-column">
     <h2>Procurar denúncias</h2>
-    <div class="minhas-denuncias__filters">
-      <button class="minhas-denuncias__filter button">
-        <img class="small-icon" src="icons/status/complaint/white/opened.svg" alt="Em aberto">
-        Em aberto
-      </button>
-      <button class="minhas-denuncias__filter button">
-        <img class="small-icon" src="icons/status/complaint/white/viewed.svg" alt="Visualizada">
-        Visualizada
-      </button>
-      <button class="minhas-denuncias__filter button">
-        <img class="small-icon" src="icons/status/complaint/white/reviewed.svg" alt="Em análise">
-        Em análise
-      </button>
-      <button class="minhas-denuncias__filter button">
-        <img class="small-icon" src="icons/status/complaint/white/completed.svg" alt="Concluída">
-        Concluída
-      </button>
+    <div class="minhas-denuncias__filters flex-row">
+      @for (filter of filters; track $index) {
+        <button 
+          class="minhas-denuncias__filter button"
+          (click)="changeActiveStatus(filter.status)"
+          [ngClass]="{ 'minhas-denuncias__filter--active': isActiveStatus(filter.status)}"
+        >
+          @if(filter.icon){
+            <img
+              class="small-icon"
+              [src]="'icons/'+ filter.icon.folder + '/' + (isActiveStatus(filter.status) ? 'white' : 'black') + '/' + filter.icon.name + '.svg'"
+              [alt]="filter.name"
+            >
+          }
+          {{filter.name}}
+        </button>
+      }
     </div>
   </div>
 
-  <section class="complaint-list complaint-list--opened">
-    <header class="complaint-list__header">
-      <h2 class="minhas-denuncias__title">Denúncias em aberto</h2>
-      <p class="minhas-denuncias__description">Aguarde até que sua denúncia seja visualizada</p>
-    </header>
-    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-  </section>
-
-  <section class="complaint-list complaint-list--viewed">
-    <header class="complaint-list__header">
-      <h2 class="minhas-denuncias__title">Denúncias visualizadas</h2>
-      <p class="minhas-denuncias__description">Sua denúncia logo será respondida</p>
-    </header>
-    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-  </section>
-
-  <section class="complaint-list complaint-list--reviewed">
-    <header class="complaint-list__header">
-      <h2 class="minhas-denuncias__title">Denúncias em análise</h2>
-      <p class="minhas-denuncias__description">Sendo encaminhada para outra organização</p>
-    </header>
-    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-  </section>
-
-  <section class="complaint-list complaint-list--completed">
-    <header class="complaint-list__header">
-      <h2 class="minhas-denuncias__title">Denúncias finalizadas</h2>
-      <p class="minhas-denuncias__description">Seu problema foi resolvido</p>
-    </header>
-    <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
-  </section>
+  @if(currentStatusInfo){
+    <section [class]="'complaint-list complaint-list--' + currentStatusInfo.class">
+        <header class="complaint-list__header">
+          <h2 class="minhas-denuncias__title">{{currentStatusInfo.title}}</h2>
+          <p class="minhas-denuncias__description">{{currentStatusInfo.description}}</p>
+        </header>
+        <app-denuncias-grid [denuncias]="denuncias"></app-denuncias-grid>
+    </section>
+  }
 </section>

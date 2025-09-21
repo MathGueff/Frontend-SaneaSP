@@ -1,8 +1,4 @@
-export interface ILink{
-    name : string,
+import { ILabel } from "./label.model"
+export interface ILink extends ILabel{
     path : string
-    icon ?: {
-        folder: string,
-        name: string
-    }
 }

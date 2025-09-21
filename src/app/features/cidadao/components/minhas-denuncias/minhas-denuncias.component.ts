@@ -1,53 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, inject } from "@angular/core";
 import { DenunciasGridComponent } from "@features/denuncia/components/denuncias-grid/denuncias-grid.component";
-import { DenunciaPesquisaComponent } from "@features/denuncia/components/denuncia-pesquisa/denuncia-pesquisa.component";
-import { IDenuncia, StatusDenuncia } from '@features/denuncia/models/denuncia.model';
+import {
+  IDenuncia,
+  StatusDenuncia,
+} from "@features/denuncia/models/denuncia.model";
+import { CommonModule } from "@angular/common";
+import { IComplaintStatusFilter } from "@features/cidadao/models/complaint-status-filter.model";
+import { ComplaintService } from "@features/denuncia/services/complaint.service";
+import { IComplaintStatusInfo } from "@features/cidadao/models/complaint-status-info.model";
 
 @Component({
-  selector: 'app-minhas-denuncias',
+  selector: "app-minhas-denuncias",
   standalone: true,
-  imports: [DenunciasGridComponent, DenunciaPesquisaComponent],
-  templateUrl: './minhas-denuncias.component.html',
-  styleUrl: './minhas-denuncias.component.css'
+  imports: [CommonModule, DenunciasGridComponent],
+  templateUrl: "./minhas-denuncias.component.html",
+  styleUrl: "./minhas-denuncias.component.css",
 })
 export class MinhasDenunciasComponent {
-  denuncias: IDenuncia[] = [
+  protected StatusDenuncia = StatusDenuncia;
+  protected currentFilter: StatusDenuncia = StatusDenuncia.Aberto;
+
+  protected complaintService = inject(ComplaintService);
+  protected denuncias: IDenuncia[] = this.complaintService.getTestComplaints();
+
+  protected filters: IComplaintStatusFilter[] = [
     {
-      id: 1,
-      titulo: "Vazamento de esgoto",
-      descricao: "Há um vazamento de esgoto em frente à minha casa.",
-      data: new Date("2025-09-15"),
+      name: "Em aberto",
+      icon: { folder: "status/complaint", name: "opened" },
       status: StatusDenuncia.Aberto,
-      pontuacao: 10,
-      Imagens: [],
-      Categorias: []
-    },{
-      id: 1,
-      titulo: "Vazamento de esgoto",
-      descricao: "Há um vazamento de esgoto em frente à minha casa.",
-      data: new Date("2025-09-15"),
-      status: StatusDenuncia.Aberto,
-      pontuacao: 10,
-      Imagens: [],
-      Categorias: []
-    },{
-      id: 1,
-      titulo: "Vazamento de esgoto",
-      descricao: "Há um vazamento de esgoto em frente à minha casa.",
-      data: new Date("2025-09-15"),
-      status: StatusDenuncia.Aberto,
-      pontuacao: 10,
-      Imagens: [],
-      Categorias: []
-    },{
-      id: 1,
-      titulo: "Vazamento de esgoto",
-      descricao: "Há um vazamento de esgoto em frente à minha casa.",
-      data: new Date("2025-09-15"),
-      status: StatusDenuncia.Aberto,
-      pontuacao: 10,
-      Imagens: [],
-      Categorias: []
+    },
+    {
+      name: "Em análise",
+      icon: { folder: "status/complaint", name: "reviewed" },
+      status: StatusDenuncia.Analise,
+    },
+    {
+      name: "Visualizada",
+      icon: { folder: "status/complaint", name: "viewed" },
+      status: StatusDenuncia.Visualizada,
+    },
+    {
+      name: "Concluída",
+      icon: { folder: "status/complaint", name: "completed" },
+      status: StatusDenuncia.Resolvida,
     },
   ];
+
+  statusList: IComplaintStatusInfo[] = [
+    {
+      status: StatusDenuncia.Aberto,
+      class: "opened",
+      title: "Denúncias em aberto",
+      description: "Aguarde até que sua denúncia seja visualizada",
+    },
+    {
+      status: StatusDenuncia.Analise,
+      class: "viewed",
+      title: "Denúncias visualizadas",
+      description: "Sua denúncia logo será respondida",
+    },
+    {
+      status: StatusDenuncia.Visualizada,
+      class: "reviewed",
+      title: "Denúncias em análise",
+      description: "Sendo encaminhada para outra organização",
+    },
+    {
+      status: StatusDenuncia.Resolvida,
+      class: "completed",
+      title: "Denúncias finalizadas",
+      description: "Seu problema foi resolvido",
+    },
+  ];
+
+  protected isActiveStatus = (status: StatusDenuncia) =>
+    status === this.currentFilter;
+  protected changeActiveStatus = (status: StatusDenuncia) =>
+    (this.currentFilter = status);
+  // busca o objeto StatusInfo correspondente ao filtro atual
+  get currentStatusInfo(): IComplaintStatusInfo {
+    return this.statusList.find(s => s.status === this.currentFilter)!;
+  }
 }

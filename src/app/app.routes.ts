@@ -21,12 +21,12 @@ export const routes: Routes = [
       {path: 'menu', component: MenuCidadaoComponent},
       {path: 'login', component: CidadaoLoginComponent},
       {path: 'register', component: CidadaoRegisterComponent},
+      {path: 'complaints', component: MinhasDenunciasComponent}, 
       {
         path: 'profile', component: CidadaoProfileComponent, 
         children : [
           {path: '', redirectTo: 'me', pathMatch: 'full' },
           {path: 'me', component: DadosPessoaisComponent}, 
-          {path: 'complaints', component: MinhasDenunciasComponent}, 
           {path: 'saved-addresses', component: CidadaoProfileComponent}, 
           {path: 'menu', component: CidadaoProfileComponent}, 
           {path: 'notifications', component: CidadaoProfileComponent}, 
