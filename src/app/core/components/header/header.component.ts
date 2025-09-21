@@ -1,11 +1,11 @@
 import { Component, inject } from "@angular/core";
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
-import { HeaderCidadaoComponent } from "./header-cidadao/header-cidadao.component";
+import { HeaderCidadaoComponent } from "../header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { PathService } from "@shared/services/path.service";
 import { AuthService } from "@core/services/auth.service";
-import { HeaderButtonsType, HeaderType } from "@core/models/header.model";
+import { HeaderType } from "@core/models/header.model";
 
 @Component({
   selector: "app-header",
@@ -17,7 +17,6 @@ import { HeaderButtonsType, HeaderType } from "@core/models/header.model";
 export class HeaderComponent {
   //Enums para utilização no HTML
   protected HeaderType = HeaderType;
-  
   private authService = inject(AuthService);
 
   constructor(
@@ -44,6 +43,4 @@ export class HeaderComponent {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
-  
 }
