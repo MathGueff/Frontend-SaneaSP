@@ -1,14 +1,10 @@
+/* Importa de header.component.css */
 .nav-cidadao{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-10);
+    justify-content: space-between;
 }
 
-.nav-cidadao__links, .nav-cidadao__buttons{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.nav__links{
+    gap: var(--space-8);
 }
 
 .nav-cidadao__links{

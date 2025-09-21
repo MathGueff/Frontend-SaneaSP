@@ -17,7 +17,6 @@ import { HeaderButtonsType, HeaderType } from "@core/models/header.model";
 export class HeaderComponent {
   //Enums para utilização no HTML
   protected HeaderType = HeaderType;
-  protected HeaderButtonsType = HeaderButtonsType;
   
   private authService = inject(AuthService);
 
@@ -46,10 +45,5 @@ export class HeaderComponent {
     this.destroy$.complete();
   }
 
-  buttonOnClick(method : HeaderButtonsType){
-    const currentUrl = this.router.url;
-    const parent = this.path.getActualParent(currentUrl);
-    const route = `${parent}/${method}`;
-    this.router.navigate([route]);
-  }
+  
 }

@@ -1,25 +1,19 @@
-<header class="main-header">
-  <div class="nav__link--home" routerLink="/">
-      <img class="nav__logo" src="logo/sanea_sp.png" alt="Voltar para o menu">
-  </div>
-  <div>
-    @switch (currentContext) {
-      @case (HeaderType.CIDADAO) {
-        <app-header-cidadao></app-header-cidadao>
-      }
-      @case (HeaderType.ORGANIZACAO) {
-        <app-header-cidadao></app-header-cidadao>
-      }
-  }
-  </div>
-  @if(!this.user){
-    <div class="nav__buttons">
-      <a (click)="buttonOnClick(HeaderButtonsType.LOGIN)" class="button nav__login"> Entrar </a>
-      <a (click)="buttonOnClick(HeaderButtonsType.REGISTER)" class="button nav__register">
-        Cadastrar
-      </a><a (click)="buttonOnClick(HeaderButtonsType.PROFILE)" class="button nav__register">
-        Perfil
+<header class="header flex-row">
+  <nav class="header__nav flex-row">
+    <div class="nav__link--home flex-row">
+      <a routerLink="/">
+        <img class="nav__logo" src="logo/sanea_sp.png" alt="Voltar para o menu" />
       </a>
     </div>
-  }
-</header> 
+    <div class="nav__content">
+      @switch (currentContext) 
+      { 
+        @case (HeaderType.CIDADAO) {
+          <app-header-cidadao></app-header-cidadao>
+        } @case (HeaderType.ORGANIZACAO) {
+          <app-header-cidadao></app-header-cidadao>
+        } 
+      }
+    </div>
+  </nav>
+</header>

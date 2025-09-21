@@ -1,8 +1,23 @@
-<nav class="nav-cidadao">
-  @for (link of navbarLinks; track $index) {
-  <a (click)="linkAction(link)" class="nav__link">{{ link.name }}</a>
+<nav class="nav-cidadao flex-row">
+  @if(navbarLinks.length > 0){
+  <div class="nav__links flex-row">
+    @for (link of navbarLinks; track $index) {
+    <a (click)="linkAction(link)" routerLinkActive="nav__link--active"  class="nav__link">{{ link.name }}</a>
+    }
+  </div>
   }
 
-  
+  <div class="nav__buttons flex-row">
+    @if(!this.user){
+    <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
+    <a [routerLink]="'/cidadao/register'" class="button nav__register">
+      Crie uma conta
+    </a>
+    } @else{
+    <a [routerLink]="'/cidadao/profile'" class="button nav__profile">
+      <img class="small-icon" src="icons/entities/black/user.svg" alt="" />
+      Sua conta
+    </a>
+    }
+  </div>
 </nav>
-

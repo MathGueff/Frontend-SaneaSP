@@ -1,9 +1,5 @@
 /* Header */
-.main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+.header {
   padding: 0 var(--space-6);
   background-image: var(--background-image);
   position: sticky;
@@ -13,21 +9,26 @@
   box-shadow: var(--header-shadow);
 }
 
-nav {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--space-12);
+.header__nav {
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .nav__link--home {
-  cursor: pointer;
+  flex: 1;
+  justify-content: start;
 }
 
 .nav__logo {
   width: 64px;
   height: 64px;
+  cursor: pointer;
   transition: 1s all ease;
+}
+
+.nav__content {
+  flex: 3;
 }
 
 .nav__link {
@@ -38,6 +39,10 @@ nav {
   cursor: pointer;
 }
 
+.nav__link--active{
+  border-bottom: 2px solid var(--tertiary-color);
+}
+
 .nav__buttons {
   display: flex;
   justify-content: center;
@@ -45,20 +50,29 @@ nav {
   gap: var(--space-2);
 }
 
-.nav__login, .nav__register{
-    color: var(--primary-color);
-    font-weight: 500;
-    text-decoration: none;
+.nav__login,
+.nav__register,
+.nav__profile {
+  font-weight: 500;
+  text-decoration: none;
 }
 
-.nav__login{
+.nav__login {
+  background: transparent;
   color: var(--white-font-color);
   border: 2px solid var(--tertiary-color);
 }
 
-.nav__register{
+.nav__register {
   background-color: var(--background-color);
+  color: var(--primary-color);
   border: 2px solid var(--background-color);
+}
+
+.nav__profile {
+  background-color: var(--background-color);
+  color: var(--black-font-color);
+  border: 2px solid var(--background-color)
 }
 
 @media (max-width: 768px) {
