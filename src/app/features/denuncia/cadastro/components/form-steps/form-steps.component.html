@@ -1,16 +1,11 @@
 <div class="steps flex-row">
-    <div class="steps__step flex-column">
-        <div class=step__circle--actual></div>
-        <span>O que</span>
-    </div>
-    <hr class="steps__separator">
-    <div class="steps__step flex-column">
-        <div class=step__circle></div>
-        <span>Onde</span>
-    </div>
-    <hr class="steps__separator">
-    <div class="steps__step flex-column">
-        <div class=step__circle></div>
-        <span>Tipo</span>
-    </div>
+    @for (step of steps; track $index) {
+       <div class="steps__step flex-column">
+            <div [className]="'step__circle'+ getStepStatus(step.type)"></div>
+            <span>{{step.title}}</span>
+        </div> 
+        @if($index < steps.length - 1){
+            <hr class="steps__separator">
+        }
+    }
 </div>

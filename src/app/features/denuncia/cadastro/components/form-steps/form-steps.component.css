@@ -19,7 +19,7 @@
     opacity: 1;
 }
 
-.step__circle, .step__circle--actual {
+.step__circle, .step__circle--active {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -30,6 +30,6 @@
     border: 2px solid var(--background-dark-color);
 }
 
-.step__circle--actual {
+.step__circle--active {
     background-color: var(--primary-dark-color);
 }
