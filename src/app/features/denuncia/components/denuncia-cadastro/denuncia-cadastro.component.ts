@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./denuncia-cadastro.component.css']
 })
 export class DenunciaCadastroComponent {
-  
 }

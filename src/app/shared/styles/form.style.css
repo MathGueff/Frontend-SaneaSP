@@ -41,6 +41,8 @@
 
 .form__label {
   font-size: var(--md-text);
+  text-align: start;
+  width: 100%;
 }
 
 .form__input {
@@ -48,7 +50,7 @@
   height: 40px;
   border: 2px solid var(--primary-color);
   border-radius: 4px;
-  padding: var(--space-1) var(--space-3);
+  padding: var(--space-3) var(--space-2);
   font-size: var(--sm-text);
 }
 
