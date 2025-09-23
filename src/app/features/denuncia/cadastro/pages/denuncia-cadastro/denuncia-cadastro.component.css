@@ -1,0 +1,14 @@
+.complaint-form{
+    margin: var(--space-6);
+    gap: var(--space-4);
+}
+
+.form{
+    width: 650px;
+    padding: var(--space-8);
+    gap: var(--space-6);
+}
+
+.button{
+    width: 100%;
+}

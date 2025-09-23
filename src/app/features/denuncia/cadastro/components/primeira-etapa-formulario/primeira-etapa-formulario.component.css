@@ -1,0 +1,38 @@
+.form__input--description {
+  resize: none;
+  height: 80px;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--sm-text);
+}
+
+.form__input--image {
+  width: 100%;
+  border: 2px dashed var(--tertiary-color);
+  height: 100px;
+  padding: var(--space-3);
+}
+
+.form__images {
+  justify-content: space-between;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.form__images h3 {
+  width: 100%;
+}
+
+.form__image {
+  width: 150px;
+  height: 150px;
+}
+
+.form__image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: var(--card-shadow);
+}
