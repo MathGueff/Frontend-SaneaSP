@@ -8,6 +8,7 @@ import { ProfileComponent as CidadaoProfileComponent } from '@features/cidadao/p
 import { LayoutCidadaoComponent } from '@features/layout/layout-cidadao/layout-cidadao.component';
 import { DadosPessoaisComponent } from '@features/cidadao/components/dados-pessoais/dados-pessoais.component';
 import { MinhasDenunciasComponent } from '@features/cidadao/components/minhas-denuncias/minhas-denuncias.component';
+import { DenunciaCadastroComponent } from '@features/denuncia/components/denuncia-cadastro/denuncia-cadastro.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -22,6 +23,7 @@ export const routes: Routes = [
       {path: 'login', component: CidadaoLoginComponent},
       {path: 'register', component: CidadaoRegisterComponent},
       {path: 'complaints', component: MinhasDenunciasComponent}, 
+      {path: 'new-complaint', component: DenunciaCadastroComponent},
       {
         path: 'profile', component: CidadaoProfileComponent, 
         children : [

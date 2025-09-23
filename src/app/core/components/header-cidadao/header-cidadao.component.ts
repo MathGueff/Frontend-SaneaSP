@@ -18,7 +18,7 @@ export class HeaderCidadaoComponent{
 
   navbarLinks : ILink[] = [
     {path: '/cidadao/menu', name: 'Área dos cidadãos'},
-    {path: '/cidadao/login', name: 'Criar denúncia'},
+    {path: '/cidadao/new-complaint', name: 'Criar denúncia'},
     {path: '/cidadao/complaints', name: 'Minhas denúncias'}
   ]
 }
