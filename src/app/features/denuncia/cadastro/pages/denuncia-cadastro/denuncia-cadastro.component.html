@@ -1,6 +1,48 @@
 <section class="complaint-form flex-column">
-    <app-form-steps [activeStep]="activeStep"></app-form-steps>
-    <form>
-       <app-primeira-etapa-formulario></app-primeira-etapa-formulario>
-    </form>
+  <app-form-steps [activeStep]="activeStep"></app-form-steps>
+  
+  <section class="form flex-column">
+    <header class="form__header">
+      <h1 class="form__title">{{ getStepTitle() }}</h1>
+    </header>
+
+    @if(activeStep < totalSteps){
+      <form>
+        @switch (activeStep) { 
+          @case (0) {
+            <app-primeira-etapa-formulario></app-primeira-etapa-formulario>
+          } 
+          @case (1) {
+            <!-- <app-segunda-etapa-formulario></app-segunda-etapa-formulario> -->
+          } 
+          @case (2) {
+            <!-- <app-terceira-etapa-formulario></app-terceira-etapa-formulario> -->
+          } 
+        }
+      </form>
+    } @else {
+      <!-- <app-resumo-formulario></app-resumo-formulario> -->
+    }
+
+    @if(activeStep <= totalSteps) {
+      <div class="form__footer">
+        <div class="form__buttons flex-row">
+          @if(activeStep > 0){
+            <button 
+              type="button"
+              (click)="previousStep()" 
+              class="button button--action">
+              Voltar
+            </button>
+          }
+          <button 
+            type="button"
+            (click)="nextStep()" 
+            class="button button--action">
+            {{ activeStep === totalSteps - 1 ? 'Finalizar' : 'Prosseguir' }}
+          </button>
+        </div>
+      </div>
+    }
+  </section>
 </section>

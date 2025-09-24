@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './form-steps.component.css'
 })
 export class FormStepsComponent {
-  @Input() activeStep : ComplaintRegisterStepsTypes = ComplaintRegisterStepsTypes.WHAT;
+  @Input() activeStep : ComplaintRegisterStepsTypes = 0;
 
   protected steps : IComplaintRegisterSteps[] = [
     {title : 'O que', type : ComplaintRegisterStepsTypes.WHAT},
