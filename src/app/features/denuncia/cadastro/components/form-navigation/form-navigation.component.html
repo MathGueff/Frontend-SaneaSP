@@ -1,0 +1,18 @@
+<div class="form__footer">
+  <div class="form__buttons flex-row">
+    @if(activeStep > 0){
+      <button
+              type="button"
+              class="button button--action"
+              (click)="prev.emit()">
+        Voltar
+      </button>
+    }
+
+    <button type="button"
+            class="button button--action"
+            (click)="next.emit()">
+      {{ activeStep === steps.length - 1 ? 'Finalizar' : 'Prosseguir' }}
+    </button>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-import { ComplaintRegisterStepsTypes, IComplaintRegisterSteps } from './../../models/complaint-register-steps.model';
 import { Component, Input } from '@angular/core';
+import { ISteps, StepsTypes } from '../../models/steps';
 
 @Component({
   selector: 'app-form-steps',
@@ -9,15 +9,10 @@ import { Component, Input } from '@angular/core';
   styleUrl: './form-steps.component.css'
 })
 export class FormStepsComponent {
-  @Input() activeStep : ComplaintRegisterStepsTypes = 0;
+  @Input() activeStep : StepsTypes = 0;
+  @Input() steps : ISteps[] = [];
 
-  protected steps : IComplaintRegisterSteps[] = [
-    {title : 'O que', type : ComplaintRegisterStepsTypes.WHAT},
-    {title : 'Onde', type : ComplaintRegisterStepsTypes.WHERE},
-    {title : 'Tipo', type : ComplaintRegisterStepsTypes.HOW}
-  ]
-
-  getStepStatus(step : ComplaintRegisterStepsTypes){
+  getStepStatus(step : StepsTypes){
     return step === this.activeStep ? "--active" : "";
   } 
 }

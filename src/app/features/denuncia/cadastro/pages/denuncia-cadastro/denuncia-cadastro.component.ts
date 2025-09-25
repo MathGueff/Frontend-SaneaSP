@@ -1,94 +1,83 @@
-import { Component } from "@angular/core";
-import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-steps/form-steps.component";
-import { PrimeiraEtapaFormularioComponent } from "../../components/primeira-etapa-formulario/primeira-etapa-formulario.component";
-import { ComplaintRegisterStepsTypes } from "../../models/complaint-register-steps.model";
-import { ViewportScroller } from "@angular/common";
-import { SegundaEtapaFormularioComponent } from "../../components/segunda-etapa-formulario/segunda-etapa-formulario.component";
+import { Component, ViewChild } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
+
+import { FormStepsComponent } from '@features/denuncia/cadastro/components/form-steps/form-steps.component';
+import { FormNavigationComponent } from '../../components/form-navigation/form-navigation.component';
+import { PrimeiraEtapaFormularioComponent } from '../../components/primeira-etapa-formulario/primeira-etapa-formulario.component';
+import { SegundaEtapaFormularioComponent } from '../../components/segunda-etapa-formulario/segunda-etapa-formulario.component';
+import { ISteps, StepsTypes } from '../../models/steps';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: "app-denuncia-cadastro",
+  selector: 'app-denuncia-cadastro',
   standalone: true,
-  imports: [FormStepsComponent, PrimeiraEtapaFormularioComponent, SegundaEtapaFormularioComponent],
-  templateUrl: "./denuncia-cadastro.component.html",
-  styleUrls: [
-    "./denuncia-cadastro.component.css",
-    "../../../../../shared/styles/form.style.css",
+  imports: [
+    FormStepsComponent,
+    FormNavigationComponent,
+    PrimeiraEtapaFormularioComponent,
+    SegundaEtapaFormularioComponent,
+    ReactiveFormsModule
   ],
+  templateUrl: './denuncia-cadastro.component.html',
+  styleUrls: [
+    './denuncia-cadastro.component.css'
+  ]
 })
 export class DenunciaCadastroComponent {
-  activeStep = 0;
-  formData: any = {};
+  protected activeStep = 0;
+  protected steps: ISteps[] = [
+    { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT },
+    { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE },
+    { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW }
+  ];
 
-  constructor(private scroller: ViewportScroller) {}
+  protected formGroup: FormGroup;
+  formData: Record<string, any> = {};
 
+  constructor(private fb: FormBuilder, private scroller: ViewportScroller) {
+    this.formGroup = this.fb.group({
+      what: this.fb.group({ description: [''] }),
+      where: this.fb.group({ address: [''] }),
+      how: this.fb.group({ type: [''] })
+    });
+  }
 
-  private readonly stepValues = Object.values(ComplaintRegisterStepsTypes)
-    .filter(v => typeof v === 'number') as number[];
-  
-  readonly totalSteps = this.stepValues.length;
-  readonly lastStep = Math.max(...this.stepValues);
-
-  getStepTitle(): string {
-    const titles = [
-      'O que aconteceu',
-      'Onde ocorreu o problema', 
-      'Qual o tipo de denúncia',
-      'Sua denuncia'
-    ];
-    return titles[this.activeStep] || 'Formulário';
+  get stepTitle(): string {
+    return this.steps.find(step => this.activeStep === step.type)?.formTitle || '';
   }
 
   nextStep(): void {
-    if (this.isCurrentStepValid() && this.activeStep < this.lastStep) {
+    if (this.isCurrentStepValid() && this.activeStep < this.steps.length - 1) {
       this.activeStep++;
-      this.scrollToTop();
+      this.scrollTop();
     }
   }
 
   previousStep(): void {
     if (this.activeStep > 0) {
       this.activeStep--;
-      this.scrollToTop();
+      this.scrollTop();
     }
   }
 
-  goToStep(step: number): void {
-    if (step >= 0 && step <= this.lastStep) {
-      this.activeStep = step;
-      this.scrollToTop();
-    }
+  getFormGroup(name : string) : FormGroup{
+    return this.formGroup.get(name) as FormGroup;;
   }
 
-  isCurrentStepValid(): boolean {
-    // Lógica de validação específica para cada etapa
-    switch(this.activeStep) {
-      case 0: return this.validateStep1();
-      case 1: return this.validateStep2();
-      case 2: return this.validateStep3();
-      default: return true;
-    }
-  }
-
-  validateStep1(): boolean {
-    return true;
-  }
-  validateStep2(): boolean {
-    return true;
-  }
-  validateStep3(): boolean {
-    return true;
-  }
-
-  private scrollToTop(): void {
+  private scrollTop(): void {
     this.scroller.scrollToPosition([0, 0]);
   }
 
-  onFormChange(data: any): void {
-    this.formData = { ...this.formData, ...data };
+  private isCurrentStepValid(): boolean {
+    const stepKeys = ['what', 'where', 'how'];
+    const key = stepKeys[this.activeStep];
+    const stepGroup = this.formGroup.get(key);
+    return stepGroup?.valid ?? true;
   }
 
   onSubmit(): void {
-    // Lógica de submissão final
-    console.log('Formulário submetido:', this.formData);
+    if (this.formGroup.valid) {
+      console.log('Formulário submetido:', this.formGroup.value);
+    }
   }
 }

@@ -8,12 +8,3 @@
     padding: var(--space-8);
     gap: var(--space-6);
 }
-
-.form__buttons{
-    width: 100%;
-    gap: var(--space-4);
-}
-
-.button{
-    width: 100%;
-}

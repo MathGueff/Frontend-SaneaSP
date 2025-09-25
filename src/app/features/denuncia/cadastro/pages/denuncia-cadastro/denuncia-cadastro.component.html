@@ -1,48 +1,45 @@
 <section class="complaint-form flex-column">
-  <app-form-steps [activeStep]="activeStep"></app-form-steps>
-  
-  <section class="form flex-column">
-    <header class="form__header">
-      <h1 class="form__title">{{ getStepTitle() }}</h1>
-    </header>
+  <app-form-steps
+    [activeStep]="activeStep"
+    [steps]="steps">
+  </app-form-steps>
 
-    @if(activeStep < totalSteps){
-      <form>
-        @switch (activeStep) { 
-          @case (0) {
-            <app-primeira-etapa-formulario></app-primeira-etapa-formulario>
-          } 
-          @case (1) {
-            <app-segunda-etapa-formulario></app-segunda-etapa-formulario>
-          } 
-          @case (2) {
-            <!-- <app-terceira-etapa-formulario></app-terceira-etapa-formulario> -->
-          } 
-        }
-      </form>
-    } @else {
-      <!-- <app-resumo-formulario></app-resumo-formulario> -->
-    }
+  <form class="form flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    @if(activeStep <= steps.length - 1) {
+      <header class="form__header">
+        <h1 class="form__title">{{ stepTitle }}</h1>
+      </header>
 
-    @if(activeStep <= totalSteps) {
-      <div class="form__footer">
-        <div class="form__buttons flex-row">
-          @if(activeStep > 0){
-            <button 
-              type="button"
-              (click)="previousStep()" 
-              class="button button--action">
-              Voltar
-            </button>
+      <div class="form__body">
+        @switch(activeStep) {
+          @case(0) {
+            <app-primeira-etapa-formulario
+              [formGroup]="getFormGroup('what')">
+            </app-primeira-etapa-formulario>
           }
-          <button 
-            type="button"
-            (click)="nextStep()" 
-            class="button button--action">
-            {{ activeStep === totalSteps - 1 ? 'Finalizar' : 'Prosseguir' }}
-          </button>
-        </div>
+          @case(1) {
+            <app-segunda-etapa-formulario
+              [formGroup]="getFormGroup('where')">
+            </app-segunda-etapa-formulario>
+          }
+          @case(2) {
+            <app-primeira-etapa-formulario
+              [formGroup]="getFormGroup('how')">
+            </app-primeira-etapa-formulario>
+          }
+        }
       </div>
+
+      <div class="form__footer">
+        <app-form-navigation
+          [activeStep]="activeStep"
+          [steps]="steps"
+          (next)="nextStep()"
+          (prev)="previousStep()">
+        </app-form-navigation>
+      </div>
+    } @else {
+      <!-- <app-resumo-formulario [formData]="formData"></app-resumo-formulario> -->
     }
-  </section>
+  </form>
 </section>
