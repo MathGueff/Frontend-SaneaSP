@@ -3,11 +3,12 @@ import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-
 import { PrimeiraEtapaFormularioComponent } from "../../components/primeira-etapa-formulario/primeira-etapa-formulario.component";
 import { ComplaintRegisterStepsTypes } from "../../models/complaint-register-steps.model";
 import { ViewportScroller } from "@angular/common";
+import { SegundaEtapaFormularioComponent } from "../../components/segunda-etapa-formulario/segunda-etapa-formulario.component";
 
 @Component({
   selector: "app-denuncia-cadastro",
   standalone: true,
-  imports: [FormStepsComponent, PrimeiraEtapaFormularioComponent],
+  imports: [FormStepsComponent, PrimeiraEtapaFormularioComponent, SegundaEtapaFormularioComponent],
   templateUrl: "./denuncia-cadastro.component.html",
   styleUrls: [
     "./denuncia-cadastro.component.css",

@@ -1,0 +1,29 @@
+.fast-address{
+    gap: var(--space-5);
+}
+
+.fast-address__options{
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fast-address__title{
+    font-size: var(--lg-text);
+}
+
+.address-fields{
+    gap: var(--space-6);
+}
+
+.address-map{
+    background-color: var(--background-dark-color);
+    height: fit-content;
+}
+
+.form__field--groups{
+    gap: var(--space-3);
+}
+
+.fields{
+    gap: var(--space-8);
+}
