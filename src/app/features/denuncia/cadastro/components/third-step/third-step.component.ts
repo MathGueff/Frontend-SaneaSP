@@ -48,7 +48,7 @@ export class ThirdStepComponent implements IStepForm {
   ];
 
   private createCategoryList(names: string[]): ICategorySelect[] {
-    return names.map((nome) => ({ nome, selected: false }));
+    return names.map((nome) => ({ nome, selected: true }));
   }
 
   protected readonly waterCategories = this.createCategoryList(
@@ -64,10 +64,10 @@ export class ThirdStepComponent implements IStepForm {
     this.cleaningCategoriesNames
   );
 
-  protected categoryGroups: ICategoryGroup[] = [
-    {title : 'Água', group: this.waterCategories},
-    {title : 'Esgoto', group: this.sewageCategories},
-    {title : 'Drenagem', group: this.drainageCategories},
-    {title : 'Limpeza', group: this.cleaningCategories},
+  protected categoryGroups: ICategoryGroup<ICategorySelect>[] = [
+    {title : 'Água', icon: {folder : 'entities', name : 'water', alt : 'Categoria Água'}, group: this.waterCategories},
+    {title : 'Esgoto',icon: {folder : 'entities', name : 'sewage', alt : 'Categoria Esgoto'}, group: this.sewageCategories},
+    {title : 'Drenagem',icon: {folder : 'entities', name : 'drainage', alt : 'Categoria Drenagem'}, group: this.drainageCategories},
+    {title : 'Limpeza',icon: {folder : 'entities', name : 'cleaning', alt : 'Categoria Limpeza'}, group: this.cleaningCategories},
   ]
 }

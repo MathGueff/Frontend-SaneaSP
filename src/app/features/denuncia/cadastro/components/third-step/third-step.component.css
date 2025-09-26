@@ -1,5 +1,5 @@
 .form-step__body {
-  gap: var(--space-8);
+  gap: var(--space-6);
   width: 850px;
 }
 
@@ -33,6 +33,28 @@
 }
 
 .categories-container__categorie span{
+    flex: 1;
     color: var(--primary-color);
     font-size: var(--md-text);
 }
+
+.categorie__checkbox, .categorie__checkbox--selected{
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--background-dark-color);
+    border-radius: 2px;
+}
+
+.categorie__checkbox img, .categorie__checkbox--selected img{
+    width: 100%;
+    height: 100%;
+}
+
+.categorie__checkbox{
+    background-color: transparent;
+}
+
+.categorie__checkbox--selected{
+    background-color: var(--primary-color);
+}
+
