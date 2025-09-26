@@ -1,29 +1,60 @@
-.fast-address{
-    gap: var(--space-5);
+.form-step__body {
+  gap: var(--space-8);
+  width: 850px;
 }
 
-.fast-address__options{
-    justify-content: space-between;
-    width: 100%;
+.quick-address {
+  gap: var(--space-5);
+  padding: var(--space-4);
+  border: 2px solid var(--background-dark-color);
+  width: 100%;
 }
 
-.fast-address__title{
-    font-size: var(--lg-text);
+.quick-address__options {
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  gap: var(--space-6);
 }
 
-.address-fields{
-    gap: var(--space-6);
+.quick-address__option{
+    gap: var(--space-2);
 }
 
-.address-map{
-    background-color: var(--background-dark-color);
-    height: fit-content;
+.quick-address__title {
+  font-size: var(--md-text);
+  font-weight: 500;
 }
 
-.form__field--groups{
-    gap: var(--space-3);
+.address-section {
+  gap: var(--space-6);
+  align-items: stretch;
+  width: 100%;
+  height: auto;
 }
 
-.fields{
-    gap: var(--space-8);
+.address-section__map-wrapper {
+  object-fit: cover;
+  flex: 1;
+}
+
+.address-section__map {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.address-section__fields {
+  flex: 1;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.field--zip-code,
+.field--number {
+  flex: 1;
+}
+.field--city,
+.field--street {
+  flex: 3;
 }

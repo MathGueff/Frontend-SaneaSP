@@ -37,7 +37,7 @@
 }
 
 /*  Sobrescrita do estilo global */
-.button--action{
+.button--primary{
     padding: var(--space-4) var(--space-8);
     margin-top: var(--space-6);
 }

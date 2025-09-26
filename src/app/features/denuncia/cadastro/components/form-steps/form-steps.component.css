@@ -15,7 +15,7 @@
 .steps__separator{
     border: 2px solid var(--background-dark-color);
     width: 100px;
-    height: 4px;
+    height: 2px;
     opacity: 1;
 }
 

@@ -1,31 +1,31 @@
-<div class="form__body flex-column">
+<div class="form-step__body flex-column">
   <!-- Campo de descrição -->
-  <div class="form__field">
-    <label class="form__label" for="description">Descrição</label>
+  <div class="field">
+    <label class="field__label" for="description">Descrição</label>
     <textarea
       id="description"
-      class="form__input--description"
+      class="field__input--description"
       placeholder="Nos conte o que aconteceu"
       formControlName="description">
     </textarea>
   </div>
 
   <!-- Upload de imagens -->
-  <div class="form__field flex-column">
-    <label class="form__label" for="images">Imagens</label>
-    <div class="form__input--image flex-column" (click)="addImage('nova-imagem')">
+  <div class="field flex-column">
+    <label class="field__label" for="images">Imagens</label>
+    <div class="field__input--image flex-column" (click)="addImage('nova-imagem')">
       <span class="text-sm">Clique aqui para adicionar imagens</span>
       <img class="large-icon" src="icons/actions/black/add.svg" alt="" />
     </div>
   </div>
 
   <!-- Preview de imagens -->
-  <div class="form__images flex-row">
-    <h3 class="text-sm">
-      Suas imagens nos ajudarão a ter um melhor entendimento do problema
-    </h3>
+  <h3 class="text-sm">
+    Imagens nos ajudam a ter um melhor entendimento do problema
+  </h3>
+  <div class="form__images row">
     @for(image of images; track $index) {
-      <div class="form__image">
+      <div class="form__image col-6">
         <img src="images/denuncia/{{ image }}.jpg" alt="" />
       </div>
     }

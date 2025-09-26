@@ -5,6 +5,7 @@
   margin: 0px;
   padding: 0px;
   font-family: var(--primary-font);
+  color: var(--black-font-color);
 }
 
 :root {
@@ -162,9 +163,16 @@ h4 {
 }
 
 /* Botão de ação */
-.button--action {
-  background-color: var(--secondary-color);
+.button--primary {
+  background-color: var(--primary-color);
   color: var(--white-font-color);
+}
+
+/* Botão de ação */
+.button--secondary {
+  background-color: transparent;
+  border: 2px solid var(--tertiary-color);
+  color: var(--black-font-color);
 }
 
 .flex-column, .flex-row{

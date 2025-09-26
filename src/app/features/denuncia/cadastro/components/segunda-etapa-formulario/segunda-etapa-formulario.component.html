@@ -1,64 +1,66 @@
-<div class="form__body flex-column">
-  <div class="fast-address">
-    <h2 class="fast-address__title">Escolha um endereço abaixo</h2>
-    <div class="fast-address__options flex-row">
-      <div class="fast-address__option flex-column">
-        <span>Minha localização atual</span>
-        <img class="small-icon" src="icons/entities/black/address.svg" alt="" />
+<div class="form-step__body flex-column">
+  <!-- Seleção rápida de endereço -->
+  <section class="quick-address flex-column">
+    <h2 class="quick-address__title">Escolha um endereço abaixo ou informe um novo</h2>
+    <div class="quick-address__options flex-row">
+      <div class="quick-address__option flex-column">
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
+        <span>Localização atual</span>
       </div>
-      <div class="fast-address__option flex-column">
+      <div class="quick-address__option flex-column">
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
         <span>Meu endereço</span>
-        <img class="small-icon" src="icons/entities/black/address.svg" alt="" />
       </div>
-      <div class="fast-address__option flex-column">
+      <div class="quick-address__option flex-column">
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
         <span>Endereços salvos</span>
-        <img class="small-icon" src="icons/entities/black/address.svg" alt="" />
       </div>
     </div>
-  </div>
-  <div class="address-fields flex-row">
-    <img class="address-map" src="images/denuncia/user1.jpg" alt="" />
-    <div class="fields flex-column">
-      <div class="form__field--groups col-12 flex-row">
-        <div class="form__field">
-          <label for="" class="form__label">CEP</label>
-          <input type="phone" class="form__input" placeholder="00000-000" />
-        </div>
-        <div class="form__field">
-          <label for="" class="form__label">Cidade</label>
-          <input type="text" class="form__input" placeholder="Ex: Sorocaba" />
-        </div>
-      </div>
-      <div class="form__field--groups col-12 flex-row">
-        <div class="form__field">
-          <label for="" class="form__label">Rua</label>
-          <input
-            type="text"
-            class="form__input"
-            placeholder="Ex: Rua Jardim Brasilândia"
-          />
-        </div>
-        <div class="form__field">
-          <label for="" class="form__label">Número</label>
-          <input type="number" class="form__input" placeholder="Ex: 123" />
-        </div>
-      </div>
-      <div class="form__field--groups col-12 flex-row">
-        <div class="form__field">
-          <label for="" class="form__label">Bairro</label>
-          <input
-            type="text"
-            class="form__input"
-            placeholder="Ex: Jardim Brasilândia"
-          />
-        </div>
-      </div>
-      <div class="form__field--groups col-12 flex-row">
-        <div class="form__field">
-          <label for="" class="form__label">Complemento</label>
-          <input type="text" class="form__input" placeholder="Ex: fundos" />
-        </div>
-      </div>
+  </section>
+  
+  <!-- Campos e mapa lado a lado -->
+  <section class="address-section flex-row">
+
+    <!-- Imagem do mapa -->
+    <div class="address-section__map-wrapper flex-row">
+      <img class="address-section__map" src="images/denuncia/user1.jpg" alt="Mapa do endereço" />
     </div>
-  </div>
+
+    <!-- Campos de endereço -->
+    <div class="address-section__fields flex-column">
+
+      <div class="field-group flex-row">
+        <div class="field field--zip-code">
+          <label class="field__label" for="cep">CEP</label>
+          <input id="cep" type="text" class="field__input" placeholder="00000-000" />
+        </div>
+        <div class="field field--city">
+          <label class="field__label" for="cidade">Cidade</label>
+          <input id="cidade" type="text" class="field__input" placeholder="Ex: Sorocaba" />
+        </div>
+      </div>
+
+      <div class="field-group flex-row">
+        <div class="field field--street">
+          <label class="field__label" for="rua">Rua</label>
+          <input id="rua" type="text" class="field__input" placeholder="Ex: Rua Jardim Brasilândia" />
+        </div>
+        <div class="field field--number">
+          <label class="field__label" for="numero">Número</label>
+          <input id="numero" type="number" class="field__input" placeholder="Ex: 123" />
+        </div>
+      </div>
+
+        <div class="field">
+          <label class="field__label" for="bairro">Bairro</label>
+          <input id="bairro" type="text" class="field__input" placeholder="Ex: Jardim Brasilândia" />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="complemento">Complemento</label>
+          <input id="complemento" type="text" class="field__input" placeholder="Ex: fundos" />
+        </div>
+    </div>
+  </section>
+
 </div>

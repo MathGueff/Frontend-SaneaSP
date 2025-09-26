@@ -1,10 +1,9 @@
-.complaint-form{
-    margin: var(--space-6);
-    gap: var(--space-4);
+.complaint-form-section {
+  margin: var(--space-8);
+  gap: var(--space-6);
 }
 
-.form{
-    width: 650px;
-    padding: var(--space-8);
-    gap: var(--space-6);
+app-form-navigation {
+  display: flex; 
+  width: 100%;
 }
