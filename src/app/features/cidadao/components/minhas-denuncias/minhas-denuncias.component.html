@@ -12,10 +12,10 @@
             <img
               class="small-icon"
               [src]="'icons/'+ filter.icon.folder + '/' + (isActiveStatus(filter.status) ? 'white' : 'black') + '/' + filter.icon.name + '.svg'"
-              [alt]="filter.name"
+              [alt]="filter.icon.alt"
             >
           }
-          {{filter.name}}
+          {{filter.text}}
         </button>
       }
     </div>

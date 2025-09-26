@@ -17,8 +17,8 @@ export class HeaderCidadaoComponent{
   protected user = this.authService.getCurrentUser();
 
   navbarLinks : ILink[] = [
-    {path: '/cidadao/menu', name: 'Área dos cidadãos'},
-    {path: '/cidadao/new-complaint', name: 'Criar denúncia'},
-    {path: '/cidadao/complaints', name: 'Minhas denúncias'}
+    {path: '/cidadao/menu', text: 'Área dos cidadãos'},
+    {path: '/cidadao/new-complaint', text: 'Criar denúncia'},
+    {path: '/cidadao/complaints', text: 'Minhas denúncias'}
   ]
 }

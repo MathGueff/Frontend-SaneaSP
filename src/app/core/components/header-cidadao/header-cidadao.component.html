@@ -2,7 +2,7 @@
   @if(navbarLinks.length > 0){
   <div class="nav__links flex-row">
     @for (link of navbarLinks; track $index) {
-      <a [routerLink]="link.path" routerLinkActive="nav__link--active"  class="nav__link">{{ link.name }}</a>
+      <a [routerLink]="link.path" routerLinkActive="nav__link--active"  class="nav__link">{{ link.text }}</a>
     }
   </div>
   }

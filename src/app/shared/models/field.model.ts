@@ -1,6 +1,8 @@
+import { IIcon } from "./icon.model";
+
 export interface IField{
-    icon ?: string,
     label : string,
     placeholder ?: string,
     value ?: string
+    icon ?: IIcon,
 }

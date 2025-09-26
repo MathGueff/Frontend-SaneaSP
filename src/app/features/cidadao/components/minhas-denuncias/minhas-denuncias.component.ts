@@ -25,23 +25,23 @@ export class MinhasDenunciasComponent {
 
   protected filters: IComplaintStatusFilter[] = [
     {
-      name: "Em aberto",
-      icon: { folder: "status/complaint", name: "opened" },
+      text: "Em aberto",
+      icon: { folder: "status/complaint", name: "opened", alt : "Exibir em aberto"},
       status: StatusDenuncia.Aberto,
     },
     {
-      name: "Em análise",
-      icon: { folder: "status/complaint", name: "reviewed" },
+      text: "Em análise",
+      icon: { folder: "status/complaint", name: "reviewed", alt : "Exibir em análise"},
       status: StatusDenuncia.Analise,
     },
     {
-      name: "Visualizada",
-      icon: { folder: "status/complaint", name: "viewed" },
+      text: "Visualizada",
+      icon: { folder: "status/complaint", name: "viewed", alt : "Exibir visualizadas"},
       status: StatusDenuncia.Visualizada,
     },
     {
-      name: "Concluída",
-      icon: { folder: "status/complaint", name: "completed" },
+      text: "Concluída",
+      icon: { folder: "status/complaint", name: "completed", alt : "Exibir concluídas" },
       status: StatusDenuncia.Resolvida,
     },
   ];

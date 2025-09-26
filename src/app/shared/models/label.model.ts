@@ -1,7 +1,6 @@
+import { IIcon } from "./icon.model";
+
 export interface ILabel{
-    name : string,
-    icon ?: {
-        folder : string,
-        name : string
-    }
+    text : string,
+    icon ?: IIcon
 }
