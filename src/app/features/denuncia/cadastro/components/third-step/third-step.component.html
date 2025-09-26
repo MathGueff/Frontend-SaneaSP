@@ -1,0 +1,16 @@
+<section class="form-step__body flex-column">
+    <p>Categorias semelhantes com o seu problema já foram selecionadas</p>
+    <div class="categories-container flex-row">
+        @for (categoryGroup of categoryGroups; track $index) {
+            <div class="categories-container__group flex-column">
+                <img src="icons/entities/color/sewage.png" alt="aaa">
+                <h2>{{categoryGroup.title}}</h2>
+                @for (categorie of categoryGroup.group; track $index) {
+                    <div class="categories-container__categorie flex-row">
+                        <span>{{categorie.nome}}</span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

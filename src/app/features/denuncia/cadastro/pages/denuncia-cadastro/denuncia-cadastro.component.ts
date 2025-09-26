@@ -1,12 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
-
+import { Component, inject } from '@angular/core';
 import { FormStepsComponent } from '@features/denuncia/cadastro/components/form-steps/form-steps.component';
 import { FormNavigationComponent } from '../../components/form-navigation/form-navigation.component';
 import { PrimeiraEtapaFormularioComponent } from '../../components/primeira-etapa-formulario/primeira-etapa-formulario.component';
 import { SegundaEtapaFormularioComponent } from '../../components/segunda-etapa-formulario/segunda-etapa-formulario.component';
 import { ISteps, StepsTypes } from '../../models/steps';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ThirdStepComponent } from '../../components/third-step/third-step.component';
 
 @Component({
   selector: 'app-denuncia-cadastro',
@@ -16,6 +15,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
     FormNavigationComponent,
     PrimeiraEtapaFormularioComponent,
     SegundaEtapaFormularioComponent,
+    ThirdStepComponent,
     ReactiveFormsModule
   ],
   templateUrl: './denuncia-cadastro.component.html',
@@ -24,23 +24,24 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   ]
 })
 export class DenunciaCadastroComponent {
-  protected activeStep = 0;
+
+  private fb = inject(FormBuilder);
+  // private scrollService = inject(ScrollService);
+
+  protected activeStep = 2;
   protected steps: ISteps[] = [
     { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT },
     { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE },
     { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW }
   ];
 
-  protected formGroup: FormGroup;
+  protected formGroup: FormGroup = this.fb.group({
+    what: this.fb.group({ description: [''] }),
+    where: this.fb.group({ address: [''] }),
+    how: this.fb.group({ type: [''] })
+  });
+  
   formData: Record<string, any> = {};
-
-  constructor(private fb: FormBuilder, private scroller: ViewportScroller) {
-    this.formGroup = this.fb.group({
-      what: this.fb.group({ description: [''] }),
-      where: this.fb.group({ address: [''] }),
-      how: this.fb.group({ type: [''] })
-    });
-  }
 
   get stepTitle(): string {
     return this.steps.find(step => this.activeStep === step.type)?.formTitle || '';
@@ -65,7 +66,7 @@ export class DenunciaCadastroComponent {
   }
 
   private scrollTop(): void {
-    this.scroller.scrollToPosition([0, 0]);
+    // this.scroller.scrollToPosition([0, 0]);
   }
 
   private isCurrentStepValid(): boolean {
