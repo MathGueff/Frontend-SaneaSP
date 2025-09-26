@@ -26,13 +26,12 @@ import { ThirdStepComponent } from '../../components/third-step/third-step.compo
 export class DenunciaCadastroComponent {
 
   private fb = inject(FormBuilder);
-  // private scrollService = inject(ScrollService);
 
-  protected activeStep = 2;
+  protected activeStep = 0;
   protected steps: ISteps[] = [
-    { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT },
-    { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE },
-    { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW }
+    { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
+    { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE, completed: false },
+    { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW, completed: false }
   ];
 
   protected formGroup: FormGroup = this.fb.group({
@@ -49,20 +48,24 @@ export class DenunciaCadastroComponent {
 
   nextStep(): void {
     if (this.isCurrentStepValid() && this.activeStep < this.steps.length - 1) {
-      this.activeStep++;
-      this.scrollTop();
+      this.steps[this.activeStep].completed = true;
+      this.goToStep(++this.activeStep);
     }
   }
 
   previousStep(): void {
     if (this.activeStep > 0) {
-      this.activeStep--;
-      this.scrollTop();
+      this.goToStep(--this.activeStep);
     }
   }
 
+  goToStep(step : StepsTypes){
+    this.activeStep = step;
+    this.scrollTop();
+  }
+
   getFormGroup(name : string) : FormGroup{
-    return this.formGroup.get(name) as FormGroup;;
+    return this.formGroup.get(name) as FormGroup;
   }
 
   private scrollTop(): void {

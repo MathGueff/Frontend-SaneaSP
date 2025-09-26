@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ISteps, StepsTypes } from '../../models/steps';
 
 @Component({
@@ -11,8 +11,26 @@ import { ISteps, StepsTypes } from '../../models/steps';
 export class FormStepsComponent {
   @Input() activeStep : StepsTypes = 0;
   @Input() steps : ISteps[] = [];
+  @Output() return = new EventEmitter<StepsTypes>(); 
 
-  getStepStatus(step : StepsTypes){
-    return step === this.activeStep ? "--active" : "";
+  getStepState(step : ISteps){
+    if(step.type === this.activeStep)
+      return "--active"
+    
+    if(step.completed){
+      return "--completed"  
+    } 
+    return "";
   } 
+
+  getSeparatorState(step : ISteps){
+    if(step.completed)
+      return "--completed"
+    return "";
+  }
+
+  goToStep(step : ISteps){
+    if(step.completed)
+      this.return.emit(step.type);
+  }
 }

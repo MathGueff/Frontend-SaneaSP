@@ -1,7 +1,9 @@
 <section class="complaint-form-section flex-column">
   <app-form-steps
     [activeStep]="activeStep"
-    [steps]="steps">
+    [steps]="steps"
+    (return)="goToStep($event)"
+    >
   </app-form-steps>
 
   <form class="complaint-form form flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
