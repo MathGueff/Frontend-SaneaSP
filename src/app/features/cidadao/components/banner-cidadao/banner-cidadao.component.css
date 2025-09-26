@@ -13,6 +13,7 @@
 
 .banner__text p{
     font-size: var(--sm-text);
+    color: var(--white-font-color);
 }
 
 .banner__title{
@@ -31,11 +32,15 @@
     padding: var(--space-3);
     font-size: var(--xs-text);
     box-shadow: var(--button-shadow);
+    color: var(--white-font-color);
     border-radius: 4px;
     cursor: pointer;
     transition: 0.5s all ease-out;
 }
 
+.banner__button p{
+    color: var(--white-font-color);
+}
 
 .banner__button p, .banner__button img{
     transition: 0.5s all ease;
