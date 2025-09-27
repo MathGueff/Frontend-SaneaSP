@@ -16,4 +16,5 @@ export interface ICategorySelect extends ICategoryLabel{
 
 export interface ICategoryLabel{
   nome : string
+  icon ?: IIcon
 }

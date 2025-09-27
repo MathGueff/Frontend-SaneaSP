@@ -1,0 +1,29 @@
+<section class="complaint-detail flex-column">
+  <header class="complaint-detail__header flex-column">
+    <h2>Valas abertas na Rua Alonco Muchon (em aberto)</h2>
+    <div class="categories-container flex-row">
+      @for (categorie of categories; track $index) {
+      <div class="categories-container__categorie flex-row">
+        @if(categorie.icon){
+            <img
+              class="medium-icon"
+              [src]="'icons/' + categorie.icon.folder +'/color/' +categorie.icon.name +'.png'"
+              [alt]="categorie.icon.alt"
+            />
+        }
+        <span>{{ categorie.nome }}</span>
+      </div>
+      }
+    </div>
+  </header>
+  <div class="complaint-detail__body flex-column">
+    <header class="complaint-detail__body-header flex-column">
+        <span>22/10/2025 - 18:34</span>
+        <span>De: Matheus Augusto Santos Gueff</span>
+        <span>Em: Rua Alonco Muchon, 156, Fundos - Jardim Brasilândia, Sorocaba</span>
+    </header>
+    <div class="complaint-detail__content flex-column">
+
+    </div>
+  </div>
+</section>

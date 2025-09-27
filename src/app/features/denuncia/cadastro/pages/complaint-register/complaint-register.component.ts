@@ -6,7 +6,7 @@ import { SecondStepComponent } from '../../components/second-step/second-step.co
 import { ISteps, StepsTypes } from '../../models/steps';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ThirdStepComponent } from '../../components/third-step/third-step.component';
-import { ReviewComponent } from '@features/cidadao/cadastro/components/review/review.component';
+import { ReviewComponent } from '@features/denuncia/cadastro/components/review/review.component';
 
 @Component({
   selector: 'app-complaint-register',
@@ -29,7 +29,7 @@ export class ComplaintRegisterComponent {
 
   private fb = inject(FormBuilder);
 
-  protected activeStep = 0;
+  protected activeStep = 4;
   protected steps: ISteps[] = [
     { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
     { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE, completed: false },
@@ -49,7 +49,7 @@ export class ComplaintRegisterComponent {
   }
 
   nextStep(): void {
-    if (this.isCurrentStepValid() && this.activeStep < this.steps.length - 1) {
+    if (this.isCurrentStepValid()) {
       this.steps[this.activeStep].completed = true;
       this.goToStep(++this.activeStep);
     }
