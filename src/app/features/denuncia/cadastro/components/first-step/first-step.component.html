@@ -23,9 +23,9 @@
   <h3 class="text-sm">
     Imagens nos ajudam a ter um melhor entendimento do problema
   </h3>
-  <div class="form__images row">
+  <div class="form__images flex-row">
     @for(image of images; track $index) {
-      <div class="form__image col-6">
+      <div class="form__image">
         <img src="images/denuncia/{{ image }}.jpg" alt="" />
       </div>
     }

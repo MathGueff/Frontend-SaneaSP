@@ -1,6 +1,7 @@
 import { IImagem } from "@features/denuncia/models/imagem.model";
 import { ICategoria } from "@features/categoria/models/categoria.model";
 import { IUser } from "@features/usuario/models/usuario.model";
+import { IEndereco } from "@shared/models/endereco.model";
 
 export enum StatusDenuncia{
     Aberto,
@@ -16,12 +17,12 @@ export class Denuncia implements IDenuncia{
     data!: Date;
     status !: StatusDenuncia;
     pontuacao !: number;
-    cep ?: string;
-    cidade ?: string;
-    bairro ?: string;
-    rua ?: string;
-    numero ?: string;
-    complemento ?: string;
+    Address : IEndereco = {
+        cep: "",
+        logradouro: "",
+        bairro: "",
+        cidade: ""
+    };
     Usuario ?: IUser;
     Imagens !: IImagem[];
     Categorias !: ICategoria[];
@@ -34,12 +35,7 @@ export interface IDenuncia{
     data: Date,
     status: StatusDenuncia,
     pontuacao: number,
-    cep ?: string,
-    cidade ?: string,
-    bairro ?: string,
-    rua ?: string,
-    numero ?: string,
-    complemento ?: string,
+    Address : IEndereco,
     Usuario ?: IUser,
     Imagens : IImagem[],
     Categorias : ICategoria[],

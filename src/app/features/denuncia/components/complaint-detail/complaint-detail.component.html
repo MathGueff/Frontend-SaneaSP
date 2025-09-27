@@ -1,52 +1,46 @@
 <section class="complaint-detail flex-column">
   <header class="complaint-detail__header flex-column">
-    <h2>Valas abertas na Rua Alonco Muchon (em aberto)</h2>
+    <h2>{{complaint.titulo}}</h2>
     <div class="categories-container flex-row">
-      @for (categorie of categories; track $index) {
+      @for (categorie of complaint.Categorias; track $index) {
         @if($index < MAX_CATEGORIES){
-          <div div class="categories-container__categorie flex-row">
-            @if(categorie.icon){
-                <img
-                  class="medium-icon"
-                  [src]="'icons/' + categorie.icon.folder +'/color/' +categorie.icon.name +'.png'"
-                  [alt]="categorie.icon.alt"
-                />
-            }
-            <span>{{ categorie.nome }}</span>
-          </div>
+          <ng-container *ngIf="getCategoryIcon(categorie) as icon">
+            <div class="categories-container__categorie flex-row">
+              <img
+                class="medium-icon"
+                [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
+                [alt]="icon.alt"
+              />
+              <span>{{categorie.nome}}</span>
+            </div>
+          </ng-container>
         }
       }
-      @if(categories.length > MAX_CATEGORIES){
+      @if(complaint.Categorias.length > MAX_CATEGORIES){
         <div class="categories-container__categorie flex-row">
-          <span>+{{categories.length - MAX_CATEGORIES}}</span>
+          <span>+{{complaint.Categorias.length - MAX_CATEGORIES}}</span>
         </div>
       }
     </div>
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-        <span>22/10/2025 - 18:34</span>
+        <span>{{getFormattedDate(complaint.data)}}</span>
         <span>De: Matheus Augusto Santos Gueff</span>
-        <span>Em: Rua Alonco Muchon, 156, Fundos - Jardim Brasilândia, Sorocaba</span>
+        <ng-container *ngIf="getFullAddress(complaint.Address) as fullAddress">
+          <span>Em: {{fullAddress}}</span>
+        </ng-container>
     </header>
     <div class="complaint-detail__content flex-column">
-      <span class="complaint-detail__content-description flex-row">Há esgoto correndo a céu aberto nesta via, gerando mau cheiro, risco de proliferação de doenças e atraindo insetos.</span>
+      <span class="complaint-detail__content-description flex-row">
+        {{complaint.descricao}}
+      </span>
       <div class="complaint-detail__content-gallery flex-row">
-        <div class="complaint-detail__content-gallery-image">
-          <img src="images/denuncia/user1.jpg" alt="">
-        </div>
-        <div class="complaint-detail__content-gallery-image">
-          <img src="images/denuncia/user1.jpg" alt="">
-        </div>
-        <div class="complaint-detail__content-gallery-image">
-          <img src="images/denuncia/user1.jpg" alt="">
-        </div>
-        <div class="complaint-detail__content-gallery-image">
-          <img src="images/denuncia/user1.jpg" alt="">
-        </div>
-        <div class="complaint-detail__content-gallery-image">
-          <img src="images/denuncia/user1.jpg" alt="">
-        </div>
+        @for (image of complaint.Imagens; track $index) {
+          <div class="complaint-detail__content-gallery-image">
+            <img src="images/denuncia/{{image.nome}}" alt="{{image.nome}}">
+          </div>
+        }
       </div>
     </div>
   </div>
