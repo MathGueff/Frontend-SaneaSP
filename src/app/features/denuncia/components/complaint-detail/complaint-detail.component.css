@@ -3,7 +3,8 @@
     border: 1px solid var(--background-dark-color);
     gap: var(--space-3);
     padding: var(--space-12) var(--space-6);
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--button-shadow);
+    width: 850px;
 }
 
 .complaint-detail__header{
@@ -37,6 +38,7 @@
 
 .complaint-detail__body{
    width: 100%;
+   gap: var(--space-4);
 }
 
 .complaint-detail__body-header{
@@ -46,4 +48,41 @@
 
 .complaint-detail__body-header span{
     font-size: var(--sm-text);
+}
+
+.complaint-detail__content{
+    gap: var(--space-6);
+    align-items: start;
+}
+
+.complaint-detail__content-description{
+    text-align: start;
+    font-size: var(--md-text);
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: var(--white-font-color);
+    background-color: var(--primary-color);
+    border: 2px solid var(--secondary-dark-color);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+}
+
+.complaint-detail__content-gallery {
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 10px; 
+  margin: 0 -5px; 
+}
+
+.complaint-detail__content-gallery-image {
+  flex: 0 0 calc(33.333% - 10px); /* 33.33% menos o gap */
+  box-sizing: border-box;
+  padding: 5px; /* Espaçamento interno */
+}
+
+.complaint-detail__content-gallery-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; 
+  border-radius: 4px; 
 }

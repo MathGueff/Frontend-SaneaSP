@@ -29,7 +29,7 @@ export class ComplaintRegisterComponent {
 
   private fb = inject(FormBuilder);
 
-  protected activeStep = 4;
+  protected activeStep = 0;
   protected steps: ISteps[] = [
     { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
     { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE, completed: false },

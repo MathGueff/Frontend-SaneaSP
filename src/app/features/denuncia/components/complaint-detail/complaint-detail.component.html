@@ -3,16 +3,23 @@
     <h2>Valas abertas na Rua Alonco Muchon (em aberto)</h2>
     <div class="categories-container flex-row">
       @for (categorie of categories; track $index) {
-      <div class="categories-container__categorie flex-row">
-        @if(categorie.icon){
-            <img
-              class="medium-icon"
-              [src]="'icons/' + categorie.icon.folder +'/color/' +categorie.icon.name +'.png'"
-              [alt]="categorie.icon.alt"
-            />
+        @if($index < MAX_CATEGORIES){
+          <div div class="categories-container__categorie flex-row">
+            @if(categorie.icon){
+                <img
+                  class="medium-icon"
+                  [src]="'icons/' + categorie.icon.folder +'/color/' +categorie.icon.name +'.png'"
+                  [alt]="categorie.icon.alt"
+                />
+            }
+            <span>{{ categorie.nome }}</span>
+          </div>
         }
-        <span>{{ categorie.nome }}</span>
-      </div>
+      }
+      @if(categories.length > MAX_CATEGORIES){
+        <div class="categories-container__categorie flex-row">
+          <span>+{{categories.length - MAX_CATEGORIES}}</span>
+        </div>
       }
     </div>
   </header>
@@ -23,7 +30,24 @@
         <span>Em: Rua Alonco Muchon, 156, Fundos - Jardim Brasilândia, Sorocaba</span>
     </header>
     <div class="complaint-detail__content flex-column">
-
+      <span class="complaint-detail__content-description flex-row">Há esgoto correndo a céu aberto nesta via, gerando mau cheiro, risco de proliferação de doenças e atraindo insetos.</span>
+      <div class="complaint-detail__content-gallery flex-row">
+        <div class="complaint-detail__content-gallery-image">
+          <img src="images/denuncia/user1.jpg" alt="">
+        </div>
+        <div class="complaint-detail__content-gallery-image">
+          <img src="images/denuncia/user1.jpg" alt="">
+        </div>
+        <div class="complaint-detail__content-gallery-image">
+          <img src="images/denuncia/user1.jpg" alt="">
+        </div>
+        <div class="complaint-detail__content-gallery-image">
+          <img src="images/denuncia/user1.jpg" alt="">
+        </div>
+        <div class="complaint-detail__content-gallery-image">
+          <img src="images/denuncia/user1.jpg" alt="">
+        </div>
+      </div>
     </div>
   </div>
 </section>

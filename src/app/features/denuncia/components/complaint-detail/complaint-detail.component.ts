@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ICategoryLabel, ICategorySelect } from '@features/categoria/models/categoria.model';
+import { ICategoryLabel } from '@features/categoria/models/categoria.model';
 import { IIcon } from '@shared/models/icon.model';
 
 @Component({
@@ -11,6 +11,8 @@ import { IIcon } from '@shared/models/icon.model';
 })
 export class ComplaintDetailComponent {
 
+  protected MAX_CATEGORIES = 5;
+
   waterIcon : IIcon = {folder :"entities", name: "water.png", alt: ""};
   drainageIcon = "icons/entities/color/drainage.png";
   cleaningIcon = "icons/entities/color/cleaning.png";
@@ -19,6 +21,6 @@ export class ComplaintDetailComponent {
   protected categories : ICategoryLabel[] = [
     {nome : "Água imprópria", icon: {folder: 'entities', name: 'water', alt: 'Categoria'}},
     {nome : "Água imprópria", icon: {folder: 'entities', name: 'sewage', alt: 'Categoria'}},
-    {nome : "Água imprópria", icon: {folder: 'entities', name: 'drainage', alt: 'Categoria'}},
+    {nome : "Água imprópria", icon: {folder: 'entities', name: 'drainage', alt: 'Categoria'}}
   ]
 }
