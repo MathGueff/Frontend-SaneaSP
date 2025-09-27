@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
 import { AdminGuard } from '@core/guards/auth-admin.guard';
-import { MenuCidadaoComponent } from '@features/cidadao/pages/menu-cidadao/menu-cidadao.component';
-import { LoginComponent as CidadaoLoginComponent} from '@features/cidadao/pages/login/login.component';
-import { RegisterComponent as CidadaoRegisterComponent } from '@features/cidadao/pages/register/register.component';
-import { ProfileComponent as CidadaoProfileComponent } from '@features/cidadao/pages/profile/profile.component';
-import { LayoutCidadaoComponent } from '@features/layout/layout-cidadao/layout-cidadao.component';
-import { DadosPessoaisComponent } from '@features/cidadao/components/dados-pessoais/dados-pessoais.component';
-import { MinhasDenunciasComponent } from '@features/cidadao/components/minhas-denuncias/minhas-denuncias.component';
-import { DenunciaCadastroComponent } from '@features/denuncia/cadastro/pages/denuncia-cadastro/denuncia-cadastro.component';
+import { CitizenHomeComponent } from '@features/cidadao/pages/citizen-home/citizen-home.component';
+import { LoginComponent as CitizenLoginComponent} from '@features/cidadao/pages/login/login.component';
+import { RegisterComponent as CitizenRegisterComponent } from '@features/cidadao/pages/register/register.component';
+import { ProfileComponent as CitizenProfileComponent } from '@features/cidadao/pages/profile/profile.component';
+import { CitizenLayoutComponent } from '@features/layout/citizen-layout/citizen-layout.component';
+import { PersonalInfoComponent } from '@features/cidadao/components/personal-info/personal-info.component';
+import { MyComplaintsComponent } from '@features/cidadao/components/my-complaints/my-complaints.component';
+import { ComplaintRegisterComponent } from '@features/denuncia/cadastro/pages/complaint-register/complaint-register.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -16,22 +16,22 @@ export const routes: Routes = [
 
   //Área do cidadão
   {
-    path: 'cidadao', component:LayoutCidadaoComponent,
+    path: 'cidadao', component:CitizenLayoutComponent,
     children: [
       {path: '', redirectTo: 'menu', pathMatch: 'full' },
-      {path: 'menu', component: MenuCidadaoComponent},
-      {path: 'login', component: CidadaoLoginComponent},
-      {path: 'register', component: CidadaoRegisterComponent},
-      {path: 'complaints', component: MinhasDenunciasComponent}, 
-      {path: 'new-complaint', component: DenunciaCadastroComponent},
+      {path: 'menu', component: CitizenHomeComponent},
+      {path: 'login', component: CitizenLoginComponent},
+      {path: 'register', component: CitizenRegisterComponent},
+      {path: 'complaints', component: MyComplaintsComponent}, 
+      {path: 'new-complaint', component: ComplaintRegisterComponent},
       {
-        path: 'profile', component: CidadaoProfileComponent, 
+        path: 'profile', component: CitizenProfileComponent, 
         children : [
           {path: '', redirectTo: 'me', pathMatch: 'full' },
-          {path: 'me', component: DadosPessoaisComponent}, 
-          {path: 'saved-addresses', component: CidadaoProfileComponent}, 
-          {path: 'menu', component: CidadaoProfileComponent}, 
-          {path: 'notifications', component: CidadaoProfileComponent}, 
+          {path: 'me', component: PersonalInfoComponent}, 
+          {path: 'saved-addresses', component: CitizenProfileComponent}, 
+          {path: 'menu', component: CitizenProfileComponent}, 
+          {path: 'notifications', component: CitizenProfileComponent}, 
         ]
       }
     ]
