@@ -1,0 +1,12 @@
+.review{
+    gap: var(--space-4);
+}
+
+.field__input{
+    text-align: center;
+    font-size: var(--lg-text);
+    padding: var(--space-4);
+    width: 100%;
+    height: auto;
+    overflow-wrap: break-word;
+}

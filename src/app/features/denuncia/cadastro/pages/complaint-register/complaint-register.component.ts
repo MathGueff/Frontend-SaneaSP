@@ -7,6 +7,7 @@ import { ISteps, StepsTypes } from '../../models/steps';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ThirdStepComponent } from '../../components/third-step/third-step.component';
 import { ReviewComponent } from '@features/denuncia/cadastro/components/review/review.component';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-complaint-register',
@@ -28,12 +29,16 @@ import { ReviewComponent } from '@features/denuncia/cadastro/components/review/r
 export class ComplaintRegisterComponent {
 
   private fb = inject(FormBuilder);
+  protected StepsType = StepsTypes;
 
-  protected activeStep = 0;
+  protected scroller = inject(ViewportScroller);
+  protected activeStep : StepsTypes = StepsTypes.WHAT;
+
   protected steps: ISteps[] = [
     { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
     { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE, completed: false },
-    { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW, completed: false }
+    { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW, completed: false },
+    { formTitle: 'Como ficou sua denúncia', name: 'Confirmação', type: StepsTypes.REVIEW, completed: false }
   ];
 
   protected formGroup: FormGroup = this.fb.group({
@@ -41,17 +46,19 @@ export class ComplaintRegisterComponent {
     where: this.fb.group({ address: [''] }),
     how: this.fb.group({ type: [''] })
   });
-  
-  formData: Record<string, any> = {};
 
   get stepTitle(): string {
     return this.steps.find(step => this.activeStep === step.type)?.formTitle || '';
   }
 
   nextStep(): void {
-    if (this.isCurrentStepValid()) {
+    const nextStepIndex = this.activeStep + 1;
+    if (
+      nextStepIndex >= StepsTypes.WHAT &&
+      nextStepIndex <= StepsTypes.REVIEW
+    ) {
       this.steps[this.activeStep].completed = true;
-      this.goToStep(++this.activeStep);
+      this.goToStep(nextStepIndex as StepsTypes);
     }
   }
 
@@ -71,14 +78,7 @@ export class ComplaintRegisterComponent {
   }
 
   private scrollTop(): void {
-    // this.scroller.scrollToPosition([0, 0]);
-  }
-
-  private isCurrentStepValid(): boolean {
-    const stepKeys = ['what', 'where', 'how'];
-    const key = stepKeys[this.activeStep];
-    const stepGroup = this.formGroup.get(key);
-    return stepGroup?.valid ?? true;
+    this.scroller.scrollToPosition([0, 0]);
   }
 
   onSubmit(): void {

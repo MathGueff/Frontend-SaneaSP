@@ -1,1 +1,9 @@
-<app-complaint-detail [complaint]="complaint"></app-complaint-detail>
+<section class="review flex-column">
+    <span>Criamos um título para a sua denúncia, mas você pode personalizar aqui:</span>
+    <input 
+        #inputTitle
+        class="field__input" type="text" placeholder="Insira um título para sua denúncia"
+        (input)="changeTitle(inputTitle.value)"
+    >
+    <app-complaint-detail [complaint]="complaint"></app-complaint-detail>
+</section>

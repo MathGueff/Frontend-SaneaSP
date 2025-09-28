@@ -1,16 +1,17 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ISteps, StepsTypes } from "../../models/steps";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-form-steps",
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: "./form-steps.component.html",
   styleUrl: "./form-steps.component.css",
 })
 export class FormStepsComponent {
-  @Input() activeStep: StepsTypes = 0;
-  @Input() steps: ISteps[] = [];
+  @Input() activeStep !: StepsTypes;
+  @Input() steps !: ISteps[];
   @Output() return = new EventEmitter<StepsTypes>();
 
   getStepState(step: ISteps) {

@@ -5,7 +5,7 @@
       [class.steps__step--clickable]="isStepClickable(step)"
       (click)="goToStep(step)">
       
-      <div [className]="'step__circle' + getStepState(step)" class="flex-row">
+      <div [ngClass]="'step__circle' + getStepState(step)" class="flex-row">
         @if(step.completed){
           <img class="small-icon" [src]="'icons/status/system/'+ (step.type === activeStep ? 'white' : 'black') + '/success.svg'" alt="">
         }

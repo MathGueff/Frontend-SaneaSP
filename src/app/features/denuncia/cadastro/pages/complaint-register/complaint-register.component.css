@@ -7,3 +7,17 @@ app-form-navigation {
   display: flex; 
   width: 100%;
 }
+
+.complaint-form__navigation-buttons{
+  justify-content: space-between;
+  width: 100%;
+}
+
+.complaint-form__navigation-button--previous, .complaint-form__navigation-button--next{
+  font-size: var(--sm-text);
+  gap: auto;
+}
+
+.complaint-form__navigation-button--next{
+  margin-left: auto;
+}

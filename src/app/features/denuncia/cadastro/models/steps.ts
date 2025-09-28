@@ -8,5 +8,6 @@ export interface ISteps{
 export enum StepsTypes{
     WHAT,
     WHERE,
-    HOW
+    HOW,
+    REVIEW
 }
