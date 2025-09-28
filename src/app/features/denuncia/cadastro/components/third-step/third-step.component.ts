@@ -2,10 +2,10 @@ import { Component, Input } from "@angular/core";
 import { IStepForm } from "../../models/step-form.model";
 import { FormGroup } from "@angular/forms";
 import {
-  ICategoria,
+  ICategory,
   ICategoryGroup,
   ICategorySelect,
-} from "@features/categoria/models/categoria.model";
+} from "@features/categoria/models/category.model";
 
 @Component({
   selector: "app-third-step",
@@ -48,7 +48,7 @@ export class ThirdStepComponent implements IStepForm {
   ];
 
   private createCategoryList(names: string[]): ICategorySelect[] {
-    return names.map((nome) => ({ nome, selected: true }));
+    return names.map((name) => ({ name, selected: true }));
   }
 
   protected readonly waterCategories = this.createCategoryList(

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ComplaintSearchComponent } from '@features/denuncia/components/complaint-search/complaint-search.component';
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
-import { IDenuncia } from '@features/denuncia/models/denuncia.model';
+import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
@@ -16,5 +16,5 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 })
 export class AllComplaintsComponent {
   private complaintService = inject(ComplaintService);
-  denuncias: IDenuncia[] = this.complaintService.getTestComplaints();
+  denuncias: IComplaint[] = this.complaintService.getTestComplaints();
 }

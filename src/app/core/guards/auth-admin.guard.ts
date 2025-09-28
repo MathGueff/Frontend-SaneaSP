@@ -22,9 +22,9 @@ export class AdminGuard implements CanActivate {
       filter(user => user !== null || !this.authService.getAuthToken()),
       take(1),
       map(user => {
-        if (user && user.nivel == 1) return true;
+        if (user && user.level == 1) return true;
 
-        this.router.navigate([user && user.nivel == 0
+        this.router.navigate([user && user.level == 0
           ? '/'
           : '/login'
         ]);

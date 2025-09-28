@@ -2,10 +2,10 @@ import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import {
   CategoryGroup,
-  ICategoria,
-} from "@features/categoria/models/categoria.model";
-import { IDenuncia } from "@features/denuncia/models/denuncia.model";
-import { IEndereco } from "@shared/models/endereco.model";
+  ICategory,
+} from "@features/categoria/models/category.model";
+import { IComplaint } from "@features/denuncia/models/complaint.model";
+import { IAddress } from "@shared/models/address.model";
 import { IIcon } from "@shared/models/icon.model";
 
 @Component({
@@ -16,7 +16,7 @@ import { IIcon } from "@shared/models/icon.model";
   styleUrl: "./complaint-detail.component.css",
 })
 export class ComplaintDetailComponent {
-  @Input() complaint!: IDenuncia;
+  @Input() complaint!: IComplaint;
 
   protected MAX_CATEGORIES = 5;
 
@@ -25,7 +25,7 @@ export class ComplaintDetailComponent {
   sewageIcon: IIcon = { folder: "entities", name: "sewage", alt: "" };
   cleaningIcon: IIcon = { folder: "entities", name: "cleaning", alt: "" };
 
-  getCategoryIcon(category: ICategoria): IIcon {
+  getCategoryIcon(category: ICategory): IIcon {
     let icon: IIcon;
     switch (category.group) {
       case CategoryGroup.WATER:
@@ -44,7 +44,7 @@ export class ComplaintDetailComponent {
     return icon;
   }
 
-  getFullAddress(address: IEndereco): string {
+  getFullAddress(address: IAddress): string {
     if (!address) return "";
     const { logradouro, numero, complemento, bairro, cidade } = address;
     const parts: string[] = [];

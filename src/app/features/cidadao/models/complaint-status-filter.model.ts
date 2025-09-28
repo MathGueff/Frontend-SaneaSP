@@ -1,6 +1,6 @@
-import { StatusDenuncia } from "@features/denuncia/models/denuncia.model";
+import { ComplaintStatus } from "@features/denuncia/models/complaint.model";
 import { ILabel } from "@shared/models/label.model";
 
 export interface IComplaintStatusFilter extends ILabel{
-    status : StatusDenuncia;
+    status : ComplaintStatus;
 }

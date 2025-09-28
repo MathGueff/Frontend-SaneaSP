@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IDenuncia } from '@features/denuncia/models/denuncia.model';
+import { IComplaint } from '@features/denuncia/models/complaint.model';
 
 @Component({
   selector: 'app-complaint-card',
@@ -9,5 +9,5 @@ import { IDenuncia } from '@features/denuncia/models/denuncia.model';
   styleUrl: './complaint-card.component.css'
 })
 export class ComplaintCardComponent {
-  @Input() denuncia : IDenuncia  | null = null;
+  @Input() denuncia : IComplaint  | null = null;
 }

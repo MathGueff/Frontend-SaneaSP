@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CategoryGroup } from '@features/categoria/models/categoria.model';
+import { CategoryGroup } from '@features/categoria/models/category.model';
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
-import { IDenuncia, StatusDenuncia } from '@features/denuncia/models/denuncia.model';
+import { IComplaint, ComplaintStatus } from '@features/denuncia/models/complaint.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
@@ -17,5 +17,5 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 })
 export class RecentComplaintsComponent {
   private complaintService = inject(ComplaintService);
-  denuncias: IDenuncia[] = this.complaintService.getTestComplaints();
+  denuncias: IComplaint[] = this.complaintService.getTestComplaints();
 }

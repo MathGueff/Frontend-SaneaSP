@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
-import { IUser } from '@features/usuario/models/usuario.model';
+import { IUser } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { ErrorService } from './error-handler.service';
@@ -16,7 +16,7 @@ export class AuthService {
   currentUser$: Observable<IUser | null> = this.currentUserSubject.asObservable();
 
   public isAdmin$ = this.currentUser$.pipe(
-    map(user => user?.nivel === 1)
+    map(user => user?.level === 1)
   );
 
   constructor( 

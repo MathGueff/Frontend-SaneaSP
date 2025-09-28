@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ICategoria } from '@features/categoria/models/categoria.model';
+import { ICategory, ICategoryCreate, ICategoryListFilter } from '@features/categoria/models/category.model';
 import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { ITagCadastro } from '@features/categoria/models/tag-cadastro.model';
-import { ITagListFilter } from '@features/categoria/models/tag-list-filter.model';
 import { IResponseList } from '@shared/models/response.model';
 import { AuthService } from '@core/services/auth.service';
 import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
-export class TagService {
+export class CategoryService {
   //
   private apiUrl = environment.domain + 'categoria';
   constructor(
@@ -18,7 +16,7 @@ export class TagService {
   ) {}
 
   //GET
-  getTagsList(filters?: ITagListFilter) {
+  getTagsList(filters?: ICategoryListFilter) {
     const token = this.authService.getAuthToken();
 
     let headers = new HttpHeaders();
@@ -33,7 +31,7 @@ export class TagService {
         }
       });
     }
-    return this.httpClient.get<IResponseList<ICategoria[]>>(this.apiUrl, {
+    return this.httpClient.get<IResponseList<ICategory[]>>(this.apiUrl, {
       params,
       headers,
     });
@@ -46,7 +44,7 @@ export class TagService {
     if (token) {
       headers = headers.set('Authorization', token);
     }
-    return this.httpClient.get<IResponse<ICategoria>>(
+    return this.httpClient.get<IResponse<ICategory>>(
       `${this.apiUrl}/nome/${nameFilter}`,
       { headers }
     );
@@ -60,7 +58,7 @@ export class TagService {
     if (token) {
       headers = headers.set('Authorization', token);
     }
-    return this.httpClient.get<ICategoria>(`${this.apiUrl}/${id}`, { headers });
+    return this.httpClient.get<ICategory>(`${this.apiUrl}/${id}`, { headers });
   }
 
   getTagCount() {
@@ -74,14 +72,14 @@ export class TagService {
   }
 
   //POST
-  createNewTag(newTag: ITagCadastro) {
+  createNewTag(newTag: ICategoryCreate) {
     const token = this.authService.getAuthToken();
 
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', token);
     }
-    return this.httpClient.post<IResponse<ICategoria>>(`${this.apiUrl}`, newTag, {
+    return this.httpClient.post<IResponse<ICategory>>(`${this.apiUrl}`, newTag, {
       headers,
     });
   }
@@ -94,20 +92,20 @@ export class TagService {
     if (token) {
       headers = headers.set('Authorization', token);
     }
-    return this.httpClient.delete<IResponse<ICategoria>>(`${this.apiUrl}/${idTag}`, {
+    return this.httpClient.delete<IResponse<ICategory>>(`${this.apiUrl}/${idTag}`, {
       headers,
     });
   }
 
   //PUT
-  editTag(idTag: number, updatedTag: ICategoria) {
+  editTag(idTag: number, updatedTag: ICategory) {
     const token = this.authService.getAuthToken();
 
     let headers = new HttpHeaders();
     if (token) {
       headers = headers.set('Authorization', token);
     }
-    return this.httpClient.put<IResponse<ICategoria>>(
+    return this.httpClient.put<IResponse<ICategory>>(
       `${this.apiUrl}/${idTag}`,
       updatedTag,
       { headers }

@@ -1,8 +1,8 @@
 <section class="complaint-detail flex-column">
   <header class="complaint-detail__header flex-column">
-    <h2>{{complaint.titulo}}</h2>
+    <h2>{{complaint.title}}</h2>
     <div class="categories-container flex-row">
-      @for (categorie of complaint.Categorias; track $index) {
+      @for (categorie of complaint.categories; track $index) {
         @if($index < MAX_CATEGORIES){
           <ng-container *ngIf="getCategoryIcon(categorie) as icon">
             <div class="categories-container__categorie flex-row">
@@ -11,34 +11,34 @@
                 [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
                 [alt]="icon.alt"
               />
-              <span>{{categorie.nome}}</span>
+              <span>{{categorie.name}}</span>
             </div>
           </ng-container>
         }
       }
-      @if(complaint.Categorias.length > MAX_CATEGORIES){
+      @if(complaint.categories && complaint.categories.length > MAX_CATEGORIES){
         <div class="categories-container__categorie flex-row">
-          <span>+{{complaint.Categorias.length - MAX_CATEGORIES}}</span>
+          <span>+{{complaint.categories.length - MAX_CATEGORIES}}</span>
         </div>
       }
     </div>
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-        <span>{{getFormattedDate(complaint.data)}}</span>
-        <span>De: Matheus Augusto Santos Gueff</span>
-        <ng-container *ngIf="getFullAddress(complaint.Address) as fullAddress">
+        <span>{{getFormattedDate(complaint.date)}}</span>
+        <span>De: {{complaint.user.name}}</span>
+        <ng-container *ngIf="getFullAddress(complaint.address) as fullAddress">
           <span>Em: {{fullAddress}}</span>
         </ng-container>
     </header>
     <div class="complaint-detail__content flex-column">
       <span class="complaint-detail__content-description flex-row">
-        {{complaint.descricao}}
+        {{complaint.description}}
       </span>
       <div class="complaint-detail__content-gallery flex-row">
-        @for (image of complaint.Imagens; track $index) {
+        @for (image of complaint.images; track $index) {
           <div class="complaint-detail__content-gallery-image">
-            <img src="images/denuncia/{{image.nome}}" alt="{{image.nome}}">
+            <img src="images/denuncia/{{image.name}}" alt="{{image.name}}">
           </div>
         }
       </div>

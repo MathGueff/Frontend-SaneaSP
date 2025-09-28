@@ -1,7 +1,7 @@
-import { StatusDenuncia } from "@features/denuncia/models/denuncia.model";
+import { ComplaintStatus } from "@features/denuncia/models/complaint.model";
 
 export interface IComplaintStatusInfo {
-  status: StatusDenuncia;
+  status: ComplaintStatus;
   class: string;
   title: string;
   description: string;

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IDenuncia } from '@features/denuncia/models/denuncia.model';
+import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintCardComponent } from '../complaint-card/complaint-card.component';
 
 @Component({
@@ -10,5 +10,5 @@ import { ComplaintCardComponent } from '../complaint-card/complaint-card.compone
   styleUrl: './complaints-grid.component.css'
 })
 export class ComplaintsGridComponent {
-  @Input() denuncias : IDenuncia[] | null = null;
+  @Input() denuncias : IComplaint[] | null = null;
 }

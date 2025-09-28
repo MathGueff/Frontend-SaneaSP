@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ComplaintDetailComponent } from "@features/denuncia/components/complaint-detail/complaint-detail.component";
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 import { ThirdStepComponent } from '../third-step/third-step.component';
-import { IDenuncia } from '@features/denuncia/models/denuncia.model';
+import { IComplaint } from '@features/denuncia/models/complaint.model';
 
 @Component({
   selector: 'app-review',
@@ -13,19 +13,22 @@ import { IDenuncia } from '@features/denuncia/models/denuncia.model';
 })
 export class ReviewComponent {
   private complaintService = inject(ComplaintService);
-  protected complaint : IDenuncia = this.complaintService.getTestComplaints()[0];
+  protected complaint : IComplaint = this.complaintService.getTestComplaints()[0];
   protected oldTitle : string;
 
   constructor(){
-    this.complaint.titulo = `${this.complaint.Categorias[0].nome} na ${this.complaint.Address.logradouro}`;
-    this.oldTitle = this.complaint.titulo;
+    const {categories, address} = this.complaint;
+    if(categories){
+      this.complaint.title = `${categories[0].name} na ${address.logradouro}`;
+    }
+    this.oldTitle = this.complaint.title;
   }
 
   changeTitle(title : string){
     if(title.trim() == ""){
-      this.complaint.titulo = this.oldTitle
+      this.complaint.title = this.oldTitle
       return;
     }
-    this.complaint.titulo = title;
+    this.complaint.title = title;
   }
 }

@@ -1,11 +1,22 @@
 import { IIcon } from "@shared/models/icon.model"
 
-export interface ICategoria{
+//Dados
+export interface ICategory{
   id: number,
-  nome : string,
+  name : string,
   group : CategoryGroup
 }
 
+export interface ICategoryListFilter{
+  name : string
+}
+
+export interface ICategoryCreate{
+  name : string,
+  group : CategoryGroup
+}
+
+//Tipos
 export enum CategoryGroup{
   WATER,
   SEWAGE,
@@ -13,13 +24,14 @@ export enum CategoryGroup{
   CLEANING
 }
 
+//Visual
 export interface ICategorySelect extends ICategoryLabel{
-  nome : string,
+  name : string,
   selected ?: boolean
 }
 
 export interface ICategoryLabel{
-  nome : string,
+  name : string,
   icon ?: IIcon
 }
 
