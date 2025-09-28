@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { DenunciasGridComponent } from "@features/denuncia/components/denuncias-grid/denuncias-grid.component";
-import { IDenuncia, StatusDenuncia } from '@features/denuncia/models/denuncia.model';
-import { DenunciaPesquisaComponent } from "@features/denuncia/components/denuncia-pesquisa/denuncia-pesquisa.component";
+import { ComplaintSearchComponent } from '@features/denuncia/components/complaint-search/complaint-search.component';
+import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
+import { IDenuncia } from '@features/denuncia/models/denuncia.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
   selector: 'app-all-complaints',
   standalone: true,
-  imports: [DenunciasGridComponent, DenunciaPesquisaComponent],
+  imports: [ComplaintsGridComponent, ComplaintSearchComponent],
   templateUrl: './all-complaints.component.html',
   styleUrls: [
     './all-complaints.component.css',

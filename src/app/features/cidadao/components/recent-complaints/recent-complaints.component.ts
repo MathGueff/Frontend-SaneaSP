@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CategoryGroup } from '@features/categoria/models/categoria.model';
-import { DenunciasGridComponent } from "@features/denuncia/components/denuncias-grid/denuncias-grid.component";
+import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
 import { IDenuncia, StatusDenuncia } from '@features/denuncia/models/denuncia.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
   selector: 'app-recent-complaints',
   standalone: true,
-  imports: [CommonModule, DenunciasGridComponent],
+  imports: [CommonModule, ComplaintsGridComponent],
   templateUrl: './recent-complaints.component.html',
   styleUrls: [
     './recent-complaints.component.css',

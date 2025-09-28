@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { IDenuncia } from '@features/denuncia/models/denuncia.model';
 
 @Component({
-  selector: 'app-denuncia-card',
+  selector: 'app-complaint-card',
   standalone: true,
   imports: [],
-  templateUrl: './denuncia-card.component.html',
-  styleUrl: './denuncia-card.component.css'
+  templateUrl: './complaint-card.component.html',
+  styleUrl: './complaint-card.component.css'
 })
-export class DenunciaCardComponent {
+export class ComplaintCardComponent {
   @Input() denuncia : IDenuncia  | null = null;
 }

@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { DenunciasGridComponent } from "@features/denuncia/components/denuncias-grid/denuncias-grid.component";
+import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
 import {
   IDenuncia,
   StatusDenuncia,
@@ -12,7 +12,7 @@ import { IComplaintStatusInfo } from "@features/cidadao/models/complaint-status-
 @Component({
   selector: "app-my-complaints",
   standalone: true,
-  imports: [CommonModule, DenunciasGridComponent],
+  imports: [CommonModule, ComplaintsGridComponent],
   templateUrl: "./my-complaints.component.html",
   styleUrl: "./my-complaints.component.css",
 })
