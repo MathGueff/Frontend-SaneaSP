@@ -21,7 +21,7 @@ export class MyComplaintsComponent {
   protected currentFilter: ComplaintStatus = ComplaintStatus.Aberto;
 
   protected complaintService = inject(ComplaintService);
-  protected denuncias: IComplaint[] = this.complaintService.getTestComplaints();
+  protected complaints: IComplaint[] = this.complaintService.getTestComplaints();
 
   protected filters: IComplaintStatusFilter[] = [
     {

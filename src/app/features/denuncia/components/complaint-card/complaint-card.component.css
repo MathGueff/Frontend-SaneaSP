@@ -1,11 +1,12 @@
 .complaint-card {
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: var(--card-shadow);
   padding: var(--space-6);
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   width: 275px;
+  height: 100%; /* Ocupa 100% da altura da célula do grid */
 }
 
 /* Cabeçalho do card */

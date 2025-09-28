@@ -10,5 +10,5 @@ import { ComplaintCardComponent } from '../complaint-card/complaint-card.compone
   styleUrl: './complaints-grid.component.css'
 })
 export class ComplaintsGridComponent {
-  @Input() denuncias : IComplaint[] | null = null;
+  @Input() complaints !: IComplaint[];
 }

@@ -17,5 +17,5 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 })
 export class RecentComplaintsComponent {
   private complaintService = inject(ComplaintService);
-  denuncias: IComplaint[] = this.complaintService.getTestComplaints();
+  complaints: IComplaint[] = this.complaintService.getTestComplaints();
 }
