@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ComplaintDetailComponent } from "@features/denuncia/components/complaint-detail/complaint-detail.component";
+import { ComplaintDetailComponent } from "@features/denuncia/view/components/complaint-detail/complaint-detail.component";
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 import { ThirdStepComponent } from '../third-step/third-step.component';
 import { IComplaint } from '@features/denuncia/models/complaint.model';

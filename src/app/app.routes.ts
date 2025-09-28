@@ -9,6 +9,7 @@ import { CitizenLayoutComponent } from '@features/layout/citizen-layout/citizen-
 import { PersonalInfoComponent } from '@features/cidadao/components/personal-info/personal-info.component';
 import { MyComplaintsComponent } from '@features/cidadao/components/my-complaints/my-complaints.component';
 import { ComplaintRegisterComponent } from '@features/denuncia/cadastro/pages/complaint-register/complaint-register.component';
+import { ComplaintViewComponent } from '@features/denuncia/view/pages/complaint-view/complaint-view.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -24,6 +25,7 @@ export const routes: Routes = [
       {path: 'register', component: CitizenRegisterComponent},
       {path: 'complaints', component: MyComplaintsComponent}, 
       {path: 'new-complaint', component: ComplaintRegisterComponent},
+      {path: 'complaint', component: ComplaintViewComponent},
       {
         path: 'profile', component: CitizenProfileComponent, 
         children : [

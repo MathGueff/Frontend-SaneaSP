@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { IComplaint } from '@features/denuncia/models/complaint.model';
 
 @Component({
   selector: 'app-complaint-card',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './complaint-card.component.html',
   styleUrl: './complaint-card.component.css'
 })
