@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ComplaintDetailComponent } from "@features/denuncia/view/components/complaint-detail/complaint-detail.component";
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 import { ThirdStepComponent } from '../third-step/third-step.component';
 import { IComplaint } from '@features/denuncia/models/complaint.model';
+import { ComplaintDetailComponent } from '@features/denuncia/pages/complaint-detail/complaint-detail.component';
 
 @Component({
-  selector: 'app-review',
+  selector: 'app-review', 
   standalone: true,
   imports: [ComplaintDetailComponent],
   templateUrl: './review.component.html',
