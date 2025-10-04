@@ -16,7 +16,7 @@ export class AuthService {
   currentUser$: Observable<IUser | null> = this.currentUserSubject.asObservable();
 
   public isAdmin$ = this.currentUser$.pipe(
-    map(user => user?.level === 1)
+    map(user => user?.nivel === 1)
   );
 
   constructor( 

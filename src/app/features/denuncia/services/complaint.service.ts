@@ -4,7 +4,7 @@ import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthService } from "@core/services/auth.service";
 import { environment } from 'environments/environment';
-import { ICreateDenuncia, IComplaint, ComplaintStatus } from '../models/complaint.model';
+import { ICreateComplaint, IComplaint, ComplaintStatus } from '../models/complaint.model';
 
 @Injectable ({providedIn:'root'})
 export class ComplaintService{
@@ -20,20 +20,20 @@ export class ComplaintService{
     const denuncias: IComplaint[] = [
       { 
       id: 1,
-      title: "Vazamento de esgoto",
-      description: "Há um vazamento de esgoto em frente à minha casa, causando mau cheiro e risco à saúde dos moradores da região. O problema persiste há mais de uma semana e já foi reportado anteriormente, mas ainda não foi solucionado.",
-      date: new Date("2025-09-15"),
+      titulo: "Vazamento de esgoto",
+      descricao: "Há um vazamento de esgoto em frente à minha casa, causando mau cheiro e risco à saúde dos moradores da região. O problema persiste há mais de uma semana e já foi reportado anteriormente, mas ainda não foi solucionado.",
+      dataPublicacao: new Date("2025-09-15"),
       status: ComplaintStatus.Aberto,
-      score: 10,
-      images: [
-        { id: 1, name: "user1.jpg" },
-        { id: 1, name: "user2.jpg" },
-        { id: 1, name: "user3.jpg" },
-        { id: 1, name: "user4.jpg" },
-        { id: 1, name: "user4.jpg" },
-        { id: 1, name: "user5.jpg" },
+      pontuacao: 10,
+      imagens: [
+        { id: 1, nome: "user1.jpg" },
+        { id: 1, nome: "user2.jpg" },
+        { id: 1, nome: "user3.jpg" },
+        { id: 1, nome: "user4.jpg" },
+        { id: 1, nome: "user4.jpg" },
+        { id: 1, nome: "user5.jpg" },
       ],
-      address: {
+      endereco: {
         cep: "12345-678",
         cidade: "São Paulo",
         bairro: "Centro",
@@ -41,27 +41,27 @@ export class ComplaintService{
         numero: "100",
         complemento: "Apto 202"
       },
-      user: {
+      usuario: {
         id: 1,
-        name: "João da Silva",
+        nome: "João da Silva",
         email: "joao@email.com",
-        password: "123"
+        senha: "123"
       },
-      categories: [
-        { id: 1, name: "Consumo de Água", group: CategoryGroup.WATER },
-        { id: 2, name: "Tratamento de Esgoto", group: CategoryGroup.SEWAGE },
-        { id: 3, name: "Drenagem Urbana", group: CategoryGroup.DRAINAGE },
-        { id: 4, name: "Limpeza Pública", group: CategoryGroup.CLEANING }
+      categorias: [
+        { id: 1, nome: "Consumo de Água", grupo: CategoryGroup.WATER },
+        { id: 2, nome: "Tratamento de Esgoto", grupo: CategoryGroup.SEWAGE },
+        { id: 3, nome: "Drenagem Urbana", grupo: CategoryGroup.DRAINAGE },
+        { id: 4, nome: "Limpeza Pública", grupo: CategoryGroup.CLEANING }
       ]
       },
       {
       id: 2,
-      title: "Iluminação pública quebrada",
-      description: "O poste da rua está sem luz há dias, deixando o local escuro e perigoso durante a noite. Moradores estão preocupados com a segurança, pois a falta de iluminação facilita furtos e dificulta o trânsito de pedestres.",
-      date: new Date("2025-09-10"),
+      titulo: "Iluminação pública quebrada",
+      descricao: "O poste da rua está sem luz há dias, deixando o local escuro e perigoso durante a noite. Moradores estão preocupados com a segurança, pois a falta de iluminação facilita furtos e dificulta o trânsito de pedestres.",
+      dataPublicacao: new Date("2025-09-10"),
       status: ComplaintStatus.Aberto,
-      score: 5,
-      address : {
+      pontuacao: 5,
+      endereco : {
         cep: "12345-678",
         cidade: "São Paulo",
         bairro: "Centro",
@@ -69,23 +69,23 @@ export class ComplaintService{
         numero: "100",
         complemento: "Apto 202",
       },
-      user: {
+      usuario: {
         id: 2,
-        name: "Maria Oliveira",
+        nome: "Maria Oliveira",
         email: "maria@email.com",
-        password: "456"
+        senha: "456"
       },
-      images: [],
-      categories: []
+      imagens: [],
+      categorias: []
       },
       {
       id: 3,
-      title: "Lixo acumulado",
-      description: "A coleta de lixo não passou essa semana, resultando em acúmulo de resíduos nas calçadas e ruas. O mau cheiro está incomodando os moradores e há risco de proliferação de insetos e doenças.",
-      date: new Date("2025-09-12"),
+      titulo: "Lixo acumulado",
+      descricao: "A coleta de lixo não passou essa semana, resultando em acúmulo de resíduos nas calçadas e ruas. O mau cheiro está incomodando os moradores e há risco de proliferação de insetos e doenças.",
+      dataPublicacao: new Date("2025-09-12"),
       status: ComplaintStatus.Aberto,
-      score: 8,
-      address : {
+      pontuacao: 8,
+      endereco : {
         cep: "12345-678",
         cidade: "São Paulo",
         bairro: "Centro",
@@ -93,23 +93,23 @@ export class ComplaintService{
         numero: "100",
         complemento: "Apto 202",
       },
-      user: {
+      usuario: {
         id: 3,
-        name: "Carlos Souza",
+        nome: "Carlos Souza",
         email: "carlos@email.com",
-        password: "789"
+        senha: "789"
       },
-      images: [],
-      categories: []
+      imagens: [],
+      categorias: []
       },
       {
       id: 4,
-      title: "Árvore caída na via",
-      description: "Uma árvore caiu bloqueando a rua após a tempestade, impedindo o tráfego de veículos e pedestres. O incidente ocorreu há dois dias e ainda não houve remoção por parte da prefeitura. Moradores estão preocupados com possíveis acidentes.",
-      date: new Date("2025-09-14"),
+      titulo: "Árvore caída na via",
+      descricao: "Uma árvore caiu bloqueando a rua após a tempestade, impedindo o tráfego de veículos e pedestres. O incidente ocorreu há dois dias e ainda não houve remoção por parte da prefeitura. Moradores estão preocupados com possíveis acidentes.",
+      dataPublicacao: new Date("2025-09-14"),
       status: ComplaintStatus.Aberto,
-      score: 12,
-      address : {
+      pontuacao: 12,
+      endereco : {
         cep: "12345-678",
         cidade: "São Paulo",
         bairro: "Centro",
@@ -117,19 +117,19 @@ export class ComplaintService{
         numero: "100",
         complemento: "Apto 202",
       },
-      user: {
+      usuario: {
         id: 1,
-        name: "João da Silva",
+        nome: "João da Silva",
         email: "joao@email.com",
-        password: "123"
+        senha: "123"
       },
-      images: [
-        { id: 1, name: "https://exemplo.com/imagem1.jpg" },
-        { id: 2, name: "https://exemplo.com/imagem2.jpg" }
+      imagens: [
+        { id: 1, nome: "https://exemplo.com/imagem1.jpg" },
+        { id: 2, nome: "https://exemplo.com/imagem2.jpg" }
       ],
-      categories: [
-        { id: 1, name: "Galerias Pluviais", group : CategoryGroup.DRAINAGE},
-        { id: 2, name: "Preservação Ambiental", group : CategoryGroup.SEWAGE }
+      categorias: [
+        { id: 1, nome: "Galerias Pluviais", grupo : CategoryGroup.DRAINAGE},
+        { id: 2, nome: "Preservação Ambiental", grupo : CategoryGroup.SEWAGE }
       ]
       }
     ]
@@ -156,7 +156,7 @@ export class ComplaintService{
     return this.httpClient.get<IComplaint[]>(`${this.urlApi}/tags/?${query}`)
   }
 
-  public postReclamacao(reclamacao: ICreateDenuncia):Observable<IComplaint>{
+  public postReclamacao(reclamacao: ICreateComplaint):Observable<IComplaint>{
     const headers = this.setHeader();
     const user = this.authService.getCurrentUser();
     if(user){
@@ -164,7 +164,7 @@ export class ComplaintService{
     }
     return this.httpClient.post<IComplaint>(`${this.urlApi}`, reclamacao,{headers})
   }
-  public putReclamacao(reclamacao:ICreateDenuncia, idReclamacao: number){
+  public putReclamacao(reclamacao:ICreateComplaint, idReclamacao: number){
     const headers = this.setHeader();
     return this.httpClient.put<IComplaint>(`${this.urlApi}/${idReclamacao}`,reclamacao, {headers})
   }

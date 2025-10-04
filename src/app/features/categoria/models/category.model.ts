@@ -3,17 +3,17 @@ import { IIcon } from "@shared/models/icon.model"
 //Dados
 export interface ICategory{
   id: number,
-  name : string,
-  group : CategoryGroup
+  nome : string,
+  grupo : CategoryGroup
 }
 
 export interface ICategoryListFilter{
-  name : string
+  nome : string
 }
 
 export interface ICategoryCreate{
-  name : string,
-  group : CategoryGroup
+  nome : string,
+  grupo : CategoryGroup
 }
 
 //Tipos

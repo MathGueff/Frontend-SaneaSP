@@ -2,13 +2,13 @@ import { IAddress } from "@shared/models/address.model";
 
 export interface IUser {
     id?: number,
-    name: string,
-    password: string,
+    nome: string,
+    senha: string,
     email: string,
-    phoneNumber?: string,
+    telefone?: string,
     cpf?: string,
-    address ?: IAddress,
-    level?: number
+    endereco ?: IAddress,
+    nivel?: number
 }
 
 export interface IUserCredentials{

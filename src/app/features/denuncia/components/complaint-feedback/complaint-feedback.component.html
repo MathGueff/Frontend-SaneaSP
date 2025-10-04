@@ -3,7 +3,7 @@
         <div class="complaint-feedback__container flex-column">
             <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
             <p class="complaint-feedback__description">
-                {{description}}
+                {{descricao}}
             </p>
         </div>
     </section>
@@ -13,8 +13,8 @@
             @for (comment of comments; track $index) {
                 @if($index < MAX_COMMENTS){
                     <div class="complaint-comments__comment">
-                        <h3 class="complaint-comments__comment-title">{{comment.user.name}}</h3>
-                        <span class="complaint-comments__comment-description">{{comment.description}}</span>
+                        <h3 class="complaint-comments__comment-title">{{comment.usuario.nome}}</h3>
+                        <span class="complaint-comments__comment-description">{{comment.descricao}}</span>
                     </div>
                 }
             }

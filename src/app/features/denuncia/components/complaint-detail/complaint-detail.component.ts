@@ -27,7 +27,7 @@ export class ComplaintDetailComponent {
 
   getCategoryIcon(category: ICategory): IIcon {
     let icon: IIcon;
-    switch (category.group) {
+    switch (category.grupo) {
       case CategoryGroup.WATER:
         icon = this.waterIcon;
         break;

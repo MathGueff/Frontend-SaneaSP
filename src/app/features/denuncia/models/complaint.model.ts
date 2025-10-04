@@ -12,21 +12,21 @@ export enum ComplaintStatus{
 
 export interface IComplaint{
     id : number,
-    title: string,
-    description: string,
-    date: Date,
+    titulo: string,
+    descricao: string,
+    dataPublicacao: Date,
     status: ComplaintStatus,
-    score : number,
-    address : IAddress,
-    user : IUser,
-    images ?: IImage[],
-    categories ?: ICategory[],
+    pontuacao : number,
+    endereco : IAddress,
+    usuario : IUser,
+    imagens ?: IImage[],
+    categorias ?: ICategory[],
 }
-export interface ICreateDenuncia{
-    title: string,
-    description : string,
-    address : IAddress
+export interface ICreateComplaint{
+    titulo: string,
+    descricao : string,
+    endereco : IAddress
     idUsuario: number,
-    images : string[],
-    categories : number[]
+    imagens : string[],
+    categorias : number[]
 }

@@ -17,18 +17,18 @@ export class ReviewComponent {
   protected oldTitle : string;
 
   constructor(){
-    const {categories, address} = this.complaint;
+    const {categorias: categories, endereco: address} = this.complaint;
     if(categories){
-      this.complaint.title = `${categories[0].name} na ${address.logradouro}`;
+      this.complaint.titulo = `${categories[0].nome} na ${address.logradouro}`;
     }
-    this.oldTitle = this.complaint.title;
+    this.oldTitle = this.complaint.titulo;
   }
 
   changeTitle(title : string){
     if(title.trim() == ""){
-      this.complaint.title = this.oldTitle
+      this.complaint.titulo = this.oldTitle
       return;
     }
-    this.complaint.title = title;
+    this.complaint.titulo = title;
   }
 }

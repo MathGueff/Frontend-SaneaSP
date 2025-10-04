@@ -3,8 +3,8 @@ import { IComplaint } from "./complaint.model";
 
 export interface IComment {
   id: number;
-  description :string;
-  date: string;
-  complaint : IComplaint
-  user : IUser;
+  descricao :string;
+  dataPublicacao: string;
+  denuncia : IComplaint
+  usuario : IUser;
 }

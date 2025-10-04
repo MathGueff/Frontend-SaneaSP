@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Va
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { IUserCredentials } from '@features/usuario/models/user.model';
+import { ToastService } from '@shared/services/toast.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,25 +15,25 @@ export class LoginComponent {
   loginForm : FormGroup;
 
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   constructor(private fb: NonNullableFormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.min(6)]]
+      senha: ['', [Validators.required, Validators.min(6)]]
     });
   }
 
   onSubmit() {
     if(this.loginForm.invalid){
-      console.log('Formulário inválido');
+      this.toastService.show({
+        message : "Preencha o formulário corretamente",
+        error: true
+      })
       return;
     }
-    const user : IUserCredentials = {
-      email : this.loginForm.get('email')?.value,
-      senha : this.loginForm.get('password')?.value
-    };
+    const user : IUserCredentials = this.loginForm.value;
     this.authService.login(user).subscribe((next) => {
-      console.log("Fez login:" + next.name);
     });
   }
 }
