@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
-import { LocalStorageService } from '@core/services/local-storage.service';
 import { ErrorService } from './error-handler.service';
 import { environment } from 'environments/environment';
+import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,14 +22,14 @@ export class AuthService {
   constructor( 
     private httpClient: HttpClient,
     private sweetAlertService: SweetAlertService,
-    private localStorageService : LocalStorageService,
+    private authTokenStorageService : AuthTokenStorageService,
     private errorService : ErrorService){
     this.initializeAuth()
   }
 
   /* Realiza o login ao iniciar o site (ou recarregar) */
   private initializeAuth(){
-    const token = this.getAuthToken();
+    const token = this.authTokenStorageService.get();
 
     if(token){
       this.fetchUser().subscribe(); // Atualiza o usuário ativo após realizar req
@@ -40,9 +40,8 @@ export class AuthService {
 
   /* Gera o token JWT para login */
   public login(user : IUserCredentials) {
-    console.log(user)
     return this.httpClient.post<string>(`${this.API_URL}/login`, user).pipe(
-      tap((token) => this.setAuthToken(token)),
+      tap((token) => this.authTokenStorageService.set(token)),
       switchMap(() => this.fetchUser()),
       tap(() => this.sweetAlertService.showMessage('Login realizado com sucesso', false)),
       catchError(err => {
@@ -60,7 +59,7 @@ export class AuthService {
 
   /* Adquire dados do usuário atual utilizando o token JWT gerado */
   public fetchUser() : Observable<IUser>{
-    const token = this.getAuthToken();
+    const token = this.authTokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -87,22 +86,7 @@ export class AuthService {
   }
 
   public clearAuth(){
-    this.removeAuthToken();
+    this.authTokenStorageService.remove();
     this.currentUserSubject.next(null);
-  }
-
-  /* Adquire o token JWT armazenado no localStorage */
-  public getAuthToken(): string | null {
-    return this.localStorageService.get('access-token')
-  }
-
-  /* Define o token JWT armazenado no localStorage */
-  public setAuthToken(token : string){
-    this.localStorageService.set('access-token',token)
-  }
-
-  /* Remove o token JWT armazenado no localStorage */
-  public removeAuthToken(){
-    this.localStorageService.remove('access-token')
   }
 }

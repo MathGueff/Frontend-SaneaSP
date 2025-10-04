@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { AuthService } from "@core/services/auth.service";
 import { environment } from 'environments/environment';
 import { ICreateComplaint, IComplaint, ComplaintStatus } from '../models/complaint.model';
+import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 
 @Injectable ({providedIn:'root'})
 export class ComplaintService{
@@ -12,7 +13,8 @@ export class ComplaintService{
   private urlApi:string = environment.domain +"denuncia";
 
   private authService = inject(AuthService);
-  
+  private authTokenStorageService = inject(AuthTokenStorageService);
+
   constructor(private httpClient:HttpClient){}
 
   //MÉTODO PARA TESTE
@@ -179,7 +181,7 @@ export class ComplaintService{
   }
 
   private setHeader():HttpHeaders{
-    const token = this.authService.getAuthToken();
+    const token = this.authTokenStorageService.get();
     let headers = new HttpHeaders();
     if(token){
       headers = headers.set('Authorization',token)
