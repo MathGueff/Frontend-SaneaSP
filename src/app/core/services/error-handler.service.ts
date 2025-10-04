@@ -1,15 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SweetAlertService } from '@shared/services/sweet-alert.service';
-import { SweetAlertResult } from 'sweetalert2';
+import { ToastService } from '@shared/services/toast.service';
 
 @Injectable({ providedIn: 'root' })
 export class ErrorService {
-  constructor(private sweetAlertService: SweetAlertService) {}
+  constructor(private toastService: ToastService) {}
 
-  handleError(error: unknown): Promise<SweetAlertResult> {
+  handleError(error: unknown) {
     const message = this.getErrorMessage(error);
-    return this.sweetAlertService.showMessage(message, true);
+    this.toastService.show({message, error : true});
   }
 
   getErrorMessage(error: unknown): string {
