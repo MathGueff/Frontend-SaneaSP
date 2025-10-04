@@ -16,7 +16,7 @@ export class ToastService {
   */
   show(response : IResponse) {
     const image = response.error ? "error.svg" : "success.svg"
-    const iconUrl = `icons/status/color/${image}`;
+    const iconUrl = `icons/status/system/color/${image}`;
 
     const toast : IToast= {
       id : Date.now(), //Para evitar IDs repetidos, utilizando a data de criação 
