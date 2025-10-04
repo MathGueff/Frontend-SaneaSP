@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
-import { IUser } from '@features/usuario/models/user.model';
+import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { LocalStorageService } from '@core/services/local-storage.service';
 import { ErrorService } from './error-handler.service';
@@ -39,11 +39,9 @@ export class AuthService {
   }
 
   /* Gera o token JWT para login */
-  public login(email: string, senha: string) {
-    return this.httpClient.post<string>(`${this.API_URL}/login`, {
-      email,
-      senha,
-    }).pipe(
+  public login(user : IUserCredentials) {
+    console.log(user)
+    return this.httpClient.post<string>(`${this.API_URL}/login`, user).pipe(
       tap((token) => this.setAuthToken(token)),
       switchMap(() => this.fetchUser()),
       tap(() => this.sweetAlertService.showMessage('Login realizado com sucesso', false)),

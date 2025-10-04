@@ -10,3 +10,8 @@ export interface IUser {
     address ?: IAddress,
     level?: number
 }
+
+export interface IUserCredentials{
+    email : string,
+    senha : string
+}
