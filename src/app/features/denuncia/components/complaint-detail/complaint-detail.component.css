@@ -4,10 +4,10 @@
     gap: var(--space-3);
     padding: var(--space-12) var(--space-6);
     box-shadow: var(--button-shadow);
-    max-width: 850px; /* máximo quando tiver espaço */
-    width: 100%; /* ocupa a largura disponível */
+    max-width: 850px; 
+    width: 100%;
     box-sizing: border-box;
-    margin: 0 auto; /* centraliza se for menor que a tela */
+    margin: 0 auto;
 }
 
 .complaint-detail__header{
