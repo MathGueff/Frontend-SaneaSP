@@ -4,7 +4,7 @@
   background-image: var(--background-image);
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 1000;
   height: 60px;
   box-shadow: var(--header-shadow);
 }
