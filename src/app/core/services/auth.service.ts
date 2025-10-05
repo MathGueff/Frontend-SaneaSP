@@ -43,7 +43,7 @@ export class AuthService {
     return this.httpClient.post<string>(`${this.API_URL}/login`, user).pipe(
       tap((token) => this.authTokenStorageService.set(token)),
       switchMap(() => this.fetchUser()),
-      tap(() => this.sweetAlertService.showMessage('Login realizado com sucesso', false)),
+      tap(() => this.sweetAlertService.confirmLogin()),
       catchError(err => {
         this.clearAuth();
         this.errorService.handleError(err);
