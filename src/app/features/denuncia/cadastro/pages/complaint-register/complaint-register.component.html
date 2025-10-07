@@ -6,7 +6,7 @@
     >
   </app-form-steps>
 
-  <form class="complaint-form form flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form class="complaint-form form-container flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <header class="form-container__header">
         <div class="complaint-form__navigation-buttons flex-row">
           @if(activeStep > StepsType.WHAT){

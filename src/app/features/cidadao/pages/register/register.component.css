@@ -1,7 +1,7 @@
 @import '@shared/styles/form.style.css';
 @import '@features/cidadao/styles/auth-form.style.css';
 
-.form{
+.form-container{
   width: 750px;
 }
 
