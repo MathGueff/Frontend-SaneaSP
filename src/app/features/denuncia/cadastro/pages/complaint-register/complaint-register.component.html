@@ -7,7 +7,7 @@
   </app-form-steps>
 
   <form class="complaint-form form flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-      <header class="form__header">
+      <header class="form-container__header">
         <div class="complaint-form__navigation-buttons flex-row">
           @if(activeStep > StepsType.WHAT){
             <div 
@@ -28,10 +28,10 @@
             </div>
           }
         </div>
-        <h1 class="form__title">{{ stepTitle }}</h1>
+        <h1 class="form-container__title">{{ stepTitle }}</h1>
       </header>
 
-      <div class="form__body">
+      <div class="form-container__body">
         @switch(activeStep) {
           @case(StepsType.WHAT) {
             <app-first-step
@@ -54,7 +54,7 @@
         }
       </div>
 
-      <div class="form__footer">
+      <div class="form-container__footer">
         <app-form-navigation
           [activeStep]="activeStep"
           [steps]="steps"
