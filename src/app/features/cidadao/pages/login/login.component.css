@@ -1,6 +1,6 @@
 @import '@features/cidadao/styles/auth-form.style.css';
 
-.form{
+.form-container{
     width: 450px;
 }
 
