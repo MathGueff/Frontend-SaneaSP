@@ -1,5 +1,5 @@
 <section class="auth-section">
-  <div class="form-container">
+  <form [formGroup]="registerForm" class="form-container">
     <header class="form-container__header">
       <h1 class="form-container__title">Crie sua conta</h1>
       <hr class="form__separator--header" />
@@ -8,10 +8,8 @@
 
     <div class="form-container__body">
       <img class="form__img" src="images/register/register_vector.webp" alt="">
-      <form
-        [formGroup]="cadastroForm"
-        (ngSubmit)="onSubmit()"
-        class="form__form"
+      <div
+        class="form-container__form"
       >
         <!-- Nome -->
         <div class="field">
@@ -60,14 +58,14 @@
             placeholder="Confirme a senha"
           />
         </div>
-      </form>
+      </div>
     </div>
     <footer class="form-container__footer">
       <div class="footer__buttons">
         <button
           type="submit"
-          form="cadastroForm"
           class="button form__button--submit"
+          (click)="onSubmit()"
         >
           CRIAR
         </button>
@@ -78,5 +76,5 @@
         <a routerLink="/cidadao/login" class="footer__link--anchor">Clique aqui para entrar</a>
       </p>
     </footer>
-  </div>
+  </form>
 </section>

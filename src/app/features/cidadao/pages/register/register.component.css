@@ -9,7 +9,7 @@
   flex-direction: row;
 }
 
-.form__form{
+.form-container__form{
   width: 100%;
   display: flex;
   flex-direction: column;

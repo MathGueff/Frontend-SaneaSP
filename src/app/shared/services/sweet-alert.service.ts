@@ -3,85 +3,116 @@ import Swal, { SweetAlertResult, SweetAlertOptions } from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class SweetAlertService {
+  private readonly defaultConfig: Partial<SweetAlertOptions> = {
+    iconColor: '#295a80',
+    background: '#f8f8f8',
+    customClass: {
+      title: 'sweet-alert__title',
+      confirmButton: 'button--primary'
+    }
+  };
+
   /**
-   *
-   * @param swalConfig objeto de configuração para o modal sweetAlert
-   * @description exibe um sweetAlert dependendo das configurações passadas
+   * Exibe um SweetAlert com as configurações fornecidas.
    */
-  public showMessage(swalConfig : SweetAlertOptions,){
-    Swal.fire(swalConfig);
+  public showMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
+    return Swal.fire({ ...this.defaultConfig, ...config } as SweetAlertOptions);
   }
 
-  public showConfirmationMessage(swalConfig : SweetAlertOptions,): Promise<SweetAlertResult> {
-    return Swal.fire(swalConfig);
+  /**
+   * Exibe um SweetAlert de confirmação.
+   */
+  public showConfirmationMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
+    return Swal.fire({ ...this.defaultConfig, ...config } as SweetAlertOptions);
   }
 
-  public async confirmLogin(){
-    const swalConfig: SweetAlertOptions = {
+  /**
+   * Gera configuração para mensagem customizada.
+   */
+  public buildConfig(options: Partial<SweetAlertOptions>): SweetAlertOptions {
+    return { ...this.defaultConfig, ...options } as SweetAlertOptions;
+  }
+
+  /**
+   * Exibe mensagem de confirmação de cadastro.
+   */
+  public confirmRegister(): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
       icon: 'success',
       html: `
         <div class="swal__container flex-column">
-          <h1 class="swal__title--h1"> Você entrou na sua conta! </h2>
-          <h2 class="swal__title--h2"> Agora você pode: </h2>
+          <h1 class="swal__title--h1">Você criou sua conta!</h1>
+          <h2 class="swal__title--h2">Verifique seu email para confirmar sua identidade</h2>
+        </div>
+      `
+    }));
+  }
+
+  /**
+   * Exibe mensagem de confirmação de login.
+   */
+  public confirmLogin(): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Você entrou na sua conta!</h1>
+          <h2 class="swal__title--h2">Agora você pode:</h2>
           <div class="swal__options flex-row">
             <div class="swal__option flex-column">
-              <img class="medium-icon" src="icons/actions/black/add.svg">
+              <img class="medium-icon" src="icons/actions/black/add.svg" alt="Criar denúncia">
               <span class="text-md">Criar uma denúncia</span>
             </div>
             <div class="swal__option flex-column">
-              <img class="medium-icon" src="icons/entities/black/complaint.svg">
+              <img class="medium-icon" src="icons/entities/black/complaint.svg" alt="Ver denúncias">
               <span class="text-md">Ver suas denúncias</span>
             </div>
           </div>
         </div>
-      `,
-      iconColor: '#295a80',
-      background: '#f8f8f8',
-      customClass: {
-        title : 'sweet-alert__title',
-        confirmButton: 'button--primary'
-      },
-    }
+      `
+    }));
+  }
 
-    this.showMessage(swalConfig);
+  /**
+   * Exibe confirmação para exclusão.
+   */
+  public confirmExclusion(message: string): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(this.buildConfig({
+      title: message,
+      showConfirmButton: true,
+      showDenyButton: true,
+      icon: 'question',
+      background: '#295A80',
+      color: '#e8e3e3',
+      confirmButtonText: 'Excluir',
+      denyButtonText: 'Cancelar',
+      reverseButtons: true,
+      customClass: {
+        denyButton: ['sweet_btn_success', 'sweet_btn'],
+        confirmButton: ['sweet_btn_danger', 'sweet_btn'],
+        title: 'sweet_title'
+      }
+    }));
   }
-  
-  //Função assincrona. Ela retorna uma Promessa, isso quer dizer deve ser usada junto com asyc e await
-  public async confirmExclusion(message:string):Promise<SweetAlertResult>{
-      const swalConfig : SweetAlertOptions = {
-        title: message,
-        showConfirmButton: true,
-        showDenyButton: true,
-        icon:'question',
-        background: '#295A80',
-        color: '#e8e3e3',
-        confirmButtonText: 'Excluir',
-        denyButtonText: `Cancelar`,
-        reverseButtons: true,
-        customClass: {
-          denyButton: ['sweet_btn_success','sweet_btn'],
-          confirmButton: ['sweet_btn_danger','sweet_btn'],
-          title : 'sweet_title',
-        },
-      };
-      return this.showConfirmationMessage(swalConfig);
-  }
-    public async confirmUpdate(message:string):Promise<SweetAlertResult>{
-      const swalConfig : SweetAlertOptions = {
-        title: message,
-        showConfirmButton: true,
-        showDenyButton: true,
-        icon:'question',
-        background: '#295A80',
-        color: '#e8e3e3',
-        confirmButtonText: 'Salvar',
-        denyButtonText: `Cancelar`,
-        reverseButtons: true,
-        customClass: {
-          confirmButton: 'sweet_btn_success',
-          title : 'sweet_title',
-        },
-      };
-    return this.showConfirmationMessage(swalConfig);
+
+  /**
+   * Exibe confirmação para atualização.
+   */
+  public confirmUpdate(message: string): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(this.buildConfig({
+      title: message,
+      showConfirmButton: true,
+      showDenyButton: true,
+      icon: 'question',
+      background: '#295A80',
+      color: '#e8e3e3',
+      confirmButtonText: 'Salvar',
+      denyButtonText: 'Cancelar',
+      reverseButtons: true,
+      customClass: {
+        confirmButton: 'sweet_btn_success',
+        title: 'sweet_title'
+      }
+    }));
   }
 }

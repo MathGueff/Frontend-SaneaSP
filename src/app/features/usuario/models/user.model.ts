@@ -11,6 +11,12 @@ export interface IUser {
     nivel?: number
 }
 
+export interface ICreateUser {
+    nome: string,
+    senha: string,
+    email: string,
+}
+
 export interface IUserCredentials{
     email : string,
     senha : string
