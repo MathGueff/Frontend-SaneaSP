@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ComplaintSearchComponent } from '@features/denuncia/components/complaint-search/complaint-search.component';
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
 import { IComplaint } from '@features/denuncia/models/complaint.model';
@@ -14,7 +14,16 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
     '../../pages/citizen-home/citizen-home.component.css',
   ]
 })
-export class AllComplaintsComponent {
+export class AllComplaintsComponent implements OnInit {
   private complaintService = inject(ComplaintService);
-  complaints: IComplaint[] = this.complaintService.getTestComplaints();
+  complaints !: IComplaint[];
+
+  ngOnInit(): void {
+    this.complaintService.getComplaints()
+    .subscribe({
+      next: (complaints) => {
+        this.complaints = complaints;
+      },
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
 import {
   IComplaint,
@@ -16,12 +16,21 @@ import { IComplaintStatusInfo } from "@features/cidadao/models/complaint-status-
   templateUrl: "./my-complaints.component.html",
   styleUrl: "./my-complaints.component.css",
 })
-export class MyComplaintsComponent {
+export class MyComplaintsComponent implements OnInit {
   protected StatusDenuncia = ComplaintStatus;
   protected currentFilter: ComplaintStatus = ComplaintStatus.Aberto;
 
   protected complaintService = inject(ComplaintService);
-  protected complaints: IComplaint[] = this.complaintService.getTestComplaints();
+  complaints !: IComplaint[];
+
+  ngOnInit(): void {
+    this.complaintService.getComplaints()
+    .subscribe({
+      next: (complaints) => {
+        this.complaints = complaints;
+      },
+    });
+  }
 
   protected filters: IComplaintStatusFilter[] = [
     {

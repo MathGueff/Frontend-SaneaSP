@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
-import { ThirdStepComponent } from '../third-step/third-step.component';
 import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintDetailComponent } from '@features/denuncia/components/complaint-detail/complaint-detail.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-review', 
@@ -11,9 +11,19 @@ import { ComplaintDetailComponent } from '@features/denuncia/components/complain
   templateUrl: './review.component.html',
   styleUrl: './review.component.css'
 })
-export class ReviewComponent {
+export class ReviewComponent implements OnInit{
   private complaintService = inject(ComplaintService);
-  protected complaint : IComplaint = this.complaintService.getTestComplaints()[0];
+   complaint !: IComplaint; // não precisa ser private se for usar no template
+  
+    ngOnInit(): void {
+      this.complaintService.getComplaints()
+      .pipe(take(1))
+      .subscribe({
+        next: (complaints) => {
+          this.complaint = complaints?.[0] ?? null;
+        },
+      });
+    }
   protected oldTitle : string;
 
   constructor(){

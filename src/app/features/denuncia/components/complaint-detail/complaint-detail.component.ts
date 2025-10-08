@@ -59,7 +59,8 @@ export class ComplaintDetailComponent {
     return [main, location].filter(Boolean).join(" - ");
   }
 
-  getFormattedDate(date: Date): string {
+  getFormattedDate(dateStr: string): string {
+    const date = new Date(dateStr);
     if (!date) return "";
     const pad = (n: number) => n.toString().padStart(2, "0");
     const day = pad(date.getDate());

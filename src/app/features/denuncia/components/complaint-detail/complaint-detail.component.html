@@ -2,31 +2,36 @@
   <header class="complaint-detail__header flex-column">
     <h2>{{complaint.titulo}}</h2>
     <div class="categories-container flex-row">
-      @for (categoria of complaint.categorias; track $index) {
-        @if($index < MAX_CATEGORIES){
-          <ng-container *ngIf="getCategoryIcon(categoria) as icon">
-            <div class="categories-container__categorie flex-row">
-              <img
-                class="medium-icon"
-                [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
-                [alt]="icon.alt"
-              />
-              <span>{{categoria.nome}}</span>
-            </div>
-          </ng-container>
+      @if(complaint.categorias){
+        @for (categoria of complaint.categorias; track $index) {
+          @if($index < MAX_CATEGORIES){
+            <ng-container *ngIf="getCategoryIcon(categoria) as icon">
+              <div class="categories-container__categorie flex-row">
+                <img
+                  class="medium-icon"
+                  [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
+                  [alt]="icon.alt"
+                />
+                <span>{{categoria.nome}}</span>
+              </div>
+            </ng-container>
+          }
         }
-      }
-      @if(complaint.categorias && complaint.categorias.length > MAX_CATEGORIES){
-        <div class="categories-container__categorie flex-row">
-          <span>+{{complaint.categorias.length - MAX_CATEGORIES}}</span>
-        </div>
+
+        @if(complaint.categorias.length > MAX_CATEGORIES){
+          <div class="categories-container__categorie flex-row">
+            <span>+{{complaint.categorias.length - MAX_CATEGORIES}}</span>
+          </div>
+        }
       }
     </div>
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-        <span>{{getFormattedDate(complaint.dataPublicacao)}}</span>
-        <span>De: {{complaint.usuario.nome}}</span>
+      <!-- FIXME: entender como CARAMBOLAS isso aqui ta indo Date, chegando string e agora como object.lf,sdf,sdkof,sdkfms -->
+        <span>{{getFormattedDate(complaint.dataPublicacao.toString())}}</span>
+        <!-- FIXME: corrigir pegando o nome do usuário -->
+        <span>De: {{complaint.usuario}}</span>
         <ng-container *ngIf="getFullAddress(complaint.endereco) as fullAddress">
           <span>Em: {{fullAddress}}</span>
         </ng-container>
@@ -36,10 +41,12 @@
         {{complaint.descricao}}
       </span>
       <div class="complaint-detail__content-gallery flex-row">
-        @for (imagem of complaint.imagens; track $index) {
-          <div class="complaint-detail__content-gallery-image">
-            <img src="images/denuncia/{{imagem.nome}}" alt="{{imagem.nome}}">
-          </div>
+        @if(complaint.imagens){
+          @for (imagem of complaint.imagens; track $index) {
+            <div class="complaint-detail__content-gallery-image">
+              <img src="images/denuncia/{{imagem.nome}}" alt="{{imagem.nome}}">
+            </div>
+          }
         }
       </div>
     </div>
