@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { ToastService } from '@shared/services/toast.service';
 
 @Injectable({ providedIn: 'root' })
-export class ErrorService {
+export class ErrorHandlerService {
   constructor(private toastService: ToastService) {}
 
-  handleError(error: unknown) {
+  handleError(error: Error) {
     const message = this.getErrorMessage(error);
     this.toastService.show({message, error : true});
   }

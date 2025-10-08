@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
-import { ErrorService } from './error-handler.service';
+import { ErrorHandlerService } from './error-handler.service';
 import { environment } from 'environments/environment';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 
@@ -23,7 +23,7 @@ export class AuthService {
     private httpClient: HttpClient,
     private sweetAlertService: SweetAlertService,
     private authTokenStorageService : AuthTokenStorageService,
-    private errorService : ErrorService){
+    private errorService : ErrorHandlerService){
     this.initializeAuth()
   }
 
