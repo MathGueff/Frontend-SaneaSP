@@ -28,10 +28,8 @@
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-      <!-- FIXME: entender como CARAMBOLAS isso aqui ta indo Date, chegando string e agora como object.lf,sdf,sdkof,sdkfms -->
         <span>{{complaintService.getFormattedDate(complaint.dataPublicacao)}}</span>
-        <!-- FIXME: corrigir pegando o nome do usuário -->
-        <span>De: {{complaint.usuario}}</span>
+        <span>Criado por: {{userName}}</span>
         <ng-container *ngIf="complaintService.getFullAddress(complaint.endereco) as fullAddress">
           <span>Em: {{fullAddress}}</span>
         </ng-container>

@@ -5,6 +5,7 @@ import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintFeedbackComponent } from "@features/denuncia/components/complaint-feedback/complaint-feedback.component";
 import { take } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '@features/usuario/services/user.service';
 
 @Component({
   selector: 'app-complaint-view',
@@ -15,23 +16,28 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ComplaintViewComponent implements OnInit {
   private complaintService = inject(ComplaintService);
+  private userService = inject(UserService);
   private route = inject(ActivatedRoute);
 
   complaint!: IComplaint;
+  userName!: string;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id'); // pega o ID da rota
+    const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.complaintService.getComplaintById(Number(id))   // supondo que seu service tenha esse método
+      this.complaintService.getComplaintById(Number(id)) 
         .pipe(take(1))
         .subscribe({
           next: (complaint) => {
             this.complaint = complaint;
-            console.log(this.complaint);
+            this.userService.getUserNameById(Number(complaint.idUsuario)).subscribe({
+              next : (res) => {
+                this.userName = res.toString();
+              }
+            })
           },
         });
     }
   }
 }
-

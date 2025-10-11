@@ -8,16 +8,15 @@ import { ICreateComplaint, IComplaint, ComplaintStatus } from '../models/complai
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 import { IAddress } from '@shared/models/address.model';
 import { IIcon } from '@shared/models/icon.model';
+import { BaseApiService } from '@core/services/base-api.service';
 
 @Injectable ({providedIn:'root'})
-export class ComplaintService{
+export class ComplaintService extends BaseApiService{
   //
   private urlApi:string = environment.domain +"denuncia";
 
   private authService = inject(AuthService);
-  private authTokenStorageService = inject(AuthTokenStorageService);
-
-  constructor(private httpClient:HttpClient){}
+  private httpClient = inject(HttpClient)
 
   public getComplaints() : Observable<IComplaint[]> {
     return this.httpClient.get<IComplaint[]>(`${this.urlApi}/`)
@@ -61,14 +60,7 @@ export class ComplaintService{
     return this.httpClient.get<IComplaint[]>(`${this.urlApi}/usuario`,{headers})
   }
 
-  private setHeader():HttpHeaders{
-    const token = this.authTokenStorageService.get();
-    let headers = new HttpHeaders();
-    if(token){
-      headers = headers.set('Authorization',token)
-    }
-    return headers
-  }
+ 
 
   getCategoryIcon(category: ICategory): IIcon {
     const waterIcon: IIcon = { folder: "entities", name: "water", alt: "" };
@@ -111,7 +103,6 @@ export class ComplaintService{
 
   getFormattedDate(dateStr: string): string {
     const date = new Date(dateStr)
-    console.log(typeof date)
     if (!date) return "";
     const pad = (n: number) => n.toString().padStart(2, "0");
     const day = pad(date.getDate());
@@ -119,7 +110,7 @@ export class ComplaintService{
     const year = date.getFullYear();
     const hours = pad(date.getHours());
     const minutes = pad(date.getMinutes());
-    return `${day}/${month}/${year} - ${hours}:${minutes}`;
+    return `Publicado dia: ${day}/${month}/${year} as ${hours}:${minutes} horas`;
   }
 
   getCalculatedDate(dateStr : string) : string{

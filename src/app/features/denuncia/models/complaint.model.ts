@@ -18,7 +18,7 @@ export interface IComplaint{
     status: ComplaintStatus,
     pontuacao : number,
     endereco : IAddress,
-    usuario : IUser,
+    idUsuario : string,
     imagens ?: IImage[],
     categorias ?: ICategory[],
 }

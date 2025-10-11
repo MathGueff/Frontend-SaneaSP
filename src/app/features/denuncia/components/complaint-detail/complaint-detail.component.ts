@@ -18,6 +18,7 @@ import { IIcon } from "@shared/models/icon.model";
 })
 export class ComplaintDetailComponent {
   @Input() complaint!: IComplaint;
+  @Input() userName!: string;
 
   complaintService = inject(ComplaintService);
   protected MAX_CATEGORIES = 5;
