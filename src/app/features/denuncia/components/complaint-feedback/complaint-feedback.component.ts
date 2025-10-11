@@ -21,7 +21,7 @@ export class ComplaintFeedbackComponent {
       id: 201,
       titulo: "Produto danificado",
       descricao: "Recebi o produto com a tela trincada.",
-      dataPublicacao: new Date("2025-09-29"),
+      dataPublicacao: "2025-09-29",
       status: ComplaintStatus.Aberto,
       pontuacao: 1,
       endereco: {
@@ -50,7 +50,7 @@ export class ComplaintFeedbackComponent {
       id: 202,
       titulo: "Atraso na entrega",
       descricao: "O pedido demorou 10 dias além do prazo.",
-      dataPublicacao: new Date("2025-09-26"),
+      dataPublicacao: "2025-09-26",
       status: ComplaintStatus.Analise,
       pontuacao: 2,
       endereco: {
@@ -79,7 +79,7 @@ export class ComplaintFeedbackComponent {
       id: 203,
       titulo: "Cobrança duplicada",
       descricao: "Fui cobrado duas vezes pelo mesmo pedido.",
-      dataPublicacao: new Date("2025-09-24"),
+      dataPublicacao: "2025-09-24",
       status: ComplaintStatus.Visualizada,
       pontuacao: 1,
       endereco: {
@@ -108,7 +108,7 @@ export class ComplaintFeedbackComponent {
       id: 204,
       titulo: "Produto errado",
       descricao: "Comprei um celular e recebi um carregador.",
-      dataPublicacao: new Date("2025-09-20"),
+      dataPublicacao: "2025-09-20",
       status: ComplaintStatus.Aberto,
       pontuacao: 1,
       endereco: {
@@ -137,7 +137,7 @@ export class ComplaintFeedbackComponent {
       id: 205,
       titulo: "Suporte ineficiente",
       descricao: "Fiquei mais de 1 hora esperando no chat.",
-      dataPublicacao: new Date("2025-09-19"),
+      dataPublicacao: "2025-09-19",
       status: ComplaintStatus.Analise,
       pontuacao: 2,
       endereco: {
@@ -166,7 +166,7 @@ export class ComplaintFeedbackComponent {
       id: 206,
       titulo: "Cancelamento indevido",
       descricao: "Meu pedido foi cancelado sem minha autorização.",
-      dataPublicacao: new Date("2025-09-17"),
+      dataPublicacao: "2025-09-17",
       status: ComplaintStatus.Resolvida,
       pontuacao: 3,
       endereco: {
@@ -195,7 +195,7 @@ export class ComplaintFeedbackComponent {
       id: 207,
       titulo: "Garantia não informada",
       descricao: "Produto chegou e não tem garantia como anunciado.",
-      dataPublicacao: new Date("2025-09-14"),
+      dataPublicacao: "2025-09-14",
       status: ComplaintStatus.Visualizada,
       pontuacao: 2,
       endereco: {
@@ -224,7 +224,7 @@ export class ComplaintFeedbackComponent {
       id: 208,
       titulo: "Nota fiscal errada",
       descricao: "A nota fiscal foi emitida em nome incorreto.",
-      dataPublicacao: new Date("2025-09-12"),
+      dataPublicacao: "2025-09-12",
       status: ComplaintStatus.Aberto,
       pontuacao: 2,
       endereco: {
@@ -253,7 +253,7 @@ export class ComplaintFeedbackComponent {
       id: 209,
       titulo: "Sem rastreamento",
       descricao: "Não consigo acompanhar meu pedido.",
-      dataPublicacao: new Date("2025-09-09"),
+      dataPublicacao: "2025-09-09",
       status: ComplaintStatus.Visualizada,
       pontuacao: 3,
       endereco: {
@@ -282,7 +282,7 @@ export class ComplaintFeedbackComponent {
       id: 210,
       titulo: "Estoque inconsistente",
       descricao: "Comprei o item e depois disseram que estava esgotado.",
-      dataPublicacao: new Date("2025-09-07"),
+      dataPublicacao: "2025-09-07",
       status: ComplaintStatus.Resolvida,
       pontuacao: 2,
       endereco: {

@@ -4,6 +4,7 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintFeedbackComponent } from "@features/denuncia/components/complaint-feedback/complaint-feedback.component";
 import { take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-complaint-view',
@@ -14,17 +15,23 @@ import { take } from 'rxjs';
 })
 export class ComplaintViewComponent implements OnInit {
   private complaintService = inject(ComplaintService);
-  complaint !: IComplaint; // não precisa ser private se for usar no template
+  private route = inject(ActivatedRoute);
+
+  complaint!: IComplaint;
 
   ngOnInit(): void {
-    this.complaintService.getComplaints()
-    .pipe(take(1))
-    .subscribe({
-      next: (complaints) => {
-        this.complaint = complaints?.[0];
-        console.log(this.complaint)
-      },
-    });
+    const id = this.route.snapshot.paramMap.get('id'); // pega o ID da rota
+
+    if (id) {
+      this.complaintService.getComplaintById(Number(id))   // supondo que seu service tenha esse método
+        .pipe(take(1))
+        .subscribe({
+          next: (complaint) => {
+            this.complaint = complaint;
+            console.log(this.complaint);
+          },
+        });
+    }
   }
 }
 

@@ -25,7 +25,7 @@ export const routes: Routes = [
       {path: 'register', component: CitizenRegisterComponent},
       {path: 'complaints', component: MyComplaintsComponent}, 
       {path: 'new-complaint', component: ComplaintRegisterComponent},
-      {path: 'complaint', component: ComplaintViewComponent},
+      {path: 'complaint/:id', component: ComplaintViewComponent},
       {
         path: 'profile', component: CitizenProfileComponent, 
         children : [

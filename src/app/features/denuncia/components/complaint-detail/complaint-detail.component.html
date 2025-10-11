@@ -5,7 +5,7 @@
       @if(complaint.categorias){
         @for (categoria of complaint.categorias; track $index) {
           @if($index < MAX_CATEGORIES){
-            <ng-container *ngIf="getCategoryIcon(categoria) as icon">
+            <ng-container *ngIf="complaintService.getCategoryIcon(categoria) as icon">
               <div class="categories-container__categorie flex-row">
                 <img
                   class="medium-icon"
@@ -29,10 +29,10 @@
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
       <!-- FIXME: entender como CARAMBOLAS isso aqui ta indo Date, chegando string e agora como object.lf,sdf,sdkof,sdkfms -->
-        <span>{{getFormattedDate(complaint.dataPublicacao.toString())}}</span>
+        <span>{{complaintService.getFormattedDate(complaint.dataPublicacao)}}</span>
         <!-- FIXME: corrigir pegando o nome do usuário -->
         <span>De: {{complaint.usuario}}</span>
-        <ng-container *ngIf="getFullAddress(complaint.endereco) as fullAddress">
+        <ng-container *ngIf="complaintService.getFullAddress(complaint.endereco) as fullAddress">
           <span>Em: {{fullAddress}}</span>
         </ng-container>
     </header>

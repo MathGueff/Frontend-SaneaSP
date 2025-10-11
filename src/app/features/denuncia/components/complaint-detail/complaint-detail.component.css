@@ -27,6 +27,7 @@
     gap: var(--space-6);
     padding: var(--space-5) 0;
     flex-wrap: wrap;
+    justify-content: start;
 }
 
 .categories-container__categorie{
@@ -71,9 +72,7 @@
     border: 2px solid var(--secondary-dark-color);
     padding: var(--space-6);
     margin: var(--space-8) 0;
-    font-size: var(--md-text);
-    line-height: 1.5;
-    letter-spacing: 1.5px;
+    font-size: var(--sm-text);
 }
 
 .complaint-detail__content-gallery {
@@ -83,7 +82,7 @@
 }
 
 .complaint-detail__content-gallery-image {
-  flex: 0 0 calc(33.333% - 10px);
+  flex: 1;
   box-sizing: border-box;
   width: 100%;
   height: 200px;

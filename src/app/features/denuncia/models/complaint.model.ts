@@ -14,7 +14,7 @@ export interface IComplaint{
     id : number,
     titulo: string,
     descricao: string,
-    dataPublicacao: Date,
+    dataPublicacao: string,
     status: ComplaintStatus,
     pontuacao : number,
     endereco : IAddress,
