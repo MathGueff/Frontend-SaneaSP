@@ -4,9 +4,7 @@
     <span>Há {{complaintService.getCalculatedDate(complaint.dataPublicacao)}}</span>
   </div>
   <div class="complaint-card__body">
-    @if(complaint.imagens){
-      <img src="{{complaint.imagens[0].url}}" alt="Imagem da denúncia" />
-    }
+    <img src="{{complaintImage}}" alt="Imagem da denúncia" />
     <h3>{{complaint.titulo}}</h3>
     <p>{{ complaint.descricao }}</p>
   </div>

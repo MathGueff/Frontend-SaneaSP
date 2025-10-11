@@ -15,7 +15,7 @@ export class UserService extends BaseApiService {
   }
 
   public getUserNameById(userId : number) {
-    const headers = this.setHeader();
+    const headers = this.setAuthHeader();
     return this.httpClient.get(`${this.API_URL}/${userId}/nome`,{headers})
   }
   

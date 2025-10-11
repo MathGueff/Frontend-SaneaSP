@@ -24,12 +24,7 @@ export class MyComplaintsComponent implements OnInit {
   complaints !: IComplaint[];
 
   ngOnInit(): void {
-    this.complaintService.getComplaints()
-    .subscribe({
-      next: (complaints) => {
-        this.complaints = complaints;
-      },
-    });
+   this.loadComplaints();
   }
 
   protected filters: IComplaintStatusFilter[] = [
@@ -84,10 +79,23 @@ export class MyComplaintsComponent implements OnInit {
 
   protected isActiveStatus = (status: ComplaintStatus) =>
     status === this.currentFilter;
-  protected changeActiveStatus = (status: ComplaintStatus) =>
-    (this.currentFilter = status);
+  
   // busca o objeto StatusInfo correspondente ao filtro atual
   get currentStatusInfo(): IComplaintStatusInfo {
     return this.statusList.find(s => s.status === this.currentFilter)!;
+  }
+
+  private loadComplaints() {
+    this.complaintService.getUserComplaint({ status: this.currentFilter })
+      .subscribe({
+        next: (complaints) => {
+          this.complaints = complaints;
+        },
+      });
+  }
+
+  protected changeActiveStatus = (status: ComplaintStatus) => {
+    this.currentFilter = status;
+    this.loadComplaints();
   }
 }

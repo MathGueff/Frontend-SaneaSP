@@ -13,5 +13,8 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 export class ComplaintCardComponent {
   @Input() complaint !: IComplaint;
 
+  get complaintImage(){
+    return (this.complaint?.imagens && this.complaint.imagens?.length > 0) ? this.complaint.imagens[0].url : "images/denuncia/imageNotFound.png"
+  }
   complaintService = inject(ComplaintService)
 }

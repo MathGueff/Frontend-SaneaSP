@@ -1,12 +1,10 @@
 import { CategoryGroup, ICategory } from '@features/categoria/models/category.model';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { AuthService } from "@core/services/auth.service";
 import { environment } from 'environments/environment';
-import { ICreateComplaint, IComplaint, ComplaintStatus } from '../models/complaint.model';
-import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
-import { IAddress } from '@shared/models/address.model';
+import { ICreateComplaint, IComplaint, ComplaintStatus, IComplaintFilter } from '../models/complaint.model';
 import { IIcon } from '@shared/models/icon.model';
 import { BaseApiService } from '@core/services/base-api.service';
 
@@ -18,14 +16,39 @@ export class ComplaintService extends BaseApiService{
   private authService = inject(AuthService);
   private httpClient = inject(HttpClient)
 
-  public getComplaints() : Observable<IComplaint[]> {
-    return this.httpClient.get<IComplaint[]>(`${this.urlApi}/`)
+
+ // GET
+  public getComplaints(filter?: IComplaintFilter): Observable<IComplaint[]> {
+    let params: HttpParams | undefined;
+
+    if (filter) {
+      params = this.setFilterQuery(filter); // não precisa embrulhar em { filter }
+    }
+
+    return this.httpClient.get<IComplaint[]>(`${this.urlApi}/`, { params });
   }
+
 
   public getComplaintById(id:number):Observable<IComplaint>{
     return  this.httpClient.get<IComplaint>(`${this.urlApi}/${id}`);
   }
 
+  public getUserComplaint(filter : IComplaintFilter):Observable<IComplaint[]>{
+    let params: HttpParams | undefined;
+
+    if (filter) {
+      params = this.setFilterQuery(filter);
+    }
+
+    const headers = this.setAuthHeader();
+
+    const options : any = {
+      params,
+      headers
+    }
+    return this.httpClient.get<IComplaint[]>(`${this.urlApi}/my`,{params, headers})
+  }
+  
   public getByTag(tags:ICategory[],idUsuario?:number):Observable<IComplaint[]>{
     let query:string = ""
     tags.forEach((tag,i)=>{
@@ -38,29 +61,28 @@ export class ComplaintService extends BaseApiService{
     return this.httpClient.get<IComplaint[]>(`${this.urlApi}/tags/?${query}`)
   }
 
+  // POST
   public createComplaint(reclamacao: ICreateComplaint):Observable<IComplaint>{
-    const headers = this.setHeader();
+    const headers = this.setAuthHeader();
     const user = this.authService.getCurrentUser();
     if(user){
       reclamacao.idUsuario = user.id as number;
     }
     return this.httpClient.post<IComplaint>(`${this.urlApi}`, reclamacao,{headers})
   }
+  // PUT
   public putComplaint(reclamacao:ICreateComplaint, idReclamacao: number){
-    const headers = this.setHeader();
+    const headers = this.setAuthHeader();
     return this.httpClient.put<IComplaint>(`${this.urlApi}/${idReclamacao}`,reclamacao, {headers})
   }
+
+  // DELETE
   public deleteComplaint(idReclamacao:number){
-    const headers = this.setHeader();
+    const headers = this.setAuthHeader();
     return this.httpClient.delete<IComplaint>(`${this.urlApi}/${idReclamacao}`,{headers})
   }
 
-  public getByUser():Observable<IComplaint[]>{
-    const headers = this.setHeader();
-    return this.httpClient.get<IComplaint[]>(`${this.urlApi}/usuario`,{headers})
-  }
-
- 
+  //UTILS
 
   getCategoryIcon(category: ICategory): IIcon {
     const waterIcon: IIcon = { folder: "entities", name: "water", alt: "" };

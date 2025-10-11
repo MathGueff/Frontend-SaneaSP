@@ -2,6 +2,7 @@ import { IImage } from "@features/denuncia/models/image.model";
 import { ICategory } from "@features/categoria/models/category.model";
 import { IUser } from "@features/usuario/models/user.model";
 import { IAddress } from "@shared/models/address.model";
+import { IBaseApiFilters } from "@core/models/base-api.model";
 
 export enum ComplaintStatus{
     Aberto,
@@ -26,6 +27,10 @@ export interface IComplaint{
     idUsuario : string,
     imagens ?: IImage[],
     categorias ?: ICategory[],
+}
+
+export interface IComplaintFilter extends IBaseApiFilters{
+    status : ComplaintStatus
 }
 export interface ICreateComplaint{
     titulo: string,
