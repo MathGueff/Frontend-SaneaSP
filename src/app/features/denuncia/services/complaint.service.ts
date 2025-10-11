@@ -86,12 +86,12 @@ export class ComplaintService extends BaseApiService{
     return icon;
   }
 
-  getFullAddress(address: IAddress): string {
-    if (!address) return "";
-    const { logradouro, numero, complemento, bairro, cidade } = address;
+  getFullAddress(complaint: IComplaint): string {
+    if (!complaint) return "";
+    const { rua, numero, complemento, bairro, cidade } = complaint;
     const parts: string[] = [];
 
-    if (logradouro) parts.push(logradouro);
+    if (rua) parts.push(rua);
     if (numero) parts.push(numero);
     if (complemento) parts.push(complemento);
 

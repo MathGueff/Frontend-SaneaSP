@@ -13,7 +13,7 @@ import { take } from 'rxjs';
 })
 export class ReviewComponent implements OnInit{
   private complaintService = inject(ComplaintService);
-   complaint !: IComplaint; // não precisa ser private se for usar no template
+   complaint !: IComplaint; 
   
     ngOnInit(): void {
       this.complaintService.getComplaints()
@@ -27,9 +27,9 @@ export class ReviewComponent implements OnInit{
   protected oldTitle : string;
 
   constructor(){
-    const {categorias: categories, endereco: address} = this.complaint;
+    const {categorias: categories, rua} = this.complaint;
     if(categories){
-      this.complaint.titulo = `${categories[0].nome} na ${address.logradouro}`;
+      this.complaint.titulo = `${categories[0].nome} na ${rua}`;
     }
     this.oldTitle = this.complaint.titulo;
   }

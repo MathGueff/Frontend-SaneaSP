@@ -17,7 +17,12 @@ export interface IComplaint{
     dataPublicacao: string,
     status: ComplaintStatus,
     pontuacao : number,
-    endereco : IAddress,
+    cep : string;
+    cidade : string;
+    bairro : string;
+    rua : string;
+    numero ?: string;
+    complemento ?: string;
     idUsuario : string,
     imagens ?: IImage[],
     categorias ?: ICategory[],

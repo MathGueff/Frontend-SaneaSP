@@ -30,7 +30,7 @@
     <header class="complaint-detail__body-header flex-column">
         <span>{{complaintService.getFormattedDate(complaint.dataPublicacao)}}</span>
         <span>Criado por: {{userName}}</span>
-        <ng-container *ngIf="complaintService.getFullAddress(complaint.endereco) as fullAddress">
+        <ng-container *ngIf="complaintService.getFullAddress(complaint) as fullAddress">
           <span>Em: {{fullAddress}}</span>
         </ng-container>
     </header>
@@ -42,7 +42,7 @@
         @if(complaint.imagens){
           @for (imagem of complaint.imagens; track $index) {
             <div class="complaint-detail__content-gallery-image">
-              <img src="images/denuncia/{{imagem.nome}}" alt="{{imagem.nome}}">
+              <img src="{{imagem.url}}" alt="{{imagem.nome}}">
             </div>
           }
         }
