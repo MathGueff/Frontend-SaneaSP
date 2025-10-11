@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
@@ -24,18 +24,20 @@ export class AuthService {
     private sweetAlertService: SweetAlertService,
     private authTokenStorageService : AuthTokenStorageService,
     private errorService : ErrorHandlerService){
-    this.initializeAuth()
   }
 
   /* Realiza o login ao iniciar o site (ou recarregar) */
-  private initializeAuth(){
+  public initializeAuth() : Promise<void>{
     const token = this.authTokenStorageService.get();
 
     if(token){
-      this.fetchUser().subscribe(); // Atualiza o usuário ativo após realizar req
+      return firstValueFrom(this.fetchUser()).then(() => {});
     }
-    else
+    else{
       this.clearAuth()
+      return Promise.resolve();
+    }
+
   }
 
   /* Gera o token JWT para login */

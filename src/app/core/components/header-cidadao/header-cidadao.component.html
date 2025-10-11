@@ -8,16 +8,16 @@
   }
 
   <div class="nav__buttons flex-row">
-    @if(!this.user){
-    <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
-    <a [routerLink]="'/cidadao/register'" class="button nav__register">
-      Crie uma conta
-    </a>
+    @if (user$ | async; as user) {
+      <a [routerLink]="'/cidadao/profile'" class="button nav__profile">
+        <img class="small-icon" src="icons/entities/black/user.svg" alt="" />
+        Sua conta
+      </a>
     } @else{
-    <a [routerLink]="'/cidadao/profile'" class="button nav__profile">
-      <img class="small-icon" src="icons/entities/black/user.svg" alt="" />
-      Sua conta
-    </a>
+      <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
+      <a [routerLink]="'/cidadao/register'" class="button nav__register">
+        Crie uma conta
+      </a>
     }
   </div>
 </nav>

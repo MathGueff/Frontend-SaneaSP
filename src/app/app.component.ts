@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { FooterComponent } from '@core/components/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from "./shared/components/toast/toast.component";
 import { HeaderComponent } from '@core/components/header/header.component';
+import { AuthService } from '@core/services/auth.service';
+import { IUser } from '@features/usuario/models/user.model';
+import { Observable } from 'rxjs';
 
 
 @Component({

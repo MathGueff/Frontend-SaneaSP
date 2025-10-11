@@ -3,22 +3,26 @@ import { HeaderButtonsType } from '@core/models/header.model';
 import { AuthService } from '@core/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { ILink } from '@shared/models/link.model';
+import { Observable } from 'rxjs';
+import { IUser } from '@features/usuario/models/user.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header-cidadao',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './header-cidadao.component.html',
   styleUrls: ['./header-cidadao.component.css','../header/header.component.css']
 })
 export class HeaderCidadaoComponent{
   protected HeaderButtonsType = HeaderButtonsType;
   private authService = inject(AuthService);
-  protected user = this.authService.getCurrentUser();
+
+  protected user$: Observable<IUser | null> = this.authService.currentUser$;
 
   navbarLinks : ILink[] = [
     {path: '/cidadao/menu', text: 'Área dos cidadãos'},
     {path: '/cidadao/new-complaint', text: 'Criar denúncia'},
     {path: '/cidadao/complaints', text: 'Minhas denúncias'}
-  ]
+  ];
 }
