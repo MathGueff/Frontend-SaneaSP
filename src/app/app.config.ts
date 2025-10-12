@@ -5,10 +5,9 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { AuthService } from '@core/services/auth.service';
 
-
 // função de inicialização com autenticação
-function initializeAuthFactory(authService: AuthService) {
-  return () => authService.initializeAuth();
+export function initializeAuth(authService: AuthService) {
+  return (): Promise<void> => authService.initializeAuth();
 }
 
 export const appConfig: ApplicationConfig = {
@@ -25,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     // APP_INITIALIZER para Angular 18
     {
       provide: APP_INITIALIZER,
-      useFactory: initializeAuthFactory,
+      useFactory: initializeAuth,
       deps: [AuthService],
       multi: true,
     }

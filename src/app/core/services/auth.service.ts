@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, firstValueFrom, map, Observable, switchMap, tap } from 'rxjs';
+import { computed, Injectable, signal } from '@angular/core';
+import { catchError, firstValueFrom, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
@@ -11,13 +11,12 @@ import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.
 export class AuthService {
   private API_URL = environment.domain + 'auth';
 
-  /* Observable para avisar quando um novo usuário é logado */
-  private currentUserSubject = new BehaviorSubject<IUser | null>(null);
-  currentUser$: Observable<IUser | null> = this.currentUserSubject.asObservable();
+  private currentUserSignal = signal<IUser | null>(null);
+  public currentUser = this.currentUserSignal.asReadonly();
+  public isAuthReady = signal(false); 
 
-  public isAdmin$ = this.currentUser$.pipe(
-    map(user => user?.nivel === 1)
-  );
+  public isLoggedIn = computed(() => !!this.currentUser()); 
+  public isAdmin = computed(() => this.currentUser()?.nivel === 1); 
 
   constructor( 
     private httpClient: HttpClient,
@@ -26,23 +25,22 @@ export class AuthService {
     private errorService : ErrorHandlerService){
   }
 
-  /* Realiza o login ao iniciar o site (ou recarregar) */
-  public initializeAuth() : Promise<void>{
+  public async initializeAuth(): Promise<void> {
     const token = this.authTokenStorageService.get();
-
-    if(token){
-      return firstValueFrom(this.fetchUser()).then(() => {});
+    
+    if (token) {
+      try {
+        await firstValueFrom(this.fetchUser());
+      } catch (error) {
+        this.clearAuth();
+      }
     }
-    else{
-      this.clearAuth()
-      return Promise.resolve();
-    }
-
+    this.isAuthReady.set(true);
   }
 
   /* Gera o token JWT para login */
-  public login(user : IUserCredentials) {
-    return this.httpClient.post<string>(`${this.API_URL}/login`, user).pipe(
+  public login(userCredentials : IUserCredentials) {
+    return this.httpClient.post<string>(`${this.API_URL}/login`, userCredentials).pipe(
       tap((token) => this.authTokenStorageService.set(token)),
       switchMap(() => this.fetchUser()),
       tap(() => this.sweetAlertService.confirmLogin()),
@@ -79,16 +77,16 @@ export class AuthService {
 
   /* Adquire o IUser atual logado */
   public getCurrentUser(): IUser | null {
-    return this.currentUserSubject.value;
+    return this.currentUser()
   }
 
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
-    this.currentUserSubject.next(user);
+    this.currentUserSignal.set(user);
   }
 
   public clearAuth(){
     this.authTokenStorageService.remove();
-    this.currentUserSubject.next(null);
+    this.currentUserSignal.set(null);
   }
 }

@@ -2,10 +2,12 @@ import { Component, inject } from '@angular/core';
 import { HeaderButtonsType } from '@core/models/header.model';
 import { AuthService } from '@core/services/auth.service';
 import { RouterModule } from '@angular/router';
-import { ILink } from '@shared/models/link.model';
+import { IProtectedLink } from '@shared/models/link.model';
 import { Observable } from 'rxjs';
 import { IUser } from '@features/usuario/models/user.model';
 import { CommonModule } from '@angular/common';
+import { AuthorizationService } from '@core/services/authorization.service';
+import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-header-cidadao',
@@ -14,15 +16,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header-cidadao.component.html',
   styleUrls: ['./header-cidadao.component.css','../header/header.component.css']
 })
+
 export class HeaderCidadaoComponent{
+  Authorization = AuthorizationService
   protected HeaderButtonsType = HeaderButtonsType;
-  private authService = inject(AuthService);
+  protected authService = inject(AuthService);
 
-  protected user$: Observable<IUser | null> = this.authService.currentUser$;
-
-  navbarLinks : ILink[] = [
-    {path: '/cidadao/menu', text: 'Área dos cidadãos'},
-    {path: '/cidadao/new-complaint', text: 'Criar denúncia'},
-    {path: '/cidadao/complaints', text: 'Minhas denúncias'}
+  navbarLinks : IProtectedLink[] = [
+    {path: '/cidadao/menu', text: 'Área dos cidadãos', access : {requiresAuth : false}},
+    {path: '/cidadao/new-complaint', text: 'Criar denúncia', access : {requiresAuth : true}},
+    {path: '/cidadao/complaints', text: 'Minhas denúncias', access : {requiresAuth : true}}
   ];
+
+  canShowLink(link : IProtectedLink){
+    return (link.access.requiresAuth && this.authService.currentUser()) || !link.access.requiresAuth;
+  }
 }

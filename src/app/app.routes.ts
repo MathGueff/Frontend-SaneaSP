@@ -23,11 +23,11 @@ export const routes: Routes = [
       {path: 'menu', component: CitizenHomeComponent},
       {path: 'login', component: CitizenLoginComponent},
       {path: 'register', component: CitizenRegisterComponent},
-      {path: 'complaints', component: MyComplaintsComponent}, 
-      {path: 'new-complaint', component: ComplaintRegisterComponent},
+      {path: 'complaints', component: MyComplaintsComponent, canActivate: [AuthGuard]}, 
+      {path: 'new-complaint', component: ComplaintRegisterComponent, canActivate: [AuthGuard]},
       {path: 'complaint/:id', component: ComplaintViewComponent},
       {
-        path: 'profile', component: CitizenProfileComponent, 
+        path: 'profile', component: CitizenProfileComponent, canActivate: [AuthGuard],
         children : [
           {path: '', redirectTo: 'me', pathMatch: 'full' },
           {path: 'me', component: PersonalInfoComponent}, 
