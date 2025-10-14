@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
-import { IComplaint } from '@features/denuncia/models/complaint.model';
+import { ICreateComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintDetailComponent } from '@features/denuncia/components/complaint-detail/complaint-detail.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { ComplaintDetailComponent } from '@features/denuncia/components/complain
 })
 export class ReviewComponent{
   private complaintService = inject(ComplaintService);
-  @Input() complaint !: IComplaint
+  @Input() complaint !: ICreateComplaint
   
   // protected oldTitle : string;
 

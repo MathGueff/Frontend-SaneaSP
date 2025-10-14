@@ -4,11 +4,11 @@ import { FormNavigationComponent } from '../../components/form-navigation/form-n
 import { FirstStepComponent } from '../../components/first-step/first-step.component';
 import { SecondStepComponent } from '../../components/second-step/second-step.component';
 import { ISteps, StepsTypes } from '../../models/steps';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ThirdStepComponent } from '../../components/third-step/third-step.component';
 import { ReviewComponent } from '@features/denuncia/cadastro/components/review/review.component';
 import { ViewportScroller } from '@angular/common';
-import { ComplaintStatus, IComplaint } from '@features/denuncia/models/complaint.model';
+import { ComplaintStatus, IComplaint, ICreateComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
@@ -34,20 +34,37 @@ export class ComplaintRegisterComponent {
   protected StepsType = StepsTypes;
 
   protected scroller = inject(ViewportScroller);
-  protected activeStep : StepsTypes = StepsTypes.WHAT;
+  protected activeStep: StepsTypes = StepsTypes.WHAT;
   protected complaintService = inject(ComplaintService)
 
   protected steps: ISteps[] = [
-    { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
+    { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false },
     { formTitle: 'Onde foi o ocorrido?', name: 'Onde', type: StepsTypes.WHERE, completed: false },
     { formTitle: 'Qual o tipo do problema?', name: 'Tipo', type: StepsTypes.HOW, completed: false },
     { formTitle: 'Como ficou sua denúncia', name: 'Confirmação', type: StepsTypes.REVIEW, completed: false }
   ];
 
   protected formGroup: FormGroup = this.fb.group({
-    what: this.fb.group({ description: [''] }),
-    where: this.fb.group({ address: [''] }),
-    how: this.fb.group({ type: [''] })
+    what: this.fb.group(
+      { 
+        description: ['',[Validators.required, Validators.email]],
+        images : ['']
+      }
+    ),
+    where: this.fb.group(
+      { 
+        bairro: ['', [Validators.required]],
+        cidade: ['', [Validators.required]],
+        cep: ['',  [Validators.required]],
+        numero: [''],
+        complemento: ['',],
+      }
+    ),
+    how: this.fb.group(
+      { 
+        categorias: [''] 
+      }
+    )
   });
 
   get stepTitle(): string {
@@ -71,13 +88,13 @@ export class ComplaintRegisterComponent {
     }
   }
 
-  goToStep(step : StepsTypes){
+  goToStep(step: StepsTypes) {
     this.activeStep = step;
     console.log(this.activeStep)
     this.scrollTop();
   }
 
-  getFormGroup(name : string) : FormGroup{
+  getFormGroup(name: string): FormGroup {
     return this.formGroup.get(name) as FormGroup;
   }
 
@@ -85,21 +102,22 @@ export class ComplaintRegisterComponent {
     this.scroller.scrollToPosition([0, 0]);
   }
 
-  getComplaint() : IComplaint {
+  getComplaint(): ICreateComplaint {
+    const whatForm = this.getFormGroup('what');
+    const whereForm = this.getFormGroup('where');
+    const howForm = this.getFormGroup('how');
+
     return {
-  id: 0,
-  titulo: '',
-  descricao: '',
-  dataPublicacao: '',
-  status: ComplaintStatus.Aberto,
-  pontuacao: 0,
-  cep: '',
-  cidade: '',
-  bairro: '',
-  rua: '',
-  idUsuario: ''
-}
+      titulo: '',
+      descricao: whatForm.get('description')?.value || '',
+      cep: '',
+      cidade: '',
+      bairro: '',
+      rua: whereForm.get('address')?.value || '',
+      idUsuario: 1,
+    };
   }
+
 
   onSubmit(): void {
     if (this.formGroup.valid) {

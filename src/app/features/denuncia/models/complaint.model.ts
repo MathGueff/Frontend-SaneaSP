@@ -35,8 +35,13 @@ export interface IComplaintFilter extends IBaseApiFilters{
 export interface ICreateComplaint{
     titulo: string,
     descricao : string,
-    endereco : IAddress
+    cep : string;
+    cidade : string;
+    bairro : string;
+    rua : string;
+    numero ?: string;
+    complemento ?: string;
     idUsuario: number,
-    imagens : string[],
-    categorias : number[]
+    imagens ?: string[],
+    categorias ?: number[]
 }
