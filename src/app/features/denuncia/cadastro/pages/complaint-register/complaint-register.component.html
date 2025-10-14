@@ -49,7 +49,7 @@
             </app-third-step>
           }
           @case(StepsType.REVIEW) {
-            <app-review></app-review>
+            <app-review [complaint]="getComplaint()"></app-review>
           }
         }
       </div>

@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ThirdStepComponent } from '../../components/third-step/third-step.component';
 import { ReviewComponent } from '@features/denuncia/cadastro/components/review/review.component';
 import { ViewportScroller } from '@angular/common';
+import { ComplaintStatus, IComplaint } from '@features/denuncia/models/complaint.model';
+import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
   selector: 'app-complaint-register',
@@ -33,6 +35,7 @@ export class ComplaintRegisterComponent {
 
   protected scroller = inject(ViewportScroller);
   protected activeStep : StepsTypes = StepsTypes.WHAT;
+  protected complaintService = inject(ComplaintService)
 
   protected steps: ISteps[] = [
     { formTitle: 'O que aconteceu?', name: 'O que', type: StepsTypes.WHAT, completed: false},
@@ -70,6 +73,7 @@ export class ComplaintRegisterComponent {
 
   goToStep(step : StepsTypes){
     this.activeStep = step;
+    console.log(this.activeStep)
     this.scrollTop();
   }
 
@@ -79,6 +83,22 @@ export class ComplaintRegisterComponent {
 
   private scrollTop(): void {
     this.scroller.scrollToPosition([0, 0]);
+  }
+
+  getComplaint() : IComplaint {
+    return {
+  id: 0,
+  titulo: '',
+  descricao: '',
+  dataPublicacao: '',
+  status: ComplaintStatus.Aberto,
+  pontuacao: 0,
+  cep: '',
+  cidade: '',
+  bairro: '',
+  rua: '',
+  idUsuario: ''
+}
   }
 
   onSubmit(): void {

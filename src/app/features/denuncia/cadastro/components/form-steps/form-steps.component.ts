@@ -30,6 +30,7 @@ export class FormStepsComponent {
 
   goToStep(step: ISteps) {
     if (step.completed) {
+      console.log(step)
       this.return.emit(step.type);
     }
   }
