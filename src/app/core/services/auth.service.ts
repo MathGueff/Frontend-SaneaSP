@@ -32,7 +32,7 @@ export class AuthService {
       try {
         await firstValueFrom(this.fetchUser());
       } catch (error) {
-        this.clearAuth();
+        this.logout();
       }
     }
     this.isAuthReady.set(true);
@@ -45,11 +45,16 @@ export class AuthService {
       switchMap(() => this.fetchUser()),
       tap(() => this.sweetAlertService.confirmLogin()),
       catchError(err => {
-        this.clearAuth();
+        this.logout();
         this.errorService.handleError(err);
         throw err
       })
     );
+  }
+  
+  public logout(){
+    this.authTokenStorageService.remove();
+    this.currentUserSignal.set(null);
   }
 
   /* Criação de um novo usuário */
@@ -69,7 +74,7 @@ export class AuthService {
     return this.httpClient.get<IUser>(this.API_URL + '/me', { headers }).pipe(
       tap((u) => this.setCurrentUser(u)),
       catchError(err => {
-        this.clearAuth();
+        this.logout();
         throw err
       })
     );
@@ -83,10 +88,5 @@ export class AuthService {
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
     this.currentUserSignal.set(user);
-  }
-
-  public clearAuth(){
-    this.authTokenStorageService.remove();
-    this.currentUserSignal.set(null);
   }
 }

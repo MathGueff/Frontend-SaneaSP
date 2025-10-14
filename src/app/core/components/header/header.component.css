@@ -92,6 +92,9 @@
   background-color: var(--background-color);
   color: var(--black-font-color);
   border: 2px solid var(--background-color);
+  gap: var(--space-2);
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 1024px) {

@@ -31,4 +31,21 @@ export class HeaderCidadaoComponent{
   canShowLink(link : IProtectedLink){
     return (link.access.requiresAuth && this.authService.currentUser()) || !link.access.requiresAuth;
   }
+
+  dropdownOpen = false;
+
+  toggleDropdown(event: MouseEvent) {
+    event.stopPropagation(); // Impede que clique feche imediatamente
+    this.dropdownOpen = !this.dropdownOpen;
+}
+
+closeDropdown() {
+  this.dropdownOpen = false;
+}
+
+logout() {
+  this.dropdownOpen = false;
+  this.authService.logout()
+}
+
 }
