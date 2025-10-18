@@ -6,28 +6,24 @@
       id="description"
       class="field__input--description"
       placeholder="Nos conte o que aconteceu"
-      formControlName="description">
+      formControlName="description"
+    >
     </textarea>
   </div>
+  
+  <app-image-upload-input class="flex-row w-100" (filesSelected)="onFilesSelected($event)"></app-image-upload-input>
 
-  <!-- Upload de imagens -->
-  <div class="field flex-column">
-    <label class="field__label" for="images">Imagens</label>
-    <div class="field__input--image flex-column" (click)="addImage('nova-imagem')">
-      <span class="text-sm">Clique aqui para adicionar imagens</span>
-      <img class="large-icon" src="icons/actions/black/add.svg" alt="" />
-    </div>
-  </div>
-
-  <!-- Preview de imagens -->
   <h3 class="text-sm">
     Imagens nos ajudam a ter um melhor entendimento do problema
   </h3>
-  <div class="form__images flex-row">
-    @for(image of images; track $index) {
-      <div class="form__image">
-        <img src="images/denuncia/{{ image }}.jpg" alt="" />
-      </div>
-    }
-  </div>
+
+  @if(filePreviews.length > 0) {
+    <div class="form__images flex-row">
+      @for(preview of filePreviews; track $index) {
+        <div class="form__image">
+          <img [src]="preview" alt="preview" />
+        </div>
+      }
+    </div>
+  }
 </div>

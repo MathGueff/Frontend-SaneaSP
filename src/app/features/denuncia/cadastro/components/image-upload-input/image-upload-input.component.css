@@ -1,0 +1,20 @@
+.field__input--image {
+  width: 100%;
+  border: 2px dashed var(--tertiary-color);
+  height: 100px;
+  padding: var(--space-3);
+  box-shadow: 0px 0px 23px -9px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.4s all ease;
+  margin-bottom: var(--space-3);
+}
+
+.field__input--image:hover {
+  border-radius: 16px;
+  opacity: 0.8;
+}
+
+.field__input--image:active {
+  background-color: var(--primary-color);
+}
