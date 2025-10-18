@@ -122,7 +122,7 @@ export class ComplaintService extends BaseApiService {
 
   getCategoryIcon(category: any): IIcon {
     const sewageIcon: IIcon = { folder: "entities", name: "sewage", alt: "" };
-    return sewageIcon; 
+    return sewageIcon;
   }
 
   getFormattedDate(dateStr: string | null): string {
@@ -138,36 +138,37 @@ export class ComplaintService extends BaseApiService {
   }
 
   getCalculatedDate(dateStr: string): string {
+    // Converte a string para Date (assume que dateStr está em UTC ou formato ISO)
     const date = new Date(dateStr);
     const now = new Date();
-    // Convert both dates to Brasília time (UTC-3)
-    const toBrasilia = (d: Date) => {
-      // Get UTC time and subtract 3 hours
-      return new Date(
-        d.getTime() - d.getTimezoneOffset() * 60000 - 3 * 60 * 60 * 1000
-      );
-    };
-    const dateBR = toBrasilia(new Date(date));
-    const nowBR = toBrasilia(now);
 
-    const diffMs = nowBR.getTime() - dateBR.getTime();
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    if (diffHours < 24) {
-      return `${diffHours} hora${diffHours === 1 ? "" : "s"}`;
+    // Calcula a diferença em milissegundos
+    const diffMs = now.getTime() - date.getTime();
+
+    // Converte para diferentes unidades de tempo
+    const diffSeconds = Math.floor(diffMs / 1000);
+    const diffMinutes = Math.floor(diffSeconds / 60);
+    const diffHours = Math.floor(diffMinutes / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    // Retorna a unidade mais apropriada
+    if (diffSeconds < 60) {
+      return "Agora mesmo";
+    } else if (diffMinutes < 60) {
+      return `Há ${diffMinutes} minuto${diffMinutes === 1 ? "" : "s"}`;
+    } else if (diffHours < 24) {
+      return `Há ${diffHours} hora${diffHours === 1 ? "" : "s"}`;
+    } else if (diffDays < 7) {
+      return `Há ${diffDays} dia${diffDays === 1 ? "" : "s"}`;
+    } else if (diffDays < 30) {
+      const diffWeeks = Math.floor(diffDays / 7);
+      return `Há ${diffWeeks} semana${diffWeeks === 1 ? "" : "s"}`;
+    } else if (diffDays < 365) {
+      const diffMonths = Math.floor(diffDays / 30);
+      return `Há ${diffMonths} mês${diffMonths === 1 ? "" : "es"}`;
+    } else {
+      const diffYears = Math.floor(diffDays / 365);
+      return `Há ${diffYears} ano${diffYears === 1 ? "" : "s"}`;
     }
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    if (diffDays < 7) {
-      return `${diffDays} dia${diffDays === 1 ? "" : "s"}`;
-    }
-    const diffWeeks = Math.floor(diffDays / 7);
-    if (diffWeeks < 4) {
-      return `${diffWeeks} semana${diffWeeks === 1 ? "" : "s"}`;
-    }
-    const diffMonths = Math.floor(diffDays / 30);
-    if (diffMonths < 12) {
-      return `${diffMonths} mês${diffMonths === 1 ? "" : "es"}`;
-    }
-    const diffYears = Math.floor(diffDays / 365);
-    return `${diffYears} ano${diffYears === 1 ? "" : "s"}`;
   }
 }
