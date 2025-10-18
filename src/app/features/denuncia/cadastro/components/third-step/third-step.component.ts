@@ -1,8 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { IStepForm } from "../../models/step-form.model";
 import { FormGroup } from "@angular/forms";
 import {
-  ICategory,
   ICategoryGroup,
   ICategorySelect,
 } from "@features/categoria/models/category.model";
@@ -14,13 +13,34 @@ import {
   templateUrl: "./third-step.component.html",
   styleUrl: "./third-step.component.css",
 })
-export class ThirdStepComponent implements IStepForm {
+export class ThirdStepComponent implements IStepForm, OnInit {
   @Input() formGroup!: FormGroup;
-  isValid(): boolean {
-    return true;
+
+  ngOnInit(): void {
+    this.loadSelectedCategories();
   }
+
+  private loadSelectedCategories(): void {
+    const selectedCategories = this.formGroup.get("categorias")?.value || [];
+
+    if (selectedCategories.length > 0) {
+      this.categoryGroups.forEach((group) => {
+        group.group.forEach((category) => {
+          category.selected = selectedCategories.includes(category.name);
+        });
+      });
+    }
+  }
+
+  isValid(): boolean {
+    const categorias = this.formGroup.get("categorias")?.value;
+    return Array.isArray(categorias) && categorias.length > 0;
+  }
+
   getData() {
-    return true;
+    return {
+      categorias: this.formGroup.get("categorias")?.value || [],
+    };
   }
 
   waterCategoryNames = [
@@ -89,16 +109,12 @@ export class ThirdStepComponent implements IStepForm {
 
   onCategorieClick(categorie: ICategorySelect) {
     categorie.selected = !categorie.selected;
-
-    // monta array de categorias selecionadas
     const selected: string[] = [];
     this.categoryGroups.forEach((group) => {
       group.group.forEach((c) => {
         if (c.selected) selected.push(c.name);
       });
     });
-
-    // atualiza o formGroup
     this.formGroup.get("categorias")?.setValue(selected);
   }
 }

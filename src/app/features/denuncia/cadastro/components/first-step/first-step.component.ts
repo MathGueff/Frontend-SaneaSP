@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IStepForm } from '../../models/step-form.model';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
@@ -12,7 +12,7 @@ import { ImageUploadInputComponent } from "../image-upload-input/image-upload-in
     './first-step.component.css'
   ]
 })
-export class FirstStepComponent implements IStepForm {
+export class FirstStepComponent implements IStepForm, OnInit{
   @Input() formGroup!: FormGroup;
 
   @ViewChild(ImageUploadInputComponent)
@@ -20,6 +20,26 @@ export class FirstStepComponent implements IStepForm {
 
   private imageFiles: File[] = [];
   protected filePreviews: string[] = [];
+
+  ngOnInit(): void {
+    this.loadExistingImages();
+  }
+
+  private loadExistingImages(): void {
+    const existingImages = this.formGroup.get('imagens')?.value;
+    
+    if (existingImages && existingImages.length > 0) {
+      this.imageFiles = [...existingImages];
+      
+      existingImages.forEach((file: File) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.filePreviews.push(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }
 
   isValid(): boolean {
     return this.formGroup.valid;
@@ -40,6 +60,12 @@ export class FirstStepComponent implements IStepForm {
       reader.readAsDataURL(file);
     });
 
+    this.formGroup.get('imagens')?.setValue(this.imageFiles);
+  }
+
+  removeImage(index: number): void {
+    this.imageFiles.splice(index, 1);
+    this.filePreviews.splice(index, 1);
     this.formGroup.get('imagens')?.setValue(this.imageFiles);
   }
 }

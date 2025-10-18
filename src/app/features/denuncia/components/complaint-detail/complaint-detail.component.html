@@ -41,7 +41,7 @@
           @for (imagem of getImages(); track $index) {
             <div class="complaint-detail__content-gallery-image">
               <img 
-                [src]="imagem.url || imagem" 
+                [src]="getImageSource(imagem, $index)" 
                 [alt]="imagem.nome || 'Imagem da denúncia'"
               >
             </div>
