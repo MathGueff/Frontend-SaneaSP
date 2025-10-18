@@ -196,6 +196,18 @@ export class ComplaintRegisterComponent {
   onSubmit(): void {
     if (this.formGroup.valid) {
       console.log("Formulário submetido:", this.formGroup.value);
+      const complaintToCreate = this.getComplaint();
+      complaintToCreate.imagens = ['user1.jpg', 'user2.jpg']
+      complaintToCreate.categorias = [1,2,3]
+      this.complaintService.createComplaint(complaintToCreate).subscribe({
+        next : () => {
+          this.toastService.show({message : 'Cadastrado com sucesso', error: false})
+        },
+        error : (err) => {
+          console.log(err)
+          this.toastService.show({message : 'Ocorreu um problema' + err, error: true})
+        }
+      })
     }
   }
 
