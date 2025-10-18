@@ -59,7 +59,9 @@
           [activeStep]="activeStep"
           [steps]="steps"
           (next)="nextStep()"
-          (prev)="previousStep()">
+          (prev)="previousStep()"
+          (submit)="onSubmit()"
+        >
         </app-form-navigation>
       </div>
       <button type="button" (click)="debugForm()">Debug Form</button>

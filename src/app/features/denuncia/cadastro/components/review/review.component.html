@@ -6,7 +6,6 @@
             class="field__input" type="text" placeholder="Insira um título para sua denúncia"
             (input)="changeTitle(inputTitle.value)"
             formControlName="titulo"
-            value=""
         >
     </form>
     <app-complaint-detail class="w-100" [userName]="authService.getCurrentUser()?.nome ?? ''" [complaint]="complaintCreated"></app-complaint-detail>

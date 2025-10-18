@@ -26,8 +26,7 @@ export class ReviewComponent {
 
     if (categorias && categorias.length > 0) {
       const suggestedTitle = `${categorias[0]} na ${rua}`;
-      this.formGroup.get('review.titulo')?.setValue(suggestedTitle);
-      this.complaintCreated.titulo = suggestedTitle;
+      this.formGroup.get('titulo')?.setValue(suggestedTitle);
     }
 
     this.oldTitle = this.complaintCreated.titulo;
@@ -35,9 +34,14 @@ export class ReviewComponent {
 
   changeTitle(title: string) {
     if (title.trim() === "") {
-      this.complaintCreated.titulo = this.oldTitle;
+      this.formGroup.get('titulo')?.setValue(this.oldTitle);
       return;
     }
     this.complaintCreated.titulo = title;
+  }
+
+  setTitle(){
+    this.complaintCreated.titulo = this.oldTitle;
+      this.formGroup.get('titulo')?.setValue(this.oldTitle);
   }
 }
