@@ -1,4 +1,4 @@
-<div class="form-step__body flex-column">
+<form [formGroup]="formGroup" class="form-step__body flex-column">
   <!-- Campo de descrição -->
   <div class="field">
     <label class="field__label" for="description">Descrição</label>
@@ -6,7 +6,7 @@
       id="description"
       class="field__input--description"
       placeholder="Nos conte o que aconteceu"
-      formControlName="description"
+      formControlName="descricao"
     >
     </textarea>
   </div>
@@ -26,4 +26,4 @@
       }
     </div>
   }
-</div>
+</form>

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IResponseList } from '@shared/models/response.model';
 import { AuthService } from '@core/services/auth.service';
 import { environment } from 'environments/environment';
+import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
@@ -12,12 +13,13 @@ export class CategoryService {
   private apiUrl = environment.domain + 'categoria';
   constructor(
     private httpClient: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenStorageService : AuthTokenStorageService
   ) {}
 
   //GET
   getTagsList(filters?: ICategoryListFilter) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -38,7 +40,7 @@ export class CategoryService {
   }
 
   getTagByExactName(nameFilter: string) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -52,7 +54,7 @@ export class CategoryService {
 
   //GET/:id
   getTagById(id: number) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -62,7 +64,7 @@ export class CategoryService {
   }
 
   getTagCount() {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -73,7 +75,7 @@ export class CategoryService {
 
   //POST
   createNewTag(newTag: ICategoryCreate) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -86,7 +88,7 @@ export class CategoryService {
 
   //DELETE
   deleteTag(idTag: number) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {
@@ -99,7 +101,7 @@ export class CategoryService {
 
   //PUT
   editTag(idTag: number, updatedTag: ICategory) {
-    const token = this.authService.getAuthToken();
+    const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();
     if (token) {

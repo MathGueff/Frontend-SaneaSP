@@ -49,7 +49,7 @@
             </app-third-step>
           }
           @case(StepsType.REVIEW) {
-            <app-review [complaint]="getComplaint()"></app-review>
+            <app-review [formGroup]="getFormGroup('review')" [complaintCreated]="getComplaint()"></app-review>
           }
         }
       </div>
@@ -62,5 +62,7 @@
           (prev)="previousStep()">
         </app-form-navigation>
       </div>
+      <button type="button" (click)="debugForm()">Debug Form</button>
+
   </form>
 </section>

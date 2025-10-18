@@ -1,12 +1,12 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { IStepForm } from '../../models/step-form.model';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
 
 @Component({
   selector: 'app-first-step',
   standalone: true,
-  imports: [ImageUploadInputComponent],
+  imports: [ImageUploadInputComponent, ReactiveFormsModule],
   templateUrl: './first-step.component.html',
   styleUrls: [
     './first-step.component.css'
@@ -39,5 +39,7 @@ export class FirstStepComponent implements IStepForm {
       };
       reader.readAsDataURL(file);
     });
+
+    this.formGroup.get('imagens')?.setValue(this.imageFiles);
   }
 }

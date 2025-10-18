@@ -1,4 +1,4 @@
-<div class="form-step__body flex-column">
+<form [formGroup]="formGroup" class="form-step__body flex-column">
   <!-- Seleção rápida de endereço -->
   <section class="quick-address flex-column">
     <h2 class="quick-address__title">Escolha um endereço abaixo ou informe um novo</h2>
@@ -32,35 +32,35 @@
       <div class="field-group flex-row">
         <div class="field field--zip-code">
           <label class="field__label" for="cep">CEP</label>
-          <input id="cep" type="text" class="field__input" placeholder="00000-000" />
+          <input formControlName="cep" id="cep" type="text" class="field__input" placeholder="00000-000" />
         </div>
         <div class="field field--city">
           <label class="field__label" for="cidade">Cidade</label>
-          <input id="cidade" type="text" class="field__input" placeholder="Ex: Sorocaba" />
+          <input formControlName="cidade" id="cidade" type="text" class="field__input" placeholder="Ex: Sorocaba" />
         </div>
       </div>
 
       <div class="field-group flex-row">
         <div class="field field--street">
           <label class="field__label" for="rua">Rua</label>
-          <input id="rua" type="text" class="field__input" placeholder="Ex: Rua Jardim Brasilândia" />
+          <input formControlName="rua" id="rua" type="text" class="field__input" placeholder="Ex: Rua Jardim Brasilândia" />
         </div>
         <div class="field field--number">
           <label class="field__label" for="numero">Número</label>
-          <input id="numero" type="number" class="field__input" placeholder="Ex: 123" />
+          <input formControlName="numero" id="numero" type="number" class="field__input" placeholder="Ex: 123" />
         </div>
       </div>
 
         <div class="field">
           <label class="field__label" for="bairro">Bairro</label>
-          <input id="bairro" type="text" class="field__input" placeholder="Ex: Jardim Brasilândia" />
+          <input formControlName="bairro" id="bairro" type="text" class="field__input" placeholder="Ex: Jardim Brasilândia" />
         </div>
 
         <div class="field">
           <label class="field__label" for="complemento">Complemento</label>
-          <input id="complemento" type="text" class="field__input" placeholder="Ex: fundos" />
+          <input formControlName="complemento" id="complemento" type="text" class="field__input" placeholder="Ex: fundos" />
         </div>
     </div>
   </section>
 
-</div>
+</form>

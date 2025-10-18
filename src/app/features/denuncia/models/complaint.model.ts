@@ -11,37 +11,36 @@ export enum ComplaintStatus{
     Resolvida
 }
 
-export interface IComplaint{
-    id : number,
-    titulo: string,
-    descricao: string,
-    dataPublicacao: string,
-    status: ComplaintStatus,
-    pontuacao : number,
-    cep : string;
-    cidade : string;
-    bairro : string;
-    rua : string;
-    numero ?: string;
-    complemento ?: string;
-    idUsuario : string,
-    imagens ?: IImage[],
-    categorias ?: ICategory[],
+// Crie uma interface base comum
+export interface IComplaintBase {
+    titulo: string;
+    descricao: string;
+    cep: string;
+    cidade: string;
+    bairro: string;
+    rua: string;
+    numero?: string;
+    complemento?: string;
+    idUsuario: string | number;
+    imagens?: any[];
+    categorias?: any[];
+}
+
+export interface IComplaint extends IComplaintBase {
+    id: number;
+    dataPublicacao: string;
+    status: ComplaintStatus;
+    pontuacao: number;
+    imagens?: IImage[];
+    categorias?: ICategory[];
+}
+
+export interface ICreateComplaint extends IComplaintBase {
+    idUsuario: number;
+    imagens?: string[];
+    categorias?: number[];
 }
 
 export interface IComplaintFilter extends IBaseApiFilters{
     status : ComplaintStatus
-}
-export interface ICreateComplaint{
-    titulo: string,
-    descricao : string,
-    cep : string;
-    cidade : string;
-    bairro : string;
-    rua : string;
-    numero ?: string;
-    complemento ?: string;
-    idUsuario: number,
-    imagens ?: string[],
-    categorias ?: number[]
 }

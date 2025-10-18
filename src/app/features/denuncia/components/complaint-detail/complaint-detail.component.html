@@ -2,25 +2,25 @@
   <header class="complaint-detail__header flex-column">
     <h2>{{complaint.titulo}}</h2>
     <div class="categories-container flex-row">
-      @if(complaint.categorias){
-        @for (categoria of complaint.categorias; track $index) {
+      @if(getCategories().length > 0){
+        @for (categoria of getCategories(); track $index) {
           @if($index < MAX_CATEGORIES){
-            <ng-container *ngIf="complaintService.getCategoryIcon(categoria) as icon">
+            @if(complaintService.getCategoryIcon(categoria); as icon){
               <div class="categories-container__categorie flex-row">
                 <img
                   class="medium-icon"
                   [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
                   [alt]="icon.alt"
                 />
-                <span>{{categoria.nome}}</span>
+                <span>{{categoria.nome || categoria}}</span>
               </div>
-            </ng-container>
+            }
           }
         }
 
-        @if(complaint.categorias.length > MAX_CATEGORIES){
+        @if(getCategories().length > MAX_CATEGORIES){
           <div class="categories-container__categorie flex-row">
-            <span>+{{complaint.categorias.length - MAX_CATEGORIES}}</span>
+            <span>+{{getCategories().length - MAX_CATEGORIES}}</span>
           </div>
         }
       }
@@ -28,21 +28,22 @@
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-        <span>{{complaintService.getFormattedDate(complaint.dataPublicacao)}}</span>
+        <span>{{getFormattedDate()}}</span>
         <span>Criado por: {{userName}}</span>
-        <ng-container *ngIf="complaintService.getFullAddress(complaint) as fullAddress">
-          <span>Em: {{fullAddress}}</span>
-        </ng-container>
+        <span>Em: {{getFullAddress()}}</span>
     </header>
     <div class="complaint-detail__content flex-column">
       <span class="complaint-detail__content-description flex-row">
         {{complaint.descricao}}
       </span>
       <div class="complaint-detail__content-gallery flex-row">
-        @if(complaint.imagens){
-          @for (imagem of complaint.imagens; track $index) {
+        @if(getImages().length > 0){
+          @for (imagem of getImages(); track $index) {
             <div class="complaint-detail__content-gallery-image">
-              <img src="{{imagem.url}}" alt="{{imagem.nome}}">
+              <img 
+                [src]="imagem.url || imagem" 
+                [alt]="imagem.nome || 'Imagem da denúncia'"
+              >
             </div>
           }
         }

@@ -15,7 +15,7 @@ import {
   styleUrl: "./third-step.component.css",
 })
 export class ThirdStepComponent implements IStepForm {
-  @Input() formGroup!: FormGroup<any>;
+  @Input() formGroup!: FormGroup;
   isValid(): boolean {
     return true;
   }
@@ -48,7 +48,7 @@ export class ThirdStepComponent implements IStepForm {
   ];
 
   private createCategoryList(names: string[]): ICategorySelect[] {
-    return names.map((name) => ({ name, selected: true }));
+    return names.map((name) => ({ name, selected: false }));
   }
 
   protected readonly waterCategories = this.createCategoryList(
@@ -65,9 +65,40 @@ export class ThirdStepComponent implements IStepForm {
   );
 
   protected categoryGroups: ICategoryGroup<ICategorySelect>[] = [
-    {title : 'Água', icon: {folder : 'entities', name : 'water', alt : 'Categoria Água'}, group: this.waterCategories},
-    {title : 'Esgoto',icon: {folder : 'entities', name : 'sewage', alt : 'Categoria Esgoto'}, group: this.sewageCategories},
-    {title : 'Drenagem',icon: {folder : 'entities', name : 'drainage', alt : 'Categoria Drenagem'}, group: this.drainageCategories},
-    {title : 'Limpeza',icon: {folder : 'entities', name : 'cleaning', alt : 'Categoria Limpeza'}, group: this.cleaningCategories},
-  ]
+    {
+      title: "Água",
+      icon: { folder: "entities", name: "water", alt: "Categoria Água" },
+      group: this.waterCategories,
+    },
+    {
+      title: "Esgoto",
+      icon: { folder: "entities", name: "sewage", alt: "Categoria Esgoto" },
+      group: this.sewageCategories,
+    },
+    {
+      title: "Drenagem",
+      icon: { folder: "entities", name: "drainage", alt: "Categoria Drenagem" },
+      group: this.drainageCategories,
+    },
+    {
+      title: "Limpeza",
+      icon: { folder: "entities", name: "cleaning", alt: "Categoria Limpeza" },
+      group: this.cleaningCategories,
+    },
+  ];
+
+  onCategorieClick(categorie: ICategorySelect) {
+    categorie.selected = !categorie.selected;
+
+    // monta array de categorias selecionadas
+    const selected: string[] = [];
+    this.categoryGroups.forEach((group) => {
+      group.group.forEach((c) => {
+        if (c.selected) selected.push(c.name);
+      });
+    });
+
+    // atualiza o formGroup
+    this.formGroup.get("categorias")?.setValue(selected);
+  }
 }

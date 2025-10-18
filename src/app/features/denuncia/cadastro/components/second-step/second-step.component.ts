@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { IStepForm } from '../../models/step-form.model';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-second-step',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './second-step.component.html',
   styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })
