@@ -49,7 +49,11 @@
             </app-third-step>
           }
           @case(StepsType.REVIEW) {
-            <app-review [formGroup]="getFormGroup('review')" [complaintCreated]="getComplaint()"></app-review>
+            <app-review 
+              [formGroup]="getFormGroup('review')" 
+              [complaintPreview]="buildComplaintPreviewData()"
+            >
+            </app-review>
           }
         }
       </div>

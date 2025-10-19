@@ -16,11 +16,13 @@ import { ViewportScroller } from "@angular/common";
 import {
   ComplaintStatus,
   IComplaint,
+  IComplaintPreview,
   ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
+import { ICategory } from "@features/categoria/models/category.model";
 
 @Component({
   selector: "app-complaint-register",
@@ -96,7 +98,7 @@ export class ComplaintRegisterComponent {
     }),
     how: this.fb.group({
       categorias: ["", [Validators.required]],
-      idCategorias: ["", [Validators.required]],
+      categoriasIds: ["", [Validators.required]],
     }),
     review: this.fb.group({
       titulo: ["", Validators.required],
@@ -157,26 +159,16 @@ export class ComplaintRegisterComponent {
     this.scroller.scrollToPosition([0, 0]);
   }
 
-  getComplaint(): ICreateComplaint {
+  protected buildComplaintPreviewData(): IComplaintPreview {
     const whatForm = this.getFormGroup("what");
     const whereForm = this.getFormGroup("where");
     const howForm = this.getFormGroup("how");
     const reviewForm = this.getFormGroup("review");
-
-    return this.buildComplaintData(whatForm, whereForm, howForm, reviewForm)
-  }
-
-  private buildComplaintData(
-    whatForm: FormGroup,
-    whereForm: FormGroup,
-    howForm: FormGroup,
-    reviewForm: FormGroup
-  ): ICreateComplaint {
-    const { descricao, imagens } = whatForm.controls;
+     const { descricao, imagens } = whatForm.controls;
 
     const { cep, cidade, bairro, rua, complemento } = whereForm.controls;
 
-    const { categorias, idCategorias } = howForm.controls;
+    const { categorias} = howForm.controls;
 
     const { titulo } = reviewForm.controls;
 
@@ -188,8 +180,37 @@ export class ComplaintRegisterComponent {
       bairro: bairro.value || "",
       rua: rua.value || "",
       complemento: complemento.value || "",
-      categorias: idCategorias.value,
-      titulo: titulo.value || `${categorias.value[0]} na ${rua.value}`,
+      categorias: categorias.value,
+      titulo: titulo.value || `${categorias.value[0]['nome']} na ${rua.value}`,
+      idUsuario: this.authService.getCurrentUser()?.id ?? 0,
+    };
+  }
+
+  //USADO para construir a denúncia que será enviada para o backend cadastrar
+  protected buildComplaintData(): ICreateComplaint {
+    const whatForm = this.getFormGroup("what");
+    const whereForm = this.getFormGroup("where");
+    const howForm = this.getFormGroup("how");
+    const reviewForm = this.getFormGroup("review");
+
+    const { descricao, imagens } = whatForm.controls;
+
+    const { cep, cidade, bairro, rua, complemento } = whereForm.controls;
+
+    const { categoriasIds } = howForm.controls;
+
+    const { titulo } = reviewForm.controls;
+
+    return {
+      descricao: descricao.value || "",
+      imagens: imagens.value || "",
+      cep: cep.value || "",
+      cidade: cidade.value || "",
+      bairro: bairro.value || "",
+      rua: rua.value || "",
+      complemento: complemento.value || "",
+      categorias: categoriasIds.value,
+      titulo: titulo.value || "",
       idUsuario: this.authService.getCurrentUser()?.id ?? 0,
     };
   }
@@ -197,17 +218,23 @@ export class ComplaintRegisterComponent {
   onSubmit(): void {
     if (this.formGroup.valid) {
       console.log("Formulário submetido:", this.formGroup.value);
-      const complaintToCreate = this.getComplaint();
-      complaintToCreate.imagens = ['user1.jpg', 'user2.jpg']
+      const complaintToCreate = this.buildComplaintData();
+      complaintToCreate.imagens = ["user1.jpg", "user2.jpg"];
       this.complaintService.createComplaint(complaintToCreate).subscribe({
-        next : () => {
-          this.toastService.show({message : 'Cadastrado com sucesso', error: false})
+        next: () => {
+          this.toastService.show({
+            message: "Cadastrado com sucesso",
+            error: false,
+          });
         },
-        error : (err) => {
-          console.log(err)
-          this.toastService.show({message : 'Ocorreu um problema' + err, error: true})
-        }
-      })
+        error: (err) => {
+          console.log(err);
+          this.toastService.show({
+            message: "Ocorreu um problema" + err,
+            error: true,
+          });
+        },
+      });
     }
   }
 

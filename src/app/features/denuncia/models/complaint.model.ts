@@ -38,7 +38,7 @@ export interface ICreateComplaint extends IComplaintBase {
     imagens?: string[];
     categorias?: number[];
 }
-export interface IComplaintForm extends IComplaintBase {
+export interface IComplaintPreview extends IComplaintBase {
     titulo: string;
     descricao: string;
     cep: string;
@@ -47,7 +47,7 @@ export interface IComplaintForm extends IComplaintBase {
     rua: string;
     numero?: string;
     complemento?: string;
-    imagens?: any[];
+    imagens?: File[];
     categorias: ICategory[];
 }
 

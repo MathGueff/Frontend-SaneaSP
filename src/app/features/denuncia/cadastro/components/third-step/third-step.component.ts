@@ -108,6 +108,6 @@ export class ThirdStepComponent implements IStepForm, OnInit {
     });
     
     this.formGroup.get("categorias")?.setValue(selectedCategories);
-    this.formGroup.get("idCategorias")?.setValue(selectedCategories.map(selected => selected.id));
+    this.formGroup.get("categoriasIds")?.setValue(selectedCategories.map(selected => selected.id));
   }
 }

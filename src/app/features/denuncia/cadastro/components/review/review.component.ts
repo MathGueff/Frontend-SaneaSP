@@ -1,6 +1,6 @@
 import { Component, inject, Input } from "@angular/core";
 import {
-  IComplaint,
+  IComplaintPreview,
   ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
 import { ComplaintDetailComponent } from "@features/denuncia/components/complaint-detail/complaint-detail.component";
@@ -17,19 +17,20 @@ import { FormGroup, ReactiveFormsModule, ɵInternalFormsSharedModule } from "@an
 export class ReviewComponent {
   protected authService = inject(AuthService);
   @Input() formGroup !: FormGroup;
-  @Input() complaintCreated!: ICreateComplaint;
+  @Input() complaintPreview!: IComplaintPreview;
   
   protected oldTitle: string = '';
 
   ngOnInit() {
-    const { categorias, rua } = this.complaintCreated;
+    console.log(this.complaintPreview)
+    const { categorias, rua } = this.complaintPreview;
 
     if (categorias && categorias.length > 0) {
-      const suggestedTitle = `${categorias.at(0)} na ${rua}`;
+      const suggestedTitle = `${categorias.at(0)?.nome} na ${rua}`;
       this.formGroup.get('titulo')?.setValue(suggestedTitle);
     }
 
-    this.oldTitle = this.complaintCreated.titulo;
+    this.oldTitle = this.complaintPreview.titulo;
   }
 
   changeTitle(title: string) {
@@ -37,11 +38,11 @@ export class ReviewComponent {
       this.formGroup.get('titulo')?.setValue(this.oldTitle);
       return;
     }
-    this.complaintCreated.titulo = title;
+    this.complaintPreview.titulo = title;
   }
 
   setTitle(){
-    this.complaintCreated.titulo = this.oldTitle;
+    this.complaintPreview.titulo = this.oldTitle;
       this.formGroup.get('titulo')?.setValue(this.oldTitle);
   }
 }

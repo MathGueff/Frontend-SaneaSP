@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, inject, Input, OnInit } from "@angular/core";
 import {
   IComplaint,
+  IComplaintPreview,
   ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
@@ -14,7 +15,7 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
   styleUrl: "./complaint-detail.component.css",
 })
 export class ComplaintDetailComponent implements OnInit {
-  @Input() complaint!: IComplaint | ICreateComplaint;
+  @Input() complaint!: IComplaint | IComplaintPreview;
   @Input() userName!: string;
   protected filePreviews: string[] = [];
 
