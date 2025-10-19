@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ICategory, ICategoryCreate, ICategoryListFilter } from '@features/categoria/models/category.model';
+import { ICategory, ICategoryCreate, ICategoryGroup, ICategoryListFilter } from '@features/categoria/models/category.model';
 import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IResponseList } from '@shared/models/response.model';
@@ -37,6 +37,11 @@ export class CategoryService {
       params,
       headers,
     });
+  }
+
+  //GET
+  getGroups() {
+    return this.httpClient.get<ICategoryGroup[]>(this.apiUrl + '/grupos');
   }
 
   getTagByExactName(nameFilter: string) {

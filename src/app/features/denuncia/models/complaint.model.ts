@@ -21,9 +21,7 @@ export interface IComplaintBase {
     rua: string;
     numero?: string;
     complemento?: string;
-    idUsuario: string | number;
-    imagens?: any[];
-    categorias?: any[];
+    idUsuario: number;
 }
 
 export interface IComplaint extends IComplaintBase {
@@ -39,6 +37,18 @@ export interface ICreateComplaint extends IComplaintBase {
     idUsuario: number;
     imagens?: string[];
     categorias?: number[];
+}
+export interface IComplaintForm extends IComplaintBase {
+    titulo: string;
+    descricao: string;
+    cep: string;
+    cidade: string;
+    bairro: string;
+    rua: string;
+    numero?: string;
+    complemento?: string;
+    imagens?: any[];
+    categorias: ICategory[];
 }
 
 export interface IComplaintFilter extends IBaseApiFilters{

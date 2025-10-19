@@ -25,7 +25,7 @@ export class ReviewComponent {
     const { categorias, rua } = this.complaintCreated;
 
     if (categorias && categorias.length > 0) {
-      const suggestedTitle = `${categorias[0]} na ${rua}`;
+      const suggestedTitle = `${categorias.at(0)} na ${rua}`;
       this.formGroup.get('titulo')?.setValue(suggestedTitle);
     }
 

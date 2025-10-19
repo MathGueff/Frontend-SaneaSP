@@ -96,6 +96,7 @@ export class ComplaintRegisterComponent {
     }),
     how: this.fb.group({
       categorias: ["", [Validators.required]],
+      idCategorias: ["", [Validators.required]],
     }),
     review: this.fb.group({
       titulo: ["", Validators.required],
@@ -121,10 +122,10 @@ export class ComplaintRegisterComponent {
 
   nextStep(): void {
     const activeFormGroup = this.getStepFormGroup(this.activeStep);
-    if(activeFormGroup.invalid){
-      this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
-      return
-    }
+    // if(activeFormGroup.invalid){
+    //   this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
+    //   return
+    // }
 
     const nextStepIndex = this.activeStep + 1;
     if (
@@ -175,7 +176,7 @@ export class ComplaintRegisterComponent {
 
     const { cep, cidade, bairro, rua, complemento } = whereForm.controls;
 
-    const { categorias } = howForm.controls;
+    const { categorias, idCategorias } = howForm.controls;
 
     const { titulo } = reviewForm.controls;
 
@@ -187,7 +188,7 @@ export class ComplaintRegisterComponent {
       bairro: bairro.value || "",
       rua: rua.value || "",
       complemento: complemento.value || "",
-      categorias: categorias.value,
+      categorias: idCategorias.value,
       titulo: titulo.value || `${categorias.value[0]} na ${rua.value}`,
       idUsuario: this.authService.getCurrentUser()?.id ?? 0,
     };
@@ -198,7 +199,6 @@ export class ComplaintRegisterComponent {
       console.log("Formulário submetido:", this.formGroup.value);
       const complaintToCreate = this.getComplaint();
       complaintToCreate.imagens = ['user1.jpg', 'user2.jpg']
-      complaintToCreate.categorias = [1,2,3]
       this.complaintService.createComplaint(complaintToCreate).subscribe({
         next : () => {
           this.toastService.show({message : 'Cadastrado com sucesso', error: false})

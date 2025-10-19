@@ -1,32 +1,33 @@
 import { IIcon } from "@shared/models/icon.model"
 
-//Dados
-export interface ICategory{
-  id: number,
+//Dados - usados para transitar objetos contendo informações
+
+export interface IBaseCategory{
   nome : string,
-  grupo : CategoryGroup
+  id_grupo : number
 }
+export interface ICategory extends IBaseCategory{
+  id: number
+}
+
+export interface ICategoryCreate extends IBaseCategory{}
 
 export interface ICategoryListFilter{
   nome : string
 }
 
-export interface ICategoryCreate{
+export interface ICategoryGroup{
+  id: number,
   nome : string,
-  grupo : CategoryGroup
+  icone : string,
+  categorias : Omit<ICategory, 'id_grupo'>[]
 }
 
-//Tipos
-export enum CategoryGroup{
-  WATER,
-  SEWAGE,
-  DRAINAGE,
-  CLEANING
-}
-
-//Visual
+//Visual - usados para representar a categoria como elementos visuais (contém estados )
 export interface ICategorySelect extends ICategoryLabel{
+  id : number,
   name : string,
+  id_grupo : number,
   selected ?: boolean
 }
 
@@ -35,7 +36,7 @@ export interface ICategoryLabel{
   icon ?: IIcon
 }
 
-export interface ICategoryGroup<T>{
+export interface IViewCategoryGroup<T>{
   title : string,
   icon : IIcon,
   group : T[]

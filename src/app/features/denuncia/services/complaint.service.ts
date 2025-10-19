@@ -1,5 +1,4 @@
 import {
-  CategoryGroup,
   ICategory,
 } from "@features/categoria/models/category.model";
 import { HttpClient, HttpParams } from "@angular/common/http";

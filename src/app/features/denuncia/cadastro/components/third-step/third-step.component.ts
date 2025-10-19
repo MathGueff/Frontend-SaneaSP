@@ -1,10 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { IStepForm } from "../../models/step-form.model";
 import { FormGroup } from "@angular/forms";
-import {
-  ICategoryGroup,
+import { IStepForm } from "../../models/step-form.model";
+import { 
+  IViewCategoryGroup, 
   ICategorySelect,
+  ICategoryGroup,
+  ICategory 
 } from "@features/categoria/models/category.model";
+import { CategoryService } from "@features/categoria/services/category.service";
 
 @Component({
   selector: "app-third-step",
@@ -15,18 +18,63 @@ import {
 })
 export class ThirdStepComponent implements IStepForm, OnInit {
   @Input() formGroup!: FormGroup;
+  
+  protected categoryGroups: IViewCategoryGroup<ICategorySelect>[] = [];
+  protected isLoading = true;
+
+  constructor(private categoryService: CategoryService) {}
 
   ngOnInit(): void {
-    this.loadSelectedCategories();
+    this.loadCategoriesFromAPI();
+  }
+
+  private loadCategoriesFromAPI(): void {
+    this.categoryService.getGroups().subscribe({
+      next: (grupos: ICategoryGroup[]) => {
+        this.categoryGroups = grupos.map(grupo => this.mapGroupToView(grupo));
+        this.isLoading = false;
+        this.loadSelectedCategories();
+      },
+      error: (error) => {
+        console.error('Erro ao carregar categorias:', error);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  private mapGroupToView(grupo: ICategoryGroup): IViewCategoryGroup<ICategorySelect> {
+    return {
+      title: grupo.nome,
+      icon: this.getIconForGroup(grupo.nome, grupo.icone),
+      group: grupo.categorias.map((categoria) => ({
+        id: categoria.id,
+        name: categoria.nome,
+        id_grupo: grupo.id, 
+        selected: false
+      }))
+    };
+  }
+
+  private getIconForGroup(nomeGrupo: string, icone: string): any {
+    const iconMap: { [key: string]: any } = {
+      'Água': { folder: "entities", name: "water", alt: "Categoria Água" },
+      'Esgoto': { folder: "entities", name: "sewage", alt: "Categoria Esgoto" },
+      'Drenagem': { folder: "entities", name: "drainage", alt: "Categoria Drenagem" },
+      'Limpeza': { folder: "entities", name: "cleaning", alt: "Categoria Limpeza" }
+    };
+
+    return iconMap[nomeGrupo] || { folder: "entities", name: "default", alt: "Categoria" };
   }
 
   private loadSelectedCategories(): void {
-    const selectedCategories = this.formGroup.get("categorias")?.value || [];
+    const selectedCategories: ICategory[] = this.formGroup.get("categorias")?.value || [];
 
     if (selectedCategories.length > 0) {
-      this.categoryGroups.forEach((group) => {
-        group.group.forEach((category) => {
-          category.selected = selectedCategories.includes(category.name);
+      this.categoryGroups.forEach(group => {
+        group.group.forEach(category => {
+          category.selected = selectedCategories.some(
+            selected => selected.id === category.id
+          );
         });
       });
     }
@@ -43,78 +91,23 @@ export class ThirdStepComponent implements IStepForm, OnInit {
     };
   }
 
-  waterCategoryNames = [
-    "Falta de abastecimento",
-    "Água imprópria",
-    "Vazamento de água",
-  ];
-
-  sewageCategoryNames = [
-    "Esgoto a céu aberto",
-    "Vazamento de rede de esgoto",
-    "Ligação irregular de esgoto",
-  ];
-
-  drainageCategoryNames = [
-    "Boca de lobo entupida",
-    "Alagamento",
-    "Valas abertas",
-  ];
-
-  cleaningCategoriesNames = [
-    "Coleta de lixo doméstico",
-    "Limpeza de vias e espaços públicos",
-    "Remoção de entulho ou grandes objetos",
-  ];
-
-  private createCategoryList(names: string[]): ICategorySelect[] {
-    return names.map((name) => ({ name, selected: false }));
-  }
-
-  protected readonly waterCategories = this.createCategoryList(
-    this.waterCategoryNames
-  );
-  protected readonly sewageCategories = this.createCategoryList(
-    this.sewageCategoryNames
-  );
-  protected readonly drainageCategories = this.createCategoryList(
-    this.drainageCategoryNames
-  );
-  protected readonly cleaningCategories = this.createCategoryList(
-    this.cleaningCategoriesNames
-  );
-
-  protected categoryGroups: ICategoryGroup<ICategorySelect>[] = [
-    {
-      title: "Água",
-      icon: { folder: "entities", name: "water", alt: "Categoria Água" },
-      group: this.waterCategories,
-    },
-    {
-      title: "Esgoto",
-      icon: { folder: "entities", name: "sewage", alt: "Categoria Esgoto" },
-      group: this.sewageCategories,
-    },
-    {
-      title: "Drenagem",
-      icon: { folder: "entities", name: "drainage", alt: "Categoria Drenagem" },
-      group: this.drainageCategories,
-    },
-    {
-      title: "Limpeza",
-      icon: { folder: "entities", name: "cleaning", alt: "Categoria Limpeza" },
-      group: this.cleaningCategories,
-    },
-  ];
-
   onCategorieClick(categorie: ICategorySelect) {
     categorie.selected = !categorie.selected;
-    const selected: string[] = [];
-    this.categoryGroups.forEach((group) => {
-      group.group.forEach((c) => {
-        if (c.selected) selected.push(c.name);
+    
+    const selectedCategories: ICategory[] = [];
+    this.categoryGroups.forEach(group => {
+      group.group.forEach(c => {
+        if (c.selected) {
+          selectedCategories.push({
+            id: c.id,
+            nome: c.name,
+            id_grupo: c.id_grupo
+          });
+        }
       });
     });
-    this.formGroup.get("categorias")?.setValue(selected);
+    
+    this.formGroup.get("categorias")?.setValue(selectedCategories);
+    this.formGroup.get("idCategorias")?.setValue(selectedCategories.map(selected => selected.id));
   }
 }

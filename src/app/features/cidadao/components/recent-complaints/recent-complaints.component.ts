@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CategoryGroup } from '@features/categoria/models/category.model';
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
-import { IComplaint, ComplaintStatus } from '@features/denuncia/models/complaint.model';
+import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 import { map, take } from 'rxjs';
 
