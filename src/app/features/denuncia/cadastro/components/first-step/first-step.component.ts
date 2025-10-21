@@ -61,6 +61,7 @@ export class FirstStepComponent implements IStepForm, OnInit{
     });
 
     this.formGroup.get('imagens')?.setValue(this.imageFiles);
+    this.formGroup.get('imageNames')?.setValue(this.imageFiles.map(img => img.name));
   }
 
   removeImage(index: number): void {

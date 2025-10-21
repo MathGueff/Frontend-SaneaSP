@@ -1,3 +1,4 @@
+import { UploadService } from './../../../../../shared/services/upload.service';
 import { Component, inject } from "@angular/core";
 import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-steps/form-steps.component";
 import { FormNavigationComponent } from "../../components/form-navigation/form-navigation.component";
@@ -23,6 +24,7 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { ICategory } from "@features/categoria/models/category.model";
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: "app-complaint-register",
@@ -47,6 +49,7 @@ export class ComplaintRegisterComponent {
   protected activeStep: StepsTypes = StepsTypes.WHAT;
   protected complaintService = inject(ComplaintService);
   protected authService = inject(AuthService);
+  protected uploadService = inject(UploadService);
   protected toastService = inject(ToastService);
 
   protected steps: ISteps[] = [
@@ -86,7 +89,8 @@ export class ComplaintRegisterComponent {
           Validators.maxLength(1000),
         ],
       ],
-      imagens: [""],
+      imagens: [[]],
+      imageNames: [""],
     }),
     where: this.fb.group({
       rua: ["", [Validators.required]],
@@ -147,7 +151,6 @@ export class ComplaintRegisterComponent {
 
   goToStep(step: StepsTypes) {
     this.activeStep = step;
-    console.log(this.activeStep);
     this.scrollTop();
   }
 
@@ -164,11 +167,11 @@ export class ComplaintRegisterComponent {
     const whereForm = this.getFormGroup("where");
     const howForm = this.getFormGroup("how");
     const reviewForm = this.getFormGroup("review");
-     const { descricao, imagens } = whatForm.controls;
+    const { descricao, imagens } = whatForm.controls;
 
     const { cep, cidade, bairro, rua, complemento } = whereForm.controls;
 
-    const { categorias} = howForm.controls;
+    const { categorias } = howForm.controls;
 
     const { titulo } = reviewForm.controls;
 
@@ -193,7 +196,7 @@ export class ComplaintRegisterComponent {
     const howForm = this.getFormGroup("how");
     const reviewForm = this.getFormGroup("review");
 
-    const { descricao, imagens } = whatForm.controls;
+    const { descricao, imageNames } = whatForm.controls;
 
     const { cep, cidade, bairro, rua, complemento } = whereForm.controls;
 
@@ -203,7 +206,7 @@ export class ComplaintRegisterComponent {
 
     return {
       descricao: descricao.value || "",
-      imagens: imagens.value || "",
+      imagens: imageNames.value || "",
       cep: cep.value || "",
       cidade: cidade.value || "",
       bairro: bairro.value || "",
@@ -215,12 +218,22 @@ export class ComplaintRegisterComponent {
     };
   }
 
-  onSubmit(): void {
+  async onSubmit(){
     if (this.formGroup.valid) {
-      console.log("Formulário submetido:", this.formGroup.value);
+      let fileNames : string[] = [];
+      const whatForm = this.getFormGroup("what");
+      const files: File[] = whatForm.controls['imagens'].value;
       const complaintToCreate = this.buildComplaintData();
-      complaintToCreate.imagens = ["user1.jpg", "user2.jpg"];
-      this.complaintService.createComplaint(complaintToCreate).subscribe({
+      if(complaintToCreate.imagens){
+        const uploaded: string[] = await firstValueFrom(
+          this.uploadService.postUpload(files)
+        );
+        fileNames = uploaded;
+      }
+      this.complaintService.createComplaint({
+        ...complaintToCreate,
+        imagens : fileNames
+      }).subscribe({
         next: () => {
           this.toastService.show({
             message: "Cadastrado com sucesso",
@@ -236,6 +249,10 @@ export class ComplaintRegisterComponent {
         },
       });
     }
+  }
+
+  mapImages(images: File[]) {
+    return images.map(img => img.name)
   }
 
   debugForm() {
