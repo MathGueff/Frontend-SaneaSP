@@ -1,5 +1,5 @@
 import { UploadService } from './../../../../../shared/services/upload.service';
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-steps/form-steps.component";
 import { FormNavigationComponent } from "../../components/form-navigation/form-navigation.component";
 import { FirstStepComponent } from "../../components/first-step/first-step.component";
@@ -23,8 +23,8 @@ import {
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
-import { ICategory } from "@features/categoria/models/category.model";
 import { firstValueFrom } from 'rxjs';
+import { ViacepService } from '@shared/services/viacep.service';
 
 @Component({
   selector: "app-complaint-register",
@@ -41,13 +41,14 @@ import { firstValueFrom } from 'rxjs';
   templateUrl: "./complaint-register.component.html",
   styleUrls: ["./complaint-register.component.css"],
 })
-export class ComplaintRegisterComponent {
+export class ComplaintRegisterComponent implements OnInit {
   private fb = inject(FormBuilder);
   protected StepsType = StepsTypes;
 
   protected scroller = inject(ViewportScroller);
   protected activeStep: StepsTypes = StepsTypes.WHAT;
   protected complaintService = inject(ComplaintService);
+  protected viacepService = inject(ViacepService);
   protected authService = inject(AuthService);
   protected uploadService = inject(UploadService);
   protected toastService = inject(ToastService);
@@ -110,6 +111,52 @@ export class ComplaintRegisterComponent {
     }),
   });
 
+  ngOnInit(): void {
+    const whereForm = this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].valueChanges.subscribe((cep) => {
+      if (cep.length == 8) {
+        this.searchAddress();
+      } else {
+        this.resetAddressControls();
+      }
+    })
+  }
+  searchAddress() {
+    this.viacepService.getAddress(this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].value).subscribe({
+      next: (response : any) => {
+        if (response.logradouro) {
+          this.setAddressControl("rua", response.logradouro);
+        } else {
+          console.log("A rua não foi encontrada para o CEP informado.");
+        }
+
+        if (response.bairro) {
+          this.setAddressControl("bairro", response.bairro);
+        } else {
+          console.log("O logradouro não foi encontrado para o CEP informado.");
+        }
+
+        if (response.localidade) {
+          this.setAddressControl("cidade", response.localidade);
+        } else {
+          console.log("A cidade não foi encontrada para o CEP informado.");
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+  }
+  resetAddressControls() {
+    let addressControls = ["rua", "bairro", "cidade"];
+    addressControls.forEach((field) => {
+      this.getStepFormGroup(StepsTypes.WHERE).get(field)!.reset();
+    });
+  }
+
+  private setAddressControl(control: string, value: string) {
+    this.getStepFormGroup(StepsTypes.WHERE).get(control)?.setValue(value);
+  }
+
   get stepTitle(): string {
     return (
       this.steps.find((step) => this.activeStep === step.type)?.formTitle || ""
@@ -128,10 +175,10 @@ export class ComplaintRegisterComponent {
 
   nextStep(): void {
     const activeFormGroup = this.getStepFormGroup(this.activeStep);
-    // if(activeFormGroup.invalid){
-    //   this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
-    //   return
-    // }
+    if(activeFormGroup.invalid){
+      this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
+      return
+    }
 
     const nextStepIndex = this.activeStep + 1;
     if (
