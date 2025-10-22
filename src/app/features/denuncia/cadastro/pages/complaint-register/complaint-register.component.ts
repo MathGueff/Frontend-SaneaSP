@@ -86,7 +86,7 @@ export class ComplaintRegisterComponent implements OnInit {
         "",
         [
           Validators.required,
-          Validators.minLength(30),
+          Validators.minLength(20),
           Validators.maxLength(1000),
         ],
       ],
@@ -112,7 +112,7 @@ export class ComplaintRegisterComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const whereForm = this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].valueChanges.subscribe((cep) => {
+    this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].valueChanges.subscribe((cep) => {
       if (cep.length == 8) {
         this.searchAddress();
       } else {
@@ -300,10 +300,5 @@ export class ComplaintRegisterComponent implements OnInit {
 
   mapImages(images: File[]) {
     return images.map(img => img.name)
-  }
-
-  debugForm() {
-    console.log(this.formGroup.value);
-    console.log(this.formGroup.valid);
   }
 }

@@ -33,7 +33,7 @@ export class CategoryService {
         }
       });
     }
-    return this.httpClient.get<IResponseList<ICategory[]>>(this.apiUrl, {
+    return this.httpClient.get<ICategory[]>(this.apiUrl, {
       params,
       headers,
     });
