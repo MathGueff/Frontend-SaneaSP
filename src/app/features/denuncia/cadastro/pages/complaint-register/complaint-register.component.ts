@@ -41,14 +41,13 @@ import { ViacepService } from '@shared/services/viacep.service';
   templateUrl: "./complaint-register.component.html",
   styleUrls: ["./complaint-register.component.css"],
 })
-export class ComplaintRegisterComponent implements OnInit {
+export class ComplaintRegisterComponent {
   private fb = inject(FormBuilder);
   protected StepsType = StepsTypes;
 
   protected scroller = inject(ViewportScroller);
   protected activeStep: StepsTypes = StepsTypes.WHAT;
   protected complaintService = inject(ComplaintService);
-  protected viacepService = inject(ViacepService);
   protected authService = inject(AuthService);
   protected uploadService = inject(UploadService);
   protected toastService = inject(ToastService);
@@ -110,52 +109,6 @@ export class ComplaintRegisterComponent implements OnInit {
       privacidade: [""],
     }),
   });
-
-  ngOnInit(): void {
-    this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].valueChanges.subscribe((cep) => {
-      if (cep.length == 8) {
-        this.searchAddress();
-      } else {
-        this.resetAddressControls();
-      }
-    })
-  }
-  searchAddress() {
-    this.viacepService.getAddress(this.getStepFormGroup(StepsTypes.WHERE).controls['cep'].value).subscribe({
-      next: (response : any) => {
-        if (response.logradouro) {
-          this.setAddressControl("rua", response.logradouro);
-        } else {
-          console.log("A rua não foi encontrada para o CEP informado.");
-        }
-
-        if (response.bairro) {
-          this.setAddressControl("bairro", response.bairro);
-        } else {
-          console.log("O logradouro não foi encontrado para o CEP informado.");
-        }
-
-        if (response.localidade) {
-          this.setAddressControl("cidade", response.localidade);
-        } else {
-          console.log("A cidade não foi encontrada para o CEP informado.");
-        }
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
-  }
-  resetAddressControls() {
-    let addressControls = ["rua", "bairro", "cidade"];
-    addressControls.forEach((field) => {
-      this.getStepFormGroup(StepsTypes.WHERE).get(field)!.reset();
-    });
-  }
-
-  private setAddressControl(control: string, value: string) {
-    this.getStepFormGroup(StepsTypes.WHERE).get(control)?.setValue(value);
-  }
 
   get stepTitle(): string {
     return (
