@@ -1,0 +1,60 @@
+.form-step__body {
+  gap: var(--space-6);
+  width: 850px;
+}
+
+.categories-container{
+    gap: var(--space-6);
+    padding: var(--space-5) 0;
+    flex-wrap: wrap;
+}
+
+.categories-container__group{
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-4);
+    background-color: transparent;
+    border: 1px solid var(--background-dark-color);
+    box-shadow: var(--card-shadow);
+    justify-content: start;
+    width: 300px;
+}
+
+.categories-container__group h2{
+    font-size: var(--lg-text);
+    font-weight: 500;
+}
+
+.categories-container__categorie{
+    gap: var(--space-5);
+    padding: 0 var(--space-4);
+    width: 275px;
+    height: 50px;
+    border: 1px solid var(--primary-color);
+}
+
+.categories-container__categorie span{
+    flex: 1;
+    color: var(--primary-color);
+    font-size: var(--md-text);
+}
+
+.categorie__checkbox, .categorie__checkbox--selected{
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--background-dark-color);
+    border-radius: 2px;
+}
+
+.categorie__checkbox img, .categorie__checkbox--selected img{
+    width: 100%;
+    height: 100%;
+}
+
+.categorie__checkbox{
+    background-color: transparent;
+}
+
+.categorie__checkbox--selected{
+    background-color: var(--primary-color);
+}
+

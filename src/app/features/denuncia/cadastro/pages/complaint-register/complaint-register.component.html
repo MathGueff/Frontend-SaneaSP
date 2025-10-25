@@ -1,0 +1,72 @@
+<section class="complaint-form-section flex-column">
+  <app-form-steps
+    [activeStep]="activeStep"
+    [steps]="steps"
+    (return)="goToStep($event)"
+    >
+  </app-form-steps>
+
+  <form class="complaint-form form-container flex-column" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <header class="form-container__header">
+        <div class="complaint-form__navigation-buttons flex-row">
+          @if(activeStep > StepsType.WHAT){
+            <div 
+              class="complaint-form__navigation-button--previous button button--primary flex-row"
+              (click)="previousStep()"
+            >
+              <img class="small-icon" src="icons/navigation/white/previous.svg" alt="Voltar">
+              Voltar
+            </div>
+          }
+          @if(activeStep < StepsType.REVIEW && steps[activeStep].completed){
+            <div 
+              class="complaint-form__navigation-button--next button button--primary flex-row"
+              (click)="nextStep()"
+            >
+              Próximo
+              <img class="small-icon" src="icons/navigation/white/next.svg" alt="Próximo">
+            </div>
+          }
+        </div>
+        <h1 class="form-container__title">{{ stepTitle }}</h1>
+      </header>
+
+      <div class="form-container__body">
+        @switch(activeStep) {
+          @case(StepsType.WHAT) {
+            <app-first-step
+              [formGroup]="getFormGroup('what')">
+            </app-first-step>
+          }
+          @case(StepsType.WHERE) {
+            <app-second-step
+              [formGroup]="getFormGroup('where')">
+            </app-second-step>
+          }
+          @case(StepsType.HOW) {
+            <app-third-step
+              [formGroup]="getFormGroup('how')">
+            </app-third-step>
+          }
+          @case(StepsType.REVIEW) {
+            <app-review 
+              [formGroup]="getFormGroup('review')" 
+              [complaintPreview]="buildComplaintPreviewData()"
+            >
+            </app-review>
+          }
+        }
+      </div>
+
+      <div class="form-container__footer">
+        <app-form-navigation
+          [activeStep]="activeStep"
+          [steps]="steps"
+          (next)="nextStep()"
+          (prev)="previousStep()"
+          (submit)="onSubmit()"
+        >
+        </app-form-navigation>
+      </div>
+  </form>
+</section>

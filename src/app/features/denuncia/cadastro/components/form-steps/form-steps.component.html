@@ -1,0 +1,19 @@
+<div class="steps flex-row">
+  @for (step of steps; track $index) {
+    <div 
+      class="steps__step flex-column"
+      [class.steps__step--clickable]="isStepClickable(step)"
+      (click)="goToStep(step)">
+      
+      <div [ngClass]="'step__circle' + getStepState(step)" class="flex-row">
+        @if(step.completed){
+          <img class="small-icon" [src]="'icons/status/system/'+ (step.type === activeStep ? 'white' : 'black') + '/success.svg'" alt="">
+        }
+      </div>
+      <span>{{ step.name }}</span>
+    </div>
+    @if($index < steps.length - 1){
+      <hr [className]="'steps__separator' + getSeparatorState(step)">
+    }
+  }
+</div>

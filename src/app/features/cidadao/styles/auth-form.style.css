@@ -1,0 +1,54 @@
+/* Seção principal do auth */
+.auth-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-image);
+  padding: var(--space-6);
+  gap: var(--space-4);
+}
+
+/* Ajuste extra só para forms de auth */
+.auth-section .form {
+  padding: var(--space-10);
+}
+
+/* Agrupamento de fields (ex: email + senha) */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+/* Containers extras */
+.password-container {
+  width: 100%;
+}
+
+/* Separadores */
+.form__separator--header,
+.form__separator--footer {
+  background-color: var(--black-font-color);
+  height: 2px;
+}
+
+.form__separator--header {
+  width: 40%;
+}
+
+.form__separator--footer {
+  width: 100%;
+}
+
+/* Botões no rodapé */
+.footer__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: var(--space-5);
+  margin-top: var(--space-3);
+}

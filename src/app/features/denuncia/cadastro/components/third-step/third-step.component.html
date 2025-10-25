@@ -1,0 +1,22 @@
+<section class="form-step__body flex-column">
+    <span>Categorias semelhantes com o seu problema já foram selecionadas</span>
+    <div class="categories-container flex-row">
+        @for (categoryGroup of categoryGroups; track $index) {
+            <div class="categories-container__group flex-column">
+                <img class="medium-icon" [src]="'icons/' + categoryGroup.icon.folder + '/color/' + categoryGroup.icon.name + '.png'" [alt]="categoryGroup.icon.alt">
+                <h2>{{categoryGroup.title}}</h2>
+                @for (categorie of categoryGroup.group; track $index) {
+                    <div class="categories-container__categorie flex-row" (click)="onCategorieClick(categorie)">
+                        <div class="categorie__checkbox flex-row"
+                            [class.categorie__checkbox--selected]="categorie.selected">
+                            @if(categorie.selected){
+                                <img src="icons/status/system/white/success.svg" alt="">
+                            }
+                        </div>
+                        <span>{{categorie.name}}</span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>

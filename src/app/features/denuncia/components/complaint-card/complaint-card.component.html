@@ -1,0 +1,14 @@
+<div class="complaint-card">
+  <div class="complaint-card__header">
+    <img src="wireframe/logo.jpg" alt="Logo da organização" />
+    <span>{{complaintService.getCalculatedDate(complaint.dataPublicacao)}}</span>
+  </div>
+  <div class="complaint-card__body">
+    <img src="{{complaintImage}}" alt="Imagem da denúncia" />
+    <h3>{{complaint.titulo}}</h3>
+    <p>{{ complaint.descricao }}</p>
+  </div>
+  <div class="complaint-card__footer">
+    <button [routerLink]="['/cidadao/complaint', complaint.id]" class="button button--primary">Ver mais</button>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<form [formGroup]="formGroup" class="form-step__body flex-column">
+  <!-- Campo de descrição -->
+  <div class="field">
+    <label class="field__label" for="description">Descrição</label>
+    <textarea
+      id="description"
+      class="field__input--description"
+      placeholder="Nos conte o que aconteceu"
+      formControlName="descricao"
+    >
+    </textarea>
+  </div>
+  
+  <app-image-upload-input class="flex-row w-100" (filesSelected)="onFilesSelected($event)"></app-image-upload-input>
+
+  <h3 class="text-sm">
+    Imagens nos ajudam a ter um melhor entendimento do problema
+  </h3>
+
+  @if(filePreviews.length > 0) {
+    <div class="form__images flex-row">
+      @for(preview of filePreviews; track $index) {
+        <div class="form__image">
+          <img [src]="preview" alt="preview" />
+        </div>
+      }
+    </div>
+  }
+</form>

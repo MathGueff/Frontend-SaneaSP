@@ -1,0 +1,5 @@
+<div class="complaint-cards">
+  @for (complaint of complaints; track $index) {
+    <app-complaint-card [complaint]="complaint"></app-complaint-card>
+  }
+</div>
