@@ -40,5 +40,5 @@ export const routes: Routes = [
     ],
   },
 
-  {path: 'register-confirmation/', component: ConfirmationPageComponent},
+  {path: 'register-confirmation', component: ConfirmationPageComponent},
 ];
