@@ -13,7 +13,6 @@ export class AuthService {
 
   private currentUserSignal = signal<IUser | null>(null);
   public currentUser = this.currentUserSignal.asReadonly();
-  public isAuthReady = signal(false); 
 
   public isLoggedIn = computed(() => !!this.currentUser()); 
   public isAdmin = computed(() => this.currentUser()?.nivel === 1); 
@@ -35,7 +34,6 @@ export class AuthService {
         this.logout();
       }
     }
-    this.isAuthReady.set(true);
   }
 
   /* Gera o token JWT para login */
@@ -91,11 +89,6 @@ export class AuthService {
         throw err
       })
     );
-  }
-
-  /* Adquire o IUser atual logado */
-  public getCurrentUser(): IUser | null {
-    return this.currentUser()
   }
 
   /* Define o IUser atual logado */

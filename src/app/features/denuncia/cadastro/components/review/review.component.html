@@ -8,5 +8,5 @@
             formControlName="titulo"
         >
     </form>
-    <app-complaint-detail class="w-100" [userName]="authService.getCurrentUser()?.nome ?? ''" [complaint]="complaintPreview"></app-complaint-detail>
+    <app-complaint-detail class="w-100" [userName]="authService.currentUser()?.nome ?? ''" [complaint]="complaintPreview"></app-complaint-detail>
 </section>

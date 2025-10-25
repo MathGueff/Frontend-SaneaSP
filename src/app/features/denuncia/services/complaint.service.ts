@@ -75,7 +75,7 @@ export class ComplaintService extends BaseApiService {
   // POST
   public createComplaint(reclamacao: ICreateComplaint): Observable<IComplaint> {
     const headers = this.setAuthHeader();
-    const user = this.authService.getCurrentUser();
+    const user = this.authService.currentUser();
     if (user) {
       reclamacao.idUsuario = user.id as number;
     }

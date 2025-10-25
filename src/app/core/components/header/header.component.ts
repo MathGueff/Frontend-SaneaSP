@@ -24,7 +24,7 @@ export class HeaderComponent {
     private path : PathService
   ) {}
 
-  protected user = this.authService.getCurrentUser();
+  protected user = this.authService.currentUser();
   public currentContext: HeaderType = HeaderType.CIDADAO;
   private destroy$ = new Subject<void>();
   

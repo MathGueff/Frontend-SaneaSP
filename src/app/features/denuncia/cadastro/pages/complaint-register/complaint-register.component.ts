@@ -232,7 +232,7 @@ export class ComplaintRegisterComponent implements OnInit {
       complemento: complemento.value || "",
       categorias: categorias.value,
       titulo: titulo.value || `${categorias.value[0]['nome']} na ${rua.value}`,
-      idUsuario: this.authService.getCurrentUser()?.id ?? 0,
+      idUsuario: this.authService.currentUser()?.id ?? 0,
     };
   }
 
@@ -261,7 +261,7 @@ export class ComplaintRegisterComponent implements OnInit {
       complemento: complemento.value || "",
       categorias: categoriasIds.value,
       titulo: titulo.value || "",
-      idUsuario: this.authService.getCurrentUser()?.id ?? 0,
+      idUsuario: this.authService.currentUser()?.id ?? 0,
     };
   }
 

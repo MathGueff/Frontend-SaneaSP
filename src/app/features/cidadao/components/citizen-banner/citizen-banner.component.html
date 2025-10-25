@@ -5,18 +5,20 @@
             Trabalhando juntos para garantir agilidade, apoio e soluções de saneamento básico para todo o Estado de São Paulo
         </p>
     </div> 
-    <div class="banner__buttons flex-row">
-        <div class="banner__button banner__button--citizen flex-column" routerLink="/cidadao/login">
-            <img class="large-icon" src="icons/entities/white/citizen.svg" 
-                [src]="getButtonIcon('citizen')"
-                alt="">
-            <p>Para Cidadãos</p>
+    @if(!isAuth){
+        <div class="banner__buttons flex-row">
+            <div class="banner__button banner__button--citizen flex-column" routerLink="/cidadao/login">
+                <img class="large-icon" src="icons/entities/white/citizen.svg" 
+                    [src]="getButtonIcon('citizen')"
+                    alt="">
+                <p>Para Cidadãos</p>
+            </div>
+            <div class="banner__button banner__button--organization flex-column">
+                <img class="large-icon"src="icons/entities/white/organization.svg" 
+                    [src]="getButtonIcon('organization')"
+                    alt="">
+                <p>Para Organizações</p>
+            </div>
         </div>
-        <div class="banner__button banner__button--organization flex-column">
-            <img class="large-icon"src="icons/entities/white/organization.svg" 
-                [src]="getButtonIcon('organization')"
-                alt="">
-            <p>Para Organizações</p>
-        </div>
-    </div>
+    }
 </section>
