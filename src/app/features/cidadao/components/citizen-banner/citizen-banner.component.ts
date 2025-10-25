@@ -3,11 +3,10 @@ import { RouterLink } from "@angular/router";
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
-  selector: 'app-citizen-banner',
-  standalone: true,
-  imports: [RouterLink],
-  templateUrl: './citizen-banner.component.html',
-  styleUrl: './citizen-banner.component.css'
+    selector: 'app-citizen-banner',
+    imports: [RouterLink],
+    templateUrl: './citizen-banner.component.html',
+    styleUrl: './citizen-banner.component.css'
 })
 export class CitizenBannerComponent {
   citizenButtonHovered : boolean = false;

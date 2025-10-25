@@ -6,11 +6,10 @@ import { ComplaintService } from '@features/denuncia/services/complaint.service'
 import { IResponseList } from '@shared/models/response.model';
 
 @Component({
-  selector: 'app-top-categories',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './top-categories.component.html',
-  styleUrls: ['./top-categories.component.css', '../../pages/citizen-home/citizen-home.component.css']
+    selector: 'app-top-categories',
+    imports: [CommonModule],
+    templateUrl: './top-categories.component.html',
+    styleUrls: ['./top-categories.component.css', '../../pages/citizen-home/citizen-home.component.css']
 })
 export class TopCategoriesComponent {
   private categoryService = inject(CategoryService);

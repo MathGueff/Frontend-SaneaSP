@@ -3,11 +3,10 @@ import { ISteps, StepsTypes } from "../../models/steps";
 import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: "app-form-steps",
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./form-steps.component.html",
-  styleUrl: "./form-steps.component.css",
+    selector: "app-form-steps",
+    imports: [CommonModule],
+    templateUrl: "./form-steps.component.html",
+    styleUrl: "./form-steps.component.css"
 })
 export class FormStepsComponent {
   @Input() activeStep !: StepsTypes;

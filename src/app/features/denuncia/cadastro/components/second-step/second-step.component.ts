@@ -5,11 +5,10 @@ import { ViacepService } from '@shared/services/viacep.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: 'app-second-step',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './second-step.component.html',
-  styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
+    selector: 'app-second-step',
+    imports: [ReactiveFormsModule],
+    templateUrl: './second-step.component.html',
+    styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })
 export class SecondStepComponent implements IStepForm, OnInit {
   @Input() formGroup !: FormGroup;

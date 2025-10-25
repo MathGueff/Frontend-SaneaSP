@@ -6,11 +6,10 @@ import { IUserCredentials } from '@features/usuario/models/user.model';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [RouterModule, ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    imports: [RouterModule, ReactiveFormsModule],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm : FormGroup;

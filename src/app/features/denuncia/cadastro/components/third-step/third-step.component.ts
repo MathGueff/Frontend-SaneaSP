@@ -10,11 +10,10 @@ import {
 import { CategoryService } from "@features/categoria/services/category.service";
 
 @Component({
-  selector: "app-third-step",
-  standalone: true,
-  imports: [],
-  templateUrl: "./third-step.component.html",
-  styleUrl: "./third-step.component.css",
+    selector: "app-third-step",
+    imports: [],
+    templateUrl: "./third-step.component.html",
+    styleUrl: "./third-step.component.css"
 })
 export class ThirdStepComponent implements IStepForm, OnInit {
   @Input() formGroup!: FormGroup;

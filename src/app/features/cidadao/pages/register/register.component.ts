@@ -9,11 +9,10 @@ import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    selector: 'app-register',
+    imports: [CommonModule, ReactiveFormsModule, RouterModule],
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
   private fb = inject (NonNullableFormBuilder);

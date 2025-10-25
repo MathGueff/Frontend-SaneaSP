@@ -10,11 +10,10 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
 import { IComplaintStatusInfo } from "@features/cidadao/models/complaint-status-info.model";
 
 @Component({
-  selector: "app-my-complaints",
-  standalone: true,
-  imports: [CommonModule, ComplaintsGridComponent],
-  templateUrl: "./my-complaints.component.html",
-  styleUrl: "./my-complaints.component.css",
+    selector: "app-my-complaints",
+    imports: [CommonModule, ComplaintsGridComponent],
+    templateUrl: "./my-complaints.component.html",
+    styleUrl: "./my-complaints.component.css"
 })
 export class MyComplaintsComponent implements OnInit {
   protected StatusDenuncia = ComplaintStatus;

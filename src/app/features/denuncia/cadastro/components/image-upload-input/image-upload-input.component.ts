@@ -8,11 +8,10 @@ import {
 } from "@angular/core";
 
 @Component({
-  selector: "app-image-upload-input",
-  standalone: true,
-  imports: [],
-  templateUrl: "./image-upload-input.component.html",
-  styleUrl: "./image-upload-input.component.css",
+    selector: "app-image-upload-input",
+    imports: [],
+    templateUrl: "./image-upload-input.component.html",
+    styleUrl: "./image-upload-input.component.css"
 })
 export class ImageUploadInputComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;

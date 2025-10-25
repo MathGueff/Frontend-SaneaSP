@@ -3,11 +3,10 @@ import { RouterModule } from '@angular/router';
 import { ILink } from '@shared/models/link.model';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [RouterModule],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+    selector: 'app-profile',
+    imports: [RouterModule],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
   navbarLinks : ILink[] = [

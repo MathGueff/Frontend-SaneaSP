@@ -3,11 +3,10 @@ import { IComment } from '@features/denuncia/models/comment.model';
 import { ComplaintStatus } from '@features/denuncia/models/complaint.model';
 
 @Component({
-  selector: 'app-complaint-feedback',
-  standalone: true,
-  imports: [],
-  templateUrl: './complaint-feedback.component.html',
-  styleUrl: './complaint-feedback.component.css'
+    selector: 'app-complaint-feedback',
+    imports: [],
+    templateUrl: './complaint-feedback.component.html',
+    styleUrl: './complaint-feedback.component.css'
 })
 export class ComplaintFeedbackComponent {
   protected MAX_COMMENTS = 6;

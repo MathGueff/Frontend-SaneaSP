@@ -8,11 +8,10 @@ import { AuthService } from "@core/services/auth.service";
 import { HeaderType } from "@core/models/header.model";
 
 @Component({
-  selector: "app-header",
-  standalone: true,
-  imports: [CommonModule, HeaderCidadaoComponent, RouterLink],
-  templateUrl: "./header.component.html",
-  styleUrl: "./header.component.css",
+    selector: "app-header",
+    imports: [CommonModule, HeaderCidadaoComponent, RouterLink],
+    templateUrl: "./header.component.html",
+    styleUrl: "./header.component.css"
 })
 export class HeaderComponent {
   //Enums para utilização no HTML

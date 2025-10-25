@@ -8,11 +8,10 @@ import {
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 
 @Component({
-  selector: "app-complaint-detail",
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./complaint-detail.component.html",
-  styleUrl: "./complaint-detail.component.css",
+    selector: "app-complaint-detail",
+    imports: [CommonModule],
+    templateUrl: "./complaint-detail.component.html",
+    styleUrl: "./complaint-detail.component.css"
 })
 export class ComplaintDetailComponent implements OnInit {
   @Input() complaint!: IComplaint | IComplaintPreview;

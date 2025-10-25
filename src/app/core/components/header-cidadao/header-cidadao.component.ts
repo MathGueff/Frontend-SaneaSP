@@ -10,11 +10,10 @@ import { AuthorizationService } from '@core/services/authorization.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
-  selector: 'app-header-cidadao',
-  standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './header-cidadao.component.html',
-  styleUrls: ['./header-cidadao.component.css','../header/header.component.css']
+    selector: 'app-header-cidadao',
+    imports: [RouterModule, CommonModule],
+    templateUrl: './header-cidadao.component.html',
+    styleUrls: ['./header-cidadao.component.css', '../header/header.component.css']
 })
 
 export class HeaderCidadaoComponent{

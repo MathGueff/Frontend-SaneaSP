@@ -10,11 +10,10 @@ import { Router } from 'express';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: 'app-citizen-home',
-  standalone: true,
-  imports: [CitizenBannerComponent, RecentComplaintsComponent, AllComplaintsComponent, TopCategoriesComponent],
-  templateUrl: './citizen-home.component.html',
-  styleUrl: './citizen-home.component.css'
+    selector: 'app-citizen-home',
+    imports: [CitizenBannerComponent, RecentComplaintsComponent, AllComplaintsComponent, TopCategoriesComponent],
+    templateUrl: './citizen-home.component.html',
+    styleUrl: './citizen-home.component.css'
 })
 export class CitizenHomeComponent {
   

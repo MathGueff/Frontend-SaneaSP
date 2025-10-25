@@ -4,13 +4,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
 
 @Component({
-  selector: 'app-first-step',
-  standalone: true,
-  imports: [ImageUploadInputComponent, ReactiveFormsModule],
-  templateUrl: './first-step.component.html',
-  styleUrls: [
-    './first-step.component.css'
-  ]
+    selector: 'app-first-step',
+    imports: [ImageUploadInputComponent, ReactiveFormsModule],
+    templateUrl: './first-step.component.html',
+    styleUrls: [
+        './first-step.component.css'
+    ]
 })
 export class FirstStepComponent implements IStepForm, OnInit{
   @Input() formGroup!: FormGroup;

@@ -8,11 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '@features/usuario/services/user.service';
 
 @Component({
-  selector: 'app-complaint-view',
-  standalone: true,
-  imports: [ComplaintDetailComponent, ComplaintFeedbackComponent],
-  templateUrl: './complaint-view.component.html',
-  styleUrl: './complaint-view.component.css'
+    selector: 'app-complaint-view',
+    imports: [ComplaintDetailComponent, ComplaintFeedbackComponent],
+    templateUrl: './complaint-view.component.html',
+    styleUrl: './complaint-view.component.css'
 })
 export class ComplaintViewComponent implements OnInit {
   private complaintService = inject(ComplaintService);

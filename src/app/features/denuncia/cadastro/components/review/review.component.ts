@@ -8,11 +8,10 @@ import { AuthService } from "@core/services/auth.service";
 import { FormGroup, ReactiveFormsModule, ɵInternalFormsSharedModule } from "@angular/forms";
 
 @Component({
-  selector: "app-review",
-  standalone: true,
-  imports: [ComplaintDetailComponent,ReactiveFormsModule, ɵInternalFormsSharedModule],
-  templateUrl: "./review.component.html",
-  styleUrl: "./review.component.css",
+    selector: "app-review",
+    imports: [ComplaintDetailComponent, ReactiveFormsModule, ɵInternalFormsSharedModule],
+    templateUrl: "./review.component.html",
+    styleUrl: "./review.component.css"
 })
 export class ReviewComponent {
   protected authService = inject(AuthService);

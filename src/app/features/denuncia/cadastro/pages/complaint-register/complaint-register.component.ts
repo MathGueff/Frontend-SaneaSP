@@ -27,19 +27,18 @@ import { firstValueFrom } from 'rxjs';
 import { ViacepService } from '@shared/services/viacep.service';
 
 @Component({
-  selector: "app-complaint-register",
-  standalone: true,
-  imports: [
-    FormStepsComponent,
-    FormNavigationComponent,
-    FirstStepComponent,
-    SecondStepComponent,
-    ThirdStepComponent,
-    ReviewComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: "./complaint-register.component.html",
-  styleUrls: ["./complaint-register.component.css"],
+    selector: "app-complaint-register",
+    imports: [
+        FormStepsComponent,
+        FormNavigationComponent,
+        FirstStepComponent,
+        SecondStepComponent,
+        ThirdStepComponent,
+        ReviewComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: "./complaint-register.component.html",
+    styleUrls: ["./complaint-register.component.css"]
 })
 export class ComplaintRegisterComponent {
   private fb = inject(FormBuilder);

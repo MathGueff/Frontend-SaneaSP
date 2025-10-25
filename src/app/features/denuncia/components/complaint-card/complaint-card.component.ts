@@ -4,11 +4,10 @@ import { IComplaint } from '@features/denuncia/models/complaint.model';
 import { ComplaintService } from '@features/denuncia/services/complaint.service';
 
 @Component({
-  selector: 'app-complaint-card',
-  standalone: true,
-  imports: [RouterModule],
-  templateUrl: './complaint-card.component.html',
-  styleUrl: './complaint-card.component.css'
+    selector: 'app-complaint-card',
+    imports: [RouterModule],
+    templateUrl: './complaint-card.component.html',
+    styleUrl: './complaint-card.component.css'
 })
 export class ComplaintCardComponent {
   @Input() complaint !: IComplaint;

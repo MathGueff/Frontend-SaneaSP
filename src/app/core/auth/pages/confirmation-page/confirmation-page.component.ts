@@ -5,11 +5,10 @@ import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: 'app-confirmation-page',
-  standalone: true,
-  imports: [],
-  templateUrl: './confirmation-page.component.html',
-  styleUrl: './confirmation-page.component.css'
+    selector: 'app-confirmation-page',
+    imports: [],
+    templateUrl: './confirmation-page.component.html',
+    styleUrl: './confirmation-page.component.css'
 })
 export class ConfirmationPageComponent {
 private router = inject(Router);
