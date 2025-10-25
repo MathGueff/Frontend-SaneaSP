@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { ICategory } from '@features/categoria/models/category.model';
 import { CategoryService } from '@features/categoria/services/category.service';
@@ -7,7 +7,7 @@ import { IResponseList } from '@shared/models/response.model';
 
 @Component({
     selector: 'app-top-categories',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './top-categories.component.html',
     styleUrls: ['./top-categories.component.css', '../../pages/citizen-home/citizen-home.component.css']
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { Validators, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -10,7 +10,7 @@ import { ToastService } from '@shared/services/toast.service';
 
 @Component({
     selector: 'app-register',
-    imports: [CommonModule, ReactiveFormsModule, RouterModule],
+    imports: [ReactiveFormsModule, RouterModule],
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })

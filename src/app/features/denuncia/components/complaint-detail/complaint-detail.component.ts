@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, inject, Input, OnInit } from "@angular/core";
 import {
   IComplaint,
@@ -9,7 +9,7 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
 
 @Component({
     selector: "app-complaint-detail",
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./complaint-detail.component.html",
     styleUrl: "./complaint-detail.component.css"
 })

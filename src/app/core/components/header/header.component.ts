@@ -2,14 +2,14 @@ import { Component, inject } from "@angular/core";
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { HeaderCidadaoComponent } from "../header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
-import { CommonModule } from "@angular/common";
+
 import { PathService } from "@shared/services/path.service";
 import { AuthService } from "@core/services/auth.service";
 import { HeaderType } from "@core/models/header.model";
 
 @Component({
     selector: "app-header",
-    imports: [CommonModule, HeaderCidadaoComponent, RouterLink],
+    imports: [HeaderCidadaoComponent, RouterLink],
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.css"
 })

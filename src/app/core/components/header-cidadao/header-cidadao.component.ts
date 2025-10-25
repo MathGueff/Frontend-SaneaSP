@@ -5,13 +5,13 @@ import { RouterModule } from '@angular/router';
 import { IProtectedLink } from '@shared/models/link.model';
 import { Observable } from 'rxjs';
 import { IUser } from '@features/usuario/models/user.model';
-import { CommonModule } from '@angular/common';
+
 import { AuthorizationService } from '@core/services/authorization.service';
 import { toSignal } from '@angular/core/rxjs-interop'
 
 @Component({
     selector: 'app-header-cidadao',
-    imports: [RouterModule, CommonModule],
+    imports: [RouterModule],
     templateUrl: './header-cidadao.component.html',
     styleUrls: ['./header-cidadao.component.css', '../header/header.component.css']
 })

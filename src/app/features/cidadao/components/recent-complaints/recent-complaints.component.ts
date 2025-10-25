@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { ComplaintsGridComponent } from "@features/denuncia/components/complaints-grid/complaints-grid.component";
 import { IComplaint } from '@features/denuncia/models/complaint.model';
@@ -7,7 +7,7 @@ import { map, take } from 'rxjs';
 
 @Component({
     selector: 'app-recent-complaints',
-    imports: [CommonModule, ComplaintsGridComponent],
+    imports: [ComplaintsGridComponent],
     templateUrl: './recent-complaints.component.html',
     styleUrls: [
         './recent-complaints.component.css',
