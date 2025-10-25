@@ -43,7 +43,7 @@ export class AuthService {
     return this.httpClient.post<string>(`${this.API_URL}/login`, userCredentials).pipe(
       tap((token) => this.authTokenStorageService.set(token)),
       switchMap(() => this.fetchUser()),
-      tap(() => this.sweetAlertService.confirmLogin()),
+      tap(() => this.sweetAlertService.confirmLogin("Você entrou na sua conta!")),
       catchError(err => {
         this.logout();
         this.errorService.handleError(err);
@@ -60,6 +60,19 @@ export class AuthService {
   /* Criação de um novo usuário */
   public register(newUser: IUser) {
     return this.httpClient.post<IUser>(`${this.API_URL}/register`, newUser);
+  }
+
+  public confirmRegistration(token: string) {
+    return this.httpClient.get(`${this.API_URL}/confirm/${token}`).pipe(
+      tap(() => {
+        this.sweetAlertService.confirmLogin('Você criou sua conta com sucesso')
+      }),
+      catchError(err => {
+        // Aqui funciona como um "try/catch" para o Observable
+        this.errorService.handleError(err);
+        throw err;
+      })
+    );
   }
 
   /* Adquire dados do usuário atual utilizando o token JWT gerado */

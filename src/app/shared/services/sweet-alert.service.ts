@@ -15,21 +15,21 @@ export class SweetAlertService {
   /**
    * Exibe um SweetAlert com as configurações fornecidas.
    */
-  public showMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
+  private showMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
     return Swal.fire({ ...this.defaultConfig, ...config } as SweetAlertOptions);
   }
 
   /**
    * Exibe um SweetAlert de confirmação.
    */
-  public showConfirmationMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
+  private showConfirmationMessage(config: SweetAlertOptions): Promise<SweetAlertResult> {
     return Swal.fire({ ...this.defaultConfig, ...config } as SweetAlertOptions);
   }
 
   /**
    * Gera configuração para mensagem customizada.
    */
-  public buildConfig(options: Partial<SweetAlertOptions>): SweetAlertOptions {
+  private buildConfig(options: Partial<SweetAlertOptions>): SweetAlertOptions {
     return { ...this.defaultConfig, ...options } as SweetAlertOptions;
   }
 
@@ -51,12 +51,12 @@ export class SweetAlertService {
   /**
    * Exibe mensagem de confirmação de login.
    */
-  public confirmLogin(): Promise<SweetAlertResult> {
+  public confirmLogin(title : string): Promise<SweetAlertResult> {
     return this.showMessage(this.buildConfig({
       icon: 'success',
       html: `
         <div class="swal__container flex-column">
-          <h1 class="swal__title--h1">Você entrou na sua conta!</h1>
+          <h1 class="swal__title--h1">${title}</h1>
           <h2 class="swal__title--h2">Agora você pode:</h2>
           <div class="swal__options flex-row">
             <div class="swal__option flex-column">

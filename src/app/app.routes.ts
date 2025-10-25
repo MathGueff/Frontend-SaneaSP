@@ -10,6 +10,7 @@ import { PersonalInfoComponent } from '@features/cidadao/components/personal-inf
 import { MyComplaintsComponent } from '@features/cidadao/components/my-complaints/my-complaints.component';
 import { ComplaintRegisterComponent } from '@features/denuncia/cadastro/pages/complaint-register/complaint-register.component';
 import { ComplaintViewComponent } from './features/denuncia/pages/complaint-view/complaint-view.component';
+import { ConfirmationPageComponent } from '@core/auth/pages/confirmation-page/confirmation-page.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -36,6 +37,8 @@ export const routes: Routes = [
           {path: 'notifications', component: CitizenProfileComponent}, 
         ]
       }
-    ]
-  }
+    ],
+  },
+
+  {path: 'register-confirmation/', component: ConfirmationPageComponent},
 ];
