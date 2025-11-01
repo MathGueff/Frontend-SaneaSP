@@ -2,25 +2,23 @@
   <header class="complaint-detail__header flex-column">
     <h2>{{complaint.titulo}}</h2>
     <div class="categories-container flex-row">
-      @if(getCategories().length > 0){
-        @for (categoria of getCategories(); track $index) {
+        @for (category of categories; track $index) {
           @if($index < MAX_CATEGORIES){
-            @if(complaintService.getCategoryIcon(categoria); as icon){
+            @if(category.grupo; as group){
               <div class="categories-container__categorie flex-row">
                 <img
                   class="medium-icon"
-                  [src]="'icons/' + icon.folder +'/color/' + icon.name + '.png'"
-                  [alt]="icon.alt"
+                  [src]="group.url"
+                  [alt]="group.nome"
                 />
-                <span>{{categoria.nome || categoria}}</span>
+                <span>{{category.nome || category}}</span>
               </div>
             }
-          }
         }
 
-        @if(getCategories().length > MAX_CATEGORIES){
+        @if(categories.length > MAX_CATEGORIES){
           <div class="categories-container__categorie flex-row">
-            <span>+{{getCategories().length - MAX_CATEGORIES}}</span>
+            <span>+{{categories.length - MAX_CATEGORIES}}</span>
           </div>
         }
       }

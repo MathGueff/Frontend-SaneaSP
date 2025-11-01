@@ -3,17 +3,17 @@
     <div class="categories-container flex-row">
         @for (categoryGroup of categoryGroups; track $index) {
             <div class="categories-container__group flex-column">
-                <img class="medium-icon" [src]="'icons/' + categoryGroup.icon.folder + '/color/' + categoryGroup.icon.name + '.png'" [alt]="categoryGroup.icon.alt">
-                <h2>{{categoryGroup.title}}</h2>
-                @for (categorie of categoryGroup.group; track $index) {
-                    <div class="categories-container__categorie flex-row" (click)="onCategorieClick(categorie)">
+                <img class="medium-icon" [src]="categoryGroup.url" [alt]="categoryGroup.nome">
+                <h2>{{categoryGroup.nome}}</h2>
+                @for (category of categoryGroup.categorias; track $index) {
+                    <div class="categories-container__categorie flex-row" (click)="onCategoryClick(category)">
                         <div class="categorie__checkbox flex-row"
-                            [class.categorie__checkbox--selected]="categorie.selected">
-                            @if(categorie.selected){
+                            [class.categorie__checkbox--selected]="isCategorySelected(category)">
+                            @if(isCategorySelected(category)){
                                 <img src="icons/status/system/white/success.svg" alt="">
                             }
                         </div>
-                        <span>{{categorie.name}}</span>
+                        <span>{{category.nome}}</span>
                     </div>
                 }
             </div>
