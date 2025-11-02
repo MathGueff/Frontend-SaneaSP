@@ -21,6 +21,11 @@ export class ThirdStepComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategoriesFromAPI();
+
+    const preSelected = this.formGroup.get("categorias")?.value;
+    if (Array.isArray(preSelected)) {
+      this.selectedCategories = preSelected;
+    }
   }
 
   private loadCategoriesFromAPI(): void {
@@ -34,17 +39,19 @@ export class ThirdStepComponent implements OnInit {
     });
   }
 
-  isCategorySelected(category : ICategory){
-    return this.selectedCategories.includes(category)
+  isCategorySelected(category: ICategory) {
+    return this.selectedCategories.some(selected => selected.id === category.id);
   }
-
-  onCategoryClick(category: ICategory) {
+  onCategoryClick(group : ICategoryGroup, category: ICategory) {
     if (this.isCategorySelected(category)) {
       this.selectedCategories = this.selectedCategories.filter(
-        (cat) => cat !== category
+        (compare) => compare.id !== category.id
       );
     } else {
-      this.selectedCategories.push(category);
+      this.selectedCategories.push({
+        ...category,
+        grupo : group
+      });
     }
 
     this.formGroup.get("categorias")?.setValue(this.selectedCategories);

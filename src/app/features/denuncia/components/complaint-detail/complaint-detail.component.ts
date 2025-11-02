@@ -25,6 +25,7 @@ export class ComplaintDetailComponent implements OnInit {
 
   ngOnInit() {
     this.processImages();
+    console.log(this.complaint);
   }
 
   isIComplaint(complaint: any): complaint is IComplaint {
@@ -35,7 +36,7 @@ export class ComplaintDetailComponent implements OnInit {
     return !this.isIComplaint(complaint);
   }
 
-  get categories(): ICategory[] {
+  get complaintCategories(): ICategory[] {
     return this.complaint.categorias || [];
   }
 

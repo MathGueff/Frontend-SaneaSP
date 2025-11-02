@@ -6,7 +6,7 @@
                 <img class="medium-icon" [src]="categoryGroup.url" [alt]="categoryGroup.nome">
                 <h2>{{categoryGroup.nome}}</h2>
                 @for (category of categoryGroup.categorias; track $index) {
-                    <div class="categories-container__categorie flex-row" (click)="onCategoryClick(category)">
+                    <div class="categories-container__categorie flex-row" (click)="onCategoryClick(categoryGroup, category)">
                         <div class="categorie__checkbox flex-row"
                             [class.categorie__checkbox--selected]="isCategorySelected(category)">
                             @if(isCategorySelected(category)){
