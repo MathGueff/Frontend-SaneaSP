@@ -1,10 +1,12 @@
 
 import { Component, inject, Input, OnInit } from "@angular/core";
+import { ICategory } from "@features/categoria/models/category.model";
 import {
   IComplaint,
   IComplaintPreview,
   ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
+import { IImage } from "@features/denuncia/models/image.model";
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 
 @Component({
@@ -23,6 +25,7 @@ export class ComplaintDetailComponent implements OnInit {
 
   ngOnInit() {
     this.processImages();
+    console.log(this.complaint);
   }
 
   isIComplaint(complaint: any): complaint is IComplaint {
@@ -33,7 +36,7 @@ export class ComplaintDetailComponent implements OnInit {
     return !this.isIComplaint(complaint);
   }
 
-  getCategories(): any[] {
+  get complaintCategories(): ICategory[] {
     return this.complaint.categorias || [];
   }
 

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IStepForm } from '../../models/step-form.model';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
 
@@ -11,7 +10,7 @@ import { ImageUploadInputComponent } from "../image-upload-input/image-upload-in
         './first-step.component.css'
     ]
 })
-export class FirstStepComponent implements IStepForm, OnInit{
+export class FirstStepComponent implements OnInit{
   @Input() formGroup!: FormGroup;
 
   @ViewChild(ImageUploadInputComponent)
@@ -38,14 +37,6 @@ export class FirstStepComponent implements IStepForm, OnInit{
         reader.readAsDataURL(file);
       });
     }
-  }
-
-  isValid(): boolean {
-    return this.formGroup.valid;
-  }
-
-  getData() {
-    return this.formGroup.value;
   }
 
   onFilesSelected(files: File[]) {

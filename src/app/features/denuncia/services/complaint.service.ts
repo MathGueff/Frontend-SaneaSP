@@ -9,7 +9,6 @@ import { environment } from "environments/environment";
 import {
   ICreateComplaint,
   IComplaint,
-  ComplaintStatus,
   IComplaintFilter,
 } from "../models/complaint.model";
 import { IIcon } from "@shared/models/icon.model";
@@ -28,7 +27,7 @@ export class ComplaintService extends BaseApiService {
     let params: HttpParams | undefined;
 
     if (filter) {
-      params = this.setFilterQuery(filter); // não precisa embrulhar em { filter }
+      params = this.setFilterQuery(filter);
     }
 
     return this.httpClient.get<IComplaint[]>(`${this.urlApi}/`, { params });
@@ -73,31 +72,31 @@ export class ComplaintService extends BaseApiService {
   }
 
   // POST
-  public createComplaint(reclamacao: ICreateComplaint): Observable<IComplaint> {
+  public createComplaint(denuncia: ICreateComplaint): Observable<IComplaint> {
     const headers = this.setAuthHeader();
     const user = this.authService.currentUser();
     if (user) {
-      reclamacao.idUsuario = user.id as number;
+      denuncia.idUsuario = user.id as number;
     }
-    return this.httpClient.post<IComplaint>(`${this.urlApi}`, reclamacao, {
+    return this.httpClient.post<IComplaint>(`${this.urlApi}`, denuncia, {
       headers,
     });
   }
   // PUT
-  public putComplaint(reclamacao: ICreateComplaint, idReclamacao: number) {
+  public putComplaint(denuncia: ICreateComplaint, idDenuncia: number) {
     const headers = this.setAuthHeader();
     return this.httpClient.put<IComplaint>(
-      `${this.urlApi}/${idReclamacao}`,
-      reclamacao,
+      `${this.urlApi}/${idDenuncia}`,
+      denuncia,
       { headers }
     );
   }
 
   // DELETE
-  public deleteComplaint(idReclamacao: number) {
+  public deleteComplaint(idDenuncia: number) {
     const headers = this.setAuthHeader();
     return this.httpClient.delete<IComplaint>(
-      `${this.urlApi}/${idReclamacao}`,
+      `${this.urlApi}/${idDenuncia}`,
       { headers }
     );
   }
@@ -164,7 +163,7 @@ export class ComplaintService extends BaseApiService {
       return `Há ${diffWeeks} semana${diffWeeks === 1 ? "" : "s"}`;
     } else if (diffDays < 365) {
       const diffMonths = Math.floor(diffDays / 30);
-      return `Há ${diffMonths} mês${diffMonths === 1 ? "" : "es"}`;
+      return `Há ${diffMonths} ${diffMonths === 1 ? "mês" : "meses"}`;
     } else {
       const diffYears = Math.floor(diffDays / 365);
       return `Há ${diffYears} ano${diffYears === 1 ? "" : "s"}`;
