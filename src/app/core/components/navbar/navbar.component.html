@@ -1,21 +1,21 @@
 <nav class="nav-cidadao flex-row">
   @if(navbarLinks.length > 0){
-  <div class="nav__links flex-row">
-    @for (link of navbarLinks; track $index) { @if (canShowLink(link)){
-    <a
-      [routerLink]="link.path"
-      routerLinkActive="nav__link--active"
-      class="nav__link"
-      >{{ link.text }}</a
-    >
-    } }
-  </div>
+    <div class="nav__links flex-row">
+        @for (link of navbarLinks; track $index) { 
+            @if (canShowLink(link)){
+                <a
+                    [routerLink]="link.path"
+                    routerLinkActive="nav__link--active"
+                    class="nav__link"
+                >{{ link.text }}
+                </a>
+            } 
+        }
+    </div>
   }
 
   <div class="nav__buttons flex-row">
     @if (authService.currentUser()) {
-    <div class="nav__buttons flex-row">
-      @if (authService.currentUser()) {
       <div class="dropdown" (clickOutside)="closeDropdown()">
         <button
           class="button nav__profile"
@@ -67,10 +67,8 @@
         </div>
         }
       </div>
-      }
-    </div>
     } @else{
-    <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
+    <a [routerLink]="'/login'" class="button nav__login"> Entrar </a>
     <a [routerLink]="'/cidadao/register'" class="button nav__register">
       Crie uma conta
     </a>

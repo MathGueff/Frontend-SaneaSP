@@ -36,7 +36,7 @@ export class LoginComponent {
     const user : IUserCredentials = this.loginForm.value;
     this.authService.login(user).subscribe({
       next: () => {
-        this.router.navigate(['/cidadao']);
+        this.router.navigate(['/inicio']);
       },
     })
   }

@@ -28,7 +28,7 @@ private router = inject(Router);
       this.authService.confirmRegistration(token).subscribe({
         next: () => {
           this.sweetAlertService.confirmLogin('Cadastro confirmado com sucesso! ✅');
-          this.router.navigate(['/cidadao/menu'], { 
+          this.router.navigate(['/inicio'], { 
             state: { confirmed: true },
             queryParams: { token: null }, 
             queryParamsHandling: 'merge' 
