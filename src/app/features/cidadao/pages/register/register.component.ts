@@ -42,7 +42,7 @@ export class RegisterComponent {
     this.authService.register(user).subscribe({
       next: () => {
         this.sweetAlertService.confirmRegister();
-        this.router.navigate(['/cidadao']);
+        this.router.navigate(['/inicio']);
       },
       error: (e) => {
         this.errorHandlerService.handleError(e)
