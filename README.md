@@ -64,3 +64,15 @@ src/
         │   └── models/
         └── ...
 ```
+
+## Prettier
+
+Corrigir indentação -->
+```
+npx prettier . --write
+```
+
+Verificar correções -->
+```
+npx prettier . --check
+```
