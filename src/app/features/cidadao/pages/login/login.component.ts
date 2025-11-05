@@ -45,4 +45,8 @@ export class LoginComponent {
       },
     });
   }
+
+  lostPassword() {
+    this.router.navigate(["/esqueci-minha-senha"]);
+  }
 }
