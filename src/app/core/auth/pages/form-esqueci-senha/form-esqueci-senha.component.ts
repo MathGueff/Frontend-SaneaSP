@@ -38,6 +38,11 @@ export class FormEsqueciSenhaComponent {
       next: () => {
         this.sweetAlertService.confirmLostPassword(email);
         this.router.navigate(['/cidadao/login']);
+      }, error: (err) => {
+        this.toastService.show({
+          message: err.error.message || 'Erro ao solicitar redefinição de senha',
+          error: true,
+        });
       }
     });
   }
