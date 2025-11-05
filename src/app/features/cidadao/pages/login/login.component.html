@@ -33,21 +33,26 @@
                 <span class="forget-password">Esqueci minha senha</span>
             </div>
         </div>
-       
-        <footer class="form-container__footer">
-            <div class="footer__buttons">
-                <button class="button form__button--submit" (click)="onSubmit()">
-                    ENTRAR
-                </button>
-                <button class="button form__button--google">
-                    <img src="icons/actions/color/google.svg" alt="Ícone de google">
-                    Login com google
-                </button>
-            </div>
-            <p class="footer__link">
-                Não possui uma conta ainda? 
-                <a routerLink="/cidadao/register" class="footer__link--anchor">Clique aqui para criar uma</a>
-            </p>
-        </footer>
-    </form>
+        <span class="forget-password" onclick="lostPassword()">Esqueci minha senha!</span>
+      </div>
+    </div>
+
+    <footer class="form-container__footer">
+      <div class="footer__buttons">
+        <button class="button form__button--submit" (click)="onSubmit()">
+          ENTRAR
+        </button>
+        <button class="button form__button--google">
+          <img src="icons/actions/color/google.svg" alt="Ícone de google" />
+          Login com google
+        </button>
+      </div>
+      <p class="footer__link">
+        Não possui uma conta ainda?
+        <a routerLink="/cidadao/register" class="footer__link--anchor"
+          >Clique aqui para criar uma</a
+        >
+      </p>
+    </footer>
+  </form>
 </section>
