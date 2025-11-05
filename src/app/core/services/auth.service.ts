@@ -70,7 +70,6 @@ export class AuthService {
         this.sweetAlertService.confirmLogin("Você criou sua conta com sucesso");
       }),
       catchError((err) => {
-        // Aqui funciona como um "try/catch" para o Observable
         this.errorService.handleError(err);
         throw err;
       }),
@@ -98,5 +97,13 @@ export class AuthService {
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
     this.currentUserSignal.set(user);
+  }
+
+  public lostPassword(email: string): Observable<void> {
+    return this.httpClient.post<void>(`${this.API_URL}/lost-password`, { email });
+  }
+
+  public resetPassword(token: string){
+    return this.httpClient.post<void>(`${this.API_URL}/reset-password`, { token });
   }
 }
