@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ComplaintSearchComponent } from './complaint-search.component';
+import { ComplaintSearchComponent } from "./complaint-search.component";
 
-describe('ComplaintSearchComponent', () => {
+describe("ComplaintSearchComponent", () => {
   let component: ComplaintSearchComponent;
   let fixture: ComponentFixture<ComplaintSearchComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComplaintSearchComponent]
-    })
-    .compileComponents();
+      imports: [ComplaintSearchComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ComplaintSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

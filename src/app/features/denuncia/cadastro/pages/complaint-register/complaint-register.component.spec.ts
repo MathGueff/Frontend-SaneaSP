@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ComplaintRegisterComponent } from './complaint-register.component';
+import { ComplaintRegisterComponent } from "./complaint-register.component";
 
-describe('DenunciaCadastroComponent', () => {
+describe("DenunciaCadastroComponent", () => {
   let component: ComplaintRegisterComponent;
   let fixture: ComponentFixture<ComplaintRegisterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ComplaintRegisterComponent]
-    })
-    .compileComponents();
+      imports: [ComplaintRegisterComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ComplaintRegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

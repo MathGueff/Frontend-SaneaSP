@@ -1,79 +1,81 @@
 <nav class="nav-cidadao flex-row">
-  @if(navbarLinks.length > 0){
-  <div class="nav__links flex-row">
-    @for (link of navbarLinks; track $index) { @if (canShowLink(link)){
-    <a
-      [routerLink]="link.path"
-      routerLinkActive="nav__link--active"
-      class="nav__link"
-      >{{ link.text }}</a
-    >
-    } }
-  </div>
+  @if (navbarLinks.length > 0) {
+    <div class="nav__links flex-row">
+      @for (link of navbarLinks; track $index) {
+        @if (canShowLink(link)) {
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="nav__link--active"
+            class="nav__link"
+            >{{ link.text }}</a
+          >
+        }
+      }
+    </div>
   }
 
   <div class="nav__buttons flex-row">
     @if (authService.currentUser()) {
-    <div class="nav__buttons flex-row">
-      @if (authService.currentUser()) {
-      <div class="dropdown" (clickOutside)="closeDropdown()">
-        <button
-          class="button nav__profile"
-          (click)="toggleDropdown($event)"
-          [attr.aria-expanded]="dropdownOpen"
-          aria-haspopup="true"
-        >
-          <img
-            class="user-avatar"
-            src="icons/entities/black/user.svg"
-            alt="Ícone do usuário"
-          />
-          <span class="dropdown-label">Sua conta</span>
-          <img
-            class="dropdown-arrow"
-            [class.open]="dropdownOpen"
-            src="icons/navigation/white/next.svg"
-            alt=""
-          />
-        </button>
-
-        @if (dropdownOpen) {
-        <div class="dropdown-menu-wrapper open">
-          <div>
-            <a
-              [routerLink]="'/cidadao/profile'"
-              class="dropdown-item"
-              role="menuitem"
-              (click)="closeDropdown()"
-            >
-              Ver perfil
-            </a>
-          </div>
-          <hr class="dropdown-divider">
-          <div>
+      <div class="nav__buttons flex-row">
+        @if (authService.currentUser()) {
+          <div class="dropdown" (clickOutside)="closeDropdown()">
             <button
-              class="dropdown-item logout"
-              role="menuitem"
-              (click)="logout()"
+              class="button nav__profile"
+              (click)="toggleDropdown($event)"
+              [attr.aria-expanded]="dropdownOpen"
+              aria-haspopup="true"
             >
-            <img
-                src="icons/entities/black/logout.svg"
-                class="item-icon"
+              <img
+                class="user-avatar"
+                src="icons/entities/black/user.svg"
+                alt="Ícone do usuário"
+              />
+              <span class="dropdown-label">Sua conta</span>
+              <img
+                class="dropdown-arrow"
+                [class.open]="dropdownOpen"
+                src="icons/navigation/white/next.svg"
                 alt=""
               />
-              Sair
             </button>
+
+            @if (dropdownOpen) {
+              <div class="dropdown-menu-wrapper open">
+                <div>
+                  <a
+                    [routerLink]="'/cidadao/profile'"
+                    class="dropdown-item"
+                    role="menuitem"
+                    (click)="closeDropdown()"
+                  >
+                    Ver perfil
+                  </a>
+                </div>
+                <hr class="dropdown-divider" />
+                <div>
+                  <button
+                    class="dropdown-item logout"
+                    role="menuitem"
+                    (click)="logout()"
+                  >
+                    <img
+                      src="icons/entities/black/logout.svg"
+                      class="item-icon"
+                      alt=""
+                    />
+                    Sair
+                  </button>
+                </div>
+              </div>
+            }
           </div>
-        </div>
         }
       </div>
-      }
-    </div>
-    } @else{
-    <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
-    <a [routerLink]="'/cidadao/register'" class="button nav__register">
-      Crie uma conta
-    </a>
+    } @else {
+      <a [routerLink]="'/cidadao/login'" class="button nav__login"> Entrar </a>
+      <a [routerLink]="'/cidadao/register'" class="button nav__register">
+        Crie uma conta
+      </a>
     }
   </div>
 </nav>

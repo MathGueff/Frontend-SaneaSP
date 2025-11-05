@@ -21,11 +21,11 @@
 
   /* Sombras */
   --container-shadow: 0px 6px 6px -8px #000000;
-  --header-shadow: 0px 4px 11px -5px rgba(0,0,0,0.5);
-  --card-shadow: 0px 0px 6px -1px rgba(0,0,0,0.5);
-   /* 0 4px 8px rgba(0, 0, 0, 0.1) */
-  --button-shadow: 0px 6px 6px -6px rgba(0,0,0,0.5);
-  --input-shadow: 0px 4px 3px -4px rgba(0,0,0,0.22);
+  --header-shadow: 0px 4px 11px -5px rgba(0, 0, 0, 0.5);
+  --card-shadow: 0px 0px 6px -1px rgba(0, 0, 0, 0.5);
+  /* 0 4px 8px rgba(0, 0, 0, 0.1) */
+  --button-shadow: 0px 6px 6px -6px rgba(0, 0, 0, 0.5);
+  --input-shadow: 0px 4px 3px -4px rgba(0, 0, 0, 0.22);
   /* Texto */
   --white-font-color: #faf9f6;
   --black-font-color: #1c1c1c;
@@ -74,15 +74,15 @@
 }
 
 /* Utilitários de sombras */
-.container-shadow{
+.container-shadow {
   box-shadow: var(--container-shadow);
 }
 
-.button-shadow{
+.button-shadow {
   box-shadow: var(--button-shadow);
 }
 
-.card-shadow{
+.card-shadow {
   box-shadow: var(--card-shadow);
 }
 
@@ -125,17 +125,17 @@ h4 {
 
 /* Ícones */
 
-.small-icon{
+.small-icon {
   width: 24px;
   height: 24px;
 }
 
-.medium-icon{
+.medium-icon {
   width: 32px;
   height: 32px;
 }
 
-.large-icon{
+.large-icon {
   width: 56px;
   height: 56px;
 }
@@ -180,30 +180,31 @@ h4 {
   color: var(--black-font-color);
 }
 
-.flex-column, .flex-row{
+.flex-column,
+.flex-row {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-.flex-row{
+.flex-row {
   flex-direction: row;
 }
 
-.flex-column{
+.flex-column {
   flex-direction: column;
 }
 
-.swal__container{
+.swal__container {
   gap: var(--space-4);
 }
 
-.swal__options{
+.swal__options {
   gap: var(--space-4);
 }
 
-.swal__option{
+.swal__option {
   gap: var(--space-3);
   border: 1px solid var(--background-dark-color);
   box-shadow: var(--button-shadow);
@@ -217,12 +218,12 @@ h4 {
   background-color: #e0e0e0;
 }
 
-.swal__title--h1{
+.swal__title--h1 {
   font-size: var(--h2);
   color: var(--black-font-color);
 }
 
-.swal__title--h2{
+.swal__title--h2 {
   font-size: var(--lg-text);
   color: var(--primary-color);
 }

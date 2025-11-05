@@ -1,46 +1,42 @@
 <section class="complaint-detail flex-column">
   <header class="complaint-detail__header flex-column">
-    <h2>{{complaint.titulo}}</h2>
+    <h2>{{ complaint.titulo }}</h2>
     <div class="categories-container flex-row">
       @for (category of complaintCategories; track $index) {
-        @if($index < MAX_CATEGORIES){
-          @if(category.grupo; as group){
+        @if ($index < MAX_CATEGORIES) {
+          @if (category.grupo; as group) {
             <div class="categories-container__categorie flex-row">
-              <img
-                class="medium-icon"
-                [src]="group.url"
-                [alt]="group.nome"
-              />
-              <span>{{category.nome || category}}</span>
+              <img class="medium-icon" [src]="group.url" [alt]="group.nome" />
+              <span>{{ category.nome || category }}</span>
             </div>
           }
         }
       }
-      @if(complaintCategories.length > MAX_CATEGORIES){
+      @if (complaintCategories.length > MAX_CATEGORIES) {
         <div class="categories-container__categorie flex-row">
-          <span>+{{complaintCategories.length - MAX_CATEGORIES}}</span>
+          <span>+{{ complaintCategories.length - MAX_CATEGORIES }}</span>
         </div>
       }
     </div>
   </header>
   <div class="complaint-detail__body flex-column">
     <header class="complaint-detail__body-header flex-column">
-        <span>{{getFormattedDate()}}</span>
-        <span>Criado por: {{userName}}</span>
-        <span>Em: {{getFullAddress()}}</span>
+      <span>{{ getFormattedDate() }}</span>
+      <span>Criado por: {{ userName }}</span>
+      <span>Em: {{ getFullAddress() }}</span>
     </header>
     <div class="complaint-detail__content flex-column">
       <span class="complaint-detail__content-description flex-row">
-        {{complaint.descricao}}
+        {{ complaint.descricao }}
       </span>
       <div class="complaint-detail__content-gallery flex-row">
-        @if(getImages().length > 0){
+        @if (getImages().length > 0) {
           @for (imagem of getImages(); track $index) {
             <div class="complaint-detail__content-gallery-image">
-              <img 
-                [src]="getImageSource(imagem, $index)" 
+              <img
+                [src]="getImageSource(imagem, $index)"
                 [alt]="imagem.nome || 'Imagem da denúncia'"
-              >
+              />
             </div>
           }
         }
