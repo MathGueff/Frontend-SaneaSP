@@ -46,4 +46,7 @@ export class FormEsqueciSenhaComponent {
       }
     });
   }
+  back() {
+    this.router.navigate(['/cidadao/login']);
+  }
 }
