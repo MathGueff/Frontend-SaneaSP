@@ -12,6 +12,7 @@ import { ComplaintRegisterComponent } from "@features/denuncia/cadastro/pages/co
 import { ComplaintViewComponent } from "./features/denuncia/pages/complaint-view/complaint-view.component";
 import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/confirmation-page.component";
 import { LostPasswordFormComponent } from "@core/auth/pages/lost-password-form/lost-password-form.component";
+import { ChangePasswordFormComponent } from "@core/auth/pages/reset-password-form/reset-password-form.component";
 
 export const routes: Routes = [
   //Página inicial
@@ -43,4 +44,5 @@ export const routes: Routes = [
 
   { path: "register-confirmation", component: ConfirmationPageComponent },
   { path: "lost-my-password", component: LostPasswordFormComponent },
+  { path: "reset-password", component: ChangePasswordFormComponent}
 ];
