@@ -4,7 +4,7 @@ import { Validators, ReactiveFormsModule, NonNullableFormBuilder } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { ErrorHandlerService } from '@core/services/error-handler.service';
-import { ICreateUser, IUser } from '@features/usuario/models/user.model';
+import { TUserCreate, IUser } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 
@@ -33,10 +33,10 @@ export class RegisterComponent {
     if (this.hasFormErrors()) return;
 
     const {controls} = this.registerForm;
-    const user: ICreateUser = {
+    const user: TUserCreate = {
       nome : controls.nome.value,
       email : controls.email.value,
-      senha : controls.senha.value
+      senha : controls.senha.value,
     };
 
     this.authService.register(user).subscribe({

@@ -1,13 +1,13 @@
+import { UserType } from "@features/usuario/enums/user-type";
 import { ILabel } from "./label.model"
 
-export type AccessRoles = 'cidadao' | 'organizacao' |  'prefeitura'| 'admin' 
 export interface ILink extends ILabel{
     path : string
 }
 
 export interface IProtectedLink extends ILink {
-    access: {
+    accessRules : {
         requiresAuth: boolean;
-        allowedRoles?: AccessRoles[]; 
+        allowedRoles: UserType[]; 
     };
 }
