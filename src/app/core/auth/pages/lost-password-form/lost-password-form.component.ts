@@ -8,10 +8,10 @@ import { AuthService } from '@core/services/auth.service';
 @Component({
   selector: 'app-form-esqueci-senha',
   imports: [ReactiveFormsModule],
-  templateUrl: './form-esqueci-senha.component.html',
-  styleUrls: ['./form-esqueci-senha.component.css']
+  templateUrl: './lost-password-form.component.html',
+  styleUrls: ['./lost-password-form.component.css']
 })
-export class FormEsqueciSenhaComponent {
+export class LostPasswordFormComponent {
   lostPasswordForm: FormGroup;
 
   private toastService = inject(ToastService);
