@@ -23,11 +23,12 @@
   gap: var(--space-3);
 }
 
-.form-container__footer{
+.form-container__footer {
   margin-top: var(--space-4);
 }
 
-.form-container__body, .form-container__footer{
+.form-container__body,
+.form-container__footer {
   text-align: center;
 }
 
@@ -44,7 +45,7 @@
   width: 100%;
 }
 
-.field-group{
+.field-group {
   width: 100%;
   gap: var(--space-4);
 }
@@ -82,11 +83,12 @@
   height: 24px;
 }
 
-.footer__link, .footer__link--anchor{
-    font-size: var(--md-text);
+.footer__link,
+.footer__link--anchor {
+  font-size: var(--md-text);
 }
 
-.footer__link--anchor{
+.footer__link--anchor {
   color: var(--primary-color);
   font-weight: 500;
 }

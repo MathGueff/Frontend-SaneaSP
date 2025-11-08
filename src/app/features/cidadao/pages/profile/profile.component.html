@@ -1,16 +1,24 @@
 <section class="profile">
-    <nav class="profile__navbar">
-        @for (link of navbarLinks; track $index) {
-            <a class="profile__navbar-link button" 
-            [routerLink]="[link.path]" 
-            routerLinkActive="profile__navbar-link--active"
-            #rla="routerLinkActive">
-                @if(link.icon){
-                    <img class="small-icon" src="icons/{{link.icon.folder}}/{{rla.isActive ? 'white' : 'black'}}/{{link.icon.name}}.svg" alt="{{link.icon.alt}}">
-                }
-                {{link.text}}
-            </a>
+  <nav class="profile__navbar">
+    @for (link of navbarLinks; track $index) {
+      <a
+        class="profile__navbar-link button"
+        [routerLink]="[link.path]"
+        routerLinkActive="profile__navbar-link--active"
+        #rla="routerLinkActive"
+      >
+        @if (link.icon) {
+          <img
+            class="small-icon"
+            src="icons/{{ link.icon.folder }}/{{
+              rla.isActive ? 'white' : 'black'
+            }}/{{ link.icon.name }}.svg"
+            alt="{{ link.icon.alt }}"
+          />
         }
-    </nav>
-    <router-outlet></router-outlet>
+        {{ link.text }}
+      </a>
+    }
+  </nav>
+  <router-outlet></router-outlet>
 </section>

@@ -1,9 +1,14 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, APP_INITIALIZER } from '@angular/core'; 
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
-import { AuthService } from '@core/services/auth.service';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+  APP_INITIALIZER,
+} from "@angular/core";
+import { provideRouter, withInMemoryScrolling } from "@angular/router";
+import { routes } from "./app.routes";
+import { provideClientHydration } from "@angular/platform-browser";
+import { provideHttpClient, withFetch } from "@angular/common/http";
+import { AuthService } from "@core/services/auth.service";
 
 // função de inicialização com autenticação
 export function initializeAuth(authService: AuthService) {
@@ -15,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withInMemoryScrolling({ scrollPositionRestoration: "enabled" }),
     ),
     provideClientHydration(),
     provideHttpClient(withFetch()),
@@ -27,6 +32,6 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeAuth,
       deps: [AuthService],
       multi: true,
-    }
-  ]
+    },
+  ],
 };

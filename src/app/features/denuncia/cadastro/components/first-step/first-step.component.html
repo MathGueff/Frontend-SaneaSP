@@ -10,16 +10,19 @@
     >
     </textarea>
   </div>
-  
-  <app-image-upload-input class="flex-row w-100" (filesSelected)="onFilesSelected($event)"></app-image-upload-input>
+
+  <app-image-upload-input
+    class="flex-row w-100"
+    (filesSelected)="onFilesSelected($event)"
+  ></app-image-upload-input>
 
   <h3 class="text-sm">
     Imagens nos ajudam a ter um melhor entendimento do problema
   </h3>
 
-  @if(filePreviews.length > 0) {
+  @if (filePreviews.length > 0) {
     <div class="form__images flex-row">
-      @for(preview of filePreviews; track $index) {
+      @for (preview of filePreviews; track $index) {
         <div class="form__image">
           <img [src]="preview" alt="preview" />
         </div>

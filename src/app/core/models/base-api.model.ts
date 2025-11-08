@@ -1,3 +1,1 @@
-export interface IBaseApiFilters{
-     
-}
+export interface IBaseApiFilters {}

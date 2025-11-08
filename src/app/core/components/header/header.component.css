@@ -154,7 +154,7 @@
     padding: 0 var(--space-2);
   }
 
-  .header__nav{
+  .header__nav {
     justify-content: center;
   }
 
@@ -167,8 +167,7 @@
     font-size: calc(var(--sm-text) * 0.85);
   }
 
-  .nav__link--home{
-    
+  .nav__link--home {
     justify-content: center;
   }
 

@@ -3,31 +3,45 @@
     <h2>Procurar denúncias</h2>
     <div class="minhas-denuncias__filters flex-row">
       @for (filter of filters; track $index) {
-        <button 
+        <button
           class="minhas-denuncias__filter button"
           (click)="changeActiveStatus(filter.status)"
-          [ngClass]="{ 'minhas-denuncias__filter--active': isActiveStatus(filter.status)}"
+          [ngClass]="{
+            'minhas-denuncias__filter--active': isActiveStatus(filter.status),
+          }"
         >
-          @if(filter.icon){
+          @if (filter.icon) {
             <img
               class="small-icon"
-              [src]="'icons/'+ filter.icon.folder + '/' + (isActiveStatus(filter.status) ? 'white' : 'black') + '/' + filter.icon.name + '.svg'"
+              [src]="
+                'icons/' +
+                filter.icon.folder +
+                '/' +
+                (isActiveStatus(filter.status) ? 'white' : 'black') +
+                '/' +
+                filter.icon.name +
+                '.svg'
+              "
               [alt]="filter.icon.alt"
-            >
+            />
           }
-          {{filter.text}}
+          {{ filter.text }}
         </button>
       }
     </div>
   </div>
 
-  @if(currentStatusInfo){
-    <section [class]="'complaint-list complaint-list--' + currentStatusInfo.class">
-        <header class="complaint-list__header">
-          <h2 class="minhas-denuncias__title">{{currentStatusInfo.title}}</h2>
-          <p class="minhas-denuncias__description">{{currentStatusInfo.description}}</p>
-        </header>
-        <app-complaints-grid [complaints]="complaints"></app-complaints-grid>
+  @if (currentStatusInfo) {
+    <section
+      [class]="'complaint-list complaint-list--' + currentStatusInfo.class"
+    >
+      <header class="complaint-list__header">
+        <h2 class="minhas-denuncias__title">{{ currentStatusInfo.title }}</h2>
+        <p class="minhas-denuncias__description">
+          {{ currentStatusInfo.description }}
+        </p>
+      </header>
+      <app-complaints-grid [complaints]="complaints"></app-complaints-grid>
     </section>
   }
 </section>

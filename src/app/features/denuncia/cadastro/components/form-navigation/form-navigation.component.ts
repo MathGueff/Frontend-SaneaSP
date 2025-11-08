@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ISteps } from "../../models/steps";
 
 @Component({
-    selector: "app-form-navigation",
-    imports: [],
-    templateUrl: "./form-navigation.component.html",
-    styleUrl: "./form-navigation.component.css"
+  selector: "app-form-navigation",
+  imports: [],
+  templateUrl: "./form-navigation.component.html",
+  styleUrl: "./form-navigation.component.css",
 })
 export class FormNavigationComponent {
   @Input() activeStep!: number;

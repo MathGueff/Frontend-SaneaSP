@@ -17,8 +17,8 @@
   gap: var(--space-6);
 }
 
-.quick-address__option{
-    gap: var(--space-2);
+.quick-address__option {
+  gap: var(--space-2);
 }
 
 .quick-address__title {
