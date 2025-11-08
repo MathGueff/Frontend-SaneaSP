@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 
 @Component({
-  selector: 'app-form-esqueci-senha',
+  selector: 'app-lost-password-form',
   imports: [ReactiveFormsModule],
   templateUrl: './lost-password-form.component.html',
   styleUrls: ['./lost-password-form.component.css']
