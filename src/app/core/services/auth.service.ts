@@ -61,7 +61,7 @@ export class AuthService {
 
   /* Criação de um novo usuário */
   public register(newUser: IUser) {
-    return this.httpClient.post<IUser>(`${this.API_URL}/register`, newUser);
+    return this.httpClient.post<IUser>(`${this.API_URL}/register/cidadao`, newUser);
   }
 
   public confirmRegistration(token: string) {
