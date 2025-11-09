@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Calendário de Eventos</h2>
+
+  <form [formGroup]="form" (ngSubmit)="adicionarEvento()" class="form">
+    <input
+      type="text"
+      formControlName="title"
+      placeholder="Título do evento"
+      required
+    />
+    <input
+      type="date"
+      formControlName="start"
+      required
+    />
+    <input
+      type="date"
+      formControlName="end"
+      placeholder="Data final"
+    />
+    <button type="submit">Adicionar</button>
+  </form>
+
+  <hr />
+
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
