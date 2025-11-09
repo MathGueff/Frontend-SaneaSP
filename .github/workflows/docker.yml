@@ -64,7 +64,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: saneasp/sanea-back
+          images: saneasp/sanea-front
 
       - name: Build e publicação da imagem Docker
         id: push
