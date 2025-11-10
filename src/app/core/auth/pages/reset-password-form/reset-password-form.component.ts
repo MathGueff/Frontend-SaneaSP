@@ -49,51 +49,51 @@ export class ResetPasswordFormComponent {
 
   onSubmit() {
     if (this.hasFormErrors()) {
-      const token = this.token;
-      const newPassword = this.resetPasswordForm.value.password;
-
-      if (!token) {
-        this.toastService.show({
-          message: "Token inválido ou ausente. Solicite um novo link de redefinição.",
-          error: true
-        });
-        return;
-      }
-
-      this.authService
-        .resetPassword(token, newPassword)
-        .subscribe({
-          next: () => {
-            this.sweetAlertService.confirmResetPassword();
-            this.router.navigate(["/cidadao/login"]);
-          },
-          error: (e) => {
-            this.errorHandlerService.handleError(e);
-          },
-        });
+      return; // ← Impede a execução se o formulário for inválido
     }
+
+    const token = this.token;
+    const newPassword = this.resetPasswordForm.value.password;
+
+    if (!token || !newPassword) {
+      this.toastService.show({
+        message: "Erro ao redefinir senha. Link inválido ou senha ausente.",
+        error: true,
+      });
+      return;
+    }
+
+    this.authService.resetPassword(token, newPassword).subscribe({
+      next: () => {
+        this.sweetAlertService.confirmResetPassword();
+        this.router.navigate(["/cidadao/login"]);
+      },
+      error: (e) => {
+        this.errorHandlerService.handleError(e);
+      },
+    });
   }
 
   private hasFormErrors(): boolean {
-    const { invalid: invalidForm } = this.resetPasswordForm;
-    const senha = this.resetPasswordForm.get('password')?.value;
-    const confirmacaoSenha = this.resetPasswordForm.get('confirmPassword')?.value;
-    const invalidPassword = senha !== confirmacaoSenha;
+  const { invalid: invalidForm } = this.resetPasswordForm;
+  const senha = this.resetPasswordForm.get('password')?.value;
+  const confirmacaoSenha = this.resetPasswordForm.get('confirmPassword')?.value;
+  const invalidPassword = senha !== confirmacaoSenha;
 
-    let message = "";
-    if (!senha || !confirmacaoSenha) {
-      this.toastService.show({ message: "Preencha ambos os campos de senha.", error: true });
-      return true;
-    }
-    if (invalidPassword) {
-      message = "As senhas precisam ser iguais!";
-    }
-
-    const error = invalidForm || invalidPassword;
-    if (error) {
-      this.toastService.show({ message, error: true });
-    }
-
-    return error;
+  let message = "";
+  if (!senha || !confirmacaoSenha) {
+    this.toastService.show({ message: "Preencha ambos os campos de senha.", error: true });
+    return true;
   }
+  if (invalidPassword) {
+    message = "As senhas precisam ser iguais!";
+  }
+
+  const error = invalidForm || invalidPassword;
+  if (error) {
+    this.toastService.show({ message, error: true });
+  }
+
+  return error;
+}
 }
