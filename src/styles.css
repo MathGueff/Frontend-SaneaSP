@@ -11,13 +11,37 @@
 :root {
   /* Cores de fundo */
   --background-dark-color: #aeb7bd;
-  --background-color: #f8f8f8; /* Antigamente D9D9D9 */
-  --primary-color: #295a80;
-  --primary-dark-color: #345976;
-  --secondary-color: #006992;
-  --secondary-dark-color: #226185;
-  --tertiary-color: #8bb5d4;
-  --tertiary-dark-color: #496d87;
+  --background-color: #f8f8f8;
+    --background-footer: var(--tertiary-color);
+  /* Antigamente D9D9D9 */
+  --primary-color: #0f244f;
+  --primary-light-color: #1a3e7a;
+  --primary-dark-color: #0a1a3f;
+  --secondary-color: #112b5c;
+  --secondary-light-color: #2f65c1;
+  --secondary-dark-color: #0d1f47;
+  --tertiary-color: #1f3e63;
+  --tertiary-light-color: #3a6cb3;
+  --tertiary-dark-color: #162c49;
+  --quaternary-color: #008000;
+  --quaternary-light-color: #1aba1a;
+  --quaternary-dark-color: #006000;
+
+  /* Degrades */
+  --background-website: linear-gradient(45deg,
+      var(--primary-dark-color) 0%,
+      var(--primary-color) 16.7%,
+      var(--primary-light-color) 33.4%,
+      var(--secondary-light-color) 50.1%,
+      var(--primary-light-color) 66.8%,
+      var(--secondary-dark-color) 83.5%,
+      var(--primary-dark-color) 100%);
+  --background-header: linear-gradient(154.285714286deg,
+      var(--primary-dark-color) 0%,
+      var(--secondary-dark-color) 25%,
+      var(--primary-light-color) 50%,
+      var(--secondary-light-color) 75%,
+      var(--secondary-color) 100%);
 
   /* Sombras */
   --container-shadow: 0px 6px 6px -8px #000000;
@@ -30,9 +54,6 @@
   --white-font-color: #faf9f6;
   --black-font-color: #1c1c1c;
   --text-shadow: 2px 0px 0px 0px rgba(0, 0, 0, 0.25);
-
-  /* Imagem de fundo destaque do site */
-  --background-image: url("/background.svg");
 
   /* Acessibilidade */
   --outline-tab-primario: 2px solid var(--primary-color);
@@ -59,18 +80,30 @@
   --xs-text: 12px;
 
   /*---- PADDING, MARGIN E GAP - SPACINGS (4 - 4px) ----*/
-  --space-1: 4px; /* 1 * 4px */
-  --space-2: 8px; /* 2 * 4px */
-  --space-3: 12px; /* 3 * 4px */
-  --space-4: 16px; /* 4 * 4px */
-  --space-5: 20px; /* 5 * 4px */
-  --space-6: 24px; /* 6 * 4px */
-  --space-7: 28px; /* 7 * 4px */
-  --space-8: 32px; /* 8 * 4px */
-  --space-9: 36px; /* 9 * 4px */
-  --space-10: 40px; /* 10 * 4px */
-  --space-12: 48px; /* 12 * 4px */
-  --space-16: 64px; /* 16 * 4px */
+  --space-1: 4px;
+  /* 1 * 4px */
+  --space-2: 8px;
+  /* 2 * 4px */
+  --space-3: 12px;
+  /* 3 * 4px */
+  --space-4: 16px;
+  /* 4 * 4px */
+  --space-5: 20px;
+  /* 5 * 4px */
+  --space-6: 24px;
+  /* 6 * 4px */
+  --space-7: 28px;
+  /* 7 * 4px */
+  --space-8: 32px;
+  /* 8 * 4px */
+  --space-9: 36px;
+  /* 9 * 4px */
+  --space-10: 40px;
+  /* 10 * 4px */
+  --space-12: 48px;
+  /* 12 * 4px */
+  --space-16: 64px;
+  /* 16 * 4px */
 }
 
 /* Utilitários de sombras */
@@ -90,12 +123,15 @@
 h1 {
   font-size: var(--h1);
 }
+
 h2 {
   font-size: var(--h2);
 }
+
 h3 {
   font-size: var(--h3);
 }
+
 h4 {
   font-size: var(--h4);
 }
@@ -104,21 +140,27 @@ h4 {
 .text-h1 {
   font-size: var(--h1);
 }
+
 .text-h2 {
   font-size: var(--h2);
 }
+
 .text-h3 {
   font-size: var(--h3);
 }
+
 .text-lg {
   font-size: var(--lg-text);
 }
+
 .text-md {
   font-size: var(--md-text);
 }
+
 .text-sm {
   font-size: var(--sm-text);
 }
+
 .text-xs {
   font-size: var(--xs-text);
 }

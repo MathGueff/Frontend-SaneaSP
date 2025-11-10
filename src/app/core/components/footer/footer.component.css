@@ -1,11 +1,11 @@
 .borda {
-  border: 5px solid #999898;
+  border: 5px solid #0f244f;
   border-top: none;
   border-bottom: none;
 }
 .footer {
   height: auto;
-  background-color: var(--primary-color);
+  background-color: var(--background-footer);
   font-size: 1.1em;
 }
 h5 {
@@ -51,4 +51,11 @@ span:focus-visible {
     border-right: none;
     border-left: none;
   }
+}
+
+.degrade {
+  background: linear-gradient(51.4285714286deg,
+    var(--background-footer) 0%,
+    #1a3e7a 100%
+  );
 }

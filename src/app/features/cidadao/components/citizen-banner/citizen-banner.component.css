@@ -1,5 +1,5 @@
 .banner {
-  background-image: var(--background-image);
+  background-image: var(--background-website);
   color: var(--white-font-color);
   padding: var(--space-12);
   gap: var(--space-6);
@@ -48,7 +48,7 @@
 }
 
 .banner__button--citizen {
-  border: 2px solid #31b776;
+  border: 2px solid var(--quaternary-light-color);
 }
 
 .banner__button--organization {
@@ -56,7 +56,7 @@
 }
 
 .banner__button--organization:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-light-color);
   transform: translateX(4px);
 }
 
@@ -69,7 +69,7 @@
 }
 
 .banner__button--citizen:hover {
-  background-color: #1e7b4e;
+  background-color: var(--quaternary-color);
   transform: translateX(-4px);
 }
 
