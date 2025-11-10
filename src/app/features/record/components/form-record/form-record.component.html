@@ -1,0 +1,43 @@
+<div class="">
+    <form formGroup="recordForm" class="form-container__form" (ngSubmit)="onSubmit()">
+      <h2 class="form-container__header">Formulário de Registro</h2>
+    
+      <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <input id="descricao" type="text" formControlName="descricao">
+        
+        @if (formControls['descricao'].valid && (formControls['descricao'].dirty || formControls['descricao'].touched)) {
+          <div class="error-message">
+            @if (formControls['descricao'].errors?.['required']) {
+              Descrição é obrigatória.
+            }
+            @if (formControls['descricao'].errors?.['minlength']) {
+              Descrição deve ter pelo menos 10 caracteres.
+            }
+          </div>
+        }
+      </div>
+
+    
+      <div class="form-group">
+        <label for="tipo">Tipo:</label>
+        <input id="tipo" type="number" formControlName="tipo">
+        </div>
+    
+      <div class="form-group">
+        <label for="arquivo">Arquivos (Opcional - Nomes separados por vírgula):</label>
+        <input 
+          id="arquivo" 
+          type="text" 
+          formControlName="arquivo"
+          (change)="onFileChange($event)"
+        >
+      </div>
+    
+      <button type="submit" [disabled]="recordForm.invalid">
+        Enviar Denúncia
+      </button>
+      
+      <p>Status do Formulário: **{{ recordForm.status }}**</p>
+    </form>
+</div>
