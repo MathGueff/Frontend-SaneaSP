@@ -132,4 +132,17 @@ export class SweetAlertService {
       }),
     );
   }
+
+  public confirmResetPassword(): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(
+      this.buildConfig({
+        icon: "success",
+        html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Senha alterada com sucesso!</h1>
+        </div>
+      `,
+      }),
+    );
+  }
 }
