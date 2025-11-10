@@ -108,6 +108,6 @@ export class AuthService {
   }
 
   resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(`${this.API_URL}/reset-password`, { token, newPassword});
+    return this.httpClient.put<{ message: string }>(`${this.API_URL}/reset-password`, { token, newPassword});
   }
 }
