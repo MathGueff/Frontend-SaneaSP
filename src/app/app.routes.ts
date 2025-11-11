@@ -9,6 +9,7 @@ import { MyComplaintsComponent } from '@features/cidadao/components/my-complaint
 import { ComplaintRegisterComponent } from '@features/denuncia/cadastro/pages/complaint-register/complaint-register.component';
 import { ComplaintViewComponent } from './features/denuncia/pages/complaint-view/complaint-view.component';
 import { ConfirmationPageComponent } from '@core/auth/pages/confirmation-page/confirmation-page.component';
+import { DashboardComponent } from '@features/prefeitura/pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -36,6 +37,13 @@ export const routes: Routes = [
         ]
       }
     ],
+  },
+
+  {
+    path: 'prefeitura',
+    children: [
+      {path: 'dashboard', component: DashboardComponent}
+    ]
   },
 
   {path: 'register-confirmation', component: ConfirmationPageComponent},
