@@ -3,7 +3,7 @@ name: Docker feature
 on:
   push:
     branches:
-      - main
+      - feature/dockerfile
 
 jobs:
   pipeline:
