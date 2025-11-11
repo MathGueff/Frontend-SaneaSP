@@ -115,4 +115,14 @@ export class SweetAlertService {
       }
     }));
   }
+
+  /**
+   * Exibe mensagem de sucesso para Feedback.
+   */
+  public feedbackSuccess(message: string): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      title: message
+    }));
+  }
 }
