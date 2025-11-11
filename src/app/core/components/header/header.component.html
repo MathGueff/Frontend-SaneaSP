@@ -2,21 +2,17 @@
   <nav class="header__nav flex-row">
     <div class="nav__link--home flex-row">
       <a routerLink="/">
-        <img
-          class="nav__logo"
-          src="logo/sanea_sp.png"
-          alt="Voltar para o menu"
-        />
+        <img class="nav__logo" src="logo/sanea_sp.png" alt="Voltar para o menu" />
       </a>
     </div>
     <div class="nav__content">
-      @switch (currentContext) {
+      @switch (currentContext) 
+      { 
         @case (HeaderType.CIDADAO) {
           <app-header-cidadao></app-header-cidadao>
-        }
-        @case (HeaderType.ORGANIZACAO) {
+        } @case (HeaderType.ORGANIZACAO) {
           <app-header-cidadao></app-header-cidadao>
-        }
+        } 
       }
     </div>
   </nav>

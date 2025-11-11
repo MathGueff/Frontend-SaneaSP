@@ -1,31 +1,27 @@
 <section class="complaint-history">
-  <section class="complaint-feedback flex-column">
-    <div class="complaint-feedback__container flex-column">
-      <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
-      <p class="complaint-feedback__description">
-        {{ descricao }}
-      </p>
-    </div>
-  </section>
-  <section class="complaint-comments flex-column">
-    <h2 class="complaint-comments__title">Histórico da Denúncia</h2>
-    <div class="complaint-comments__comments flex-column">
-      @for (comment of comments; track $index) {
-        @if ($index < MAX_COMMENTS) {
-          <div class="complaint-comments__comment">
-            <h3 class="complaint-comments__comment-title">
-              {{ comment.usuario.nome }}
-            </h3>
-            <span class="complaint-comments__comment-description">{{
-              comment.descricao
-            }}</span>
-          </div>
+    <section class="complaint-feedback flex-column">
+        <div class="complaint-feedback__container flex-column">
+            <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
+            <p class="complaint-feedback__description">
+                {{descricao}}
+            </p>
+        </div>
+    </section>
+    <section class="complaint-comments flex-column">
+        <h2 class="complaint-comments__title">Histórico da Denúncia</h2>
+        <div class="complaint-comments__comments flex-column">
+            @for (comment of comments; track $index) {
+                @if($index < MAX_COMMENTS){
+                    <div class="complaint-comments__comment">
+                        <h3 class="complaint-comments__comment-title">{{comment.usuario.nome}}</h3>
+                        <span class="complaint-comments__comment-description">{{comment.descricao}}</span>
+                    </div>
+                }
+            }
+        </div>
+        @if(comments.length > MAX_COMMENTS){
+            <span>+ {{comments.length - MAX_COMMENTS}} comentários</span>
+            <button class="button button--primary">Veja o histórico completo</button>
         }
-      }
-    </div>
-    @if (comments.length > MAX_COMMENTS) {
-      <span>+ {{ comments.length - MAX_COMMENTS }} comentários</span>
-      <button class="button button--primary">Veja o histórico completo</button>
-    }
-  </section>
+    </section>
 </section>

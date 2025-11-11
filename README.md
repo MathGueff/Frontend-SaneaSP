@@ -1,21 +1,17 @@
 # SaneaSP
-
-Aplicação web feita em Angular que permite que cidadãos denunciem problemas de saneamento básico em suas regiões. Organizações parceiras podem responder às denúncias, personalizar as experiências
+Aplicação web feita em Angular que permite que cidadãos denunciem problemas de saneamento básico em suas regiões. Organizações parceiras podem responder às denúncias, personalizar as experiências 
 
 ## 🧾 Descrição
-
 O SaneaSP tem como objetivo aproximar os cidadãos das organizações responsáveis pelo saneamento básico na cidade. A plataforma oferece um processo simples e acessível para a criação de denúncias, ao mesmo tempo em que disponibiliza um ambiente completo e gerenciável para que as organizações possam responder e administrar as ocorrências com eficiência.
 
 ## Tecnologias Utilizadas
-
 Framework: Angular 18+
 
 Linguagem: TypeScript
 
 Estilo: CSS puro
 
-Bibliotecas adicionais:
-
+Bibliotecas adicionais: 
 - SweetAlert2 – modais e alertas personalizados
 - Bootstrap – sistema de grid e componentes prontos
 
@@ -35,7 +31,6 @@ npm install
 npm start
 
 ```
-
 ## Estrutura das pastas
 
 ```bash
@@ -43,7 +38,7 @@ src/
 └── app/
     ├── core/
     │   ├── guards/
-    │   ├── components/
+    │   ├── components/ 
     │   ├── services/
     │   └── models/
     ├── shared/
@@ -63,16 +58,4 @@ src/
         │   ├── pages/
         │   └── models/
         └── ...
-```
-
-## Prettier
-
-Corrigir indentação -->
-```
-npx prettier . --write
-```
-
-Verificar correções -->
-```
-npx prettier . --check
 ```

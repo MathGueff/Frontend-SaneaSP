@@ -1,7 +1,9 @@
 import { Component, inject, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ICategoryGroup } from "@features/categoria/models/category-group.model";
-import { ICategory } from "@features/categoria/models/category.model";
+import {
+  ICategory,
+} from "@features/categoria/models/category.model";
 import { CategoryService } from "@features/categoria/services/category.service";
 
 @Component({
@@ -38,19 +40,17 @@ export class ThirdStepComponent implements OnInit {
   }
 
   isCategorySelected(category: ICategory) {
-    return this.selectedCategories.some(
-      (selected) => selected.id === category.id,
-    );
+    return this.selectedCategories.some(selected => selected.id === category.id);
   }
-  onCategoryClick(group: ICategoryGroup, category: ICategory) {
+  onCategoryClick(group : ICategoryGroup, category: ICategory) {
     if (this.isCategorySelected(category)) {
       this.selectedCategories = this.selectedCategories.filter(
-        (compare) => compare.id !== category.id,
+        (compare) => compare.id !== category.id
       );
     } else {
       this.selectedCategories.push({
         ...category,
-        grupo: group,
+        grupo : group
       });
     }
 

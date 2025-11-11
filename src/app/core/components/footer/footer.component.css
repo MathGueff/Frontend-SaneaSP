@@ -1,52 +1,47 @@
-.borda {
+.borda{
   border: 5px solid #999898;
   border-top: none;
   border-bottom: none;
 }
-.footer {
+.footer{
   height: auto;
   background-color: var(--primary-color);
   font-size: 1.1em;
 }
-h5 {
+h5{
   padding-top: 12px;
   color: var(--white-font-color);
   font-weight: bold;
 }
-.links-footer a,
-span {
+.links-footer a, span{
   color: var(--white-font-color);
   text-decoration: none;
-  transition:
-    transform 0.3s,
-    text-decoration 0.3s;
+  transition: transform .3s, text-decoration .3s;
   display: inline-block;
 }
-.links-footer a:hover,
-span:hover {
+.links-footer a:hover, span:hover{
   transform: scale(1.05);
   text-decoration: underline;
 }
 
-.links-footer a:focus-visible,
-span:focus-visible {
+.links-footer a:focus-visible, span:focus-visible{
   outline: var(--outline-tab-secundario) !important;
 }
 
-.links-footer-img a {
+.links-footer-img a{
   padding-top: 2px;
 }
-.links-footer-img a img {
+.links-footer-img a img{
   width: 40px;
   padding-right: 20px;
 }
 
-.links-footer-img a:focus-visible {
+.links-footer-img a:focus-visible{
   outline: var(--outline-tab-secundario) !important;
 }
 
-@media (max-width: 1000px) {
-  .borda {
+@media (max-width:1000px) {
+  .borda{
     border: 5px solid #999898;
     border-right: none;
     border-left: none;

@@ -1,119 +1,66 @@
 <form [formGroup]="formGroup" class="form-step__body flex-column">
   <!-- Seleção rápida de endereço -->
   <section class="quick-address flex-column">
-    <h2 class="quick-address__title">
-      Escolha um endereço abaixo ou informe um novo
-    </h2>
+    <h2 class="quick-address__title">Escolha um endereço abaixo ou informe um novo</h2>
     <div class="quick-address__options flex-row">
       <div class="quick-address__option flex-column">
-        <img
-          class="quick-address__icon"
-          src="icons/entities/black/address.svg"
-          alt=""
-        />
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
         <span>Localização atual</span>
       </div>
       <div class="quick-address__option flex-column">
-        <img
-          class="quick-address__icon"
-          src="icons/entities/black/address.svg"
-          alt=""
-        />
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
         <span>Meu endereço</span>
       </div>
       <div class="quick-address__option flex-column">
-        <img
-          class="quick-address__icon"
-          src="icons/entities/black/address.svg"
-          alt=""
-        />
+        <img class="quick-address__icon" src="icons/entities/black/address.svg" alt="" />
         <span>Endereços salvos</span>
       </div>
     </div>
   </section>
-
+  
   <!-- Campos e mapa lado a lado -->
   <section class="address-section flex-row">
+
     <!-- Imagem do mapa -->
     <div class="address-section__map-wrapper flex-row">
-      <img
-        class="address-section__map"
-        src="images/denuncia/user1.jpg"
-        alt="Mapa do endereço"
-      />
+      <img class="address-section__map" src="images/denuncia/user1.jpg" alt="Mapa do endereço" />
     </div>
 
     <!-- Campos de endereço -->
     <div class="address-section__fields flex-column">
+
       <div class="field-group flex-row">
         <div class="field field--zip-code">
           <label class="field__label" for="cep">CEP</label>
-          <input
-            formControlName="cep"
-            id="cep"
-            type="text"
-            class="field__input"
-            placeholder="00000-000"
-            maxlength="8"
-            minlength="8"
-          />
+          <input formControlName="cep" id="cep" type="text" class="field__input" placeholder="00000-000" maxlength="8" minlength="8" />
         </div>
         <div class="field field--city">
           <label class="field__label" for="cidade">Cidade</label>
-          <input
-            formControlName="cidade"
-            id="cidade"
-            type="text"
-            class="field__input"
-            placeholder="Ex: Sorocaba"
-          />
+          <input formControlName="cidade" id="cidade" type="text" class="field__input" placeholder="Ex: Sorocaba" />
         </div>
       </div>
 
       <div class="field-group flex-row">
         <div class="field field--street">
           <label class="field__label" for="rua">Rua</label>
-          <input
-            formControlName="rua"
-            id="rua"
-            type="text"
-            class="field__input"
-            placeholder="Ex: Rua Jardim Brasilândia"
-          />
+          <input formControlName="rua" id="rua" type="text" class="field__input" placeholder="Ex: Rua Jardim Brasilândia" />
         </div>
         <div class="field field--number">
           <label class="field__label" for="numero">Número</label>
-          <input
-            formControlName="numero"
-            id="numero"
-            type="number"
-            class="field__input"
-            placeholder="Ex: 123"
-          />
+          <input formControlName="numero" id="numero" type="number" class="field__input" placeholder="Ex: 123" />
         </div>
       </div>
 
-      <div class="field">
-        <label class="field__label" for="bairro">Bairro</label>
-        <input
-          formControlName="bairro"
-          id="bairro"
-          type="text"
-          class="field__input"
-          placeholder="Ex: Jardim Brasilândia"
-        />
-      </div>
+        <div class="field">
+          <label class="field__label" for="bairro">Bairro</label>
+          <input formControlName="bairro" id="bairro" type="text" class="field__input" placeholder="Ex: Jardim Brasilândia" />
+        </div>
 
-      <div class="field">
-        <label class="field__label" for="complemento">Complemento</label>
-        <input
-          formControlName="complemento"
-          id="complemento"
-          type="text"
-          class="field__input"
-          placeholder="Ex: fundos"
-        />
-      </div>
+        <div class="field">
+          <label class="field__label" for="complemento">Complemento</label>
+          <input formControlName="complemento" id="complemento" type="text" class="field__input" placeholder="Ex: fundos" />
+        </div>
     </div>
   </section>
+
 </form>

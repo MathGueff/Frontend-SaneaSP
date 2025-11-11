@@ -1,4 +1,6 @@
-import { ICategory } from "@features/categoria/models/category.model";
+import {
+  ICategory,
+} from "@features/categoria/models/category.model";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -56,7 +58,7 @@ export class ComplaintService extends BaseApiService {
 
   public getByTag(
     tags: ICategory[],
-    idUsuario?: number,
+    idUsuario?: number
   ): Observable<IComplaint[]> {
     let query: string = "";
     tags.forEach((tag, i) => {
@@ -86,16 +88,17 @@ export class ComplaintService extends BaseApiService {
     return this.httpClient.put<IComplaint>(
       `${this.urlApi}/${idDenuncia}`,
       denuncia,
-      { headers },
+      { headers }
     );
   }
 
   // DELETE
   public deleteComplaint(idDenuncia: number) {
     const headers = this.setAuthHeader();
-    return this.httpClient.delete<IComplaint>(`${this.urlApi}/${idDenuncia}`, {
-      headers,
-    });
+    return this.httpClient.delete<IComplaint>(
+      `${this.urlApi}/${idDenuncia}`,
+      { headers }
+    );
   }
 
   //UTILS

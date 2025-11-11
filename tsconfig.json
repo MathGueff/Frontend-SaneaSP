@@ -21,11 +21,14 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "@features/*": ["app/features/*"],
-      "@shared/*": ["app/shared/*"],
-      "@core/*": ["app/core/*"]
+      "@features/*" : ["app/features/*"],
+      "@shared/*" : ["app/shared/*"],
+      "@core/*" : ["app/core/*"]
     },
-    "lib": ["ES2022", "dom"]
+    "lib": [
+      "ES2022",
+      "dom"
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
