@@ -53,7 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       
-      # ---- Imagem Docker -----
+        # ---- Imagem Docker -----
       - name: Login Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
@@ -77,3 +77,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      
