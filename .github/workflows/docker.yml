@@ -65,6 +65,9 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: saneasp/front-sanea
+          tags: |
+            type=raw,value=${{ steps.version.outputs.new_version }}
+            type=raw,value=latest
 
       - name: Build e publicação da imagem Docker
         id: push
