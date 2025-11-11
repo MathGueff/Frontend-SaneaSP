@@ -8,7 +8,6 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-
     steps:
       # --- Checkout do repositório ---
       - name: Checkout
