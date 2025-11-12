@@ -20,7 +20,7 @@ export class DashboardComponent {
     },
     {
       category: 'Denúncias',
-      links: ['Todas denúncias', 'Agendamento de visitas']
+      links: ['Todas denúncias', 'Agendamento de visitas', 'Feedbacks dos cidadãos']
     },
     {
       category: 'Relatórios',

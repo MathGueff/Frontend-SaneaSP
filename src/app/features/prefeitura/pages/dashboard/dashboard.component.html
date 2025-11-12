@@ -5,10 +5,10 @@
       <img class="sidebar__logo" src="wireframe/logo.jpg" alt="" />
     </header>
     <div class="sidebar__body flex-column">
-      <nav class="sidebar__links flex-column">
-        @for (item of menu; track item.category) {
+      @for (item of menu; track item.category) {
+      <div class="sidebar__nav flex-column">
+        <h3 class="sidebar__link-group-title">{{ item.category }}</h3>
         <div class="sidebar__link-group flex-column">
-          <h3 class="sidebar__link-group-title">{{ item.category }}</h3>
           @for (link of item.links; track link) {
           <li class="sidebar__link">
             <a href="#" class="">
@@ -17,8 +17,8 @@
           </li>
           }
         </div>
-        }
-      </nav>
+      </div>
+      }
     </div>
     <footer class="sidebar__footer flex-column">
       <span class="sidebar__login-info">Entrou como</span>

@@ -42,7 +42,21 @@ export const routes: Routes = [
   {
     path: 'prefeitura',
     children: [
-      {path: 'dashboard', component: DashboardComponent}
+      {
+        path: 'dashboard', component: DashboardComponent,
+        children: [
+          {path: 'configs', component: DashboardComponent},
+          {path: 'notifications', component: DashboardComponent},
+          {path: 'all-complaint', component: DashboardComponent},
+          {path: 'scheduling', component: DashboardComponent},
+          {path: 'feedbacks', component: DashboardComponent},
+          {path: 'kpi', component: DashboardComponent},
+          {path: 'analysis', component: DashboardComponent},
+          {path: 'export', component: DashboardComponent},
+          {path: 'employees', component: DashboardComponent},
+          {path: 'me', component: DashboardComponent},
+        ]
+      }
     ]
   },
 
