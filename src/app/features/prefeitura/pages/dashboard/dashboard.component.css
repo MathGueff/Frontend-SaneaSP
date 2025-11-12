@@ -1,0 +1,96 @@
+
+.dashboard {
+    padding: var(--space-4);
+    min-height: calc(100vh - 2 * var(--space-4));
+}
+
+.content {
+    flex: 1;
+    min-height: 100%;
+    background-color: rgb(130, 130, 130);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar {
+    min-height: 100%;
+    padding: var(--space-2);
+    border-right: 3px solid var(--primary-color);
+    gap: var(--space-3);
+}
+
+.sidebar__header{
+
+}
+
+.sidebar__body{
+    width: 100%;
+    gap: var(--space-6);
+}
+
+.sidebar__footer{
+    
+}
+
+.sidebar__logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+}
+
+.sidebar__nav{
+    width: 100%;
+    list-style: none;
+    align-items: start;
+}
+
+.sidebar__link-group{
+    align-items: start;
+    width: 100%;
+    gap: var(--space-2);
+}
+
+.sidebar__link-group-title{
+    text-align: start;
+    font-size: var(--md-text);
+    width: 100%;
+    color: var(--secondary-color);
+}
+
+.sidebar__link{
+    transition: 0.8s all ease;
+}
+
+.sidebar__link a{
+    transition: 0.4s all ease;
+}
+
+
+.sidebar__link:hover{
+    transform: translateX(10px);
+}
+
+.sidebar__link:hover a{
+    color: var(--primary-color);
+}
+
+.sidebar__link a{
+    list-style: none;
+    text-decoration: none;
+    color: var(--black-font-color);
+    font-size: var(--sm-text);
+}
+
+.sidebar__link--active{
+    background-color: var(--primary-color);
+    color: var(--white-font-color) !important;
+    padding: var(--space-1);
+}
+
+.sidebar__cityhall-name {
+    font-size: var(--h3);
+    font-weight: 400;
+    color: var(--primary-color);
+    margin-bottom: var(--space-2);
+}

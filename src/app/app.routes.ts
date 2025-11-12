@@ -15,6 +15,16 @@ import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/co
 import { LostPasswordFormComponent } from "@core/auth/pages/lost-password-form/lost-password-form.component";
 import { ResetPasswordFormComponent } from "@core/auth/pages/reset-password-form/reset-password-form.component";
 import { DashboardComponent } from '@features/prefeitura/pages/dashboard/dashboard.component';
+import { ConfigsComponent } from '@features/prefeitura/components/configs/configs.component';
+import { NotificationComponent } from '@features/prefeitura/components/notification/notification.component';
+import { AllComplaintComponent } from '@features/prefeitura/components/all-complaint/all-complaint.component';
+import { SchedulingComponent } from '@features/prefeitura/components/scheduling/scheduling.component';
+import { FeedbacksComponent } from '@features/prefeitura/components/feedbacks/feedbacks.component';
+import { KpiComponent } from '@features/prefeitura/components/kpi/kpi.component';
+import { AnalysisComponent } from '@features/prefeitura/components/analysis/analysis.component';
+import { ExportComponent } from '@features/prefeitura/components/export/export.component';
+import { EmployeesComponent } from '@features/prefeitura/components/employees/employees.component';
+import { MeComponent } from '@features/prefeitura/components/me/me.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -47,7 +57,21 @@ export const routes: Routes = [
   {
     path: 'prefeitura',
     children: [
-      {path: 'dashboard', component: DashboardComponent}
+      {
+        path: 'dashboard', component: DashboardComponent,
+        children: [
+          {path: 'configs', component: ConfigsComponent},
+          {path: 'notifications', component: NotificationComponent},
+          {path: 'all-complaint', component: AllComplaintComponent},
+          {path: 'scheduling', component: SchedulingComponent},
+          {path: 'feedbacks', component: FeedbacksComponent},
+          {path: 'kpi', component: KpiComponent},
+          {path: 'analysis', component: AnalysisComponent},
+          {path: 'export', component: ExportComponent},
+          {path: 'employees', component: EmployeesComponent},
+          {path: 'me', component: MeComponent},
+        ]
+      }
     ]
   },
 
