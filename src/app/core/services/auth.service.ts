@@ -21,9 +21,9 @@ export class AuthService {
   constructor( 
     private httpClient: HttpClient,
     private sweetAlertService: SweetAlertService,
-    private authTokenStorageService : AuthTokenStorageService,
-    private errorService : ErrorHandlerService){
-  }
+    private authTokenStorageService: AuthTokenStorageService,
+    private errorService: ErrorHandlerService,
+  ) { }
 
   public async initializeAuth(): Promise<void> {
     const token = this.authTokenStorageService.get();
@@ -62,12 +62,11 @@ export class AuthService {
   }
 
   public confirmRegistration(token: string) {
-    return this.httpClient.get(`${this.API_URL}/confirm/${token}`).pipe(
+    return this.httpClient.get(`${this.API_URL}/registrationConfirm/${token}`).pipe(
       tap(() => {
-        this.sweetAlertService.confirmLogin('Você criou sua conta com sucesso')
+        this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso! ✅");
       }),
-      catchError(err => {
-        // Aqui funciona como um "try/catch" para o Observable
+      catchError((err) => {
         this.errorService.handleError(err);
         throw err;
       })
@@ -95,5 +94,17 @@ export class AuthService {
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
     this.currentUserSignal.set(user);
+  }
+
+  public lostPassword(email: string): Observable<void> {
+    return this.httpClient.post<void>(`${this.API_URL}/lost-password`, { email });
+  }
+
+  public verifyResetToken(token: string) {
+    return this.httpClient.get(`${this.API_URL}/lost-password//${token}`);
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.httpClient.patch<{ message: string }>(`${this.API_URL}/reset-password`, { token, newPassword});
   }
 }
