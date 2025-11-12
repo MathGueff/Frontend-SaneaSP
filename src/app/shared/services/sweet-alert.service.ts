@@ -124,5 +124,32 @@ export class SweetAlertService {
       icon: 'success',
       title: message
     }));
+   * Exibe esqueci minha senha
+   */
+  public confirmLostPassword(message: string): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(
+      this.buildConfig({
+        icon: "info",
+        html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Instruções enviadas!</h1>
+          <h2 class="swal__title--h2">Enviamos um email com as instruções para recuperação de senha para ${message}</h2>
+        </div>
+      `,
+      }),
+    );
+  }
+
+  public confirmResetPassword(): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(
+      this.buildConfig({
+        icon: "success",
+        html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Senha alterada com sucesso!</h1>
+        </div>
+      `,
+      }),
+    );
   }
 }
