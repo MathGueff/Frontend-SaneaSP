@@ -1,3 +1,4 @@
+
 import { Routes } from "@angular/router";
 import { AuthGuard } from "@core/guards/auth.guard";
 import { AdminGuard } from "@core/guards/auth-admin.guard";
@@ -13,18 +14,19 @@ import { ComplaintViewComponent } from "./features/denuncia/pages/complaint-view
 import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/confirmation-page.component";
 import { LostPasswordFormComponent } from "@core/auth/pages/lost-password-form/lost-password-form.component";
 import { ResetPasswordFormComponent } from "@core/auth/pages/reset-password-form/reset-password-form.component";
+import { DashboardComponent } from '@features/prefeitura/pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   //Página inicial
-  {path: '', redirectTo: 'cidadao', pathMatch: 'full' },
+  {path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {path: 'inicio', component: CitizenHomeComponent},
+
+  {path: 'login', component: CitizenLoginComponent},
 
   //Área do cidadão
   {
-    path: 'cidadao', component:CitizenLayoutComponent,
+    path: 'cidadao',
     children: [
-      {path: '', redirectTo: 'menu', pathMatch: 'full' },
-      {path: 'menu', component: CitizenHomeComponent},
-      {path: 'login', component: CitizenLoginComponent},
       {path: 'register', component: CitizenRegisterComponent},
       {path: 'complaints', component: MyComplaintsComponent, canActivate: [AuthGuard]}, 
       {path: 'new-complaint', component: ComplaintRegisterComponent, canActivate: [AuthGuard]},
@@ -40,6 +42,13 @@ export const routes: Routes = [
         ]
       }
     ],
+  },
+
+  {
+    path: 'prefeitura',
+    children: [
+      {path: 'dashboard', component: DashboardComponent}
+    ]
   },
 
   { path: "register-confirmation", component: ConfirmationPageComponent },
