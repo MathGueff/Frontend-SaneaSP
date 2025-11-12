@@ -124,6 +124,9 @@ export class SweetAlertService {
       icon: 'success',
       title: message
     }));
+  }
+
+  /**
    * Exibe esqueci minha senha
    */
   public confirmLostPassword(message: string): Promise<SweetAlertResult> {
