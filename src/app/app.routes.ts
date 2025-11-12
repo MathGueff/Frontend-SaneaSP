@@ -10,6 +10,16 @@ import { ComplaintRegisterComponent } from '@features/denuncia/cadastro/pages/co
 import { ComplaintViewComponent } from './features/denuncia/pages/complaint-view/complaint-view.component';
 import { ConfirmationPageComponent } from '@core/auth/pages/confirmation-page/confirmation-page.component';
 import { DashboardComponent } from '@features/prefeitura/pages/dashboard/dashboard.component';
+import { ConfigsComponent } from '@features/prefeitura/components/configs/configs.component';
+import { NotificationComponent } from '@features/prefeitura/components/notification/notification.component';
+import { AllComplaintComponent } from '@features/prefeitura/components/all-complaint/all-complaint.component';
+import { SchedulingComponent } from '@features/prefeitura/components/scheduling/scheduling.component';
+import { FeedbacksComponent } from '@features/prefeitura/components/feedbacks/feedbacks.component';
+import { KpiComponent } from '@features/prefeitura/components/kpi/kpi.component';
+import { AnalysisComponent } from '@features/prefeitura/components/analysis/analysis.component';
+import { ExportComponent } from '@features/prefeitura/components/export/export.component';
+import { EmployeesComponent } from '@features/prefeitura/components/employees/employees.component';
+import { MeComponent } from '@features/prefeitura/components/me/me.component';
 
 export const routes: Routes = [
   //Página inicial
@@ -45,16 +55,16 @@ export const routes: Routes = [
       {
         path: 'dashboard', component: DashboardComponent,
         children: [
-          {path: 'configs', component: DashboardComponent},
-          {path: 'notifications', component: DashboardComponent},
-          {path: 'all-complaint', component: DashboardComponent},
-          {path: 'scheduling', component: DashboardComponent},
-          {path: 'feedbacks', component: DashboardComponent},
-          {path: 'kpi', component: DashboardComponent},
-          {path: 'analysis', component: DashboardComponent},
-          {path: 'export', component: DashboardComponent},
-          {path: 'employees', component: DashboardComponent},
-          {path: 'me', component: DashboardComponent},
+          {path: 'configs', component: ConfigsComponent},
+          {path: 'notifications', component: NotificationComponent},
+          {path: 'all-complaint', component: AllComplaintComponent},
+          {path: 'scheduling', component: SchedulingComponent},
+          {path: 'feedbacks', component: FeedbacksComponent},
+          {path: 'kpi', component: KpiComponent},
+          {path: 'analysis', component: AnalysisComponent},
+          {path: 'export', component: ExportComponent},
+          {path: 'employees', component: EmployeesComponent},
+          {path: 'me', component: MeComponent},
         ]
       }
     ]
