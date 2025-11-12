@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
+import { ImageUploadInputComponent } from "../../../../../shared/components/image-upload-input/image-upload-input.component";
 
 @Component({
   selector: "app-first-step",

@@ -1,43 +1,47 @@
-<div class="">
-    <form formGroup="recordForm" class="form-container__form" (ngSubmit)="onSubmit()">
-      <h2 class="form-container__header">Formulário de Registro</h2>
-    
-      <div class="form-group">
-        <label for="descricao">Descrição:</label>
-        <input id="descricao" type="text" formControlName="descricao">
-        
-        @if (formControls['descricao'].valid && (formControls['descricao'].dirty || formControls['descricao'].touched)) {
-          <div class="error-message">
-            @if (formControls['descricao'].errors?.['required']) {
-              Descrição é obrigatória.
-            }
-            @if (formControls['descricao'].errors?.['minlength']) {
-              Descrição deve ter pelo menos 10 caracteres.
-            }
-          </div>
-        }
-      </div>
+<form formGroup="recordForm" class="h-auto m-5 d-flex flex-column gap-2" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  <h2 class="form-container__header">Formulário de Registro</h2>
 
-    
-      <div class="form-group">
-        <label for="tipo">Tipo:</label>
-        <input id="tipo" type="number" formControlName="tipo">
-        </div>
-    
-      <div class="form-group">
-        <label for="arquivo">Arquivos (Opcional - Nomes separados por vírgula):</label>
-        <input 
-          id="arquivo" 
-          type="text" 
-          formControlName="arquivo"
-          (change)="onFileChange($event)"
-        >
-      </div>
-    
-      <button type="submit" [disabled]="recordForm.invalid">
-        Enviar Denúncia
-      </button>
-      
-      <p>Status do Formulário: **{{ recordForm.status }}**</p>
-    </form>
-</div>
+  <div class="form-group w-100">
+    <label for="descricao form-label">Descrição:</label>
+    <textarea
+      id="descricao"
+      class=" form-control w-100"
+      formControlName="descricao">
+    </textarea>
+
+    @if (formControls['descricao'].valid && (formControls['descricao'].dirty || formControls['descricao'].touched)) {
+    <div class="error-message">
+      @if (formControls['descricao'].errors?.['required']) {
+      <span class="text-bg-danger">Descrição é obrigatória.</span>
+      }
+      @if (formControls['descricao'].errors?.['minlength']) {
+      <span class="text-bg-danger">Descrição deve ter pelo menos 10 caracteres.</span>
+      }
+    </div>
+    }
+  </div>
+
+
+  <div class="form-group">
+    <label for="tipo form-label">Tipo:</label>
+    <select class="form-control" formControlName="tipo" id="tipo">
+      <option selected value="conclusao">Conclusão</option>
+      <option value="Registro">Registro</option>
+    </select>
+  </div>
+
+  <app-image-upload-input
+    class="flex-row w-100"
+    (filesSelected)="onFilesSelected($event)"
+  ></app-image-upload-input>
+
+  <div class="w-100 d-flex justify-content-center gap-5">
+    <button class="btn btn-danger" type="reset">
+      Cancelar Registro
+    </button>
+    <button class="btn btn-primary" type="submit">
+      Cadastrar Registro
+    </button>
+  </div>
+
+</form>

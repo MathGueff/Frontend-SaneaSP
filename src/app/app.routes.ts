@@ -11,6 +11,7 @@ import { MyComplaintsComponent } from "@features/cidadao/components/my-complaint
 import { ComplaintRegisterComponent } from "@features/denuncia/cadastro/pages/complaint-register/complaint-register.component";
 import { ComplaintViewComponent } from "./features/denuncia/pages/complaint-view/complaint-view.component";
 import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/confirmation-page.component";
+import { FormRecordComponent } from "@features/record/components/form-record/form-record.component";
 
 export const routes: Routes = [
   //Página inicial
@@ -36,6 +37,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       { path: "complaint/:id", component: ComplaintViewComponent },
+      { path: "complaint/:id/record", component: FormRecordComponent },
       {
         path: "profile",
         component: CitizenProfileComponent,

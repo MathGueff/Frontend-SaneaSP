@@ -1,17 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators} from '@angular/forms';
 import { ICreateRecord, IRecordy } from '@features/record/models/registrer.models';
+import { ImageUploadInputComponent } from "@shared/components/image-upload-input/image-upload-input.component";
 
 @Component({
   selector: 'app-form-record',
-  imports: [ɵInternalFormsSharedModule],
+  imports: [ImageUploadInputComponent],
   templateUrl: './form-record.component.html',
   styleUrl: './form-record.component.css',
 })
 export class FormRecordComponent {
-onFileChange($event: Event) {
+onFilesSelected($event: File[]) {
 throw new Error('Method not implemented.');
 }
+
 private fb = inject(NonNullableFormBuilder);
 
   // FormGroup tipado com base na sua interface
