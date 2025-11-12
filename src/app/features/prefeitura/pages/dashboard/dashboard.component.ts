@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { RouterLink, RouterOutlet, RouterLinkActive } from "@angular/router";
 import { ILink } from '@shared/models/link.model';
 
 interface MenuItem {
@@ -9,7 +9,7 @@ interface MenuItem {
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterLink, RouterOutlet, RouterLinkActive],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

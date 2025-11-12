@@ -82,6 +82,12 @@
     font-size: var(--sm-text);
 }
 
+.sidebar__link--active{
+    background-color: var(--primary-color);
+    color: var(--white-font-color) !important;
+    padding: var(--space-1);
+}
+
 .sidebar__cityhall-name {
     font-size: var(--h3);
     font-weight: 400;

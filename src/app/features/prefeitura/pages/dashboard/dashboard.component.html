@@ -11,7 +11,7 @@
         <div class="sidebar__link-group flex-column">
           @for (link of item.links; track link) {
           <li class="sidebar__link">
-            <a [routerLink]="link.path" class="">
+            <a [routerLink]="link.path" [routerLinkActive]="'sidebar__link--active'">
               {{ link.text }}
             </a>
           </li>
