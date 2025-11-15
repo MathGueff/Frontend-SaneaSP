@@ -13,11 +13,12 @@ export interface BigPoints{
 
 export class DataGraph{
     private URL = `${environment.domain}graph/`;
+    
     constructor(private http : HttpClient){}
-    public getBigPoints(limit?: number, cidade ?:string) : Observable<BigPoints[]>{
-        let apiURL = `${this.URL}maioresPontuacoes?&&limit=${limit}`;
+    public getBigPoints(cidade ?:string) : Observable<BigPoints[]>{
+        let apiURL = `${this.URL}maioresPontuacoes`;
         if(cidade){
-            apiURL += `&&cidade=${cidade}`
+            apiURL += `?cidade=${cidade}`
         }
         return this.http.get<BigPoints[]>(apiURL);
     }
@@ -42,9 +43,13 @@ export class DataGraph{
                 graph.labels.push(data.cidade);
             }
             graph.datasets[0].data.push(Number(data.pontuacao));
-            graph.datasets[0].backgroundColor!.push('red');
-            graph.datasets[0].borderColor?.push('red');
+            graph.datasets[0].backgroundColor!.push('#295a80');
+            graph.datasets[0].borderColor?.push('#295a80');
         })
         return graph;
+    }
+
+    public getCities() : Observable<string[]>{
+        return this.http.get<string[]>(`${this.URL}cidades`)
     }
 }

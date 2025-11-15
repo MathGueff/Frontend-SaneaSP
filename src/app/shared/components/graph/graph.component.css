@@ -1,4 +1,4 @@
 canvas {
-  max-width: 100%;
+  flex: 1;
   height: auto;
 }

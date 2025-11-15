@@ -32,7 +32,8 @@ export class NavbarComponent {
      {
       path: "/dashboard",
       text: "Painel administrativo",
-      canView : 'auth'
+      canView : 'auth',
+      allowedRoles: [UserType.Funcionario]
     },
     {
       path: "/cidadao/new-complaint",

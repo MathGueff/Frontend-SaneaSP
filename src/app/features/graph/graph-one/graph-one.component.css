@@ -1,0 +1,10 @@
+.graph-card {
+  border-radius: 1rem;
+  color: var(--black-font-color);
+  box-shadow: var(--header-shadow);
+  transition: box-shadow 0.2s;
+  min-height: 320px;
+  gap: var(--space-4);
+  justify-content: start;
+  padding: var(--space-4);
+}
