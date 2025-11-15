@@ -30,7 +30,7 @@ export class NavbarComponent {
       canView : 'unauth'
     },
      {
-      path: "/prefeitura/dashboard",
+      path: "/dashboard",
       text: "Painel administrativo",
       canView : 'auth'
     },
