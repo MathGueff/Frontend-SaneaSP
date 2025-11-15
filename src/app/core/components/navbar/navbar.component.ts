@@ -4,8 +4,8 @@ import { RouterModule } from "@angular/router";
 import { HeaderButtonsType } from "@core/models/header.model";
 import { AuthService } from "@core/services/auth.service";
 import { AuthorizationService } from "@core/services/authorization.service";
-import { IProtectedLink } from "@shared/models/link.model";
 import { UserType } from "@features/usuario/enums/user-type";
+import { IProtectedLink } from "@shared/models/protected-link";
 
 @Component({
   selector: "app-navbar",
@@ -22,43 +22,44 @@ export class NavbarComponent {
     {
       path: "/inicio",
       text: "Área dos cidadãos",
-      accessRules: { requiresAuth: false, allowedRoles: [UserType.CIDADAO] },
+      canView : 'both'
     },
     {
       path: "/login",
       text: "Para prefeituras",
-      accessRules: { requiresAuth: false, allowedRoles: [UserType.FUNCIONARIO] },
+      canView : 'unauth'
+    },
+     {
+      path: "/prefeitura/dashboard",
+      text: "Painel administrativo",
+      canView : 'auth'
     },
     {
       path: "/cidadao/new-complaint",
       text: "Criar denúncia",
-      accessRules: { requiresAuth: true, allowedRoles: [UserType.CIDADAO] },
+      canView : 'auth',
+      allowedRoles : [UserType.Cidadao]
     },
     {
       path: "/cidadao/complaints",
       text: "Minhas denúncias",
-      accessRules: { requiresAuth: true, allowedRoles: [UserType.CIDADAO] },
+      canView : 'auth',
+      allowedRoles : [UserType.Cidadao]
     },
   ];
 
-  canShowLink(link: IProtectedLink) {
-  const { requiresAuth, allowedRoles } = link.accessRules;
+canShowLink(link: IProtectedLink) {
   const user = this.authService.currentUser();
 
-  // 1. Se não precisa de autenticação e usuário está deslogado, mostra para todos
-  if (!requiresAuth && !user) return true;
-
-  // 2. Se não precisa de autenticação, mas tem allowedRoles e usuário está logado, mostra só para quem pode
-  if (!requiresAuth && user) {
-    if (!allowedRoles || allowedRoles.length === 0) return true;
-    return allowedRoles.includes(user.tipo);
+  if (link.canView === 'unauth') return !user;
+  if (link.canView === 'auth') return !!user && (
+    !link.allowedRoles || link.allowedRoles.length === 0 || link.allowedRoles.includes(user.tipo)
+  );
+  // 'both'
+  if (user && link.allowedRoles && link.allowedRoles.length > 0) {
+    return link.allowedRoles.includes(user.tipo);
   }
-
-  // 3. Se precisa de autenticação e usuário não está logado, não mostra
-  if (requiresAuth && !user) return false;
-
-  // 4. Se precisa de autenticação e usuário está logado, mostra só para quem pode
-  return !!user && allowedRoles.includes(user.tipo);
+  return true;
 }
 
   dropdownOpen = false;

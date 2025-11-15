@@ -28,7 +28,7 @@ import { MeComponent } from '@features/prefeitura/components/me/me.component';
 
 export const routes: Routes = [
   //Página inicial
-  {path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  {path: '', redirectTo: '/inicio', pathMatch: 'full' },
   {path: 'inicio', component: CitizenHomeComponent},
 
   {path: 'login', component: CitizenLoginComponent},

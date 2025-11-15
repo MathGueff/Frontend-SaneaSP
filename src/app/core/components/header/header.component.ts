@@ -23,7 +23,7 @@ export class HeaderComponent {
   ) {}
 
   protected user = this.authService.currentUser();
-  public currentContext: HeaderType = HeaderType.CIDADAO;
+  public currentContext: HeaderType = HeaderType.Cidadao;
   private destroy$ = new Subject<void>();
   
   ngOnInit() {
