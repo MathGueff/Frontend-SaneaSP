@@ -2,27 +2,29 @@
   <aside class="sidebar flex-column">
     <header class="sidebar__header flex-column">
       <h2 class="sidebar__cityhall-name">Prefeitura de Votorantim</h2>
-      <img class="sidebar__logo" src="wireframe/logo.jpg" alt="" />
+      <!-- <img class="sidebar__logo" src="wireframe/logo.jpg" alt="" /> -->
     </header>
     <div class="sidebar__body flex-column">
       @for (item of menu; track item.category) {
       <div class="sidebar__nav flex-column">
-        <h3 class="sidebar__link-group-title">{{ item.category }}</h3>
+        <h3 
+          class="sidebar__link-group-title" 
+          [class.sidebar__link-group-title--active]="isAnyLinkActive(item.links)"
+         >
+          {{ item.category }}
+        </h3>
         <div class="sidebar__link-group flex-column">
           @for (link of item.links; track link) {
-          <li class="sidebar__link">
-            <a [routerLink]="link.path" [routerLinkActive]="'sidebar__link--active'">
+            <a class="sidebar__link" [routerLink]="link.path" [routerLinkActive]="'sidebar__link--active'">
               {{ link.text }}
             </a>
-          </li>
           }
         </div>
       </div>
       }
     </div>
     <footer class="sidebar__footer flex-column">
-      <span class="sidebar__login-info">Entrou como</span>
-      <button class="button button--primary">Sair</button>
+      <!-- <button class="button button--primary">Sair do painel administrativo</button> -->
     </footer>
   </aside>
   <div class="content flex-row">
