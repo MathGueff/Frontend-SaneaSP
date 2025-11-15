@@ -3,7 +3,12 @@
         <div class="complaint-feedback__container flex-column">
             <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
             <p class="complaint-feedback__description">
+              @if(descricao){
                 {{descricao}}
+              }
+              @else{
+                No momento nenhum feedback foi realizado pelo usuário que criou a denúncia
+              }
             </p>
         </div>
     </section>
@@ -12,16 +17,24 @@
         <div class="complaint-comments__comments flex-column">
             @for (comment of comments; track $index) {
                 @if($index < MAX_COMMENTS){
-                    <div class="complaint-comments__comment">
-                        <h3 class="complaint-comments__comment-title">{{comment.usuario.nome}}</h3>
-                        <span class="complaint-comments__comment-description">{{comment.descricao}}</span>
-                    </div>
+                    <app-comment-card class="w-100" [comment]="comment"></app-comment-card>
                 }
             }
         </div>
         @if(comments.length > MAX_COMMENTS){
-            <span>+ {{comments.length - MAX_COMMENTS}} comentários</span>
-            <button class="button button--primary">Veja o histórico completo</button>
+          <!-- <span>+ {{comments.length - MAX_COMMENTS}} comentários</span> -->
+          <button class="button button--primary">Veja o histórico completo</button>
         }
+        <form [formGroup]="commentForm" class="complaint__add-complaint flex-column">
+          <textarea 
+            class="field__textarea"
+            placeholder="Faça seu comentário"
+            formControlName="newComment"
+            (input)="autoGrow($event)"
+            #commentTextarea
+            required
+          ></textarea>
+          <button class="button button--primary">Comentar</button>
+        </form>
     </section>
 </section>

@@ -1,0 +1,21 @@
+<div 
+  class="flex-row"
+  [className]="'comment--' + cssClassByUserType"
+>
+  <div class="comment__header flex-row">
+    <h3 class="comment-title comment__text">
+      {{ isMyComment ? 'Você' : comment.usuario.nome}}
+    </h3>
+    <span class="comment-date comment__text">{{complaintService.getCalculatedDate(comment.dataPublicacao)}}</span>
+  </div>
+  <div class="comment__body flex-row">
+    <span class="comment-description comment__text">
+      {{ comment.descricao }}
+    </span>
+  </div>
+  <div class="comment__footer flex-row">
+    @if(isEmployee){
+      <span class="comment-employee-label">Resposta da prefeitura de votorantim</span>
+    }
+  </div>
+</div>

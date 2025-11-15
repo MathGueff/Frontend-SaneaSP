@@ -8,3 +8,9 @@ export interface IComment {
   denuncia : IComplaint
   usuario : IUser;
 }
+
+export interface ICommentCreate{
+  descricao : IComment['descricao']
+  idDenuncia : number
+  idUsuario : number
+}
