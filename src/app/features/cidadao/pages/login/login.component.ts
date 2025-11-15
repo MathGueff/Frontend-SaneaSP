@@ -39,10 +39,10 @@ export class LoginComponent {
       next: (user) => {
         console.log(user)
         switch(user.tipo){
-          case UserType.CIDADAO:
+          case UserType.Cidadao:
             this.router.navigate(['/inicio'])
             break;
-          case UserType.FUNCIONARIO:
+          case UserType.Funcionario:
             this.router.navigate(['/prefeitura/dashboard'])
             break;
         }

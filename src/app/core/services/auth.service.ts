@@ -16,7 +16,7 @@ export class AuthService {
   public currentUser = this.currentUserSignal.asReadonly();
 
   public isLoggedIn = computed(() => !!this.currentUser()); 
-  public isAdmin = computed(() => this.currentUser()?.tipo === UserType.FUNCIONARIO); 
+  public isAdmin = computed(() => this.currentUser()?.tipo === UserType.Funcionario); 
 
   constructor( 
     private httpClient: HttpClient,
