@@ -2,12 +2,17 @@ name: CI / CD - develop (preview)
 
 on:
   push:
-    branches: 
+    branches:
       - develop
+  workflow_dispatch:  
 
 jobs:
   pipeline:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   
+      actions: read
+      checks: read
 
     steps:
       # --- Checkout do código ---
@@ -15,39 +20,81 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}  
+
+      # --- Cache do npm ---
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
 
       # --- Instalação de dependências ---
-      - name: Dependências
+      - name: Instalar dependências
         run: npm install --force
 
-      # --- Instala semver globalmente ---
-      - name: Semver
-        run: npm install -g semver
-
       # --- Calcular nova versão com sufixo preview ---
-      - name: Calcular nova versão Preview
+      - name: Calcular versão Preview
         id: version
         run: |
           git fetch --tags --force --prune
 
-          LAST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n1 || echo "v0.0.0")
-          CURRENT_VERSION="${LAST_TAG#v}"
+          # Última tag oficial (sem preview ou outros sufixos)
+          LAST_TAG=$(git tag --list 'v[0-9]*\.[0-9]*\.[0-9]*' --sort=-v:refname | head -n1)
+          echo "Última tag encontrada: $LAST_TAG"
 
-          NEW_VERSION=$(semver -i patch "$CURRENT_VERSION")
+          if [ -z "$LAST_TAG" ]; then
+            CURRENT_VERSION="0.0.0"
+          else
+            CURRENT_VERSION="${LAST_TAG#v}"
+          fi
+          echo "Versão atual: $CURRENT_VERSION"
 
-          # Número do preview (quantas tags preview já existem para essa versão base)
-          COUNT=$(git tag --list "v${NEW_VERSION}-preview.*" | wc -l | xargs)
-          PREVIEW_VERSION="v${NEW_VERSION}-preview.$((COUNT+1))"
+          # Incrementa patch
+          NEW_VERSION=$(npx semver -i patch "$CURRENT_VERSION")
+          echo "Nova versão base: $NEW_VERSION"
 
-          echo "NEW_VERSION=$PREVIEW_VERSION" >> $GITHUB_ENV
-          echo "new_version=$PREVIEW_VERSION" >> $GITHUB_OUTPUT
+          # Conta quantos previews já existem para essa versão base
+          COUNT=$(git tag --list "v${NEW_VERSION}-preview.*" | grep -c '^' || echo 0)
+          PREVIEW_NUM=$((COUNT + 1))
+          PREVIEW_TAG="v${NEW_VERSION}-preview.${PREVIEW_NUM}"
+          echo "Preview tag: $PREVIEW_TAG"
+
+          # Exporta para os próximos steps
+          echo "preview_tag=$PREVIEW_TAG" >> $GITHUB_OUTPUT
+          echo "PREVIEW_TAG=$PREVIEW_TAG" >> $GITHUB_ENV
+
+      # --- Debug: verificar tag calculada ---
+      - name: Debug - Verificar tag
+        run: |
+          echo "Tag calculada: ${{ steps.version.outputs.preview_tag }}"
+          echo "Env PREVIEW_TAG: $PREVIEW_TAG"
+
+      # --- Criar nova tag
+      - name: Criar nova tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$PREVIEW_TAG" -m "Preview release $PREVIEW_TAG"
+          git push origin "$PREVIEW_TAG"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       # --- Criar Release Preview ---
       - name: Criar Release Preview
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.version.outputs.new_version }}
-          name: "Preview ${{ steps.version.outputs.new_version }}"
+          tag_name: ${{ steps.version.outputs.preview_tag }}
+          name: "Preview ${{ steps.version.outputs.preview_tag }}"
+          body: |
+            Preview automático gerado a partir do branch `develop`.
+
+            - **Commit**: ${{ github.sha }}
+            - **Branch**: ${{ github.ref_name }}
+            - **Trigger**: ${{ github.event_name }}
+            - **Gerado em**: $(date --utc +'%d/%m/%Y às %H:%M:%S UTC')
           draft: false
           prerelease: true
         env:
