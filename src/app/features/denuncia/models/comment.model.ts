@@ -3,8 +3,16 @@ import { IComplaint } from "./complaint.model";
 
 export interface IComment {
   id: number;
-  descricao: string;
+  descricao :string;
   dataPublicacao: string;
-  denuncia: IComplaint;
-  usuario: IUser;
+  idUsuario : number,
+  idDenuncia : number,
+  denuncia : IComplaint
+  usuario : IUser;
+}
+
+export interface ICommentCreate{
+  descricao : IComment['descricao']
+  idDenuncia : string
+  idUsuario : string
 }

@@ -2,8 +2,9 @@ name: CI / CD - develop (preview)
 
 on:
   push:
-    branches:
+    branches: 
       - develop
+  workflow_dispatch:
 
 jobs:
   pipeline:
@@ -48,6 +49,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.new_version }}
           name: "Preview ${{ steps.version.outputs.new_version }}"
+          target_commitish: ${{ github.sha }}
           draft: false
           prerelease: true
         env:

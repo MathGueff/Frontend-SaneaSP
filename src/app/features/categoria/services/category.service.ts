@@ -1,25 +1,21 @@
-import { Injectable } from "@angular/core";
-import {
-  ICategory,
-  TCreateCategory,
-  ICategoryListFilter,
-} from "@features/categoria/models/category.model";
-import { IResponse } from "@shared/models/response.model";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { IResponseList } from "@shared/models/response.model";
-import { AuthService } from "@core/services/auth.service";
-import { environment } from "environments/environment";
-import { AuthTokenStorageService } from "@core/auth/services/auth-token-storage.service";
-import { ICategoryGroup } from "../models/category-group.model";
+import { Injectable } from '@angular/core';
+import { ICategory, TCreateCategory, ICategoryListFilter } from '@features/categoria/models/category.model';
+import { IResponse } from '@shared/models/response.model';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { IResponseList } from '@shared/models/response.model';
+import { AuthService } from '@core/services/auth.service';
+import { environment } from 'environments/environment';
+import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
+import { ICategoryGroup } from '../models/category-group.model';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class CategoryService {
   //
-  private apiUrl = environment.domain + "categoria";
+  private apiUrl = environment.domain + 'categoria';
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,
-    private tokenStorageService: AuthTokenStorageService,
+    private tokenStorageService : AuthTokenStorageService
   ) {}
 
   //GET
@@ -28,7 +24,7 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
     let params = new HttpParams();
     if (filters) {
@@ -46,7 +42,7 @@ export class CategoryService {
 
   //GET
   getGroups() {
-    return this.httpClient.get<ICategoryGroup[]>(this.apiUrl + "/grupos");
+    return this.httpClient.get<ICategoryGroup[]>(this.apiUrl + '/grupos');
   }
 
   getTagByExactName(nameFilter: string) {
@@ -54,11 +50,11 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
     return this.httpClient.get<IResponse<ICategory>>(
       `${this.apiUrl}/nome/${nameFilter}`,
-      { headers },
+      { headers }
     );
   }
 
@@ -68,7 +64,7 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
     return this.httpClient.get<ICategory>(`${this.apiUrl}/${id}`, { headers });
   }
@@ -78,7 +74,7 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
     return this.httpClient.get<number>(`${this.apiUrl}/total`, { headers });
   }
@@ -89,15 +85,11 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
-    return this.httpClient.post<IResponse<ICategory>>(
-      `${this.apiUrl}`,
-      newTag,
-      {
-        headers,
-      },
-    );
+    return this.httpClient.post<IResponse<ICategory>>(`${this.apiUrl}`, newTag, {
+      headers,
+    });
   }
 
   //DELETE
@@ -106,14 +98,11 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
-    return this.httpClient.delete<IResponse<ICategory>>(
-      `${this.apiUrl}/${idTag}`,
-      {
-        headers,
-      },
-    );
+    return this.httpClient.delete<IResponse<ICategory>>(`${this.apiUrl}/${idTag}`, {
+      headers,
+    });
   }
 
   //PUT
@@ -122,12 +111,12 @@ export class CategoryService {
 
     let headers = new HttpHeaders();
     if (token) {
-      headers = headers.set("Authorization", token);
+      headers = headers.set('Authorization', token);
     }
     return this.httpClient.put<IResponse<ICategory>>(
       `${this.apiUrl}/${idTag}`,
       updatedTag,
-      { headers },
+      { headers }
     );
   }
 }

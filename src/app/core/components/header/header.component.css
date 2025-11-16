@@ -32,78 +32,9 @@
   min-width: 0;
 }
 
-.nav__link {
-  position: relative;
-  color: var(--white-font-color);
-  font-size: var(--sm-text);
-  text-decoration: none;
-  font-weight: 400;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.nav__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 100%;
-  height: 2px;
-  background-color: var(--tertiary-color);
-  border-radius: 8px;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease-out;
-}
-
-.nav__link--active::after {
-  transform: scaleX(0.8);
-}
-
-.nav__buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-}
-
-.nav__login,
-.nav__register,
-.nav__profile {
-  font-weight: 500;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.nav__login {
-  background: transparent;
-  color: var(--white-font-color);
-  border: 2px solid var(--tertiary-color);
-}
-
-.nav__register {
-  background-color: var(--background-color);
-  color: var(--primary-color);
-  border: 2px solid var(--background-color);
-}
-
-.nav__profile {
-  background-color: var(--background-color);
-  color: var(--black-font-color);
-  border: 2px solid var(--background-color);
-  gap: var(--space-2);
-  display: flex;
-  justify-content: center;
-}
-
 @media (max-width: 1024px) {
   .header {
     padding: 0 var(--space-4);
-  }
-
-  .nav__link {
-    font-size: calc(var(--sm-text) * 0.95);
   }
 }
 
@@ -132,21 +63,6 @@
     flex: 1 1 100%;
     order: 3;
   }
-
-  .nav__link {
-    font-size: calc(var(--sm-text) * 0.9);
-  }
-
-  .nav__buttons {
-    gap: var(--space-1);
-  }
-
-  .nav__login,
-  .nav__register,
-  .nav__profile {
-    padding: var(--space-2) var(--space-3);
-    font-size: calc(var(--sm-text) * 0.9);
-  }
 }
 
 @media (max-width: 480px) {
@@ -154,7 +70,7 @@
     padding: 0 var(--space-2);
   }
 
-  .header__nav {
+  .header__nav{
     justify-content: center;
   }
 
@@ -163,26 +79,8 @@
     height: 40px;
   }
 
-  .nav__link {
-    font-size: calc(var(--sm-text) * 0.85);
-  }
-
-  .nav__link--home {
+  .nav__link--home{
+    
     justify-content: center;
-  }
-
-  .nav__buttons {
-    flex-direction: column;
-    width: 100%;
-    gap: var(--space-1);
-  }
-
-  .nav__login,
-  .nav__register,
-  .nav__profile {
-    width: 100%;
-    text-align: center;
-    padding: var(--space-2);
-    font-size: calc(var(--sm-text) * 0.85);
   }
 }

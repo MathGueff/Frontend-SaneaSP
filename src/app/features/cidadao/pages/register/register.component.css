@@ -1,15 +1,15 @@
-@import "@shared/styles/form.style.css";
-@import "@features/cidadao/styles/auth-form.style.css";
+@import '@shared/styles/form.style.css';
+@import '@features/cidadao/styles/auth-form.style.css';
 
-.form-container {
+.form-container{
   width: 750px;
 }
 
-.form-container__body {
+.form-container__body{
   flex-direction: row;
 }
 
-.form-container__form {
+.form-container__form{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -18,23 +18,23 @@
   gap: var(--space-4);
 }
 
-.register__content {
+.register__content{
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
-.form__img {
+.form__img{
   width: 250px;
   height: 350px;
   object-fit: cover;
 }
 
-.form__button--submit {
+.form__button--submit{
   width: 250px;
 }
 
-.form-container__footer {
+.form-container__footer{
   gap: var(--space-4);
 }

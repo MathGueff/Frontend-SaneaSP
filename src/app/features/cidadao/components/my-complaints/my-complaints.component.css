@@ -1,69 +1,69 @@
-.minhas-denuncias {
-  gap: var(--space-12);
-  padding: var(--space-5);
+.minhas-denuncias{
+    gap: var(--space-12);
+    padding: var(--space-5);
 }
 
-.minhas-denuncias__status-search {
-  gap: var(--space-3);
-  padding: var(--space-6) var(--space-8);
-  box-shadow: var(--card-shadow);
+.minhas-denuncias__status-search{
+    gap: var(--space-3);
+    padding: var(--space-6) var(--space-8);
+    box-shadow: var(--card-shadow);
 }
 
-.minhas-denuncias__status-search h2 {
-  font-size: var(--lg-text);
+.minhas-denuncias__status-search h2{
+    font-size: var(--lg-text);
 }
 
-.minhas-denuncias__filters {
-  gap: var(--space-7);
+.minhas-denuncias__filters{
+    gap: var(--space-7);
 }
 
-.minhas-denuncias__filter {
-  padding: var(--space-2) var(--space-4);
-  font-size: var(--sm-text);
-  background-color: var(--background-color);
-  border: 2px solid var(--primary-color);
-  color: var(--black-font-color);
-  transition: 0.4s all ease-out;
+.minhas-denuncias__filter{
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--sm-text);
+    background-color: var(--background-color);
+    border: 2px solid var(--primary-color);
+    color: var(--black-font-color);
+    transition: 0.4s all ease-out;
 }
 
-.minhas-denuncias__filter:hover {
-  transform: translateY(-4px);
+.minhas-denuncias__filter:hover{
+    transform: translateY(-4px);
 }
 
-.minhas-denuncias__filter--active {
-  background-color: var(--primary-color);
-  color: var(--white-font-color);
+.minhas-denuncias__filter--active{
+    background-color: var(--primary-color);
+    color: var(--white-font-color);
 }
 
-.complaint-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: var(--space-6);
+.complaint-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--space-6);
 }
 
-.complaint-list__header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  gap: var(--space-2);
+.complaint-list__header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: var(--space-2);
 }
 
-.complaint-list__buttons {
-  width: 100%;
-  justify-content: space-between;
+.complaint-list__buttons{
+    width: 100%;
+    justify-content: space-between;
 }
 
-.minhas-denuncias__title {
-  color: var(--black-font-color);
-  font-size: var(--h3);
-  font-weight: 500;
+.minhas-denuncias__title{
+    color: var(--black-font-color);
+    font-size: var(--h3);
+    font-weight: 500;
 }
 
-.minhas-denuncias__description {
-  font-size: var(--md-text);
-  color: var(--black-font-color);
+.minhas-denuncias__description{
+    font-size: var(--md-text);
+    color: var(--black-font-color);
 }

@@ -1,3 +1,4 @@
+
 import { Component, inject, Input, OnInit } from "@angular/core";
 import { ICategory } from "@features/categoria/models/category.model";
 import {
@@ -9,10 +10,10 @@ import { IImage } from "@features/denuncia/models/image.model";
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 
 @Component({
-  selector: "app-complaint-detail",
-  imports: [],
-  templateUrl: "./complaint-detail.component.html",
-  styleUrl: "./complaint-detail.component.css",
+    selector: "app-complaint-detail",
+    imports: [],
+    templateUrl: "./complaint-detail.component.html",
+    styleUrl: "./complaint-detail.component.css"
 })
 export class ComplaintDetailComponent implements OnInit {
   @Input() complaint!: IComplaint | IComplaintPreview;
@@ -24,7 +25,6 @@ export class ComplaintDetailComponent implements OnInit {
 
   ngOnInit() {
     this.processImages();
-    console.log(this.complaint);
   }
 
   isIComplaint(complaint: any): complaint is IComplaint {
@@ -46,7 +46,7 @@ export class ComplaintDetailComponent implements OnInit {
   getFormattedDate(): string {
     if (this.isIComplaint(this.complaint)) {
       return this.complaintService.getFormattedDate(
-        this.complaint.dataPublicacao,
+        this.complaint.dataPublicacao
       );
     }
     return this.complaintService.getFormattedDate(null);

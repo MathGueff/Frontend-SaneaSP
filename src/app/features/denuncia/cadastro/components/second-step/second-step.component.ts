@@ -1,58 +1,51 @@
-import { Component, inject, Input, OnInit, ViewChild } from "@angular/core";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ViacepService } from "@shared/services/viacep.service";
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ViacepService } from '@shared/services/viacep.service';
 
 @Component({
-  selector: "app-second-step",
-  imports: [ReactiveFormsModule],
-  templateUrl: "./second-step.component.html",
-  styleUrls: [
-    "./second-step.component.css",
-    "../../../../../shared/styles/form.style.css",
-  ],
+    selector: 'app-second-step',
+    imports: [ReactiveFormsModule],
+    templateUrl: './second-step.component.html',
+    styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })
 export class SecondStepComponent implements OnInit {
-  @Input() formGroup!: FormGroup;
+  @Input() formGroup !: FormGroup;
   protected viacepService = inject(ViacepService);
 
   ngOnInit(): void {
-    this.formGroup.controls["cep"].valueChanges.subscribe((cep) => {
+    this.formGroup.controls['cep'].valueChanges.subscribe((cep) => {
       if (cep.length == 8) {
         this.searchAddress();
       } else {
         this.resetAddressControls();
       }
-    });
+    })
   }
   searchAddress() {
-    this.viacepService
-      .getAddress(this.formGroup.controls["cep"].value)
-      .subscribe({
-        next: (response: any) => {
-          if (response.logradouro) {
-            this.setAddressControl("rua", response.logradouro);
-          } else {
-            console.log("A rua não foi encontrada para o CEP informado.");
-          }
+    this.viacepService.getAddress(this.formGroup.controls['cep'].value).subscribe({
+      next: (response: any) => {
+        if (response.logradouro) {
+          this.setAddressControl("rua", response.logradouro);
+        } else {
+          console.log("A rua não foi encontrada para o CEP informado.");
+        }
 
-          if (response.bairro) {
-            this.setAddressControl("bairro", response.bairro);
-          } else {
-            console.log(
-              "O logradouro não foi encontrado para o CEP informado.",
-            );
-          }
+        if (response.bairro) {
+          this.setAddressControl("bairro", response.bairro);
+        } else {
+          console.log("O logradouro não foi encontrado para o CEP informado.");
+        }
 
-          if (response.localidade) {
-            this.setAddressControl("cidade", response.localidade);
-          } else {
-            console.log("A cidade não foi encontrada para o CEP informado.");
-          }
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
+        if (response.localidade) {
+          this.setAddressControl("cidade", response.localidade);
+        } else {
+          console.log("A cidade não foi encontrada para o CEP informado.");
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
   resetAddressControls() {
     let addressControls = ["rua", "bairro", "cidade"];

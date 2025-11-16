@@ -1,16 +1,16 @@
 .complaint-history {
-  width: 100%;
-  max-width: 450px;
+  width: 100%; 
+  max-width: 450px; 
   gap: var(--space-2);
   box-shadow: var(--button-shadow);
   background-color: var(--background-color);
   border: 1px solid var(--background-dark-color);
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .complaint-feedback {
   gap: var(--space-4);
-  width: 100%;
+  width: 100%; 
 }
 
 .complaint-feedback__container {
@@ -19,14 +19,14 @@
   padding: var(--space-5) var(--space-4);
   width: 100%;
   gap: var(--space-2);
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .complaint-feedback__title {
   color: var(--white-font-color);
   font-weight: 500;
   font-size: var(--lg-text);
-  word-break: break-word;
+  word-break: break-word; 
 }
 
 .complaint-feedback__description {
@@ -35,20 +35,20 @@
   font-size: var(--sm-text);
   padding: var(--space-3);
   text-align: justify;
-  word-break: break-word;
-  overflow-wrap: break-word;
+  word-break: break-word; 
+  overflow-wrap: break-word; 
 }
 
 .complaint-comments {
   width: 100%;
   gap: var(--space-6);
   padding: var(--space-4);
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 .complaint-comments__title {
   font-size: var(--lg-text);
-  word-break: break-word;
+  word-break: break-word; 
 }
 
 .complaint-comments__comments {
@@ -56,25 +56,9 @@
   gap: var(--space-2);
 }
 
-.complaint-comments__comment {
+.complaint__add-complaint{
   width: 100%;
-  text-align: start;
-  box-shadow: var(--button-shadow);
-  padding: var(--space-4);
-  border: 1px solid var(--background-dark-color);
-  box-sizing: border-box;
-}
-
-.complaint-comments__comment-title {
-  font-size: var(--md-text);
-  color: var(--primary-color);
-  word-break: break-word;
-}
-
-.complaint-comments__comment-description {
-  font-size: var(--sm-text);
-  word-break: break-word;
-  overflow-wrap: break-word;
+  gap: var(--space-6);
 }
 
 @media (max-width: 1024px) {
@@ -82,6 +66,7 @@
     max-width: 100%;
   }
 }
+
 
 @media (max-width: 768px) {
   .complaint-history {
@@ -96,11 +81,8 @@
     padding: var(--space-3);
     gap: var(--space-4);
   }
-
-  .complaint-comments__comment {
-    padding: var(--space-3);
-  }
 }
+
 
 @media (max-width: 480px) {
   .complaint-feedback__container {
@@ -115,9 +97,5 @@
   .complaint-comments {
     padding: var(--space-2);
     gap: var(--space-3);
-  }
-
-  .complaint-comments__comment {
-    padding: var(--space-2);
   }
 }

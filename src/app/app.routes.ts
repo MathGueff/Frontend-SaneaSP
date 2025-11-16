@@ -11,20 +11,32 @@ import { MyComplaintsComponent } from "@features/cidadao/components/my-complaint
 import { ComplaintRegisterComponent } from "@features/denuncia/cadastro/pages/complaint-register/complaint-register.component";
 import { ComplaintViewComponent } from "./features/denuncia/pages/complaint-view/complaint-view.component";
 import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/confirmation-page.component";
+import { LostPasswordFormComponent } from "@core/auth/pages/lost-password-form/lost-password-form.component";
+import { ResetPasswordFormComponent } from "@core/auth/pages/reset-password-form/reset-password-form.component";
+import { DashboardComponent } from "@features/prefeitura/pages/dashboard/dashboard.component";
+import { ConfigsComponent } from "@features/prefeitura/components/configs/configs.component";
+import { NotificationComponent } from "@features/prefeitura/components/notification/notification.component";
+import { AllComplaintComponent } from "@features/prefeitura/components/all-complaint/all-complaint.component";
+import { SchedulingComponent } from "@features/prefeitura/components/scheduling/scheduling.component";
+import { FeedbacksComponent } from "@features/prefeitura/components/feedbacks/feedbacks.component";
+import { KpiComponent } from "@features/prefeitura/components/kpi/kpi.component";
+import { AnalysisComponent } from "@features/prefeitura/components/analysis/analysis.component";
+import { ExportComponent } from "@features/prefeitura/components/export/export.component";
+import { EmployeesComponent } from "@features/prefeitura/components/employees/employees.component";
+import { MeComponent } from "@features/prefeitura/components/me/me.component";
 import { CalendarioComponent } from "@features/calendario/calendario.component";
 
 export const routes: Routes = [
   //Página inicial
-  { path: "", redirectTo: "cidadao", pathMatch: "full" },
+  { path: "", redirectTo: "/inicio", pathMatch: "full" },
+  { path: "inicio", component: CitizenHomeComponent },
+
+  { path: "login", component: CitizenLoginComponent },
 
   //Área do cidadão
   {
     path: "cidadao",
-    component: CitizenLayoutComponent,
     children: [
-      { path: "", redirectTo: "menu", pathMatch: "full" },
-      { path: "menu", component: CitizenHomeComponent },
-      { path: "login", component: CitizenLoginComponent },
       { path: "register", component: CitizenRegisterComponent },
       { path:"calendarie", component:CalendarioComponent},
       {
@@ -53,6 +65,31 @@ export const routes: Routes = [
     ],
   },
 
+  {
+    path: "dashboard",
+    component: DashboardComponent,
+    children: [
+      { path: "", redirectTo: "denuncias", pathMatch: "full" },
+      // Denúncias
+      { path: "denuncias", component: AllComplaintComponent },
+      { path: "denuncias-acompanhamento", component: AllComplaintComponent },
+      { path: "agendamentos", component: SchedulingComponent },
+      { path: "feedbacks", component: FeedbacksComponent },
+
+      // Relatórios
+      { path: "metricas", component: KpiComponent },
+      { path: "analises", component: AnalysisComponent },
+      { path: "exportacao", component: ExportComponent },
+
+      // Administrativo
+      { path: "funcionarios", component: EmployeesComponent },
+      { path: "dados-prefeitura", component: MeComponent },
+      { path: "configuracoes", component: ConfigsComponent },
+    ],
+  },
+
   { path: "register-confirmation", component: ConfirmationPageComponent },
+  { path: "lost-my-password", component: LostPasswordFormComponent },
+  { path: "reset-password", component: ResetPasswordFormComponent },
   
 ];

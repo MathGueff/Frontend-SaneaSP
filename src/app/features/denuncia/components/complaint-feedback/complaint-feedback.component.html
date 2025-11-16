@@ -1,31 +1,46 @@
 <section class="complaint-history">
-  <section class="complaint-feedback flex-column">
-    <div class="complaint-feedback__container flex-column">
-      <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
-      <p class="complaint-feedback__description">
-        {{ descricao }}
-      </p>
-    </div>
-  </section>
-  <section class="complaint-comments flex-column">
-    <h2 class="complaint-comments__title">Histórico da Denúncia</h2>
-    <div class="complaint-comments__comments flex-column">
-      @for (comment of comments; track $index) {
-        @if ($index < MAX_COMMENTS) {
-          <div class="complaint-comments__comment">
-            <h3 class="complaint-comments__comment-title">
-              {{ comment.usuario.nome }}
-            </h3>
-            <span class="complaint-comments__comment-description">{{
-              comment.descricao
-            }}</span>
+    <section class="complaint-feedback flex-column">
+        <div class="complaint-feedback__container flex-column">
+          @if(descricao){
+            <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
+          }
+          <span class="complaint-feedback__description">
+            {{descricao ? descricao: 'No momento nenhum feedback foi realizado pelo usuário que criou a denúncia'}}
+          </span>
+        </div>
+    </section>
+    <section class="complaint-comments flex-column">
+        <h2 class="complaint-comments__title">Histórico da Denúncia</h2>
+        <div class="complaint-comments__comments flex-column">
+          @if(comments.length === 0){
+            <span>Inicie a conversa aqui</span>
+          }
+          @else{
+            @for (comment of comments; track $index) {
+                @if($index < MAX_COMMENTS){
+                    <app-comment-card class="w-100" [comment]="comment"></app-comment-card>
+                }
+            }
+          }
+         
+        </div>
+        @if(comments.length > MAX_COMMENTS){
+          <div class="flex-column">
+            <span>+ {{comments.length - MAX_COMMENTS}} comentários</span>
+            <button class="button button--primary">Veja o histórico completo</button>
           </div>
         }
-      }
-    </div>
-    @if (comments.length > MAX_COMMENTS) {
-      <span>+ {{ comments.length - MAX_COMMENTS }} comentários</span>
-      <button class="button button--primary">Veja o histórico completo</button>
-    }
-  </section>
+        <form [formGroup]="commentForm" class="complaint__add-complaint flex-column" (ngSubmit)="sendComment()">
+          <textarea 
+            class="field__textarea"
+            placeholder="Faça seu comentário"
+            formControlName="newComment"
+            (input)="autoGrow($event)"
+            (keydown)="onTextareaKeydown($event)"
+            #commentTextarea
+            required
+          ></textarea>
+          <button class="button button--primary" type="submit" [disabled]="commentForm.invalid">Comentar</button>
+        </form>
+    </section>
 </section>

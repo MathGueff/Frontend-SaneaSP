@@ -1,8 +1,8 @@
-import { TestBed } from "@angular/core/testing";
+import { TestBed } from '@angular/core/testing';
 
-import { AuthTokenStorageService } from "./auth-token-storage.service";
+import { AuthTokenStorageService } from './auth-token-storage.service';
 
-describe("AuthTokenStorageService", () => {
+describe('AuthTokenStorageService', () => {
   let service: AuthTokenStorageService;
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe("AuthTokenStorageService", () => {
     service = TestBed.inject(AuthTokenStorageService);
   });
 
-  it("should be created", () => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });

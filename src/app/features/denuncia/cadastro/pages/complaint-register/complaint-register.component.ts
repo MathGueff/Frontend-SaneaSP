@@ -1,4 +1,4 @@
-import { UploadService } from "./../../../../../shared/services/upload.service";
+import { UploadService } from './../../../../../shared/services/upload.service';
 import { Component, inject, OnInit } from "@angular/core";
 import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-steps/form-steps.component";
 import { FormNavigationComponent } from "../../components/form-navigation/form-navigation.component";
@@ -23,21 +23,21 @@ import {
 import { ComplaintService } from "@features/denuncia/services/complaint.service";
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: "app-complaint-register",
-  imports: [
-    FormStepsComponent,
-    FormNavigationComponent,
-    FirstStepComponent,
-    SecondStepComponent,
-    ThirdStepComponent,
-    ReviewComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: "./complaint-register.component.html",
-  styleUrls: ["./complaint-register.component.css"],
+    selector: "app-complaint-register",
+    imports: [
+        FormStepsComponent,
+        FormNavigationComponent,
+        FirstStepComponent,
+        SecondStepComponent,
+        ThirdStepComponent,
+        ReviewComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: "./complaint-register.component.html",
+    styleUrls: ["./complaint-register.component.css"]
 })
 export class ComplaintRegisterComponent {
   private fb = inject(FormBuilder);
@@ -182,7 +182,7 @@ export class ComplaintRegisterComponent {
       rua: rua.value || "",
       complemento: complemento.value || "",
       categorias: categorias.value,
-      titulo: titulo.value || `${categorias.value[0]["nome"]} na ${rua.value}`,
+      titulo: titulo.value || `${categorias.value[0]['nome']} na ${rua.value}`,
       idUsuario: this.authService.currentUser()?.id ?? 0,
     };
   }
@@ -216,42 +216,40 @@ export class ComplaintRegisterComponent {
     };
   }
 
-  async onSubmit() {
+  async onSubmit(){
     if (this.formGroup.valid) {
-      let fileNames: string[] = [];
+      let fileNames : string[] = [];
       const whatForm = this.getFormGroup("what");
-      const files: File[] = whatForm.controls["imagens"].value;
+      const files: File[] = whatForm.controls['imagens'].value;
       const complaintToCreate = this.buildComplaintData();
-      if (complaintToCreate.imagens) {
+      if(complaintToCreate.imagens){
         const uploaded: string[] = await firstValueFrom(
-          this.uploadService.postUpload(files),
+          this.uploadService.postUpload(files)
         );
         fileNames = uploaded;
       }
-      this.complaintService
-        .createComplaint({
-          ...complaintToCreate,
-          imagens: fileNames,
-        })
-        .subscribe({
-          next: () => {
-            this.toastService.show({
-              message: "Cadastrado com sucesso",
-              error: false,
-            });
-          },
-          error: (err) => {
-            console.log(err);
-            this.toastService.show({
-              message: "Ocorreu um problema" + err,
-              error: true,
-            });
-          },
-        });
+      this.complaintService.createComplaint({
+        ...complaintToCreate,
+        imagens : fileNames
+      }).subscribe({
+        next: () => {
+          this.toastService.show({
+            message: "Cadastrado com sucesso",
+            error: false,
+          });
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastService.show({
+            message: "Ocorreu um problema" + err,
+            error: true,
+          });
+        },
+      });
     }
   }
 
   mapImages(images: File[]) {
-    return images.map((img) => img.name);
+    return images.map(img => img.name)
   }
 }

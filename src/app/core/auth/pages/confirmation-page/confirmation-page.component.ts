@@ -1,17 +1,17 @@
-import { Component, inject } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AuthService } from "@core/services/auth.service";
-import { SweetAlertService } from "@shared/services/sweet-alert.service";
-import { ToastService } from "@shared/services/toast.service";
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
+import { SweetAlertService } from '@shared/services/sweet-alert.service';
+import { ToastService } from '@shared/services/toast.service';
 
 @Component({
-  selector: "app-confirmation-page",
-  imports: [],
-  templateUrl: "./confirmation-page.component.html",
-  styleUrl: "./confirmation-page.component.css",
+    selector: 'app-confirmation-page',
+    imports: [],
+    templateUrl: './confirmation-page.component.html',
+    styleUrl: './confirmation-page.component.css'
 })
 export class ConfirmationPageComponent {
-  private router = inject(Router);
+private router = inject(Router);
   private route = inject(ActivatedRoute);
   private authService = inject(AuthService);
   private sweetAlertService = inject(SweetAlertService);
@@ -22,18 +22,16 @@ export class ConfirmationPageComponent {
   }
 
   private handleRegistrationConfirmation(): void {
-    const token = this.route.snapshot.queryParamMap.get("token");
+    const token = this.route.snapshot.queryParamMap.get('token');
 
     if (token) {
       this.authService.confirmRegistration(token).subscribe({
         next: () => {
-          this.sweetAlertService.confirmLogin(
-            "Cadastro confirmado com sucesso! ✅",
-          );
-          this.router.navigate(["/cidadao/menu"], {
+          this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso!");
+          this.router.navigate(["/cidadao/login"], {
             state: { confirmed: true },
-            queryParams: { token: null },
-            queryParamsHandling: "merge",
+            queryParams: { token: null }, 
+            queryParamsHandling: 'merge' 
           });
         },
         error: (error) => {
@@ -41,13 +39,14 @@ export class ConfirmationPageComponent {
             error?.error?.message ||
             "Falha ao confirmar o cadastro. O link pode ter expirado.";
           this.toastService.show({ message: errorMessage, error });
-          this.router.navigate(["/cidadao/register"], {
+          this.router.navigate(["/cidadao/login"], {
             state: { confirmed: false },
             queryParams: { token: null },
-            queryParamsHandling: "merge",
+            queryParamsHandling: 'merge'
           });
-        },
+        }
       });
     }
   }
+
 }

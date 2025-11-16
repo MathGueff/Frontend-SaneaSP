@@ -1,32 +1,30 @@
-import { Component, inject } from "@angular/core";
-import { ICategory } from "@features/categoria/models/category.model";
-import { CategoryService } from "@features/categoria/services/category.service";
-import { ComplaintService } from "@features/denuncia/services/complaint.service";
-import { IResponseList } from "@shared/models/response.model";
+
+import { Component, inject } from '@angular/core';
+import { ICategory } from '@features/categoria/models/category.model';
+import { CategoryService } from '@features/categoria/services/category.service';
+import { ComplaintService } from '@features/denuncia/services/complaint.service';
+import { IResponseList } from '@shared/models/response.model';
 
 @Component({
-  selector: "app-top-categories",
-  imports: [],
-  templateUrl: "./top-categories.component.html",
-  styleUrls: [
-    "./top-categories.component.css",
-    "../../pages/citizen-home/citizen-home.component.css",
-  ],
+    selector: 'app-top-categories',
+    imports: [],
+    templateUrl: './top-categories.component.html',
+    styleUrls: ['./top-categories.component.css', '../../pages/citizen-home/citizen-home.component.css']
 })
 export class TopCategoriesComponent {
   private categoryService = inject(CategoryService);
-  categories: ICategory[] = [];
+  categories : ICategory[] = []
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.categoryService.getTagsList().subscribe({
       next: (categoriesList) => {
-        this.categories = categoriesList.slice(0, 5);
+        this.categories = categoriesList.slice(0, 5);;
       },
       error: (err) => {
-        console.error("Erro ao buscar categorias:", err);
-      },
+        console.error('Erro ao buscar categorias:', err);
+      }
     });
   }
 }

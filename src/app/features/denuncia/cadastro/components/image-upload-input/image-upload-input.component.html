@@ -1,4 +1,10 @@
-<input #fileInput type="file" multiple hidden (change)="onFileChange($event)" />
+<input
+  #fileInput
+  type="file"
+  multiple
+  hidden
+  (change)="onFileChange($event)"
+/>
 
 <div class="field__input--image flex-column" (click)="triggerInputClick()">
   <span class="text-sm">Clique aqui para adicionar imagens</span>

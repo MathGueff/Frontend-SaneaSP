@@ -1,21 +1,12 @@
 <section class="review flex-column">
-  <form [formGroup]="formGroup">
-    <span
-      >Criamos um título para a sua denúncia, mas você pode personalizar
-      aqui:</span
-    >
-    <input
-      #inputTitle
-      class="field__input"
-      type="text"
-      placeholder="Insira um título para sua denúncia"
-      (input)="changeTitle(inputTitle.value)"
-      formControlName="titulo"
-    />
-  </form>
-  <app-complaint-detail
-    class="w-100"
-    [userName]="authService.currentUser()?.nome ?? ''"
-    [complaint]="complaintPreview"
-  ></app-complaint-detail>
+    <form [formGroup]="formGroup">
+        <span>Criamos um título para a sua denúncia, mas você pode personalizar aqui:</span>
+        <input 
+            #inputTitle
+            class="field__input" type="text" placeholder="Insira um título para sua denúncia"
+            (input)="changeTitle(inputTitle.value)"
+            formControlName="titulo"
+        >
+    </form>
+    <app-complaint-detail class="w-100" [userName]="authService.currentUser()?.nome ?? ''" [complaint]="complaintPreview"></app-complaint-detail>
 </section>
