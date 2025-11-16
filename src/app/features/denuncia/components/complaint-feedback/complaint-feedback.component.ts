@@ -4,15 +4,18 @@ import {
   Validators,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IComment, ICommentCreate } from "@features/denuncia/models/comment.model";
-import { CommentService } from "@features/denuncia/services/comment.service";
+import {
+  IComment,
+  ICommentCreate,
+} from "@features/denuncia/models/comment.model";
 import { CommentCardComponent } from "@features/denuncia/components/comment-card/comment-card.component";
 import { CommonModule } from "@angular/common";
 import { SocketService } from "@core/services/socket.service";
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-complaint-feedback",
@@ -23,12 +26,12 @@ import { ToastService } from "@shared/services/toast.service";
     "../../../../shared/styles/form.style.css",
   ],
 })
-export class ComplaintFeedbackComponent implements OnInit {
+export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   protected MAX_COMMENTS = 6;
 
   private authService = inject(AuthService);
   private socketService = inject(SocketService);
-  private toastService = inject(ToastService)
+  private toastService = inject(ToastService);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
 
@@ -38,21 +41,32 @@ export class ComplaintFeedbackComponent implements OnInit {
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({
-   newComment : ["", [Validators.max(500), Validators.required]]
+    newComment: ["", [Validators.max(500), Validators.required]],
   });
   protected complaintId = this.route.snapshot.paramMap.get("id");
-  protected user = this.authService.currentUser()
+  protected user = this.authService.currentUser();
+
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     if (!this.complaintId) return;
-    this.socketService.emit('allComments', this.complaintId);
-    this.socketService.on<IComment[]>('allComments').subscribe({
-      next: (itens) => {
-        console.log(itens)
-        this.comments = itens;
-      }
+
+    this.socketService.emit("complaintComments", this.complaintId);
+
+    this.socketService.on<IComment[]>("complaintComments")
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (itens) => {
+          this.comments = itens;
+        },
     });
-   }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   openChat(item: any): void {
     console.log(`Abrindo chat com: ${item.name}`);
   }
@@ -64,18 +78,21 @@ export class ComplaintFeedbackComponent implements OnInit {
   }
 
   sendComment() {
-    const user = this.authService.currentUser()
-    if(!user || !this.complaintId) {
-      this.toastService.show({message: 'Você precisa estar autenticado para realizar essa ação', error: true})
-      return
+    const user = this.authService.currentUser();
+    if (!user || !this.complaintId) {
+      this.toastService.show({
+        message: "Você precisa estar autenticado para realizar essa ação",
+        error: true,
+      });
+      return;
     }
-    const newComment : ICommentCreate = {
-      descricao : this.commentForm.get("newComment")?.value?.trim(),
+    const newComment: ICommentCreate = {
+      descricao: this.commentForm.get("newComment")?.value?.trim(),
       idUsuario: String(user.id),
-      idDenuncia : this.complaintId
-    }
+      idDenuncia: this.complaintId,
+    };
     if (!newComment) return;
-    this.socketService.emit('newComment', newComment);
+    this.socketService.emit("newComment", newComment);
     this.commentForm.reset();
   }
 

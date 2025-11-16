@@ -15,11 +15,17 @@
     <section class="complaint-comments flex-column">
         <h2 class="complaint-comments__title">Histórico da Denúncia</h2>
         <div class="complaint-comments__comments flex-column">
+          @if(comments.length === 0){
+            <span>Inicie a conversa aqui</span>
+          }
+          @else{
             @for (comment of comments; track $index) {
                 @if($index < MAX_COMMENTS){
                     <app-comment-card class="w-100" [comment]="comment"></app-comment-card>
                 }
             }
+          }
+         
         </div>
         @if(comments.length > MAX_COMMENTS){
           <div class="flex-column">
