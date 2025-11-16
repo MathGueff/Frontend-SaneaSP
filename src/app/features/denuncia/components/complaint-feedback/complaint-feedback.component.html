@@ -1,15 +1,12 @@
 <section class="complaint-history">
     <section class="complaint-feedback flex-column">
         <div class="complaint-feedback__container flex-column">
+          @if(descricao){
             <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
-            <p class="complaint-feedback__description">
-              @if(descricao){
-                {{descricao}}
-              }
-              @else{
-                No momento nenhum feedback foi realizado pelo usuário que criou a denúncia
-              }
-            </p>
+          }
+          <span class="complaint-feedback__description">
+            {{descricao ? descricao: 'No momento nenhum feedback foi realizado pelo usuário que criou a denúncia'}}
+          </span>
         </div>
     </section>
     <section class="complaint-comments flex-column">

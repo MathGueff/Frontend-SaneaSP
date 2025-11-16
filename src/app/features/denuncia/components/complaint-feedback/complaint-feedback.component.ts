@@ -12,10 +12,10 @@ import {
 } from "@features/denuncia/models/comment.model";
 import { CommentCardComponent } from "@features/denuncia/components/comment-card/comment-card.component";
 import { CommonModule } from "@angular/common";
-import { SocketService } from "@core/services/socket.service";
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { Subject, takeUntil } from "rxjs";
+import { CommentService } from "@features/denuncia/services/comment.service";
 
 @Component({
   selector: "app-complaint-feedback",
@@ -30,7 +30,7 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   protected MAX_COMMENTS = 6;
 
   private authService = inject(AuthService);
-  private socketService = inject(SocketService);
+  private commentService = inject(CommentService);
   private toastService = inject(ToastService);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
@@ -51,15 +51,15 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.complaintId) return;
 
-    this.socketService.emit("complaintComments", this.complaintId);
+    this.commentService.getComments(this.complaintId);
 
-    this.socketService.on<IComment[]>("complaintComments")
+    this.commentService.onComments()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (itens) => {
           this.comments = itens;
         },
-    });
+      });
   }
 
   ngOnDestroy(): void {
@@ -92,7 +92,7 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
       idDenuncia: this.complaintId,
     };
     if (!newComment) return;
-    this.socketService.emit("newComment", newComment);
+    this.commentService.sendComment(newComment)
     this.commentForm.reset();
   }
 

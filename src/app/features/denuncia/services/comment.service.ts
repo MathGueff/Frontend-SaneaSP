@@ -1,18 +1,23 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { IComment, ICommentCreate } from '../models/comment.model';
-
+import { SocketService } from '@core/services/socket.service';
+import { SocketEvent } from '../models/socket.model';
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
-  private base_URL:string = environment.domain + 'comentario/';
-  constructor(private httpClient:HttpClient){}
+  constructor(private socketService : SocketService){}
 
-  public getCommentsByComplaint(complaintId:string):Observable<IComment[] | undefined>{
-    const url = this.base_URL + complaintId
-    return this.httpClient.get<IComment[] | undefined>(url)
+  getComments(complaintId: string): void {
+    this.socketService.emit<string>(SocketEvent.ComplaintComments, complaintId);
+  }
+
+  onComments(): Observable<IComment[]> {
+    return this.socketService.on<IComment[]>(SocketEvent.ComplaintComments);
+  }
+
+  sendComment(comment: ICommentCreate): void {
+    this.socketService.emit<ICommentCreate>(SocketEvent.NewComment, comment);
   }
 }

@@ -1,6 +1,6 @@
 <div 
-  class="flex-row"
-  [className]="'comment--' + cssClassByUserType"
+  class="flex-column"
+  [ngClass]="'comment--' + cssClassByUserType"
 >
   <div class="comment__header flex-row">
     <h3 class="comment-title comment__text">
@@ -15,7 +15,13 @@
   </div>
   <div class="comment__footer flex-row">
     @if(isEmployee){
-      <span class="comment-employee-label comment__text">Resposta da prefeitura de votorantim</span>
+      <div class="comment-employee flex-row">
+        <img 
+          class="extra-small-icon" 
+          [src]="`icons/navigation/${(isMyComment ? 'white' : 'black')}/certified.svg`" alt="Certificado"
+        >
+        <span class="comment-employee__label comment__text">Resposta da prefeitura de votorantim</span>
+      </div>
     }
   </div>
 </div>

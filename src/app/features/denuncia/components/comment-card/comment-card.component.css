@@ -1,4 +1,4 @@
-.comment--anothers, .comment--my{
+.comment--other, .comment--my{
   width: 100%; 
   text-align: start;
   align-items: flex-start;
@@ -6,10 +6,10 @@
   box-shadow: var(--button-shadow);
   padding: var(--space-4);
   box-sizing: border-box; 
-  gap: var(--space-6);
+  gap: var(--space-3);
 }
 
-.comment--anothers{
+.comment--other{
   background-color: var(--background-color);
   border: 1px solid var(--background-dark-color);
 }
@@ -19,7 +19,7 @@
   border: 1px solid var(--primary-dark-color);
 }
 
-.comment--anothers .comment__text{
+.comment--other .comment__text{
   color: var(--black-font-color);
 }
 
@@ -29,7 +29,6 @@
 
 .comment__header{
   justify-content: space-between;
-  margin: 0;
   width: 100%;
 }
 
@@ -50,26 +49,31 @@
   font-size: var(--md-text);
   word-break: break-word; 
   align-items: center;
+  margin-bottom: 0px;
 }
 
 .comment-description {
   font-size: var(--sm-text);
   word-break: break-word; 
   overflow-wrap: break-word; 
+  text-align: start;
 }
 
-.comment-employee-label{
-  margin-top: var(--space-2);
+.comment-employee{
   padding-top: var(--space-1);
+  gap: var(--space-2);
+}
+
+.comment-employee__label{
   font-size: var(--xs-text);
   text-align: end;
 }
 
-.comment--my .comment-employee-label{
+.comment--my .comment-employee{
   border-top: 2px solid var(--background-color);
 }
 
-.comment--anothers .comment-employee-label{
+.comment--other .comment-employee{
   border-top: 2px solid var(--secondary-color);
 }
 

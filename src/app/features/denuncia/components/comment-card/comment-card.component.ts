@@ -35,7 +35,7 @@ export class CommentCardComponent {
       case true:
         return 'my'
       case false:
-        return 'anothers'
+        return 'other'
     }
   }
 }
