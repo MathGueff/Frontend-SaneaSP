@@ -8,6 +8,8 @@ on:
 jobs:
   pipeline:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  
 
     steps:
       # --- Checkout do código ---
@@ -16,38 +18,61 @@ jobs:
         with:
           fetch-depth: 0
 
+      # --- Cache do npm ---
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       # --- Instalação de dependências ---
-      - name: Dependências
+      - name: Instalar dependências
         run: npm install --force
 
       # --- Instala semver globalmente ---
-      - name: Semver
+      - name: Instalar semver
         run: npm install -g semver
 
       # --- Calcular nova versão com sufixo preview ---
-      - name: Calcular nova versão Preview
+      - name: Calcular versão Preview
         id: version
         run: |
           git fetch --tags --force --prune
 
-          LAST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n1 || echo "v0.0.0")
-          CURRENT_VERSION="${LAST_TAG#v}"
+          # Última tag vX.Y.Z (sem preview)
+          LAST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n1)
+          if [ -z "$LAST_TAG" ]; then
+            CURRENT_VERSION="0.0.0"
+          else
+            CURRENT_VERSION="${LAST_TAG#v}"
+          fi
 
+          # Incrementa patch
           NEW_VERSION=$(semver -i patch "$CURRENT_VERSION")
 
-          # Número do preview (quantas tags preview já existem para essa versão base)
-          COUNT=$(git tag --list "v${NEW_VERSION}-preview.*" | wc -l | xargs)
-          PREVIEW_VERSION="v${NEW_VERSION}-preview.$((COUNT+1))"
+          # Conta quantos previews já existem para essa versão base
+          COUNT=$(git tag --list "v${NEW_VERSION}-preview.*" | grep -c '^' || echo 0)
+          PREVIEW_NUM=$((COUNT + 1))
+          PREVIEW_TAG="v${NEW_VERSION}-preview.${PREVIEW_NUM}"
 
-          echo "NEW_VERSION=$PREVIEW_VERSION" >> $GITHUB_ENV
-          echo "new_version=$PREVIEW_VERSION" >> $GITHUB_OUTPUT
+          # Exporta para steps seguintes
+          echo "preview_tag=$PREVIEW_TAG" >> $GITHUB_OUTPUT
+          echo "PREVIEW_TAG=$PREVIEW_TAG" >> $GITHUB_ENV
 
       # --- Criar Release Preview ---
       - name: Criar Release Preview
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.version.outputs.new_version }}
-          name: "Preview ${{ steps.version.outputs.new_version }}"
+          tag_name: ${{ steps.version.outputs.preview_tag }}
+          name: "Preview ${{ steps.version.outputs.preview_tag }}"
+          body: |
+            Preview automático gerado a partir do branch `develop`.
+
+            - Commit: ${{ github.sha }}
+            - Branch: ${{ github.ref_name }}
+            - Trigger: ${{ github.event_name }}
           draft: false
           prerelease: true
         env:
