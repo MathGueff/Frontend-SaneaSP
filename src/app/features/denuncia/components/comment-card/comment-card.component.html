@@ -13,12 +13,21 @@
       {{ comment.descricao }}
     </span>
   </div>
-  <div class="comment__footer flex-row">
-    @if(isEmployee){
+  <div class="comment__footer flex-column">
+    @if (isOwnerComment) {
+      <div class="comment-owner flex-row">
+         <img 
+            class="extra-small-icon" 
+            [src]="`icons/entities/${(isMyComment ? 'white' : 'black')}/owner.svg`" alt="Certificado"
+          >
+        <span class="comment-owner__label comment__text">Dono do comentário</span>
+      </div>
+    }
+    @else if(isEmployeeComment){
       <div class="comment-employee flex-row">
         <img 
           class="extra-small-icon" 
-          [src]="`icons/navigation/${(isMyComment ? 'white' : 'black')}/certified.svg`" alt="Certificado"
+          [src]="`icons/entities/${(isMyComment ? 'white' : 'black')}/employee-certified.svg`" alt="Certificado"
         >
         <span class="comment-employee__label comment__text">Resposta da prefeitura de votorantim</span>
       </div>

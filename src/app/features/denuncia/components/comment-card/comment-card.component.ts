@@ -20,12 +20,16 @@ export class CommentCardComponent {
 
   get isMyComment() : boolean{
     if(!this.loggedUser) return false
-    return this.loggedUser.id === this.comment.usuario.id
+    return this.loggedUser.id === this.comment.idUsuario
   }
 
-  get isEmployee() : boolean{
+  get isEmployeeComment() : boolean{
     if(!this.comment.usuario.tipo) return false
     return this.comment.usuario.tipo === UserType.Funcionario
+  }
+
+  get isOwnerComment() : boolean{
+    return this.comment.denuncia.idUsuario === this.comment.idUsuario
   }
 
   get cssClassByUserType(): string {

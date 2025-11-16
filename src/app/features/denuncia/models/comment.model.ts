@@ -5,6 +5,8 @@ export interface IComment {
   id: number;
   descricao :string;
   dataPublicacao: string;
+  idUsuario : number,
+  idDenuncia : number,
   denuncia : IComplaint
   usuario : IUser;
 }
