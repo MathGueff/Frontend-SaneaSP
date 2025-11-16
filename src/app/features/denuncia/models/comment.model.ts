@@ -11,6 +11,6 @@ export interface IComment {
 
 export interface ICommentCreate{
   descricao : IComment['descricao']
-  idDenuncia : number
-  idUsuario : number
+  idDenuncia : string
+  idUsuario : string
 }

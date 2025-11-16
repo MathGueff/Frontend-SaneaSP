@@ -37,7 +37,6 @@ export class LoginComponent {
     const user : IUserCredentials = this.loginForm.value;
     this.authService.login(user).subscribe({
       next: (user) => {
-        console.log(user)
         switch(user.tipo){
           case UserType.Cidadao:
             this.router.navigate(['/inicio'])

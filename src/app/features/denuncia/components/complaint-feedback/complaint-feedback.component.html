@@ -25,7 +25,7 @@
           <!-- <span>+ {{comments.length - MAX_COMMENTS}} comentários</span> -->
           <button class="button button--primary">Veja o histórico completo</button>
         }
-        <form [formGroup]="commentForm" class="complaint__add-complaint flex-column">
+        <form [formGroup]="commentForm" class="complaint__add-complaint flex-column" (ngSubmit)="sendComment()">
           <textarea 
             class="field__textarea"
             placeholder="Faça seu comentário"
@@ -34,7 +34,7 @@
             #commentTextarea
             required
           ></textarea>
-          <button class="button button--primary">Comentar</button>
+          <button class="button button--primary" type="submit" [disabled]="commentForm.invalid">Comentar</button>
         </form>
     </section>
 </section>

@@ -6,11 +6,13 @@ import {
 } from "@angular/forms";
 import { Component, inject, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { IComment } from "@features/denuncia/models/comment.model";
+import { IComment, ICommentCreate } from "@features/denuncia/models/comment.model";
 import { CommentService } from "@features/denuncia/services/comment.service";
 import { CommentCardComponent } from "@features/denuncia/components/comment-card/comment-card.component";
 import { CommonModule } from "@angular/common";
 import { SocketService } from "@core/services/socket.service";
+import { AuthService } from "@core/services/auth.service";
+import { ToastService } from "@shared/services/toast.service";
 
 @Component({
   selector: "app-complaint-feedback",
@@ -22,10 +24,12 @@ import { SocketService } from "@core/services/socket.service";
   ],
 })
 export class ComplaintFeedbackComponent implements OnInit {
-  protected MAX_COMMENTS = 3;
+  protected MAX_COMMENTS = 15;
 
   private commentService = inject(CommentService);
-  //private socketService = inject(SocketService);
+  private authService = inject(AuthService);
+  private socketService = inject(SocketService);
+  private toastService = inject(ToastService)
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
 
@@ -37,15 +41,21 @@ export class ComplaintFeedbackComponent implements OnInit {
   protected commentForm: FormGroup = this.fb.group({
    newComment : ["", [Validators.max(500), Validators.required]]
   });
+  protected complaintId = this.route.snapshot.paramMap.get("id");
+  protected user = this.authService.currentUser()
 
   ngOnInit(): void {
-    const complaintId = this.route.snapshot.paramMap.get("id");
-    if (!complaintId) return;
-    this.commentService.getCommentsByComplaint(complaintId).subscribe({
-      next: (comments) => {
-        this.comments = comments ?? [];
-      },
+    if (!this.complaintId) return;
+    this.socketService.emit('allComments', this.complaintId);
+    this.socketService.on<IComment[]>('allComments').subscribe({
+      next: (itens) => {
+        console.log(itens)
+        this.comments = itens;
+      }
     });
+   }
+  openChat(item: any): void {
+    console.log(`Abrindo chat com: ${item.name}`);
   }
 
   autoGrow(event: Event) {
@@ -55,9 +65,18 @@ export class ComplaintFeedbackComponent implements OnInit {
   }
 
   sendComment() {
-    const newComment = this.commentForm.get("newComment")?.value?.trim();
+    const user = this.authService.currentUser()
+    if(!user || !this.complaintId) {
+      this.toastService.show({message: 'Você precisa estar autenticado para realizar essa ação', error: true})
+      return
+    }
+    const newComment : ICommentCreate = {
+      descricao : this.commentForm.get("newComment")?.value?.trim(),
+      idUsuario: String(user.id),
+      idDenuncia : this.complaintId
+    }
     if (!newComment) return;
-    //this.socketService.emit('newComment', newComment);
+    this.socketService.emit('newComment', newComment);
     this.commentForm.reset();
   }
 }
