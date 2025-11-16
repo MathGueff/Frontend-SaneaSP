@@ -60,10 +60,17 @@
 
 .comment-employee-label{
   margin-top: var(--space-2);
-  border-top: 2px solid var(--secondary-color);
   padding-top: var(--space-1);
   font-size: var(--xs-text);
   text-align: end;
+}
+
+.comment--my .comment-employee-label{
+  border-top: 2px solid var(--background-color);
+}
+
+.comment--anothers .comment-employee-label{
+  border-top: 2px solid var(--secondary-color);
 }
 
 @media (max-width: 768px) {

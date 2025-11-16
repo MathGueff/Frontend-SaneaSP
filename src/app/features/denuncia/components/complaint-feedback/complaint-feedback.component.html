@@ -22,8 +22,10 @@
             }
         </div>
         @if(comments.length > MAX_COMMENTS){
-          <!-- <span>+ {{comments.length - MAX_COMMENTS}} comentários</span> -->
-          <button class="button button--primary">Veja o histórico completo</button>
+          <div class="flex-column">
+            <span>+ {{comments.length - MAX_COMMENTS}} comentários</span>
+            <button class="button button--primary">Veja o histórico completo</button>
+          </div>
         }
         <form [formGroup]="commentForm" class="complaint__add-complaint flex-column" (ngSubmit)="sendComment()">
           <textarea 
@@ -31,6 +33,7 @@
             placeholder="Faça seu comentário"
             formControlName="newComment"
             (input)="autoGrow($event)"
+            (keydown)="onTextareaKeydown($event)"
             #commentTextarea
             required
           ></textarea>

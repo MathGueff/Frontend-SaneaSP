@@ -24,9 +24,8 @@ import { ToastService } from "@shared/services/toast.service";
   ],
 })
 export class ComplaintFeedbackComponent implements OnInit {
-  protected MAX_COMMENTS = 15;
+  protected MAX_COMMENTS = 6;
 
-  private commentService = inject(CommentService);
   private authService = inject(AuthService);
   private socketService = inject(SocketService);
   private toastService = inject(ToastService)
@@ -78,5 +77,12 @@ export class ComplaintFeedbackComponent implements OnInit {
     if (!newComment) return;
     this.socketService.emit('newComment', newComment);
     this.commentForm.reset();
+  }
+
+  onTextareaKeydown(event: KeyboardEvent) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      this.sendComment();
+    }
   }
 }
