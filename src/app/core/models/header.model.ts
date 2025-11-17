@@ -1,5 +1,5 @@
 export enum HeaderType{
-    CIDADAO = "cidadao",
+    Cidadao = "cidadao",
     ORGANIZACAO = "organizacao"
 }
 

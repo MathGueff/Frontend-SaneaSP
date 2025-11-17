@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { catchError, firstValueFrom, Observable, switchMap, tap } from 'rxjs';
-import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
+import { IUser, IUserCredentials, TUserCreate } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { environment } from 'environments/environment';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
+import { UserType } from '@features/usuario/enums/user-type';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   public currentUser = this.currentUserSignal.asReadonly();
 
   public isLoggedIn = computed(() => !!this.currentUser()); 
-  public isAdmin = computed(() => this.currentUser()?.nivel === 1); 
+  public isAdmin = computed(() => this.currentUser()?.tipo === UserType.Funcionario); 
 
   constructor( 
     private httpClient: HttpClient,
@@ -56,7 +57,7 @@ export class AuthService {
   }
 
   /* Criação de um novo usuário */
-  public register(newUser: IUser) {
+  public register(newUser: TUserCreate) {
     return this.httpClient.post<IUser>(`${this.API_URL}/register/cidadao`, newUser);
   }
 

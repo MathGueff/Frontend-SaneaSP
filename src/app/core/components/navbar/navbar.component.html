@@ -1,0 +1,98 @@
+<nav class="nav-cidadao flex-row">
+  @if (navbarLinks.length > 0) {
+    <div class="nav__links flex-row">
+      @for (link of navbarLinks; track $index) {
+        @if (canShowLink(link)) {
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="nav__link--active"
+            class="nav__link"
+          >
+            {{ link.text }}
+          </a>
+        }
+      }
+    </div>
+  }
+
+  <div class="nav__buttons flex-row">
+    @if (user) {
+      <div class="dropdown" (clickOutside)="closeDropdown()">
+        <button
+          class="button nav__profile"
+          (click)="toggleDropdown($event)"
+          [attr.aria-expanded]="dropdownOpen"
+          aria-haspopup="true"
+        >
+          <img
+            class="user-avatar"
+            src="icons/entities/black/user.svg"
+            alt="Ícone do usuário"
+          />
+          <span class="dropdown-label">Sua conta</span>
+        </button>
+
+        <div
+          class="dropdown-menu-wrapper"
+          [class.open]="dropdownOpen"
+        >
+          <div class="dropdown-item-wrapper">
+            <a
+              [routerLink]="'/cidadao/profile'"
+              class="dropdown-item"
+              role="menuitem"
+              (click)="closeDropdown()"
+            >
+              <img
+                src="/icons/navigation/black/info.svg"
+                class="extra-small-icon"
+                alt=""
+              />
+              Ver perfil
+            </a>
+          </div>
+
+           <div class="dropdown-item-wrapper">
+            <a
+              [routerLink]="'/cidadao/complaints'"
+              class="dropdown-item"
+              role="menuitem"
+              (click)="closeDropdown()"
+            >
+            <img
+              src="/icons/entities/black/complaint.svg"
+              class="extra-small-icon"
+              alt=""
+            />
+            Minhas denúncias
+            </a>
+          </div>
+
+          <hr class="dropdown-divider" />
+
+          <div class="dropdown-item-wrapper">
+            <button
+              class="dropdown-item logout"
+              role="menuitem"
+              (click)="logout()"
+            >
+              <img
+                src="/icons/navigation/black/logout.svg"
+                class="extra-small-icon"
+                alt=""
+              />
+              Sair da sua conta
+            </button>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <a [routerLink]="'/login'" class="button nav__login">
+        Entrar
+      </a>
+      <a [routerLink]="'/register'" class="button nav__register">
+        Crie uma conta
+      </a>
+    }
+  </div>
+</nav>

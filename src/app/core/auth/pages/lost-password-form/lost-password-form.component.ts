@@ -9,7 +9,7 @@ import { AuthService } from '@core/services/auth.service';
   selector: 'app-lost-password-form',
   imports: [ReactiveFormsModule],
   templateUrl: './lost-password-form.component.html',
-  styleUrls: ['./lost-password-form.component.css']
+  styleUrls: ['./lost-password-form.component.css', '../../../../features/cidadao/styles/auth-form.style.css']
 })
 export class LostPasswordFormComponent {
   lostPasswordForm: FormGroup;
@@ -37,7 +37,7 @@ export class LostPasswordFormComponent {
     this.authService.lostPassword(email).subscribe({
       next: () => {
         this.sweetAlertService.confirmLostPassword(email);
-        this.router.navigate(['/cidadao/login']);
+        this.router.navigate(['/login']);
       }, error: (err) => {
         this.toastService.show({
           message: err.error.message || 'Erro ao solicitar redefinição de senha',
@@ -47,6 +47,6 @@ export class LostPasswordFormComponent {
     });
   }
   back() {
-    this.router.navigate(['/cidadao/login']);
+    this.router.navigate(['/login']);
   }
 }
