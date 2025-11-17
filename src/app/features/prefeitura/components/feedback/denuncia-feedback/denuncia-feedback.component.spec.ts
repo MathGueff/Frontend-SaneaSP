@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DenunciaFeedbackComponent } from './denuncia-feedback.component';
 
-describe('DenunciaFeedbackComponent', () => {
+describe('FeedbacksComponent', () => {
   let component: DenunciaFeedbackComponent;
   let fixture: ComponentFixture<DenunciaFeedbackComponent>;
 
