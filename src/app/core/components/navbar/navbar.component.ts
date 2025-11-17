@@ -1,11 +1,12 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, HostListener, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { HeaderButtonsType } from "@core/models/header.model";
 import { AuthService } from "@core/services/auth.service";
 import { AuthorizationService } from "@core/services/authorization.service";
 import { UserType } from "@features/usuario/enums/user-type";
 import { IProtectedLink } from "@shared/models/protected-link";
+import { SweetAlertService } from "@shared/services/sweet-alert.service";
 
 @Component({
   selector: "app-navbar",
@@ -16,7 +17,9 @@ import { IProtectedLink } from "@shared/models/protected-link";
 export class NavbarComponent {
   Authorization = AuthorizationService;
   protected HeaderButtonsType = HeaderButtonsType;
+
   protected authService = inject(AuthService);
+  protected sweetAlertService = inject(SweetAlertService);
 
   navbarLinks: IProtectedLink[] = [
     {
@@ -49,16 +52,18 @@ export class NavbarComponent {
     },
   ];
 
-canShowLink(link: IProtectedLink) {
-  const user = this.authService.currentUser();
+get user() {
+  return this.authService.currentUser();
+}
 
-  if (link.canView === 'unauth') return !user;
-  if (link.canView === 'auth') return !!user && (
-    !link.allowedRoles || link.allowedRoles.length === 0 || link.allowedRoles.includes(user.tipo)
+canShowLink(link: IProtectedLink) {
+  if (link.canView === 'unauth') return !this.user;
+  if (link.canView === 'auth') return !!this.user && (
+    !link.allowedRoles || link.allowedRoles.length === 0 || link.allowedRoles.includes(this.user.tipo)
   );
   // 'both'
-  if (user && link.allowedRoles && link.allowedRoles.length > 0) {
-    return link.allowedRoles.includes(user.tipo);
+  if (this.user && link.allowedRoles && link.allowedRoles.length > 0) {
+    return link.allowedRoles.includes(this.user.tipo);
   }
   return true;
 }
@@ -77,5 +82,13 @@ canShowLink(link: IProtectedLink) {
   logout() {
     this.dropdownOpen = false;
     this.authService.logout();
+    this.sweetAlertService.logout();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (this.dropdownOpen) {
+      this.closeDropdown();
+    }
   }
 }
