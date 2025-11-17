@@ -145,4 +145,7 @@ export class SweetAlertService {
       }),
     );
   }
+  public showEvent(info:any){
+    console.log(info)
+  }
 }
