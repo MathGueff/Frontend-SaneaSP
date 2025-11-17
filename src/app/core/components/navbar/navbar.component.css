@@ -72,21 +72,7 @@
   background-color: rgba(139, 181, 212, 0.5);
 }
 
-.nav__register{
-  background-color: var(--background-color);
-  color: var(--primary-color);
-  border: 2px solid var(--background-color);
-}
-
-.nav__register:hover, .nav__profile:hover{
-  transform: translateX(2px);
-  background-color: var(--background-dark-color);
-}
-
 .nav__profile{
-  background-color: var(--background-color);
-  color: var(--black-font-color);
-  border: 2px solid var(--background-color);
   gap: var(--space-2);
   display: flex;
   justify-content: center;
