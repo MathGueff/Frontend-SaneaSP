@@ -8,7 +8,7 @@ export class SweetAlertService {
     background: '#f8f8f8',
     customClass: {
       title: 'sweet-alert__title',
-      confirmButton: 'button--primary'
+      confirmButton: 'button button--primary'
     }
   };
 
@@ -68,6 +68,21 @@ export class SweetAlertService {
               <span class="text-md">Ver suas denúncias</span>
             </div>
           </div>
+        </div>
+      `
+    }));
+  }
+
+  /**
+   * Exibe mensagem de confirmação de cadastro.
+   */
+  public logout(): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Você saiu da sua conta</h1>
+          <h2 class="swal__title--h2">Tudo bem, nós entendemos, vá tomar um ar</h2>
         </div>
       `
     }));

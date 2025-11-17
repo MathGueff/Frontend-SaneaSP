@@ -1,11 +1,9 @@
 import { Routes } from "@angular/router";
 import { AuthGuard } from "@core/guards/auth.guard";
-import { AdminGuard } from "@core/guards/auth-admin.guard";
 import { CitizenHomeComponent } from "@features/cidadao/pages/citizen-home/citizen-home.component";
 import { LoginComponent as CitizenLoginComponent } from "@features/cidadao/pages/login/login.component";
 import { RegisterComponent as CitizenRegisterComponent } from "@features/cidadao/pages/register/register.component";
 import { ProfileComponent as CitizenProfileComponent } from "@features/cidadao/pages/profile/profile.component";
-import { CitizenLayoutComponent } from "@features/layout/citizen-layout/citizen-layout.component";
 import { PersonalInfoComponent } from "@features/cidadao/components/personal-info/personal-info.component";
 import { MyComplaintsComponent } from "@features/cidadao/components/my-complaints/my-complaints.component";
 import { ComplaintRegisterComponent } from "@features/denuncia/cadastro/pages/complaint-register/complaint-register.component";
@@ -14,8 +12,6 @@ import { ConfirmationPageComponent } from "@core/auth/pages/confirmation-page/co
 import { LostPasswordFormComponent } from "@core/auth/pages/lost-password-form/lost-password-form.component";
 import { ResetPasswordFormComponent } from "@core/auth/pages/reset-password-form/reset-password-form.component";
 import { DashboardComponent } from "@features/prefeitura/pages/dashboard/dashboard.component";
-import { ConfigsComponent } from "@features/prefeitura/components/configs/configs.component";
-import { NotificationComponent } from "@features/prefeitura/components/notification/notification.component";
 import { AllComplaintComponent } from "@features/prefeitura/components/all-complaint/all-complaint.component";
 import { SchedulingComponent } from "@features/prefeitura/components/scheduling/scheduling.component";
 import { FeedbacksComponent } from "@features/prefeitura/components/feedbacks/feedbacks.component";
@@ -24,6 +20,7 @@ import { AnalysisComponent } from "@features/prefeitura/components/analysis/anal
 import { ExportComponent } from "@features/prefeitura/components/export/export.component";
 import { EmployeesComponent } from "@features/prefeitura/components/employees/employees.component";
 import { MeComponent } from "@features/prefeitura/components/me/me.component";
+import { SignatureComponent } from "@features/prefeitura/components/signature/signature.component";
 
 export const routes: Routes = [
   //Página inicial
@@ -31,12 +28,17 @@ export const routes: Routes = [
   { path: "inicio", component: CitizenHomeComponent },
 
   { path: "login", component: CitizenLoginComponent },
+  { path: "register", component: CitizenRegisterComponent },
+  { path: "complaint/:id", component: ComplaintViewComponent },
+
+  { path: "register-confirmation", component: ConfirmationPageComponent },
+  { path: "lost-my-password", component: LostPasswordFormComponent },
+  { path: "reset-password", component: ResetPasswordFormComponent },
 
   //Área do cidadão
   {
     path: "cidadao",
     children: [
-      { path: "register", component: CitizenRegisterComponent },
       {
         path: "complaints",
         component: MyComplaintsComponent,
@@ -47,7 +49,6 @@ export const routes: Routes = [
         component: ComplaintRegisterComponent,
         canActivate: [AuthGuard],
       },
-      { path: "complaint/:id", component: ComplaintViewComponent },
       {
         path: "profile",
         component: CitizenProfileComponent,
@@ -82,11 +83,7 @@ export const routes: Routes = [
       // Administrativo
       { path: "funcionarios", component: EmployeesComponent },
       { path: "dados-prefeitura", component: MeComponent },
-      { path: "configuracoes", component: ConfigsComponent },
+      { path: "assinatura", component: SignatureComponent },
     ],
   },
-
-  { path: "register-confirmation", component: ConfirmationPageComponent },
-  { path: "lost-my-password", component: LostPasswordFormComponent },
-  { path: "reset-password", component: ResetPasswordFormComponent },
 ];

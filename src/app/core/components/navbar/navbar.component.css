@@ -57,25 +57,40 @@
   white-space: nowrap;
 }
 
-.nav__login {
+.nav__register, .nav__login{
+  transition: 0.5s all ease;
+}
+
+.nav__login{
   background: transparent;
   color: var(--white-font-color);
   border: 2px solid var(--tertiary-color);
 }
 
-.nav__register {
+.nav__login:hover{
+  transform: translateX(2px);
+  background-color: rgba(139, 181, 212, 0.5);
+}
+
+.nav__register{
   background-color: var(--background-color);
   color: var(--primary-color);
   border: 2px solid var(--background-color);
 }
 
-.nav__profile {
+.nav__register:hover, .nav__profile:hover{
+  transform: translateX(2px);
+  background-color: var(--background-dark-color);
+}
+
+.nav__profile{
   background-color: var(--background-color);
   color: var(--black-font-color);
   border: 2px solid var(--background-color);
   gap: var(--space-2);
   display: flex;
   justify-content: center;
+  transition: 0.4s all ease;
 }
 
 .dropdown {
@@ -108,24 +123,86 @@
   transform: rotate(180deg);
 }
 
+.dropdown {
+  position: relative;
+}
+
 .dropdown-menu-wrapper {
   position: absolute;
   top: 100%;
   right: 0;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 0.5rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   min-width: 180px;
   z-index: 1000;
-  display: none;
+
+  /* Estado fechado */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  overflow: hidden;
+
+  /* Transição do container */
+  transition: 
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
 }
 
 .dropdown-menu-wrapper.open {
-  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0s;
 }
 
+/* Wrapper dos itens (para animação individual) */
+.dropdown-item-wrapper {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: 
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Animação com delay crescente */
+.dropdown-menu-wrapper.open .dropdown-item-wrapper:nth-child(1) {
+  transition-delay: 0.08s;
+}
+.dropdown-menu-wrapper.open .dropdown-item-wrapper:nth-child(2) {
+  transition-delay: 0.14s;
+}
+.dropdown-menu-wrapper.open .dropdown-item-wrapper:nth-child(3) {
+  transition-delay: 0.20s;
+}
+.dropdown-menu-wrapper.open .dropdown-item-wrapper:nth-child(4) {
+  transition-delay: 0.26s;
+}
+
+/* Estado aberto dos itens */
+.dropdown-menu-wrapper.open .dropdown-item-wrapper {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Divider (opcional: fade in) */
+.dropdown-divider {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  transition-delay: 0.12s;
+}
+.dropdown-menu-wrapper.open .dropdown-divider {
+  opacity: 1;
+}
+
+/* Estilo do item (mantido) */
 .dropdown-item {
   display: flex;
   align-items: center;

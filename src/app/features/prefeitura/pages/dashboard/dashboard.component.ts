@@ -46,7 +46,7 @@ export class DashboardComponent {
       links: [
         { text: 'Gerenciar funcionários', path: '/dashboard/funcionarios' },
         { text: 'Dados da prefeitura', path: '/dashboard/dados-prefeitura' },
-        { text: 'Configurações', path: '/dashboard/configuracoes' },
+        { text: 'Assinatura', path: '/dashboard/assinatura' },
       ]
     }
   ]

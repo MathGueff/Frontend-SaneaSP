@@ -30,12 +30,12 @@
 
 .banner__project-name--sanea {
   color: var(--green-color);
-  text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+  /* text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3); */
 }
 
 .banner__project-name--sp {
   color: var(--tertiary-color);
-  text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+  /* text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3); */
 }
 
 .banner__buttons {

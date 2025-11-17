@@ -170,6 +170,7 @@ h4 {
   border-radius: 4px;
   cursor: pointer;
   box-shadow: var(--button-shadow);
+  transition: box-shadow 0.4s, transform 0.4s, opacity 0.4s;
 }
 
 /* Botão de ação */
@@ -178,11 +179,35 @@ h4 {
   color: var(--white-font-color);
 }
 
+.button--primary {
+  background-color: var(--primary-color) !important;
+  color: var(--white-font-color) !important;
+}
+
 /* Botão de ação */
 .button--secondary {
   background-color: transparent;
   border: 2px solid var(--tertiary-color);
   color: var(--black-font-color);
+}
+
+.button--secondary:hover {
+  background-color: transparent !important;
+  border: 2px solid var(--tertiary-color) !important;
+  color: var(--black-font-color) !important;
+}
+
+.button--secondary:hover, .button--primary:hover{
+  opacity: 0.7 !important;
+  transform: translateY(-2px) !important;
+}
+
+.button--secondary:focus, .button--primary:focus {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(41, 90, 128, 0.15) !important;
+  opacity: 1 !important;
+  transform: translateY(-1px) !important;
 }
 
 .flex-column, .flex-row{
