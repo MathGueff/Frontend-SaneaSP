@@ -25,7 +25,6 @@ export class ComplaintDetailComponent implements OnInit {
 
   ngOnInit() {
     this.processImages();
-    console.log(this.complaint);
   }
 
   isIComplaint(complaint: any): complaint is IComplaint {

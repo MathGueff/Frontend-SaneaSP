@@ -1,81 +1,99 @@
 .banner {
-    background-image: var(--background-image);
-    color: var(--white-font-color);
-    padding: var(--space-12);
-    gap: var(--space-6);
+  background-image: var(--background-image);
+  color: var(--white-font-color);
+  padding: var(--space-12);
+  gap: var(--space-6);
 }
 
-.banner__text{
-    width: 50%;
-    text-align: center;
-    margin-top: var(--space-3);
+.banner__text {
+  width: 40%;
+  text-align: center;
+  margin-top: var(--space-3);
 }
 
-.banner__text p{
-    font-size: var(--sm-text);
-    color: var(--white-font-color);
+.banner__text p {
+  font-size: var(--sm-text);
+  color: var(--white-font-color);
 }
 
-.banner__title{
-    font-size: var(--h3);
-    font-weight: 400;
+.banner__title {
+  width: 75%;
+  font-size: var(--h4);
+  font-weight: 400;
 }
 
-.banner__buttons{
-    gap: var(--space-12);
+.banner__project-name{
+  font-size: var(--h1);
+  font-weight: 500;
+  letter-spacing: 1.5px;
 }
 
-.banner__button{
-    width: 116px;
-    height: 160px;
-    gap: var(--space-4);
-    padding: var(--space-3);
-    font-size: var(--xs-text);
-    box-shadow: var(--button-shadow);
-    color: var(--white-font-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.5s all ease-out;
+.banner__project-name--sanea {
+  color: var(--green-color);
+  /* text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3); */
 }
 
-.banner__button p{
-    color: var(--white-font-color);
+.banner__project-name--sp {
+  color: var(--tertiary-color);
+  /* text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3); */
 }
 
-.banner__button p, .banner__button img{
-    transition: 0.5s all ease;
+.banner__buttons {
+  gap: var(--space-12);
 }
 
-.banner__button--citizen{
-    border: 2px solid #31b776;
+.banner__button {
+  width: 116px;
+  height: 160px;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  font-size: var(--xs-text);
+  box-shadow: var(--button-shadow);
+  color: var(--white-font-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.5s all ease-out;
 }
 
-.banner__button--organization{
-    border: 2px solid var(--tertiary-color);
+.banner__button p {
+  color: var(--white-font-color);
 }
 
-.banner__button--organization:hover{
-    background-color: var(--secondary-color);
-    transform: translateX(4px);
+.banner__button p,
+.banner__button img {
+  transition: 0.5s all ease;
 }
 
-.banner__button--organization:hover p{
-    transform: translateX(2px);
+.banner__button--citizen {
+  border: 2px solid var(--green-color);
 }
 
-.banner__button--organization:hover img{
-    transform: translateX(1px);
+.banner__button--organization {
+  border: 2px solid var(--tertiary-color);
 }
 
-.banner__button--citizen:hover{
-    background-color: #1E7B4E;
-    transform: translateX(-4px);
+.banner__button--organization:hover {
+  background-color: var(--secondary-color);
+  transform: translateX(4px);
 }
 
-.banner__button--citizen:hover p{
-    transform: translateX(-2px);
+.banner__button--organization:hover p {
+  transform: translateX(2px);
 }
 
-.banner__button--citizen:hover img{
-    transform: translateX(-1px);
+.banner__button--organization:hover img {
+  transform: translateX(1px);
+}
+
+.banner__button--citizen:hover {
+  background-color: #1e7b4e;
+  transform: translateX(-4px);
+}
+
+.banner__button--citizen:hover p {
+  transform: translateX(-2px);
+}
+
+.banner__button--citizen:hover img {
+  transform: translateX(-1px);
 }

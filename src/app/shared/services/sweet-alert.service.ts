@@ -8,7 +8,7 @@ export class SweetAlertService {
     background: '#f8f8f8',
     customClass: {
       title: 'sweet-alert__title',
-      confirmButton: 'button--primary'
+      confirmButton: 'button button--primary'
     }
   };
 
@@ -74,6 +74,21 @@ export class SweetAlertService {
   }
 
   /**
+   * Exibe mensagem de confirmação de cadastro.
+   */
+  public logout(): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Você saiu da sua conta</h1>
+          <h2 class="swal__title--h2">Tudo bem, nós entendemos, vá tomar um ar</h2>
+        </div>
+      `
+    }));
+  }
+
+  /**
    * Exibe confirmação para exclusão.
    */
   public confirmExclusion(message: string): Promise<SweetAlertResult> {
@@ -114,5 +129,35 @@ export class SweetAlertService {
         title: 'sweet_title'
       }
     }));
+  }
+
+  /**
+   * Exibe esqueci minha senha
+   */
+  public confirmLostPassword(message: string): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(
+      this.buildConfig({
+        icon: "info",
+        html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Instruções enviadas!</h1>
+          <h2 class="swal__title--h2">Enviamos um email com as instruções para recuperação de senha para ${message}</h2>
+        </div>
+      `,
+      }),
+    );
+  }
+
+  public confirmResetPassword(): Promise<SweetAlertResult> {
+    return this.showConfirmationMessage(
+      this.buildConfig({
+        icon: "success",
+        html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Senha alterada com sucesso!</h1>
+        </div>
+      `,
+      }),
+    );
   }
 }

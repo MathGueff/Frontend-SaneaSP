@@ -1,15 +1,14 @@
 import { Component, inject } from "@angular/core";
 import { NavigationEnd, Router, RouterLink } from "@angular/router";
-import { HeaderCidadaoComponent } from "../header-cidadao/header-cidadao.component";
 import { Subject, filter, takeUntil } from "rxjs";
-
 import { PathService } from "@shared/services/path.service";
 import { AuthService } from "@core/services/auth.service";
 import { HeaderType } from "@core/models/header.model";
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
     selector: "app-header",
-    imports: [HeaderCidadaoComponent, RouterLink],
+    imports: [NavbarComponent, RouterLink],
     templateUrl: "./header.component.html",
     styleUrl: "./header.component.css"
 })
@@ -24,7 +23,7 @@ export class HeaderComponent {
   ) {}
 
   protected user = this.authService.currentUser();
-  public currentContext: HeaderType = HeaderType.CIDADAO;
+  public currentContext: HeaderType = HeaderType.Cidadao;
   private destroy$ = new Subject<void>();
   
   ngOnInit() {
