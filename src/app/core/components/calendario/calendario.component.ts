@@ -1,67 +1,103 @@
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { Component, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { CalendarOptions, PluginDef } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import {FormGroup} from '@angular/forms';
-import { isPlatformBrowser } from '@angular/common';
-import { Evento } from './models/eventos.models';
-import { SweetAlertService } from '@shared/services/sweet-alert.service';
+import { FullCalendarModule } from "@fullcalendar/angular";
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  PLATFORM_ID,
+  SimpleChanges,
+} from "@angular/core";
+import { CalendarOptions, PluginDef } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import { FormGroup } from "@angular/forms";
+import { isPlatformBrowser } from "@angular/common";
+import { SweetAlertService } from "@shared/services/sweet-alert.service";
+import { Evento } from "./models/eventos.models";
 
 @Component({
-  selector: 'app-calendario',
+  selector: "app-calendario",
   imports: [FullCalendarModule],
-  templateUrl: './calendario.component.html',
-  styleUrls: [
-    './calendario.component.css'
-  ],
-  standalone:true
+  templateUrl: "./calendario.component.html",
+  styleUrls: ["./calendario.component.css"],
+  standalone: true,
 })
+export class CalendarioComponent implements OnInit, OnChanges {
+  @Input() editable: boolean = true;
+  @Input() selectable: boolean = true;
+  @Input() events: Evento[] = [
+    {
+      title: "Visita Agendada",
+      start: "2024-11-01T10:00:00.000Z",
+      end: "2024-11-01T12:00:00.000Z",
+    },
+    {
+      title: "Visita Agendada",
+      start: "2024-11-15T14:00:00.000Z",
+      end: "2024-11-20T16:00:00.000Z",
+    },
+    {
+      title: "Visita Agendada",
+      start: "2024-11-01T09:00:00.000Z",
+      end: "2024-11-27T11:00:00.000Z",
+    },
+  ];
+  @Input() plugins: PluginDef[] = [dayGridPlugin, interactionPlugin];
 
-export class CalendarioComponent implements OnInit {
-  @Input() editable : boolean = true;
-  @Input() selectable : boolean = true;
-  @Input() events: Evento[] = [];
-  @Input() plugins : PluginDef[] = [dayGridPlugin, interactionPlugin  ]
-  sweetAlert = inject(SweetAlertService)
-   
-calendarOptions!: CalendarOptions;
+  sweetAlert = inject(SweetAlertService);
+
   private platformId = inject(PLATFORM_ID);
   isBrowser = false;
-  async ngOnInit() {
+  calendarOptions: CalendarOptions = {
+    plugins: [],
+    initialView: "dayGridMonth",
+    editable: true,
+    selectable: true,
+    events: [],
+    themeSystem: "standard",
+    dateClick: () => console.log("data clicada"),
+  };
+
+  ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    if(!this.isBrowser) return;
+    if (!this.isBrowser) return;
     this.calendarOptions = {
+      ...this.calendarOptions,
       plugins: this.plugins,
-      initialView: 'dayGridMonth',
       editable: this.editable,
       selectable: this.selectable,
       events: this.events,
-      themeSystem: 'standard',
-      dateClick: ()=>console.log("foi")
     };
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.calendarOptions) return;
+
+    if (changes["events"]) {
+      console.log("Eventos recebidos pelo calendário:", this.events);
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        events: this.events
+      };
+    }
   }
 
   adicionarEvento(form: FormGroup) {
     const novoEvento = form.value as Evento;
 
     if (!novoEvento.title || !novoEvento.start) {
-      alert('Preencha o título e a data!');
+      alert("Preencha o título e a data!");
       return;
     }
 
-    this.events.push(novoEvento);
+    this.events = [...this.events, novoEvento];
 
-    // Atualiza o calendário com os novos eventos
     this.calendarOptions = {
       ...this.calendarOptions,
-      events: [...this.events]
+      events: this.events,
     };
 
     form.reset();
   }
-  private showModal(info:any){
-    
-  }
 }
-
