@@ -1,19 +1,50 @@
 <section class="flex-column">
-    <div class="signature-banner flex-column">
-        <div class="banner__header">
-            <h3>Faça sua assinatura</h3>
-        </div>
-        <div class="banner__body">
-            <ul class="benefits-list">
-                <li>Suporte prioritário e atendimento personalizado</li>
-                <li>Acesso a relatórios exclusivos e métricas avançadas</li>
-                <li>Ferramentas extras para gestão de denúncias</li>
-                <li>Atualizações e novidades em primeira mão</li>
-                <li>Segurança e transparência para seus cidadãos</li>
-            </ul>
-        </div>
-        <div class="banner__footer">
-            <button class="button button--tertiary">Assine agora</button>
-        </div>
+  <div class="signature-banner flex-column">
+    <div class="banner__header">
+      <h3>Faça sua assinatura</h3>
     </div>
+
+    <div class="banner__body">
+      <ul class="benefits-list">
+        <li>Suporte prioritário e atendimento personalizado</li>
+        <li>Acesso a relatórios exclusivos e métricas avançadas</li>
+        <li>Ferramentas extras para gestão de denúncias</li>
+        <li>Atualizações e novidades em primeira mão</li>
+        <li>Segurança e transparência para seus cidadãos</li>
+      </ul>
+    </div>
+
+    <div class="banner__footer">
+      <button class="button button--tertiary" (click)="abrirModalDePagamento()">
+        Assine agora
+      </button>
+    </div>
+  </div>
+
+  @if(isModalOpen){
+    <div class="modal-overlay">
+      <div class="modal-content">
+        <h3>Pagamento</h3>
+        <p>Por favor, insira os dados do seu cartão:</p>
+
+        <div id="card-element"></div>
+
+        <button
+          class="button button--primary"
+          (click)="pagar()"
+          [disabled]="loading || !cardElement"
+        >
+          {{ loading ? "Processando..." : "Assinar" }}
+        </button>
+
+        <button
+          class="button button--secondary"
+          (click)="fecharModal()"
+          [disabled]="loading"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
 </section>

@@ -21,6 +21,7 @@
     "@angular/platform-server": "^20.3.7",
     "@angular/router": "^20.3.7",
     "@angular/ssr": "^20.3.7",
+    "@stripe/stripe-js": "^8.5.1",
     "@types/jquery": "^3.5.32",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.5.1",

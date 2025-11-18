@@ -48,3 +48,54 @@
   font-weight: bold;
   font-size: 18px;
 }
+
+#card-element {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  min-height: 45px; /* IMPORTANTE */
+  width: 80%;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: var(--space-6);
+  min-width: 320px;
+  max-width: 60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.modal-content h3 {
+  color: var(--primary-color);
+  font-size: var(--h3);
+  margin-bottom: var(--space-2);
+}
+
+.modal-content p {
+  color: var(--black-font-color);
+  font-size: var(--md-text);
+  margin-bottom: var(--space-4);
+}
+
+.modal-content button {
+  margin-top: var(--space-2);
+}
