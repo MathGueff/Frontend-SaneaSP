@@ -18,4 +18,4 @@ EXPOSE 4200
 
 # Comando padrão para desenvolvimento
 #["npm", "run", "start", "--", "--proxy-config","src/proxy.conf.json","--host", "0.0.0.0"]
-CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
+CMD ["npm", "run", "start", "--", "--proxy-config","src/proxy.conf.json" , "--host", "0.0.0.0"]
