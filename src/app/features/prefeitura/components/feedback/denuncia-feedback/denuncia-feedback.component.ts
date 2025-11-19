@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FeedbackService } from '@shared/services/feedback.service';
 
 @Component({
   selector: 'app-denuncia-feedback',
@@ -8,43 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './denuncia-feedback.component.css',
 })
 export class DenunciaFeedbackComponent {
-  feedbacks = [
-    {
-      titulo: 'Feedback 1',
-      conteudo: 'Conteúdo do feedback 1',
-      data: new Date()
-    },
-    {
-      titulo: 'Feedback 2',
-      conteudo: 'Conteúdo do feedback 2',
-      data: new Date()
-    },
-    {
-      titulo: 'Feedback 3',
-      conteudo: 'Conteúdo do feedback 3',
-      data: new Date()
-    },
-    {
-      titulo: 'Feedback 4',
-      conteudo: 'Será que este botão realmente irá funcionar corretamente quando clicado? Estou curioso para ver se a funcionalidade de expandir e recolher o conteúdo do feedback está implementada de forma eficaz e intuitiva para o usuário final.',
-      data: new Date()
-    },
-    { 
-      titulo: 'Feedback 5',
-      conteudo: 'Apenas para testar a responsividade',
-      data: new Date()
-    },
-    {
-      titulo: 'Feedback 6',
-      conteudo: 'Apenas para testar a responsividade',
-      data: new Date()
-    },
-    {
-      titulo: 'Feedback 7',
-      conteudo: 'Apenas para testar a responsividade',
-      data: new Date()
-    }
-  ];
+  private feedbackService = inject(FeedbackService);
+
+  feedbacks$ = this.feedbackService.getAllDenunciaFeedbacks();
 
   expanded: boolean[] = [];
   toggleExpand(i: number) {

@@ -16,6 +16,7 @@ import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { Subject, takeUntil } from "rxjs";
 import { CommentService } from "@features/denuncia/services/comment.service";
+import { FeedbackService } from "@shared/services/feedback.service";
 
 @Component({
   selector: "app-complaint-feedback",
@@ -34,10 +35,9 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   private toastService = inject(ToastService);
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
+  private feedbackService = inject(FeedbackService);
 
-  //Será substituido pelo feedback real
   descricao: string | null = null;
-  //"Fiquei impressionado com a rapidez e a eficiência na solução do problema que relatei. O esgoto irregular que denunciei foi removido, e agora a região está limpa e segura. Acompanhar o processo pelo sistema foi simples e transparente. Agradeço à equipe responsável e espero que continuem mantendo esse nível de atenção às denúncias da comunidade.";
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({
