@@ -56,6 +56,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
     selectable: true,
     events: [],
     themeSystem: "standard",
+    eventClassNames: ['minha-classe-evento'],
     dateClick: () => console.log("data clicada"),
   };
 

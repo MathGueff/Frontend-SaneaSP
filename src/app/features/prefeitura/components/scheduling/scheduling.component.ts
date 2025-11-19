@@ -16,6 +16,7 @@ export class SchedulingComponent implements OnInit {
   ngOnInit(): void {
     this.visitsService.getAllVisits().subscribe({
       next: (visits) => {
+        console.log(visits)
         this.events = visits.map(visit => ({
           title: 'Visita Agendada',
           start: new Date(visit.data_inicio).toISOString(),

@@ -230,3 +230,25 @@ h4 {
   font-size: var(--lg-text);
   color: var(--primary-color);
 }
+
+.fc {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+}
+.fc-toolbar-title {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+.fc-daygrid-day {
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+.fc-event {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+}

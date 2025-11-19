@@ -1,0 +1,50 @@
+/* Estilização do FullCalendar usando ::ng-deep para garantir aplicação */
+::ng-deep .fc {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+}
+
+::ng-deep .fc-toolbar-title {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+::ng-deep .fc-daygrid-day {
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+
+::ng-deep .fc-event {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.full-calendar {
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  padding: 16px;
+  width: 650px;
+}
+
+.fc-toolbar-title {
+  color: var(--primary-color);
+  font-size: 24px;
+}
+
+.fc-daygrid-day {
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+
+.fc-event {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+}
