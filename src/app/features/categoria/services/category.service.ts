@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ICategory, ICategoryCreate, ICategoryGroup, ICategoryListFilter } from '@features/categoria/models/category.model';
+import { ICategory, TCreateCategory, ICategoryListFilter } from '@features/categoria/models/category.model';
 import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IResponseList } from '@shared/models/response.model';
 import { AuthService } from '@core/services/auth.service';
 import { environment } from 'environments/environment';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
+import { ICategoryGroup } from '../models/category-group.model';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
@@ -79,7 +80,7 @@ export class CategoryService {
   }
 
   //POST
-  createNewTag(newTag: ICategoryCreate) {
+  createNewTag(newTag: TCreateCategory) {
     const token = this.tokenStorageService.get();
 
     let headers = new HttpHeaders();

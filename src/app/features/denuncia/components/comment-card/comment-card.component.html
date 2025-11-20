@@ -1,0 +1,36 @@
+<div 
+  class="flex-column"
+  [ngClass]="'comment--' + cssClassByUserType"
+>
+  <div class="comment__header flex-row">
+    <h3 class="comment-title comment__text">
+      {{ isMyComment ? 'Você' : comment.usuario.nome}}
+    </h3>
+    <span class="comment-date comment__text">{{complaintService.getCalculatedDate(comment.dataPublicacao)}}</span>
+  </div>
+  <div class="comment__body flex-row">
+    <span class="comment-description comment__text">
+      {{ comment.descricao }}
+    </span>
+  </div>
+  <div class="comment__footer flex-column">
+    @if (isOwnerComment) {
+      <div class="comment-owner flex-row">
+         <img 
+            class="extra-small-icon" 
+            [src]="`icons/entities/${(isMyComment ? 'white' : 'black')}/owner.svg`" alt="Certificado"
+          >
+        <span class="comment-owner__label comment__text">Dono do comentário</span>
+      </div>
+    }
+    @else if(isEmployeeComment){
+      <div class="comment-employee flex-row">
+        <img 
+          class="extra-small-icon" 
+          [src]="`icons/entities/${(isMyComment ? 'white' : 'black')}/employee-certified.svg`" alt="Certificado"
+        >
+        <span class="comment-employee__label comment__text">Resposta da prefeitura de votorantim</span>
+      </div>
+    }
+  </div>
+</div>

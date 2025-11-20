@@ -24,7 +24,6 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { firstValueFrom } from 'rxjs';
-import { ViacepService } from '@shared/services/viacep.service';
 
 @Component({
     selector: "app-complaint-register",
@@ -127,10 +126,10 @@ export class ComplaintRegisterComponent {
 
   nextStep(): void {
     const activeFormGroup = this.getStepFormGroup(this.activeStep);
-    if(activeFormGroup.invalid){
-      this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
-      return
-    }
+    // if(activeFormGroup.invalid){
+    //   this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
+    //   return
+    // }
 
     const nextStepIndex = this.activeStep + 1;
     if (

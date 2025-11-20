@@ -1,8 +1,6 @@
 import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
-import { IStepForm } from '../../models/step-form.model';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ViacepService } from '@shared/services/viacep.service';
-import { ToastService } from '@shared/services/toast.service';
 
 @Component({
     selector: 'app-second-step',
@@ -10,16 +8,9 @@ import { ToastService } from '@shared/services/toast.service';
     templateUrl: './second-step.component.html',
     styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })
-export class SecondStepComponent implements IStepForm, OnInit {
+export class SecondStepComponent implements OnInit {
   @Input() formGroup !: FormGroup;
   protected viacepService = inject(ViacepService);
-  
-  isValid(): boolean {
-    return true;
-  }
-  getData() {
-    return true;
-  }
 
   ngOnInit(): void {
     this.formGroup.controls['cep'].valueChanges.subscribe((cep) => {

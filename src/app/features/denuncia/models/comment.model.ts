@@ -5,6 +5,14 @@ export interface IComment {
   id: number;
   descricao :string;
   dataPublicacao: string;
+  idUsuario : number,
+  idDenuncia : number,
   denuncia : IComplaint
   usuario : IUser;
+}
+
+export interface ICommentCreate{
+  descricao : IComment['descricao']
+  idDenuncia : string
+  idUsuario : string
 }

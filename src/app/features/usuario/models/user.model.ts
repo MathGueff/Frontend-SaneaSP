@@ -1,21 +1,15 @@
-import { IAddress } from "@shared/models/address.model";
+import { UserType } from "../enums/user-type"
 
 export interface IUser {
-    id?: number,
+    id: number,
     nome: string,
-    senha: string,
     email: string,
-    telefone?: string,
-    cpf?: string,
-    endereco ?: IAddress,
-    nivel?: number
+    senha: string,
+    tipo: UserType,
+    verified: boolean
 }
 
-export interface ICreateUser {
-    nome: string,
-    senha: string,
-    email: string,
-}
+export type TUserCreate = Omit<IUser, 'id' | 'verified' | 'tipo' >
 
 export interface IUserCredentials{
     email : string,

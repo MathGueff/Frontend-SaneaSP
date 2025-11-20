@@ -1,0 +1,32 @@
+<section class="graph-card flex-column">
+  <form
+    [formGroup]="filtrosForm"
+    (ngSubmit)="aplicarFiltros()"
+    class="d-flex flex-column w-50 mb-3 gap-3"
+  >
+    <div class="d-flex flex-column">
+      <label for="cidade" class="form-label">Selecione uma cidade</label>
+      <select
+        id="cidade"
+        class="form-select"
+        formControlName="cidade"
+        (change)="aplicarFiltros()"
+      >
+        <option value="">Nenhuma</option>
+        @for (cidade of cidades; track $index) {
+        <option [value]="cidade">{{ cidade }}</option>
+        }
+      </select>
+    </div>
+  </form>
+
+  <h5 class="analysis__card-title">
+    {{
+      filtrosForm.get("cidade")?.value
+        ? "Média de pontuação de denúncias por bairro em " +
+          filtrosForm.get("cidade")?.value
+        : "Média de pontuação de denúncias por município"
+    }}
+  </h5>
+  <app-graph [data]="graph" [type]="'bar'"></app-graph>
+</section>

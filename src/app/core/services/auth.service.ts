@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { catchError, firstValueFrom, Observable, switchMap, tap } from 'rxjs';
-import { IUser, IUserCredentials } from '@features/usuario/models/user.model';
+import { IUser, IUserCredentials, TUserCreate } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
 import { environment } from 'environments/environment';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
+import { UserType } from '@features/usuario/enums/user-type';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,14 +16,14 @@ export class AuthService {
   public currentUser = this.currentUserSignal.asReadonly();
 
   public isLoggedIn = computed(() => !!this.currentUser()); 
-  public isAdmin = computed(() => this.currentUser()?.nivel === 1); 
+  public isAdmin = computed(() => this.currentUser()?.tipo === UserType.Funcionario); 
 
   constructor( 
     private httpClient: HttpClient,
     private sweetAlertService: SweetAlertService,
-    private authTokenStorageService : AuthTokenStorageService,
-    private errorService : ErrorHandlerService){
-  }
+    private authTokenStorageService: AuthTokenStorageService,
+    private errorService: ErrorHandlerService,
+  ) { }
 
   public async initializeAuth(): Promise<void> {
     const token = this.authTokenStorageService.get();
@@ -56,17 +57,16 @@ export class AuthService {
   }
 
   /* Criação de um novo usuário */
-  public register(newUser: IUser) {
-    return this.httpClient.post<IUser>(`${this.API_URL}/register`, newUser);
+  public register(newUser: TUserCreate) {
+    return this.httpClient.post<IUser>(`${this.API_URL}/register/cidadao`, newUser);
   }
 
   public confirmRegistration(token: string) {
-    return this.httpClient.get(`${this.API_URL}/confirm/${token}`).pipe(
+    return this.httpClient.get(`${this.API_URL}/registrationConfirm/${token}`).pipe(
       tap(() => {
-        this.sweetAlertService.confirmLogin('Você criou sua conta com sucesso')
+        this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso! ✅");
       }),
-      catchError(err => {
-        // Aqui funciona como um "try/catch" para o Observable
+      catchError((err) => {
         this.errorService.handleError(err);
         throw err;
       })
@@ -94,5 +94,17 @@ export class AuthService {
   /* Define o IUser atual logado */
   public setCurrentUser(user: IUser) {
     this.currentUserSignal.set(user);
+  }
+
+  public lostPassword(email: string): Observable<void> {
+    return this.httpClient.post<void>(`${this.API_URL}/lost-password`, { email });
+  }
+
+  public verifyResetToken(token: string) {
+    return this.httpClient.get(`${this.API_URL}/lost-password//${token}`);
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.httpClient.patch<{ message: string }>(`${this.API_URL}/reset-password`, { token, newPassword});
   }
 }

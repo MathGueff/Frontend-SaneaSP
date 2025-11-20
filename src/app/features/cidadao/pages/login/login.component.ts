@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
+import { UserType } from '@features/usuario/enums/user-type';
 import { IUserCredentials } from '@features/usuario/models/user.model';
 import { ToastService } from '@shared/services/toast.service';
 
@@ -35,8 +36,15 @@ export class LoginComponent {
     }
     const user : IUserCredentials = this.loginForm.value;
     this.authService.login(user).subscribe({
-      next: () => {
-        this.router.navigate(['/cidadao']);
+      next: (user) => {
+        switch(user.tipo){
+          case UserType.Cidadao:
+            this.router.navigate(['/inicio'])
+            break;
+          case UserType.Funcionario:
+            this.router.navigate(['/dashboard'])
+            break;
+        }
       },
     })
   }

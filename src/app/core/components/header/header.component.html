@@ -6,14 +6,7 @@
       </a>
     </div>
     <div class="nav__content">
-      @switch (currentContext) 
-      { 
-        @case (HeaderType.CIDADAO) {
-          <app-header-cidadao></app-header-cidadao>
-        } @case (HeaderType.ORGANIZACAO) {
-          <app-header-cidadao></app-header-cidadao>
-        } 
-      }
+      <app-navbar></app-navbar>
     </div>
   </nav>
 </header>

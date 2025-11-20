@@ -21,7 +21,6 @@ export class ReviewComponent {
   protected oldTitle: string = '';
 
   ngOnInit() {
-    console.log(this.complaintPreview)
     const { categorias, rua } = this.complaintPreview;
 
     if (categorias && categorias.length > 0) {
