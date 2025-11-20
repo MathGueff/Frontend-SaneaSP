@@ -232,23 +232,123 @@ h4 {
 }
 
 .fc {
-  background: var(--background-color);
-  border-radius: 8px;
-  box-shadow: var(--card-shadow);
-  padding: 16px;
+  background: var(--secondary-color) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--card-shadow) !important;
+  padding: var(--space-6) !important;
+  margin: var(--space-4) auto !important;
+  max-width: 900px !important;
+  min-width: 320px !important;
+  width: 100% !important;
+}
+
+.fc .fc-col-header-cell-cushion{
+  color: white;
+}
+
+.fc .fc-col-header-cell {
+  border-radius: 8px !important;
+  background-color: var(--primary-color) !important;
+}
+
+.fc .fc-daygrid-day-number{
+  text-decoration: none;
+  color: var(--black-font-color);
+}
+
+.fc-icon{
+  color: var(--white-font-color) !important
 }
 .fc-toolbar-title {
-  color: var(--primary-color);
-  font-size: 24px;
+  color: var(--white-font-color) !important;
+  font-size: var(--h2) !important;
+  font-family: var(--primary-font) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
 }
 .fc-daygrid-day {
-  background: #f8f8f8;
-  border-radius: 4px;
+  background: var(--background-color) !important;
+  border-radius: 0px !important;
+  transition: background 0.2s !important;
+  border: 1px solid #e0e0e0 !important;
 }
+
+.fc-daygrid-day:hover {
+  background: var(--tertiary-color) !important;
+  cursor: pointer !important;
+}
+
 .fc-event {
-  background: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-weight: 500;
+  background: var(--primary-color) !important;
+  color: var(--white-font-color) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: var(--card-shadow) !important;
+  padding: var(--space-2) var(--space-3) !important;
+  font-size: var(--md-text) !important;
+  margin: 2px 0 !important;
+}
+.fc-event:hover {
+  background: var(--secondary-color) !important;
+  opacity: 0.9 !important;
+}
+
+/* Botões do calendário */
+.fc-button {
+  background: var(--primary-color) !important;
+  color: var(--white-font-color) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: var(--button-shadow) !important;
+  padding: var(--space-2) var(--space-4) !important;
+  font-family: var(--primary-font) !important;
+  font-size: var(--md-text) !important;
+  transition: background 0.2s, opacity 0.2s !important;
+}
+.fc-button:hover,
+.fc-button:focus {
+  background: var(--secondary-color) !important;
+  opacity: 0.8 !important;
+}
+.fc-button-primary:disabled {
+  background: #bfcad6 !important;
+  color: #fff !important;
+  opacity: 0.6 !important;
+}
+
+/* Cabeçalho dos dias */
+.fc-col-header-cell {
+  background: var(--background-dark-color) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+  font-size: var(--md-text) !important;
+  border-radius: 8px 8px 0 0 !important;
+  padding: var(--space-2) 0 !important;
+}
+
+/* Dia atual */
+.fc-day-today {
+  background: var(--tertiary-color) !important;
+  border: 2px solid var(--primary-color) !important;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .fc {
+    padding: var(--space-2) !important;
+    font-size: var(--sm-text) !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+  .fc-toolbar-title {
+    font-size: var(--lg-text) !important;
+  }
+  .fc-col-header-cell {
+    font-size: var(--sm-text) !important;
+  }
+  .fc-event {
+    font-size: var(--sm-text) !important;
+    padding: var(--space-1) var(--space-2) !important;
+  }
 }
