@@ -1,4 +1,4 @@
 <section class="flex-column scheduling">
-    <app-form-calendar class="w-100"></app-form-calendar>
-    <app-calendario></app-calendario>
+    <app-form-calendar (onCreate)="onVisitCreated()" class="w-100"></app-form-calendar>
+    <app-calendario [events]="events"></app-calendario>
 </section>

@@ -9,9 +9,9 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { CalendarOptions, PluginDef } from "@fullcalendar/core";
+import ptBrLocale from '@fullcalendar/core/locales/pt-br';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { FormGroup } from "@angular/forms";
 import { isPlatformBrowser } from "@angular/common";
 import { SweetAlertService } from "@shared/services/sweet-alert.service";
 import { Evento } from "./models/eventos.models";
@@ -26,23 +26,7 @@ import { Evento } from "./models/eventos.models";
 export class CalendarioComponent implements OnInit, OnChanges {
   @Input() editable: boolean = true;
   @Input() selectable: boolean = true;
-  @Input() events: Evento[] = [
-    {
-      title: "Visita Agendada",
-      start: "2024-11-01T10:00:00.000Z",
-      end: "2024-11-01T12:00:00.000Z",
-    },
-    {
-      title: "Visita Agendada",
-      start: "2024-11-15T14:00:00.000Z",
-      end: "2024-11-20T16:00:00.000Z",
-    },
-    {
-      title: "Visita Agendada",
-      start: "2024-11-01T09:00:00.000Z",
-      end: "2024-11-27T11:00:00.000Z",
-    },
-  ];
+  @Input() events: Evento[] = [];
   @Input() plugins: PluginDef[] = [dayGridPlugin, interactionPlugin];
 
   sweetAlert = inject(SweetAlertService);
@@ -54,9 +38,11 @@ export class CalendarioComponent implements OnInit, OnChanges {
     initialView: "dayGridMonth",
     editable: true,
     selectable: true,
+    eventDisplay: 'block',
+    displayEventTime: false,
     events: [],
     themeSystem: "standard",
-    eventClassNames: ['minha-classe-evento'],
+    locale: 'pt-br',
     dateClick: () => console.log("data clicada"),
   };
 
@@ -74,31 +60,11 @@ export class CalendarioComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!this.calendarOptions) return;
-
-    if (changes["events"]) {
-      console.log("Eventos recebidos pelo calendário:", this.events);
+    if (changes["events"] && this.isBrowser) {
       this.calendarOptions = {
         ...this.calendarOptions,
         events: this.events
       };
     }
-  }
-
-  adicionarEvento(form: FormGroup) {
-    const novoEvento = form.value as Evento;
-
-    if (!novoEvento.title || !novoEvento.start) {
-      alert("Preencha o título e a data!");
-      return;
-    }
-
-    this.events = [...this.events, novoEvento];
-
-    this.calendarOptions = {
-      ...this.calendarOptions,
-      events: this.events,
-    };
-
-    form.reset();
   }
 }

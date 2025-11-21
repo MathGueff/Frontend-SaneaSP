@@ -232,23 +232,52 @@ h4 {
 }
 
 .fc {
-  background: var(--secondary-color) !important;
-  border-radius: 12px !important;
+  background: var(--background-color) !important;
+  border-radius: 8px !important;
   box-shadow: var(--card-shadow) !important;
   padding: var(--space-6) !important;
-  margin: var(--space-4) auto !important;
-  max-width: 900px !important;
-  min-width: 320px !important;
-  width: 100% !important;
+  width: 100%;
+  height: auto !important;
 }
 
+.fc .fc-header-toolbar{
+  gap: var(--space-4);
+}
+
+.fc .fc-toolbar-title {
+  color: var(--black-font-color);
+  font-size: var(--h4);
+  letter-spacing: 1px;
+}
+
+.fc .fc-button-primary{
+  color: var(--white-font-color);
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-dark-color)!important;
+}
+
+.fc .fc-button-primary:disabled{
+  color: var(--black-font-color) !important;
+  background-color: var(--background-color) !important;
+  border: 1px solid black !important;
+}
+
+.fc .fc-button-group{
+  gap: var(--space-2)
+}
 .fc .fc-col-header-cell-cushion{
   color: white;
 }
 
 .fc .fc-col-header-cell {
-  border-radius: 8px !important;
-  background-color: var(--primary-color) !important;
+  border-radius: 0px !important;
+  background-color: var(--secondary-color) !important;
+  border: none;
+}
+
+.fc .fc-col-header-cell a{
+  text-decoration: none;
+  font-size: var(--sm-text);
 }
 
 .fc .fc-daygrid-day-number{
@@ -259,13 +288,7 @@ h4 {
 .fc-icon{
   color: var(--white-font-color) !important
 }
-.fc-toolbar-title {
-  color: var(--white-font-color) !important;
-  font-size: var(--h2) !important;
-  font-family: var(--primary-font) !important;
-  font-weight: 600 !important;
-  letter-spacing: 1px !important;
-}
+
 .fc-daygrid-day {
   background: var(--background-color) !important;
   border-radius: 0px !important;
@@ -274,27 +297,24 @@ h4 {
 }
 
 .fc-daygrid-day:hover {
-  background: var(--tertiary-color) !important;
   cursor: pointer !important;
 }
 
 .fc-event {
-  background: var(--primary-color) !important;
-  color: var(--white-font-color) !important;
-  border: none !important;
-  border-radius: 8px !important;
+  background: var(--background-color) !important;
+  color: var(--black-font-color) !important;
+  border: 2px solid var(--secondary-color) !important;
+  border-radius: 2px !important;
   font-weight: 600 !important;
-  box-shadow: var(--card-shadow) !important;
-  padding: var(--space-2) var(--space-3) !important;
-  font-size: var(--md-text) !important;
-  margin: 2px 0 !important;
+  padding: var(--space-1) var(--space-2) !important;
+  font-size: var(--xs-text) !important;
 }
+
 .fc-event:hover {
-  background: var(--secondary-color) !important;
+  background: var(--background-dark-color) !important;
   opacity: 0.9 !important;
 }
 
-/* Botões do calendário */
 .fc-button {
   background: var(--primary-color) !important;
   color: var(--white-font-color) !important;
@@ -317,7 +337,6 @@ h4 {
   opacity: 0.6 !important;
 }
 
-/* Cabeçalho dos dias */
 .fc-col-header-cell {
   background: var(--background-dark-color) !important;
   color: var(--primary-color) !important;
@@ -327,10 +346,9 @@ h4 {
   padding: var(--space-2) 0 !important;
 }
 
-/* Dia atual */
 .fc-day-today {
-  background: var(--tertiary-color) !important;
-  border: 2px solid var(--primary-color) !important;
+  background: var(--primary-color) !important;
+  border: 2px solid var(--primary-dark-color) !important;
 }
 
 /* Responsividade */
