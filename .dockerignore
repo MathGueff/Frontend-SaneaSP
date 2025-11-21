@@ -1,0 +1,37 @@
+# Node modules (será instalado dentro do container)
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build gerado
+dist
+out
+build
+
+# Ambiente e configurações locais
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+logs
+*.pid
+*.seed
+*.cover
+
+# Editor / IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+.md

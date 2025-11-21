@@ -42,7 +42,7 @@ export class LoginComponent {
             this.router.navigate(['/inicio'])
             break;
           case UserType.Funcionario:
-            this.router.navigate(['/prefeitura/dashboard'])
+            this.router.navigate(['/dashboard'])
             break;
         }
       },
