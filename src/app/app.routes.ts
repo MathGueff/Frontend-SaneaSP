@@ -20,6 +20,7 @@ import { AnalysisComponent } from "@features/prefeitura/components/analysis/anal
 import { ExportComponent } from "@features/prefeitura/components/export/export.component";
 import { EmployeesComponent } from "@features/prefeitura/components/employees/employees.component";
 import { MeComponent } from "@features/prefeitura/components/me/me.component";
+import { CalendarioComponent } from "@core/components/calendario/calendario.component";
 import { SignatureComponent } from "@features/prefeitura/components/signature/signature.component";
 
 export const routes: Routes = [
@@ -86,4 +87,9 @@ export const routes: Routes = [
       { path: "assinatura", component: SignatureComponent },
     ],
   },
+
+  { path: "register-confirmation", component: ConfirmationPageComponent },
+  { path: "lost-my-password", component: LostPasswordFormComponent },
+  { path: "reset-password", component: ResetPasswordFormComponent },
+  
 ];
