@@ -19,7 +19,7 @@
     @if (user) {
       <div class="dropdown" (clickOutside)="closeDropdown()">
         <button
-          class="button nav__profile"
+          class="button button--tertiary nav__profile"
           (click)="toggleDropdown($event)"
           [attr.aria-expanded]="dropdownOpen"
           aria-haspopup="true"
@@ -90,7 +90,7 @@
       <a [routerLink]="'/login'" class="button nav__login">
         Entrar
       </a>
-      <a [routerLink]="'/register'" class="button nav__register">
+      <a [routerLink]="'/register'" class="button button--tertiary nav__register">
         Crie uma conta
       </a>
     }
