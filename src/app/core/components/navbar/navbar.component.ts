@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, HostListener, inject } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { HeaderButtonsType } from "@core/models/header.model";
 import { AuthService } from "@core/services/auth.service";
 import { AuthorizationService } from "@core/services/authorization.service";
@@ -20,6 +20,7 @@ export class NavbarComponent {
 
   protected authService = inject(AuthService);
   protected sweetAlertService = inject(SweetAlertService);
+  protected router = inject(Router);
 
   navbarLinks: IProtectedLink[] = [
     {
@@ -56,6 +57,10 @@ get user() {
   return this.authService.currentUser();
 }
 
+get userIsEmployee() {
+  return this.authService.isAdmin;
+}
+
 canShowLink(link: IProtectedLink) {
   if (link.canView === 'unauth') return !this.user;
   if (link.canView === 'auth') return !!this.user && (
@@ -83,6 +88,7 @@ canShowLink(link: IProtectedLink) {
     this.dropdownOpen = false;
     this.authService.logout();
     this.sweetAlertService.logout();
+    this.router.navigate(['/login'])
   }
 
   @HostListener('document:click', ['$event'])

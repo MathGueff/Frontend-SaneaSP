@@ -1,5 +1,7 @@
 
 import { Component, inject, Input, OnInit } from "@angular/core";
+import { AuthService } from "@core/services/auth.service";
+import { FileExportService } from '@core/services/file-export.service';
 import { ICategory } from "@features/categoria/models/category.model";
 import {
   IComplaint,
@@ -21,7 +23,20 @@ export class ComplaintDetailComponent implements OnInit {
   protected filePreviews: string[] = [];
 
   complaintService = inject(ComplaintService);
+  authService = inject(AuthService);
+  fileExportService = inject(FileExportService);
   protected MAX_CATEGORIES = 5;
+  exportarComentariosPDF() {
+      const el = document.getElementById('complaint-view');
+    if (!el) {
+        alert('Não foi possível localizar a página para exportação.');
+      return;
+    }
+      this.fileExportService.exportPDF({
+        element: el,
+        pdfName: `denuncia-${(this.complaint as any)?.id || ''}.pdf`
+      });
+  }
 
   ngOnInit() {
     this.processImages();
@@ -39,11 +54,11 @@ export class ComplaintDetailComponent implements OnInit {
     return this.complaint.categorias || [];
   }
 
-  getImages(): any[] {
+  get images(): any[] {
     return this.complaint.imagens || [];
   }
 
-  getFormattedDate(): string {
+  get formattedDate(): string {
     if (this.isIComplaint(this.complaint)) {
       return this.complaintService.getFormattedDate(
         this.complaint.dataPublicacao
@@ -52,12 +67,16 @@ export class ComplaintDetailComponent implements OnInit {
     return this.complaintService.getFormattedDate(null);
   }
 
-  getFullAddress(): string {
+  get fullAddress(): string {
     return this.complaintService.getFullAddress(this.complaint as IComplaint);
   }
 
+  get isCurrentUserEmployee(){
+    return this.authService.isAdmin
+  }
+
   private processImages(): void {
-    const images = this.getImages();
+    const images = this.images;
     this.filePreviews = [];
 
     images.forEach((imagem) => {

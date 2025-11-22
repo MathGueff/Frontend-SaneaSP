@@ -54,7 +54,7 @@ export class CalendarioComponent implements OnInit, OnChanges {
       plugins: this.plugins,
       editable: this.editable,
       selectable: this.selectable,
-      events: this.events,
+      events: this.ajustarEventosParaCalendario(this.events),
     };
   }
 
@@ -63,8 +63,26 @@ export class CalendarioComponent implements OnInit, OnChanges {
     if (changes["events"] && this.isBrowser) {
       this.calendarOptions = {
         ...this.calendarOptions,
-        events: this.events
+        events: this.ajustarEventosParaCalendario(this.events)
       };
     }
   }
+
+  ajustarEventosParaCalendario(eventos: Evento[]): any[] {
+  return eventos.map(ev => {
+    const isAllDay =
+      ev.start &&
+      ev.start.endsWith("T00:00:00.000Z") &&
+      (!ev.end || ev.end.endsWith("T00:00:00.000Z"));
+    if (isAllDay) {
+      return {
+        ...ev,
+        start: ev.start.substring(0, 10),
+        end: ev.end ? ev.end.substring(0, 10) : undefined,
+        allDay: true
+      };
+    }
+    return ev;
+  });
+}
 }
