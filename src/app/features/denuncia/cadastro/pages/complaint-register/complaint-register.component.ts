@@ -25,6 +25,7 @@ import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { ICategory } from '@features/categoria/models/category.model';
 
 @Component({
     selector: "app-complaint-register",
@@ -57,24 +58,48 @@ export class ComplaintRegisterComponent {
       formTitle: "O que aconteceu?",
       name: "O que",
       type: StepsTypes.WHAT,
+      icon: {
+        folder: 'actions',
+        name: 'report.svg',
+        alt: 'O que'
+      },
+      description: 'Descrição e imagens do ocorrido',
       completed: false,
     },
     {
       formTitle: "Onde foi o ocorrido?",
       name: "Onde",
       type: StepsTypes.WHERE,
+      icon: {
+        folder: 'entities',
+        name: 'address.svg',
+        alt: 'Onde'
+      },
+      description: 'Endereço onde ocorreu',
       completed: false,
     },
     {
       formTitle: "Qual o tipo do problema?",
       name: "Tipo",
       type: StepsTypes.HOW,
+       icon: {
+        folder: 'entities',
+        name: 'category.svg',
+        alt: 'Tipo'
+      },
+      description: 'Categorias relacionadas ao problema',
       completed: false,
     },
     {
       formTitle: "Como ficou sua denúncia",
-      name: "Confirmação",
+      name: "Revisão",
       type: StepsTypes.REVIEW,
+       icon: {
+        folder: 'entities',
+        name: 'complaint.svg',
+        alt: 'Revisão'
+      },
+      description: 'Revise os dados inseridos',
       completed: false,
     },
   ];
@@ -101,8 +126,8 @@ export class ComplaintRegisterComponent {
       complemento: [""],
     }),
     how: this.fb.group({
-      categorias: ["", [Validators.required]],
-      categoriasIds: ["", [Validators.required]],
+      categorias: [""],
+      categoriasIds: [""],
     }),
     review: this.fb.group({
       titulo: ["", Validators.required],
@@ -128,10 +153,16 @@ export class ComplaintRegisterComponent {
 
   nextStep(): void {
     const activeFormGroup = this.getStepFormGroup(this.activeStep);
-    // if(activeFormGroup.invalid){
-    //   this.toastService.show({message : 'Preencha todos os campos corretamente', error : true})
-    //   return
-    // }
+    const invalidControl = Object.keys(activeFormGroup.controls)
+      .find(key => activeFormGroup.get(key)?.invalid);
+
+    if (invalidControl) {
+      this.toastService.show({
+        message: `O campo "${invalidControl}" está inválido.`,
+        error: true
+      });
+      return
+    }
 
     const nextStepIndex = this.activeStep + 1;
     if (
@@ -184,7 +215,7 @@ export class ComplaintRegisterComponent {
       rua: rua.value || "",
       complemento: complemento.value || "",
       categorias: categorias.value,
-      titulo: titulo.value || `${categorias.value[0]['nome']} na ${rua.value}`,
+      titulo: titulo.value || this.generateCommonTitle(bairro.value, rua.value, categorias.value),
       idUsuario: this.authService.currentUser()?.id ?? 0,
     };
   }
@@ -216,6 +247,28 @@ export class ComplaintRegisterComponent {
       titulo: titulo.value || "",
       idUsuario: this.authService.currentUser()?.id ?? 0,
     };
+  }
+
+  generateCommonTitle(bairro?: string, rua?: string, categorias?: ICategory[]): string {
+    const user = this.authService.currentUser();
+    const firstName = user?.nome?.split(' ')[0] || '';
+    const hasCategoria = Array.isArray(categorias) && categorias.length > 0 && categorias[0]?.nome;
+    const categoriaNome = hasCategoria ? categorias[0].nome : '';
+
+    // Se houver categoria e rua
+    if (hasCategoria && rua) {
+      return `${categoriaNome} na ${rua}`;
+    }
+    // Se houver categoria e bairro
+    if (hasCategoria && bairro) {
+      return `${categoriaNome} ${bairro} de ${firstName}`.trim();
+    }
+
+    if (rua && !hasCategoria) {
+      return `Relato em "${rua}"`;
+    }
+    // fallback
+    return 'Relato por ' + firstName;
   }
 
   async onSubmit(){

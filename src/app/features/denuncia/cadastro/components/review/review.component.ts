@@ -1,11 +1,11 @@
 import { Component, inject, Input } from "@angular/core";
 import {
   IComplaintPreview,
-  ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
 import { ComplaintDetailComponent } from "@features/denuncia/components/complaint-detail/complaint-detail.component";
 import { AuthService } from "@core/services/auth.service";
 import { FormGroup, ReactiveFormsModule, ɵInternalFormsSharedModule } from "@angular/forms";
+import { ICategory } from "@features/categoria/models/category.model";
 
 @Component({
     selector: "app-review",
@@ -21,10 +21,10 @@ export class ReviewComponent {
   protected oldTitle: string = '';
 
   ngOnInit() {
-    const { categorias, rua } = this.complaintPreview;
+    const { categorias, rua, bairro } = this.complaintPreview;
 
     if (categorias && categorias.length > 0) {
-      const suggestedTitle = `${categorias.at(0)?.nome} na ${rua}`;
+      const suggestedTitle = this.generateCommonTitle(bairro, rua, categorias)
       this.formGroup.get('titulo')?.setValue(suggestedTitle);
     }
 
@@ -42,5 +42,27 @@ export class ReviewComponent {
   setTitle(){
     this.complaintPreview.titulo = this.oldTitle;
       this.formGroup.get('titulo')?.setValue(this.oldTitle);
+  }
+
+  generateCommonTitle(bairro?: string, rua?: string, categorias?: ICategory[]): string {
+    const user = this.authService.currentUser();
+    const firstName = user?.nome?.split(' ')[0] || '';
+    const hasCategoria = Array.isArray(categorias) && categorias.length > 0 && categorias[0]?.nome;
+    const categoriaNome = hasCategoria ? categorias[0].nome : '';
+
+    // Se houver categoria e rua
+    if (hasCategoria && rua) {
+      return `${categoriaNome} na ${rua}`;
+    }
+    // Se houver categoria e bairro
+    if (hasCategoria && bairro) {
+      return `${categoriaNome} ${bairro} de ${firstName}`.trim();
+    }
+
+    if (rua && !hasCategoria) {
+      return `Relato em ${rua}`;
+    }
+    // fallback
+    return 'Relato por ' + firstName;
   }
 }

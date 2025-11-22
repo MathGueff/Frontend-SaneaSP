@@ -29,7 +29,7 @@
       </div>
     }
     <h2>{{ complaint.titulo }}</h2>
-    <div class="categories-container flex-row">
+    <div class="categories-container w-100 flex-row">
       @for (category of complaintCategories; track $index) { @if($index <
       MAX_CATEGORIES){ @if(category.grupo; as group){
       <div class="categories-container__categorie flex-row">

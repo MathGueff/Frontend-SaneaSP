@@ -47,7 +47,7 @@ export interface IComplaintPreview extends IComplaintBase {
     numero?: string;
     complemento?: string;
     imagens?: File[];
-    categorias: ICategory[];
+    categorias?: ICategory[];
 }
 
 export interface IComplaintFilter extends IBaseApiFilters{
