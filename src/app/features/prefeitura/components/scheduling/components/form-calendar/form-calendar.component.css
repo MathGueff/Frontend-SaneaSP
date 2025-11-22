@@ -1,0 +1,7 @@
+.form-container{
+    gap: var( --space-3);
+}
+.date-fields{
+    width: 100%;
+    gap:  var(--space-3);
+}
