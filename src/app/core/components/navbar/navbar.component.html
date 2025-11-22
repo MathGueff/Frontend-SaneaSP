@@ -26,7 +26,7 @@
         >
           <img
             class="user-avatar"
-            src="icons/entities/black/user.svg"
+            [src]="'icons/entities/black/' + (userIsEmployee() ? 'employee-certified' : 'user') + '.svg'"
             alt="Ícone do usuário"
           />
           <span class="dropdown-label">Sua conta</span>

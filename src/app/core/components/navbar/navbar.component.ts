@@ -56,6 +56,10 @@ get user() {
   return this.authService.currentUser();
 }
 
+get userIsEmployee() {
+  return this.authService.isAdmin;
+}
+
 canShowLink(link: IProtectedLink) {
   if (link.canView === 'unauth') return !this.user;
   if (link.canView === 'auth') return !!this.user && (

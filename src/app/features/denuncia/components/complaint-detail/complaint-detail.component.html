@@ -1,5 +1,33 @@
 <section class="complaint-detail flex-column">
   <header class="complaint-detail__header flex-column">
+    @if(isCurrentUserEmployee()){
+      <div class="admin-options flex-row w-100">
+        <button class="button button--primary export-pdf-btn" (click)="exportarComentariosPDF()">
+          <img 
+          src="icons/actions/white/download.svg" 
+          alt="Exportar PDF" 
+          class="small-icon" 
+          />
+          Exportar como PDF
+        </button>
+        <!-- <button class="button button--primary export-pdf-btn" (click)="exportarComentariosPDF()">
+          <img 
+          src="icons/entities/white/calendar.svg" 
+          alt="Exportar PDF" 
+          class="small-icon" 
+          />
+          Agendar uma visita
+        </button>
+        <button class="button button--primary export-pdf-btn" (click)="exportarComentariosPDF()">
+          <img 
+          src="icons/actions/white/report.svg" 
+          alt="Exportar PDF" 
+          class="small-icon" 
+          />
+          Criar relatório
+        </button> -->
+      </div>
+    }
     <h2>{{ complaint.titulo }}</h2>
     <div class="categories-container flex-row">
       @for (category of complaintCategories; track $index) { @if($index <
@@ -18,16 +46,16 @@
   <div class="complaint-detail__body flex-column">
     <div class="complaint-detail__content flex-column">
       <div class="complaint-detail__content-header flex-column">
-        <span><img class="small-icon" src="icons/entities/black/calendar.svg" alt="">{{ getFormattedDate() }}</span>
+        <span><img class="small-icon" src="icons/entities/black/calendar.svg" alt="">{{ formattedDate }}</span>
         <span><img class="small-icon" src="icons/entities/black/user.svg" alt="">Criado por: {{ userName }}</span>
-        <span><img class="small-icon" src="icons/entities/black/address.svg" alt="">Em: {{ getFullAddress() }}</span>
+        <span><img class="small-icon" src="icons/entities/black/address.svg" alt="">Em: {{ fullAddress }}</span>
       </div>
       <div class="complaint-detail__content-description flex-column">
         <span class="text-lg">O que aconteceu:</span>
         <span class="complaint-detail__content-description-explanation">{{ complaint.descricao }}</span>
       </div>
       <div class="complaint-detail__content-gallery flex-row">
-        @if(getImages().length > 0){ @for (imagem of getImages(); track $index)
+        @if(images.length > 0){ @for (imagem of images; track $index)
         {
         <div class="complaint-detail__content-gallery-image">
           <img
