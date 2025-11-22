@@ -24,6 +24,7 @@ import { ComplaintService } from "@features/denuncia/services/complaint.service"
 import { AuthService } from "@core/services/auth.service";
 import { ToastService } from "@shared/services/toast.service";
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-complaint-register",
@@ -44,6 +45,7 @@ export class ComplaintRegisterComponent {
   protected StepsType = StepsTypes;
 
   protected scroller = inject(ViewportScroller);
+  protected router = inject(Router);
   protected activeStep: StepsTypes = StepsTypes.WHAT;
   protected complaintService = inject(ComplaintService);
   protected authService = inject(AuthService);
@@ -233,6 +235,7 @@ export class ComplaintRegisterComponent {
         imagens : fileNames
       }).subscribe({
         next: () => {
+          this.router.navigate(['/inicio'])
           this.toastService.show({
             message: "Cadastrado com sucesso",
             error: false,
