@@ -30,7 +30,7 @@ export class DashboardComponent {
         { text: 'Todas denúncias', path: '/dashboard/denuncias' },
         { text: 'Denúncias em acompanhamento', path: '/dashboard/denuncias-acompanhamento' },
         { text: 'Agendamento de visitas', path: '/dashboard/agendamentos' },
-        { text: 'Feedbacks dos cidadãos', path: '/dashboard/feedbacks' }
+        { text: 'Feedbacks dos cidadãos', path: '/dashboard/denuncia-feedback' }
       ]
     },
     {
@@ -38,7 +38,8 @@ export class DashboardComponent {
       links: [
         { text: 'Métricas e KPI', path: '/dashboard/metricas' },
         { text: 'Análises', path: '/dashboard/analises' },
-        { text: 'Exportação de relatórios', path: '/dashboard/exportacao' }
+        { text: 'Exportação de relatórios', path: '/dashboard/exportacao' },
+        { text: 'Feedback da Interface', path: '/dashboard/interface-feedback' }
       ]
     },
     {
