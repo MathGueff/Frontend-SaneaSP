@@ -54,7 +54,7 @@
 
            <div class="dropdown-item-wrapper">
             <a
-              [routerLink]="'/cidadao/complaints'"
+              [routerLink]="userIsEmployee() ? '/dashboard/denuncias-acompanhamento' : '/cidadao/complaints'"
               class="dropdown-item"
               role="menuitem"
               (click)="closeDropdown()"
@@ -64,7 +64,7 @@
               class="extra-small-icon"
               alt=""
             />
-            Minhas denúncias
+            {{userIsEmployee() ? 'Denúncias que acompanho' : 'Minhas denúncias'}}
             </a>
           </div>
 

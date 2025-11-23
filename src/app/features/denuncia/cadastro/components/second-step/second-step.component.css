@@ -30,7 +30,6 @@
   gap: var(--space-6);
   align-items: stretch;
   width: 100%;
-  height: auto;
 }
 
 .address-section__map-wrapper {
@@ -57,4 +56,8 @@
 .field--city,
 .field--street {
   flex: 3;
+}
+app-map{
+  width: 350px;
+  height: 350px;
 }
