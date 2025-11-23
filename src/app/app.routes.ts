@@ -19,12 +19,9 @@ import { AnalysisComponent } from "@features/prefeitura/components/analysis/anal
 import { ExportComponent } from "@features/prefeitura/components/export/export.component";
 import { EmployeesComponent } from "@features/prefeitura/components/employees/employees.component";
 import { MeComponent } from "@features/prefeitura/components/me/me.component";
-import { CalendarioComponent } from "@core/components/calendario/calendario.component";
 import { SignatureComponent } from "@features/prefeitura/components/signature/signature.component";
 import { FollowUpComplaintsComponent } from "@features/prefeitura/components/follow-up-complaints/follow-up-complaints.component";
-import { Interface } from "readline";
-import { InterfaceFeedbackComponent } from "@features/prefeitura/components/feedback/interface-feedback/interface-feedback.component";
-import { DenunciaFeedbackComponent } from "@features/prefeitura/components/feedback/denuncia-feedback/denuncia-feedback.component";
+import { FeedbackComponent } from "@features/prefeitura/components/feedback/feedback.component";
 
 export const routes: Routes = [
   //Página inicial
@@ -77,13 +74,13 @@ export const routes: Routes = [
       { path: "denuncias", component: AllComplaintComponent },
       { path: "denuncias-acompanhamento", component: FollowUpComplaintsComponent },
       { path: "agendamentos", component: SchedulingComponent },
-      { path: "denuncia-feedback", component: DenunciaFeedbackComponent },
+      { path: "feedbacks", component: FeedbackComponent },
 
       // Relatórios
       { path: "metricas", component: KpiComponent },
       { path: "analises", component: AnalysisComponent },
       { path: "exportacao", component: ExportComponent },
-      { path: "interface-feedback", component: InterfaceFeedbackComponent},
+      // { path: "interface-feedback", component: InterfaceFeedbackComponent},
 
       // Administrativo
       { path: "funcionarios", component: EmployeesComponent },

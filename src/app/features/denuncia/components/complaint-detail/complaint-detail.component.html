@@ -1,5 +1,5 @@
 <section class="complaint-detail flex-column">
-  <header class="complaint-detail__header flex-column">
+  <header class="complaint-detail__header w-100 flex-column">
     @if(isCurrentUserEmployee()){
       <div class="admin-options flex-row w-100">
         <button class="button button--primary export-pdf-btn" (click)="exportarComentariosPDF()">
@@ -28,7 +28,7 @@
         </button> -->
       </div>
     }
-    <h2>{{ complaint.titulo }}</h2>
+    <h2 class='w-100'>{{ complaint.titulo }}</h2>
     <div class="categories-container w-100 flex-row">
       @for (category of complaintCategories; track $index) { @if($index <
       MAX_CATEGORIES){ @if(category.grupo; as group){

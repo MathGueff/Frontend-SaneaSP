@@ -37,7 +37,7 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private feedbackService = inject(FeedbackService);
 
-  descricao: string | null = null;
+  protected descricao: string | null = null;
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({
@@ -51,6 +51,11 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (!this.complaintId) return;
 
+    this.feedbackService.getDenunciaFeedback(Number(this.complaintId)).subscribe({
+      next : (feedback) =>{
+        this.descricao = feedback.descricao
+      }
+    })
     this.commentService.getComments(this.complaintId);
 
     this.commentService.onComments()

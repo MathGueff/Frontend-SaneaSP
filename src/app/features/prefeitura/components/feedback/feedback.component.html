@@ -1,0 +1,23 @@
+<div class="feedback-grid">
+    @for (fb of feedbacks; track fb; let i = $index) {
+        <div class="feedback-card">
+            <h4 class="feedback-title">{{ fb.denuncia.titulo }}</h4>
+            <p class="feedback-message" [class.collapsed]="!expanded[i]" [id]="'feedback-msg-' + i">
+                {{ fb.descricao }}
+            </p>
+            <div class="feedback__buttons flex-column">
+                @if(showSeeMore[i]){
+                    <button class="see-more-btn" (click)="toggleExpand(i)">
+                        {{ expanded[i] ? 'Ver menos' : 'Ver mais' }}
+                    </button>
+                }
+                <button class="button button--primary" (click)="goToDenuncia(fb.fk_denuncia)">
+                    Ir até denúncia
+                </button>
+            </div>
+            <span class="feedback-date">
+                {{ fb.data_publicacao | date:'dd/MM/yyyy' }}
+            </span>
+        </div>
+    }
+</div>

@@ -30,7 +30,7 @@ export class DashboardComponent {
         { text: 'Todas denúncias', path: '/dashboard/denuncias' },
         { text: 'Denúncias em acompanhamento', path: '/dashboard/denuncias-acompanhamento' },
         { text: 'Agendamento de visitas', path: '/dashboard/agendamentos' },
-        { text: 'Feedbacks dos cidadãos', path: '/dashboard/denuncia-feedback' }
+        { text: 'Feedbacks dos cidadãos', path: '/dashboard/feedbacks' }
       ]
     },
     {

@@ -10,11 +10,11 @@ import { Observable } from "rxjs";
 })
 
 export class FeedbackService extends BaseApiService {
-    private API_URL =  environment.domain + "feedback/"
+    private API_URL =  environment.domain + "feedback"
     private httpClient = inject(HttpClient)
 
-    public getDenunciaFeedback(idDenuncia : number) : Observable<IDenunciaFeedback[]> {
-        return this.httpClient.get<IDenunciaFeedback[]>(this.API_URL + `/denuncia-feedback/${idDenuncia}`);
+    public getDenunciaFeedback(idDenuncia : number) : Observable<IDenunciaFeedback> {
+        return this.httpClient.get<IDenunciaFeedback>(this.API_URL + `/denuncia-feedback/${idDenuncia}`);
     }
 
     public getAllDenunciaFeedbacks() : Observable<IDenunciaFeedback[]> {

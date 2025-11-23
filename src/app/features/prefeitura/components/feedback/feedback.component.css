@@ -5,6 +5,10 @@
     padding: 1.5rem;
 }
 
+.feedback__buttons{
+    gap: var(--space-4);
+}
+
 /* Responsivo */
 @media (max-width: 992px) {
     .feedback-grid {
