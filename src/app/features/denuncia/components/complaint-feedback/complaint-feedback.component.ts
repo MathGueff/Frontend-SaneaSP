@@ -131,7 +131,7 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   }
 
   isAuthor(){
-    return this.authService.currentUser()?.id == Number(this.complaintId)
+    return this.authService.currentUser()?.id == this.complaint?.idUsuario
   }
 
   onFeedbackTextAreaKeyDown(event: KeyboardEvent) {
