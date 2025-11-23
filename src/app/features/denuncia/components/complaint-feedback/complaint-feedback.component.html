@@ -3,10 +3,32 @@
         <div class="complaint-feedback__container w-100 flex-column">
           @if(descricao){
             <h2 class="complaint-feedback__title">Feedback do cidadão</h2>
+            <span class="complaint-feedback__description w-100">
+              {{descricao}}
+            </span>
           }
-          <span class="complaint-feedback__description w-100">
-            {{descricao ? descricao: 'No momento nenhum feedback foi realizado pelo usuário que criou a denúncia'}}
-          </span>
+          @else{
+            @if(isAuthor){
+              <h2 class="complaint-feedback__title">Deixe seu feedback sobre a solução</h2>
+              <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="complaint-feedback__form flex-column w-100">
+                <textarea 
+                  class="field__textarea" 
+                  formControlName="descricao"
+                  placeholder="Descreva sua experiência com a solução da denúncia" 
+                  required
+                  (input)="autoGrow($event)"
+                  (keydown)="onFeedbackTextAreaKeyDown($event)"
+                >
+                </textarea>
+                <button class="button button--tertiary" type="submit" [disabled]="feedbackForm.invalid">Enviar feedback</button>
+              </form>
+            }
+            @else{
+              <span class="complaint-feedback__description w-100">
+                No momento nenhum feedback foi realizado pelo usuário que criou a denúncia
+              </span>
+            }
+          }
         </div>
     </section>
     <section class="complaint-comments flex-column">
@@ -36,7 +58,7 @@
             placeholder="Faça seu comentário"
             formControlName="newComment"
             (input)="autoGrow($event)"
-            (keydown)="onTextareaKeydown($event)"
+            (keydown)="onCommentTextAreaKeyDown($event)"
             #commentTextarea
             required
           ></textarea>

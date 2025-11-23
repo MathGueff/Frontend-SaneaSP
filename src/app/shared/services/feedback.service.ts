@@ -14,7 +14,7 @@ export class FeedbackService extends BaseApiService {
     private httpClient = inject(HttpClient)
 
     public getDenunciaFeedback(idDenuncia : number) : Observable<IDenunciaFeedback> {
-        return this.httpClient.get<IDenunciaFeedback>(this.API_URL + `/denuncia-feedback/${idDenuncia}`);
+        return this.httpClient.get<IDenunciaFeedback>(this.API_URL + `/denuncia-feedback/denuncia/${idDenuncia}`);
     }
 
     public getAllDenunciaFeedbacks() : Observable<IDenunciaFeedback[]> {

@@ -8,6 +8,14 @@
   box-sizing: border-box; 
 }
 
+.complaint-feedback__form{
+  gap: var(--space-4);
+}
+
+.button--secondary{
+  color: var(--white-font-color);
+}
+
 .complaint-feedback {
   gap: var(--space-4);
   width: 100%; 

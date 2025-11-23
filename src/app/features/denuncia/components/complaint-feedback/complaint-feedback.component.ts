@@ -4,7 +4,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, Input } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import {
   IComment,
@@ -17,6 +17,7 @@ import { ToastService } from "@shared/services/toast.service";
 import { Subject, takeUntil } from "rxjs";
 import { CommentService } from "@features/denuncia/services/comment.service";
 import { FeedbackService } from "@shared/services/feedback.service";
+import { IComplaint } from "@features/denuncia/models/complaint.model";
 
 @Component({
   selector: "app-complaint-feedback",
@@ -28,6 +29,7 @@ import { FeedbackService } from "@shared/services/feedback.service";
   ],
 })
 export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
+  @Input() complaint?: IComplaint;
   protected MAX_COMMENTS = 6;
 
   private authService = inject(AuthService);
@@ -38,6 +40,10 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   private feedbackService = inject(FeedbackService);
 
   protected descricao: string | null = null;
+  protected canSendFeedback = false;
+  protected feedbackForm: FormGroup = this.fb.group({
+    descricao: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+  });
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({
@@ -53,18 +59,41 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
 
     this.feedbackService.getDenunciaFeedback(Number(this.complaintId)).subscribe({
       next : (feedback) =>{
-        this.descricao = feedback.descricao
+        this.descricao = feedback?.descricao || null;
+      },
+      error: () => {
+        this.descricao = null
       }
     })
     this.commentService.getComments(this.complaintId);
 
     this.commentService.onComments()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (itens) => {
-          this.comments = itens;
-        },
-      });
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (itens) => {
+        this.comments = itens;
+      },
+    });
+  }
+
+  sendFeedback() {
+    if (this.feedbackForm.invalid || !this.complaintId) return;
+    const descricao = this.feedbackForm.get('descricao')?.value?.trim();
+    this.feedbackService.postDenunciaFeedback({
+      descricao,
+      fk_denuncia: Number(this.complaintId),
+      data_publicacao: new Date()
+    }).subscribe({
+      next: () => {
+        this.descricao = descricao;
+        this.canSendFeedback = false;
+        this.feedbackForm.reset();
+        this.toastService.show({ message: 'Feedback enviado com sucesso!', error: false });
+      },
+      error: () => {
+        this.toastService.show({ message: 'Erro ao enviar feedback', error: true });
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -101,7 +130,18 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
     this.commentForm.reset();
   }
 
-  onTextareaKeydown(event: KeyboardEvent) {
+  isAuthor(){
+    return this.authService.currentUser()?.id == Number(this.complaintId)
+  }
+
+  onFeedbackTextAreaKeyDown(event: KeyboardEvent) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      this.sendFeedback();
+    }
+  }
+
+  onCommentTextAreaKeyDown(event: KeyboardEvent) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       this.sendComment();
