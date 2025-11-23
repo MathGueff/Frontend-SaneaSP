@@ -1,6 +1,6 @@
 <section class="complaint-view flex-row" id="complaint-view">
     @if(complaint){
         <app-complaint-detail [complaint]="complaint" [userName]="userName"></app-complaint-detail>
-        <app-complaint-feedback></app-complaint-feedback>
+        <app-complaint-feedback [complaint]="complaint"></app-complaint-feedback>
     }
 </section>
