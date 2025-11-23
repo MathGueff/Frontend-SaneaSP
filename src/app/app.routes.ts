@@ -22,6 +22,7 @@ import { EmployeesComponent } from "@features/prefeitura/components/employees/em
 import { MeComponent } from "@features/prefeitura/components/me/me.component";
 import { CalendarioComponent } from "@core/components/calendario/calendario.component";
 import { SignatureComponent } from "@features/prefeitura/components/signature/signature.component";
+import { FollowUpComplaintsComponent } from "@features/prefeitura/components/follow-up-complaints/follow-up-complaints.component";
 
 export const routes: Routes = [
   //Página inicial
@@ -72,7 +73,7 @@ export const routes: Routes = [
       { path: "", redirectTo: "denuncias", pathMatch: "full" },
       // Denúncias
       { path: "denuncias", component: AllComplaintComponent },
-      { path: "denuncias-acompanhamento", component: AllComplaintComponent },
+      { path: "denuncias-acompanhamento", component: FollowUpComplaintsComponent },
       { path: "agendamentos", component: SchedulingComponent },
       { path: "feedbacks", component: FeedbacksComponent },
 

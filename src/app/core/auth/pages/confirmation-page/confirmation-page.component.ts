@@ -28,7 +28,7 @@ private router = inject(Router);
       this.authService.confirmRegistration(token).subscribe({
         next: () => {
           this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso!");
-          this.router.navigate(["/cidadao/login"], {
+          this.router.navigate(["/inicio"], {
             state: { confirmed: true },
             queryParams: { token: null }, 
             queryParamsHandling: 'merge' 
@@ -39,7 +39,7 @@ private router = inject(Router);
             error?.error?.message ||
             "Falha ao confirmar o cadastro. O link pode ter expirado.";
           this.toastService.show({ message: errorMessage, error });
-          this.router.navigate(["/cidadao/login"], {
+          this.router.navigate(["/login"], {
             state: { confirmed: false },
             queryParams: { token: null },
             queryParamsHandling: 'merge'

@@ -28,11 +28,11 @@ export class NavbarComponent {
       text: "Área dos cidadãos",
       canView : 'both'
     },
-    {
-      path: "/login",
-      text: "Para prefeituras",
-      canView : 'unauth'
-    },
+    // {
+    //   path: "/login",
+    //   text: "Para prefeituras",
+    //   canView : 'unauth'
+    // },
      {
       path: "/dashboard",
       text: "Painel administrativo",
