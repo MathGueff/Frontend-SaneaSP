@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+RUN npm run ng build
 
 # Etapa 2: Servir com NGINX
 FROM nginx:1.25
