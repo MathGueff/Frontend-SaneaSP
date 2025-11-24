@@ -38,7 +38,8 @@ export class DashboardComponent {
       links: [
         { text: 'Métricas e KPI', path: '/dashboard/metricas' },
         { text: 'Análises', path: '/dashboard/analises' },
-        { text: 'Exportação de relatórios', path: '/dashboard/exportacao' }
+        { text: 'Exportação de relatórios', path: '/dashboard/exportacao' },
+        { text: 'Feedback da Interface', path: '/dashboard/interface-feedback' }
       ]
     },
     {

@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, HostListener, inject } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { HeaderButtonsType } from "@core/models/header.model";
 import { AuthService } from "@core/services/auth.service";
 import { AuthorizationService } from "@core/services/authorization.service";
@@ -20,6 +20,7 @@ export class NavbarComponent {
 
   protected authService = inject(AuthService);
   protected sweetAlertService = inject(SweetAlertService);
+  protected router = inject(Router);
 
   navbarLinks: IProtectedLink[] = [
     {
@@ -27,11 +28,11 @@ export class NavbarComponent {
       text: "Área dos cidadãos",
       canView : 'both'
     },
-    {
-      path: "/login",
-      text: "Para prefeituras",
-      canView : 'unauth'
-    },
+    // {
+    //   path: "/login",
+    //   text: "Para prefeituras",
+    //   canView : 'unauth'
+    // },
      {
       path: "/dashboard",
       text: "Painel administrativo",
@@ -54,6 +55,10 @@ export class NavbarComponent {
 
 get user() {
   return this.authService.currentUser();
+}
+
+get userIsEmployee() {
+  return this.authService.isAdmin;
 }
 
 canShowLink(link: IProtectedLink) {
@@ -83,6 +88,7 @@ canShowLink(link: IProtectedLink) {
     this.dropdownOpen = false;
     this.authService.logout();
     this.sweetAlertService.logout();
+    this.router.navigate(['/login'])
   }
 
   @HostListener('document:click', ['$event'])

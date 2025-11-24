@@ -1,0 +1,10 @@
+<section class="minhas-denuncias flex-column">
+    <app-complaint-filter-by-status (onStatusFilterChange)="loadComplaints($event)"></app-complaint-filter-by-status>
+    <div class="complaint-list complaint-list--all">
+      <header class="complaint-list__header">
+        <h2 class="minhas-denuncias__title">Todas as denúncias</h2>
+        <p class="minhas-denuncias__description">Veja todas denúncias que você já criou</p>
+      </header>
+      <app-complaints-grid [complaints]="complaints"></app-complaints-grid>
+    </div>
+</section>

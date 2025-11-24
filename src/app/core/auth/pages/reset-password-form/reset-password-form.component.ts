@@ -36,7 +36,7 @@ export class ResetPasswordFormComponent {
         message: "Você não pode acessar essa página sem um link de redefinição de senha.",
         error: true
       })
-      this.router.navigate(["/cidadao/login"]);
+      this.router.navigate(["/login"]);
       return;
     } else {
       return;
@@ -66,7 +66,7 @@ export class ResetPasswordFormComponent {
     this.authService.resetPassword(token, newPassword).subscribe({
       next: () => {
         this.sweetAlertService.confirmResetPassword();
-        this.router.navigate(["/cidadao/login"]);
+        this.router.navigate(["/login"]);
       },
       error: (e) => {
         this.errorHandlerService.handleError(e);

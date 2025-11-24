@@ -3,17 +3,22 @@
     <div 
       class="steps__step flex-column"
       [class.steps__step--clickable]="isStepClickable(step)"
+      [class.steps__step--completed]="step.completed"
+      [class.steps__step--active]="isStepActive(step)"
+      [class.steps__step--accessible]="!step.completed && isStepAccessible(step) && !isStepActive(step)"
       (click)="goToStep(step)">
+      @if (step.completed) {
+         <span class="step__success-icon">✔</span>
+       }
+      <img class="medium-icon" 
+      [src]="'icons/' + step.icon.folder + '/' + ((isStepActive(step) || (!step.completed && isStepAccessible(step) && !isStepActive(step))) ? 'white' : 'black') + '/' + step.icon.name" 
+      [alt]="step.icon.alt" >
       
-      <div [ngClass]="'step__circle' + getStepState(step)" class="flex-row">
-        @if(step.completed){
-          <img class="small-icon" [src]="'icons/status/system/'+ (step.type === activeStep ? 'white' : 'black') + '/success.svg'" alt="">
-        }
+      <span class="step__name">{{ step.name }}</span>
+      
+      <div class="step__description">
+        {{ step.description }}
       </div>
-      <span>{{ step.name }}</span>
     </div>
-    @if($index < steps.length - 1){
-      <hr [className]="'steps__separator' + getSeparatorState(step)">
-    }
   }
 </div>

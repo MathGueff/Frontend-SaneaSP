@@ -37,7 +37,7 @@ export class ComplaintService extends BaseApiService {
     return this.httpClient.get<IComplaint>(`${this.urlApi}/${id}`);
   }
 
-  public getUserComplaint(filter: IComplaintFilter): Observable<IComplaint[]> {
+  public getUserComplaint(filter?: IComplaintFilter): Observable<IComplaint[]> {
     let params: HttpParams | undefined;
 
     if (filter) {

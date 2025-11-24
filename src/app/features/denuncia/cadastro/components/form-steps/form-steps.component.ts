@@ -27,13 +27,27 @@ export class FormStepsComponent {
     return "";
   }
 
+
+  isStepAccessible(step: ISteps): boolean {
+    const idx = this.steps.findIndex(s => s.type === step.type);
+    if (step.completed) return true;
+    if (idx === 0) return true;
+    return this.steps.slice(0, idx).every(s => s.completed);
+  }
+
+  isStepClickable(step: ISteps): boolean {
+    return this.isStepAccessible(step);
+  }
+
   goToStep(step: ISteps) {
-    if (step.completed) {
+    if (this.isStepAccessible(step)) {
       this.return.emit(step.type);
     }
   }
 
-  isStepClickable(step: ISteps): boolean {
-    return step.completed;
+
+
+  isStepActive(step: ISteps): boolean{
+    return step.type === this.activeStep
   }
 }

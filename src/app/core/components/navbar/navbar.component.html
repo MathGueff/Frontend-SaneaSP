@@ -19,14 +19,14 @@
     @if (user) {
       <div class="dropdown" (clickOutside)="closeDropdown()">
         <button
-          class="button nav__profile"
+          class="button button--tertiary nav__profile"
           (click)="toggleDropdown($event)"
           [attr.aria-expanded]="dropdownOpen"
           aria-haspopup="true"
         >
           <img
             class="user-avatar"
-            src="icons/entities/black/user.svg"
+            [src]="'icons/entities/black/' + (userIsEmployee() ? 'employee-certified' : 'user') + '.svg'"
             alt="Ícone do usuário"
           />
           <span class="dropdown-label">Sua conta</span>
@@ -54,7 +54,7 @@
 
            <div class="dropdown-item-wrapper">
             <a
-              [routerLink]="'/cidadao/complaints'"
+              [routerLink]="userIsEmployee() ? '/dashboard/denuncias-acompanhamento' : '/cidadao/complaints'"
               class="dropdown-item"
               role="menuitem"
               (click)="closeDropdown()"
@@ -64,7 +64,7 @@
               class="extra-small-icon"
               alt=""
             />
-            Minhas denúncias
+            {{userIsEmployee() ? 'Denúncias que acompanho' : 'Minhas denúncias'}}
             </a>
           </div>
 
@@ -90,7 +90,7 @@
       <a [routerLink]="'/login'" class="button nav__login">
         Entrar
       </a>
-      <a [routerLink]="'/register'" class="button nav__register">
+      <a [routerLink]="'/register'" class="button button--tertiary nav__register">
         Crie uma conta
       </a>
     }

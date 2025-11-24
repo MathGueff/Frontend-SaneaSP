@@ -73,6 +73,18 @@ export class SweetAlertService {
     }));
   }
 
+   public confirmPayment(): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      html: `
+        <div class="swal__container flex-column">
+          <h1 class="swal__title--h1">Pagamento realizado com sucesso</h1>
+          <h2 class="swal__title--h2">A sua conta agora possui acesso aos recursos de administração:</h2>
+        </div>
+      `
+    }));
+  }
+
   /**
    * Exibe mensagem de confirmação de cadastro.
    */
@@ -132,6 +144,16 @@ export class SweetAlertService {
   }
 
   /**
+   * Exibe mensagem de sucesso para Feedback.
+   */
+  public feedbackSuccess(message: string): Promise<SweetAlertResult> {
+    return this.showMessage(this.buildConfig({
+      icon: 'success',
+      title: message
+    }));
+  }
+
+  /**
    * Exibe esqueci minha senha
    */
   public confirmLostPassword(message: string): Promise<SweetAlertResult> {
@@ -159,5 +181,8 @@ export class SweetAlertService {
       `,
       }),
     );
+  }
+  public showEvent(info:any){
+    console.log(info)
   }
 }

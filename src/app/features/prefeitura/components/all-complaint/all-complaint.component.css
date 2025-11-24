@@ -1,0 +1,37 @@
+.minhas-denuncias{
+    gap: var(--space-12);
+    padding: var(--space-5);
+}
+
+.complaint-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.complaint-list__header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.complaint-list__buttons{
+    width: 100%;
+    justify-content: space-between;
+}
+
+.minhas-denuncias__title{
+    color: var(--black-font-color);
+    font-size: var(--h3);
+    font-weight: 500;
+}
+
+.minhas-denuncias__description{
+    font-size: var(--md-text);
+    color: var(--black-font-color);
+}
