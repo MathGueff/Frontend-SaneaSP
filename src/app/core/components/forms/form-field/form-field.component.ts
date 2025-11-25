@@ -1,6 +1,6 @@
 import { Component, Input, Optional, Self, SkipSelf, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, FormGroup, NgControl } from '@angular/forms';
-import { IFormFieldConfig } from '@core/models/form.model';
+import { IFormFieldInputConfig } from '@core/models/form.model';
 import { FormFieldErrorComponent } from '../form-field-error/form-field-error.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormFieldErrorComponent } from '../form-field-error/form-field-error.co
   styleUrl: './form-field.component.css'
 })
 export class FormFieldComponent implements ControlValueAccessor {
-  @Input() config!: IFormFieldConfig;
+  @Input() config!: IFormFieldInputConfig;
 
   constructor(@Self() public ngControl: NgControl) {
     if (this.ngControl != null) {

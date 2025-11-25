@@ -1,10 +1,14 @@
 .error-messages {
-  margin-top: 4px;
+  margin-top: var(--space-2);
+  background-color: var(--background-color);
+  border: 1px solid var(--background-dark-color);
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
 }
 
 .error-message {
   color: #d32f2f;
-  font-size: 12px;
+  font-size: var(--xs-text);
   margin-top: 2px;
 }
 

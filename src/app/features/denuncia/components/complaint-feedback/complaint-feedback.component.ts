@@ -18,10 +18,12 @@ import { Subject, takeUntil } from "rxjs";
 import { CommentService } from "@features/denuncia/services/comment.service";
 import { FeedbackService } from "@shared/services/feedback.service";
 import { IComplaint } from "@features/denuncia/models/complaint.model";
+import { IFormFieldTextareaConfig } from "@core/models/form.model";
+import { FormFieldTextareaComponent } from "@core/components/forms/form-field-textarea/form-field-textarea.component";
 
 @Component({
   selector: "app-complaint-feedback",
-  imports: [CommentCardComponent, CommonModule, ReactiveFormsModule],
+  imports: [CommentCardComponent, CommonModule, ReactiveFormsModule, FormFieldTextareaComponent],
   templateUrl: "./complaint-feedback.component.html",
   styleUrls: [
     "./complaint-feedback.component.css",
@@ -44,6 +46,14 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   protected feedbackForm: FormGroup = this.fb.group({
     descricao: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
   });
+
+  protected formTextAreaConfig : IFormFieldTextareaConfig = {
+    formControlName: 'descricao',
+    textarea: {
+      id: 'descricao',
+      placeholder: 'Insira aqui o seu feedback'
+    }
+  }
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({

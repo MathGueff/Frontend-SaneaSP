@@ -1,0 +1,26 @@
+<div [class]="'field' + ' ' + fieldClass">
+  @if(config.label){
+    <label
+    [class]="'field__label' + ' ' + labelClass"
+    [for]="config.label.for"
+    >
+    {{config.label.text}}
+    </label>
+  }
+  <textarea
+    [id]="config.textarea.id"
+    [formControlName]="config.formControlName"
+    [placeholder]="config.textarea.placeholder"
+    [class]="'field__textarea' + ' ' + textareaClass + (hasError ? ' field__textarea--error' : '')"
+    [attr.rows]="config.textarea.rows"
+    [attr.cols]="config.textarea.cols"
+    [attr.maxlength]="config.textarea.maxlength"
+    [attr.minlength]="config.textarea.minlength"
+    [disabled]="isDisabled"
+    (input)="handleInput($event); autoGrow && autoGrow($event)"
+    (blur)="onTouched()"
+    (keydown)="onTextAreaKeyDown && onTextAreaKeyDown($event)"
+    >{{config.textarea.value}}
+  </textarea>
+  <app-form-field-error [ngControl]="ngControl"></app-form-field-error>
+</div>

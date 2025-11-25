@@ -11,7 +11,7 @@
             @if(isAuthor()){
               <h2 class="complaint-feedback__title">Deixe seu feedback sobre a solução</h2>
               <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="complaint-feedback__form flex-column w-100">
-                <textarea 
+                <!-- <textarea 
                   class="field__textarea" 
                   formControlName="descricao"
                   placeholder="Descreva sua experiência com a solução da denúncia" 
@@ -19,7 +19,8 @@
                   (input)="autoGrow($event)"
                   (keydown)="onFeedbackTextAreaKeyDown($event)"
                 >
-                </textarea>
+                </textarea> -->
+                <app-form-field-textarea [formControlName]="formTextAreaConfig.formControlName" [config]="formTextAreaConfig"></app-form-field-textarea>
                 <button class="button button--tertiary" type="submit" [disabled]="feedbackForm.invalid">Enviar feedback</button>
               </form>
             }

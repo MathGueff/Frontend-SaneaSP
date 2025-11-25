@@ -15,7 +15,7 @@ import { GeocodingService } from '@core/services/geocoding.service';
 import { ViacepService } from '@shared/services/viacep.service';
 import { ToastService } from '@shared/services/toast.service';
 import { FormFieldComponent } from '@core/components/forms/form-field/form-field.component';
-import { IFormFieldConfig } from '@core/models/form.model';
+import { IFormFieldInputConfig } from '@core/models/form.model';
 
 @Component({
   selector: 'app-second-step',
@@ -34,7 +34,7 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   private toastService = inject(ToastService);
   private geocoding = inject(GeocodingService);
 
-  protected formFields : IFormFieldConfig[] = [
+  protected formFields : IFormFieldInputConfig[] = [
     {
       formControlName: 'cep',
       label: { for: 'cep', text: 'CEP'},

@@ -41,6 +41,10 @@ app-form-field{
   width: 100%;
 }
 
+app-form-field-textarea{
+  width: 100%;
+}
+
 .field {
   display: flex;
   flex-direction: column;
