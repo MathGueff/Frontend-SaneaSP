@@ -37,6 +37,10 @@
 }
 
 /* Field */
+app-form-field{
+  width: 100%;
+}
+
 .field {
   display: flex;
   flex-direction: column;

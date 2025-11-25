@@ -1,0 +1,13 @@
+.error-messages {
+  margin-top: 4px;
+}
+
+.error-message {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.field__input--error {
+  border-color: #d32f2f !important;
+}
