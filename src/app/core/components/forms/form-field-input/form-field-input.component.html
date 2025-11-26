@@ -1,0 +1,24 @@
+<div [class]="'field' + ' ' + fieldClass">
+  <label 
+    [class]="'field__label' + ' ' + labelClass" 
+    [for]="config.label.for"
+  >
+    {{config.label.text}}
+  </label>
+  <input 
+    [id]="config.input.id" 
+    [type]="config.input.type" 
+    [placeholder]="config.input.placeholder" 
+    [ngClass]="[ 'field__input', inputClass, fieldStatusClass ]"
+    [value]="value"
+    [disabled]="isDisabled"
+    (input)="handleInput($event)"
+    (blur)="onTouched()"
+    [attr.maxlength]="config.input.maxlength"
+    [attr.minlength]="config.input.minlength"
+    [attr.autocomplete]="config.input.autocomplete"
+    [attr.step]="config.input.step"
+    [attr.pattern]="config.input.pattern"
+  />
+  <app-form-field-error [ngControl]="ngControl" class="form-field-error-popup"></app-form-field-error>
+</div>

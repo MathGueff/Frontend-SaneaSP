@@ -11,15 +11,12 @@
             @if(isAuthor()){
               <h2 class="complaint-feedback__title">Deixe seu feedback sobre a solução</h2>
               <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="complaint-feedback__form flex-column w-100">
-                <textarea 
-                  class="field__textarea" 
-                  formControlName="descricao"
-                  placeholder="Descreva sua experiência com a solução da denúncia" 
-                  required
-                  (input)="autoGrow($event)"
-                  (keydown)="onFeedbackTextAreaKeyDown($event)"
+                <app-form-field-textarea 
+                  [formControlName]="feedbackTextAreaConfig.formControlName" 
+                  [config]="feedbackTextAreaConfig"
+                  (onEnter)="sendFeedback()"
                 >
-                </textarea>
+                </app-form-field-textarea>
                 <button class="button button--tertiary" type="submit" [disabled]="feedbackForm.invalid">Enviar feedback</button>
               </form>
             }
@@ -53,16 +50,13 @@
           </div>
         }
         <form [formGroup]="commentForm" class="complaint__add-complaint flex-column" (ngSubmit)="sendComment()">
-          <textarea 
-            class="field__textarea"
-            placeholder="Faça seu comentário"
-            formControlName="newComment"
-            (input)="autoGrow($event)"
-            (keydown)="onCommentTextAreaKeyDown($event)"
-            #commentTextarea
-            required
-          ></textarea>
-          <button class="button button--primary" type="submit" [disabled]="commentForm.invalid">Comentar</button>
+            <app-form-field-textarea 
+              [formControlName]="commentTextAreaConfig.formControlName" 
+              [config]="commentTextAreaConfig"
+              (onEnter)="sendComment()"
+            >
+            </app-form-field-textarea>
+            <button class="button button--primary" type="submit" [disabled]="commentForm.invalid">Comentar</button>
         </form>
     </section>
 </section>

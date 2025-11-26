@@ -4,10 +4,12 @@ import { ToastService } from '@shared/services/toast.service';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { Router } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
+import { IFormFieldInputConfig } from '@core/models/form.model';
+import { FormFieldInputComponent } from '@core/components/forms/form-field-input/form-field-input.component';
 
 @Component({
   selector: 'app-lost-password-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormFieldInputComponent],
   templateUrl: './lost-password-form.component.html',
   styleUrls: ['./lost-password-form.component.css', '../../../../features/cidadao/styles/auth-form.style.css']
 })
@@ -23,6 +25,19 @@ export class LostPasswordFormComponent {
     this.lostPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
+  }
+
+  protected lostPasswordInputConfig : IFormFieldInputConfig = {
+    formControlName: 'email',
+    input: {
+      id: 'email',
+      placeholder: 'nome@exemplo.com',
+      type: 'email'
+    },
+    label: {
+      for: 'email',
+      text: 'Digite seu email'
+    }
   }
 
   onSubmit() {

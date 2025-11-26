@@ -1,16 +1,7 @@
 <form [formGroup]="formGroup" class="form-step__body flex-column">
-  <!-- Campo de descrição -->
-  <div class="field">
-    <label class="field__label" for="description">Descrição</label>
-    <textarea
-      id="description"
-      class="field__input--description"
-      placeholder="Nos conte o que aconteceu"
-      formControlName="descricao"
-    >
-    </textarea>
-  </div>
+  <app-form-field-textarea  [formControlName]="descriptionInputConfig.formControlName" [config]="descriptionInputConfig"></app-form-field-textarea>
   
+  <label class="field__label" for="images">Adicione imagens do problema</label>
   <app-image-upload-input class="flex-row w-100" (filesSelected)="onFilesSelected($event)"></app-image-upload-input>
 
   <h3 class="text-sm">

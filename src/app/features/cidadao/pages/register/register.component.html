@@ -11,53 +11,9 @@
       <div
         class="form-container__form"
       >
-        <!-- Nome -->
-        <div class="field">
-          <label for="nome" class="field__label">Nome</label>
-          <input
-            id="nome"
-            type="text"
-            formControlName="nome"
-            class="field__input"
-            placeholder="Digite seu nome"
-          />
-        </div>
-
-        <!-- Email -->
-        <div class="field">
-          <label for="email" class="field__label">Email</label>
-          <input
-            id="email"
-            type="email"
-            formControlName="email"
-            class="field__input"
-            placeholder="Digite seu email"
-          />
-        </div>
-
-        <!-- Senha -->
-        <div class="field">
-          <label for="telefone" class="field__label">Senha</label>
-          <input
-            id="senha"
-            type="password"
-            formControlName="senha"
-            class="field__input"
-            placeholder="Digite uma senha segura"
-          />
-        </div>
-
-        <!-- Confirmação de senha -->
-        <div class="field">
-          <label for="senha" class="field__label">Confirme sua senha</label>
-          <input
-            id="confirmacao_senha"
-            type="password"
-            formControlName="confirmacao_senha"
-            class="field__input"
-            placeholder="Confirme a senha"
-          />
-        </div>
+       @for(config of formConfig; track $index){
+        <app-form-field-input [formControlName]="config.formControlName" [config]="config"></app-form-field-input>
+       }
       </div>
     </div>
     <footer class="form-container__footer">

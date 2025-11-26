@@ -1,0 +1,17 @@
+.field--zip-code,
+.field--number {
+  flex: 1;
+}
+.field--city,
+.field--street {
+  flex: 3;
+}
+.field__input--description {
+  resize: none;
+  height: 80px;
+  border: 1px solid var(--background-dark-color);
+  border-radius: 4px;
+  padding: var(--space-3) var(--space-2);
+  font-size: var(--sm-text);
+  box-shadow: var(--input-shadow);
+}
