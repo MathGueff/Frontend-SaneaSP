@@ -5,10 +5,12 @@ import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '@core/services/auth.service';
 import { ErrorHandlerService } from '@core/services/error-handler.service';
+import { FormFieldInputComponent } from '@core/components/forms/form-field-input/form-field-input.component';
+import { IFormConfig, IFormFieldInputConfig } from '@core/models/form.model';
 
 @Component({
   selector: 'app-reset-password-form',
-  imports: [ReactiveFormsModule, RouterModule],
+  imports: [ReactiveFormsModule, RouterModule, FormFieldInputComponent],
   templateUrl: './reset-password-form.component.html',
   styleUrl: './reset-password-form.component.css',
 })
@@ -28,6 +30,33 @@ export class ResetPasswordFormComponent {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+
+  protected formConfig : IFormConfig<IFormFieldInputConfig> = [
+    {
+      formControlName: 'password',
+      input: {
+        id: 'password',
+        placeholder: '************',
+        type: 'password'
+      },
+      label: {
+        for: 'password',
+        text: 'Nova senha'
+      }
+    },
+    {
+      formControlName: 'confirmPassword',
+      input: {
+        id: 'confirmPassword',
+        placeholder: '************',
+        type: 'password'
+      },
+      label: {
+        for: 'password',
+        text: 'Confirme a sua senha'
+      }
+    }
+  ]
 
   ngOnInit() {
     const token = this.token;

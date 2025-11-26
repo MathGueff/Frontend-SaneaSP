@@ -1,21 +1,22 @@
-# Imagem base do Node.js
-FROM node:20-alpine
-
-# Diretório de trabalho dentro do container
+# Etapa 1: Build Angular
+FROM node:20 AS build
 WORKDIR /app
 
-# Copia apenas arquivos de dependências
 COPY package*.json ./
-
-# Instala dependências
 RUN npm install
 
-# Copia o restante do código
 COPY . .
+RUN npm run ng build
 
-# Expõe a porta padrão do Angular
-EXPOSE 4200
+# Etapa 2: Servir com NGINX
+FROM nginx:1.25
 
-# Comando padrão para desenvolvimento
-#["npm", "run", "start", "--", "--proxy-config","src/proxy.conf.json","--host", "0.0.0.0"]
-CMD ["npm", "run", "start", "--", "--proxy-config","src/proxy.conf.json" , "--host", "0.0.0.0"]
+# Copia nossa config NGINX personalizada
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copia o Angular buildado (somente a versão browser)
+COPY --from=build /app/dist/prj-integrador/browser /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

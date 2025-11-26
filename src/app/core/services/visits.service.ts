@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { BaseApiService } from "./base-api.service";
-import { environment } from "environments/environment";
+import { environment } from 'environments/environment.prod';
 import { Observable } from "rxjs";
 import { IVisitCreate, IVisits } from "@features/prefeitura/components/scheduling/models/visits.model";
 import { HttpClient } from "@angular/common/http";

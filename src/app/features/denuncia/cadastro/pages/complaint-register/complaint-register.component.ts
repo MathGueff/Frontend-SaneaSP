@@ -1,5 +1,5 @@
 import { UploadService } from './../../../../../shared/services/upload.service';
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { FormStepsComponent } from "@features/denuncia/cadastro/components/form-steps/form-steps.component";
 import { FormNavigationComponent } from "../../components/form-navigation/form-navigation.component";
 import { FirstStepComponent } from "../../components/first-step/first-step.component";
@@ -15,8 +15,6 @@ import { ThirdStepComponent } from "../../components/third-step/third-step.compo
 import { ReviewComponent } from "@features/denuncia/cadastro/components/review/review.component";
 import { ViewportScroller } from "@angular/common";
 import {
-  ComplaintStatus,
-  IComplaint,
   IComplaintPreview,
   ICreateComplaint,
 } from "@features/denuncia/models/complaint.model";
@@ -118,11 +116,11 @@ export class ComplaintRegisterComponent {
       imageNames: [""],
     }),
     where: this.fb.group({
-      rua: ["", [Validators.required]],
-      bairro: ["", [Validators.required]],
-      cidade: ["", [Validators.required]],
-      cep: ["", [Validators.required]],
-      numero: [""],
+      rua: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+      bairro: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+      cidade: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+      cep: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+      numero: ["", [Validators.maxLength(30)]],
       complemento: [""],
     }),
     how: this.fb.group({
@@ -130,7 +128,7 @@ export class ComplaintRegisterComponent {
       categoriasIds: [""],
     }),
     review: this.fb.group({
-      titulo: ["", Validators.required],
+      titulo: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       privacidade: [""],
     }),
   });
