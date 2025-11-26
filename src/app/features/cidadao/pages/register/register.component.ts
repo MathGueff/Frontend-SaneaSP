@@ -47,7 +47,7 @@ export class RegisterComponent {
     {
       formControlName: 'email',
       label: {
-        text: 'email',
+        text: 'Email',
         for: 'email'
       },
       input: {

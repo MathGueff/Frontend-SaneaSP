@@ -49,7 +49,7 @@ export class LoginComponent {
       },
       input: {
         id: 'senha',
-        placeholder: 'seu@password.com',
+        placeholder: 'Sua senha segura',
         type: 'password'
       },
     }

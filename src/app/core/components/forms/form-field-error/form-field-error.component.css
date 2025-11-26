@@ -1,12 +1,25 @@
+
 .error-messages {
-  margin-top: var(--space-2);
-  background-color: var(--background-color);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 10;
+  min-width: 180px;
+  margin-top: 2px;
+  background: var(--background-color);
   border: 1px solid var(--background-dark-color);
-  padding-top: var(--space-1);
-  padding-bottom: var(--space-1);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  padding: var(--space-1) var(--space-2);
+  pointer-events: none;
 }
 
 .error-message {
-  color: #d32f2f;
+  color: var(--red-color);
   font-size: var(--xs-text);
+  transition: 0.3s all ease
+}
+
+.error-message:hover{
+  opacity: 0.2
 }
