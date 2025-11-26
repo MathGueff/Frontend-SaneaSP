@@ -41,3 +41,5 @@ export type IFormFieldTextareaConfig = Omit<IFormFieldBaseConfig, 'label'> & {
     label ?: ILabel
     textarea: ITextArea
 };
+
+export type IFormConfig<T extends IFormFieldInputConfig | IFormFieldTextareaConfig> = Array<T>;
