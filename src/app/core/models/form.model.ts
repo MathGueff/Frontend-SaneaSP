@@ -6,7 +6,7 @@ interface ILabel {
 
 interface IInput {
     id : string
-    type : 'text' | 'number' | 'password' | 'tel'
+    type : 'text' | 'number' | 'password' | 'tel' | 'email'
     placeholder : string,
     value ?: string,
     class ?: string[]

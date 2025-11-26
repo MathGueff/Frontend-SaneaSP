@@ -56,9 +56,6 @@ export class FormFieldTextareaComponent extends FormFieldBaseComponent<IFormFiel
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       this.onEnter.emit()
-      if(this.ngControl.valid){
-        this.ngControl.control?.reset()
-      }
     }
   }
 }
