@@ -4,7 +4,7 @@ import { catchError, firstValueFrom, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials, TUserCreate } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
-import { environment } from 'environments/environment';
+import { environment } from 'environments/environment.prod';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 import { UserType } from '@features/usuario/enums/user-type';
 
