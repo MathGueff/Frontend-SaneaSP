@@ -6,7 +6,7 @@ import {
   ViewChild,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, combineLatest } from 'rxjs';
 import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 
@@ -14,10 +14,12 @@ import { MapComponent } from '@core/components/map/map.component';
 import { GeocodingService } from '@core/services/geocoding.service';
 import { ViacepService } from '@shared/services/viacep.service';
 import { ToastService } from '@shared/services/toast.service';
+import { IFormFieldInputConfig } from '@core/models/form.model';
+import { FormFieldInputComponent } from '@core/components/forms/form-field-input/form-field-input.component';
 
 @Component({
   selector: 'app-second-step',
-  imports: [ReactiveFormsModule, MapComponent],
+  imports: [ReactiveFormsModule, MapComponent, FormFieldInputComponent],
   templateUrl: './second-step.component.html',
   styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })
@@ -32,9 +34,75 @@ export class SecondStepComponent implements OnInit, OnDestroy {
   private toastService = inject(ToastService);
   private geocoding = inject(GeocodingService);
 
+  protected formFields : IFormFieldInputConfig[] = [
+    {
+      formControlName: 'cep',
+      label: { for: 'cep', text: 'CEP'},
+      input: {
+        id: 'cep',
+        type: 'text',
+        placeholder: '00000-000',
+        class: ['field--zip-code'],
+        minlength: 8,
+        maxlength: 8
+      }
+    },
+    {
+      formControlName: 'cidade',
+      label: { for: 'cidade', text: 'Cidade'},
+      input: {
+        id: 'cidade',
+        type: 'text',
+        placeholder: 'Ex: Sorocaba',
+        class: ['field--city']
+      }
+    },
+    {
+      formControlName: 'rua',
+      label: { for: 'rua', text: 'Rua'},
+      input: {
+        id: 'rua',
+        type: 'text',
+        placeholder: 'Ex: Rua Jardim Brasilândia',
+        class: ['field--street']
+      }
+    },
+    {
+      formControlName: 'numero',
+      label: { for: 'numero', text: 'Número'},
+      input: {
+        id: 'numero',
+        type: 'number',
+        placeholder: 'Ex: 123',
+        class: ['field--number']
+      }
+    },
+    {
+      formControlName: 'bairro',
+      label: { for: 'bairro', text: 'Bairro'},
+      input: {
+        id: 'bairro',
+        type: 'text',
+        placeholder: 'Ex: Jardim Brasilândia',
+        class: ['field__input']
+      }
+    },
+    {
+      formControlName: 'complemento',
+      label: { for: 'complemento', text: 'Complemento'},
+      input: {
+        id: 'complemento',
+        type: 'text',
+        placeholder: 'Ex: fundos',
+        class: ['field__input']
+      }
+    }
+  ];
+
   ngOnInit(): void {
     this.listenCepChanges();
     this.listenAddressChanges();
+    console.log(this.formFields)
   }
 
   ngOnDestroy(): void {

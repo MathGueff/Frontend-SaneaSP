@@ -26,38 +26,18 @@
 
     <!-- Campos de endereço -->
     <div class="address-section__fields flex-column">
-
       <div class="field-group flex-row">
-        <div class="field field--zip-code">
-          <label class="field__label" for="cep">CEP</label>
-          <input formControlName="cep" id="cep" type="text" class="field__input" placeholder="00000-000" maxlength="8" minlength="8" />
-        </div>
-        <div class="field field--city">
-          <label class="field__label" for="cidade">Cidade</label>
-          <input formControlName="cidade" id="cidade" type="text" class="field__input" placeholder="Ex: Sorocaba" />
-        </div>
+        <app-form-field-input [formControlName]="formFields[0].formControlName" [config]="formFields[0]"></app-form-field-input>
+        <app-form-field-input [formControlName]="formFields[1].formControlName" [config]="formFields[1]"></app-form-field-input>
       </div>
 
       <div class="field-group flex-row">
-        <div class="field field--street">
-          <label class="field__label" for="rua">Rua</label>
-          <input formControlName="rua" id="rua" type="text" class="field__input" placeholder="Ex: Rua Jardim Brasilândia" />
-        </div>
-        <div class="field field--number">
-          <label class="field__label" for="numero">Número</label>
-          <input formControlName="numero" id="numero" type="number" class="field__input" placeholder="Ex: 123" />
-        </div>
+        <app-form-field-input [formControlName]="formFields[2].formControlName" [config]="formFields[2]"></app-form-field-input>
+        <app-form-field-input [formControlName]="formFields[3].formControlName" [config]="formFields[3]"></app-form-field-input>
       </div>
 
-        <div class="field">
-          <label class="field__label" for="bairro">Bairro</label>
-          <input formControlName="bairro" id="bairro" type="text" class="field__input" placeholder="Ex: Jardim Brasilândia" />
-        </div>
-
-        <div class="field">
-          <label class="field__label" for="complemento">Complemento</label>
-          <input formControlName="complemento" id="complemento" type="text" class="field__input" placeholder="Ex: fundos" />
-        </div>
+      <app-form-field-input [formControlName]="formFields[4].formControlName" [config]="formFields[4]"></app-form-field-input>
+      <app-form-field-input [formControlName]="formFields[5].formControlName" [config]="formFields[5]"></app-form-field-input>
     </div>
   </section>
 

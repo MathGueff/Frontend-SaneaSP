@@ -1,0 +1,9 @@
+@if(shouldShowErrors){
+  <div class="error-messages">
+    @for(message of errorMessages; track $index){
+      <div class="error-message">
+        {{ message }}
+      </div>
+    }
+  </div>
+}

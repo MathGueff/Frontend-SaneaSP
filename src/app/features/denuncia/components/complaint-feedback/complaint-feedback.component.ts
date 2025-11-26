@@ -18,10 +18,12 @@ import { Subject, takeUntil } from "rxjs";
 import { CommentService } from "@features/denuncia/services/comment.service";
 import { FeedbackService } from "@shared/services/feedback.service";
 import { IComplaint } from "@features/denuncia/models/complaint.model";
+import { IFormFieldTextareaConfig } from "@core/models/form.model";
+import { FormFieldTextareaComponent } from "@core/components/forms/form-field-textarea/form-field-textarea.component";
 
 @Component({
   selector: "app-complaint-feedback",
-  imports: [CommentCardComponent, CommonModule, ReactiveFormsModule],
+  imports: [CommentCardComponent, CommonModule, ReactiveFormsModule, FormFieldTextareaComponent],
   templateUrl: "./complaint-feedback.component.html",
   styleUrls: [
     "./complaint-feedback.component.css",
@@ -44,6 +46,22 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
   protected feedbackForm: FormGroup = this.fb.group({
     descricao: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
   });
+
+  protected feedbackTextAreaConfig : IFormFieldTextareaConfig = {
+    formControlName: 'descricao',
+    textarea: {
+      id: 'descricao',
+      placeholder: 'Insira aqui o seu feedback'
+    }
+  }
+
+  protected commentTextAreaConfig : IFormFieldTextareaConfig = {
+    formControlName: 'newComment',
+    textarea: {
+      id: 'newComment',
+      placeholder: 'Faça o seu comentário'
+    }
+  }
 
   protected comments: IComment[] = [];
   protected commentForm: FormGroup = this.fb.group({
@@ -76,6 +94,21 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  openChat(item: any): void {
+    console.log(`Abrindo chat com: ${item.name}`);
+  }
+
+  autoGrow(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
+
   sendFeedback() {
     if (this.feedbackForm.invalid || !this.complaintId) return;
     const descricao = this.feedbackForm.get('descricao')?.value?.trim();
@@ -94,21 +127,6 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
         this.toastService.show({ message: 'Erro ao enviar feedback', error: true });
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  openChat(item: any): void {
-    console.log(`Abrindo chat com: ${item.name}`);
-  }
-
-  autoGrow(event: Event) {
-    const textarea = event.target as HTMLTextAreaElement;
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
   }
 
   sendComment() {
@@ -132,19 +150,5 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
 
   isAuthor(){
     return this.authService.currentUser()?.id == this.complaint?.idUsuario
-  }
-
-  onFeedbackTextAreaKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      this.sendFeedback();
-    }
-  }
-
-  onCommentTextAreaKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      this.sendComment();
-    }
   }
 }
