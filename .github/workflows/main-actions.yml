@@ -199,8 +199,6 @@ jobs:
             echo "Payload JSON gerado:"
             echo "$PAYLOAD" | jq .
 
-            -d "$PAYLOAD"
-
             echo "Iniciando deploy no Render..."
 
             RESPONSE=$(curl -i -s -X POST \
@@ -208,7 +206,7 @@ jobs:
               -H "Accept: application/json" \
               -H "Content-Type: application/json" \
               -H "Authorization: Bearer $RENDER_API_KEY" \
-              -d '${{ steps.payload.outputs.payload }}'
+              -d "$PAYLOAD"
             )
 
             echo "Resposta completa:"
