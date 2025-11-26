@@ -3,8 +3,7 @@ name: Release Main
 on:
   push:
     branches:
-      - feature/deploy-render
-
+      - main
 jobs:
   pipeline:
     runs-on: ubuntu-latest
