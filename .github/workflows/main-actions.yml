@@ -45,7 +45,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          if [ -z "$(git tag --list)" ]; then
+          # Verifica se a tag v0.0.0 existe
+          if git rev-parse "v0.0.0" >/dev/null 2>&1; then
+            echo "Tag v0.0.0 já existe - nenhuma ação necessária."
+          else
+            echo "Criando tag inicial v0.0.0"
+
             git config --global user.name 'github-actions'
             git config --global user.email 'github-actions@github.com'
 
@@ -54,8 +59,6 @@ jobs:
             # 🔑 Usa GH_TOKEN para push
             git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
             git push origin v0.0.0
-          else
-            echo "Tag v0.0.0 já existe - nenhuma ação necessária."
           fi
 
       # --- Calcular nova versão semântica ---

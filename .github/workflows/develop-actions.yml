@@ -45,24 +45,36 @@ jobs:
         run: |
           git fetch --tags --force --prune
 
-          LAST_TAG=$(git tag --list 'v*' --sort=-v:refname | head -n1 || echo "v0.0.0")
-          CURRENT_VERSION="${LAST_TAG#v}"
+          # Obtém apenas versões estáveis (sem preview)
+          LAST_STABLE=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -n1)
 
-          NEW_VERSION=$(semver -i patch "$CURRENT_VERSION")
+          if [ -z "$LAST_STABLE" ]; then
+            LAST_STABLE="v0.0.0"
+          fi
 
-          # Número do preview (quantas tags preview já existem para essa versão base)
-          COUNT=$(git tag --list "v${NEW_VERSION}-preview.*" | wc -l | xargs)
-          PREVIEW_VERSION="v${NEW_VERSION}-preview.$((COUNT+1))"
+          echo "Última versão estável: $LAST_STABLE"
 
-          echo "NEW_VERSION=$PREVIEW_VERSION" >> $GITHUB_ENV
-          echo "new_version=$PREVIEW_VERSION" >> $GITHUB_OUTPUT
+          CURRENT_VERSION="${LAST_STABLE#v}"
+
+          # Nova base para preview
+          NEW_BASE=$(semver -i patch "$CURRENT_VERSION")
+
+          # Conta quantos previews existem dessa versão
+          COUNT=$(git tag --list "v${NEW_BASE}-preview.*" | wc -l | xargs)
+
+          PREVIEW_VERSION="v${NEW_BASE}-preview.$((COUNT + 1))"
+
+          echo "Nova versão preview: $PREVIEW_VERSION"
+
+          echo "NEW_PREVIEW=$PREVIEW_VERSION" >> $GITHUB_ENV
+          echo "new_preview=$PREVIEW_VERSION" >> $GITHUB_OUTPUT
 
       # --- Criar Release Preview ---
       - name: Criar Release Preview
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.version.outputs.new_version }}
-          name: "Preview ${{ steps.version.outputs.new_version }}"
+          tag_name: ${{ steps.version.outputs.new_preview }}
+          name: "Preview ${{ steps.version.outputs.new_preview }}"
           draft: false
           prerelease: true
         env:
@@ -72,23 +84,20 @@ jobs:
       - name: Atualizar versão no package.json
         id: update_package
         run: |
-          # Versão atual
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          echo "📦 Versão atual no package.json: $CURRENT_VERSION"
+          # Base sem preview
+          BASE_VERSION=$(echo "${{ steps.version.outputs.new_preview }}" | sed 's/-preview\..*//')
+          BASE_VERSION="${BASE_VERSION#v}"
 
-          # Incrementa patch
-          NEW_VERSION=$(npx semver -i patch "$CURRENT_VERSION")
-          echo "📦 Nova versão: $NEW_VERSION"
+          echo "Atualizando package.json para: $BASE_VERSION"
 
-          # Atualiza package.json com a nova versão
           node -e "
             const fs = require('fs');
             const pkg = require('./package.json');
-            pkg.version = '$NEW_VERSION';
+            pkg.version = '$BASE_VERSION';
             fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2));
           "
 
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "new_version=$BASE_VERSION" >> $GITHUB_OUTPUT
 
       - name: Commit da nova versão
         env:
@@ -96,12 +105,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Ajusta o remote
           git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git
 
           git add package.json
-          git commit -m "chore(version): bump to ${{ steps.update_package.outputs.new_version }}" || echo "Sem alterações para commitar"
+          git commit -m "chore: update version to ${{ steps.update_package.outputs.new_version }}" || echo "Sem alterações"
           git push origin develop
 
       # --- Imagem Docker ---
