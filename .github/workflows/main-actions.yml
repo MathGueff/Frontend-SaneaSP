@@ -3,7 +3,7 @@ name: Release Main
 on:
   push:
     branches:
-      - feature/deploy-render
+      - main
 
 jobs:
   pipeline:
@@ -198,62 +198,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Deploy via Render API
-        env:
-          RENDER_API_KEY: ${{secrets.RENDER_API_KEY}}
-          SERVICE_ID: ${{secrets.SERVICE_ID}}
-          REPO_NAME: ${{secrets.REPO_NAME}}
-        run: |
-            echo "Criando payload para deploy da versão latest"
-
-            PAYLOAD=$(jq -n \
-              --arg image "docker.io/${{ secrets.DOCKER_USERNAME }}/$REPO_NAME:latest" \
-              --arg version "latest" \
-              '{
-                clearCache: "clear",
-                imageUrl: $image,
-                overrideImage: true,
-                imagePullPolicy: "Always"
-              }'
-            )
-
-            echo "Payload JSON gerado:"
-            echo "$PAYLOAD" | jq .
-
-            echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
-
-            echo "Iniciando deploy no Render..."
-
-            RESPONSE=$(curl -i -s -X POST \
-              "https://api.render.com/v1/services/$SERVICE_ID/deploys" \
-              -H "Accept: application/json" \
-              -H "Content-Type: application/json" \
-              -H "Authorization: Bearer $RENDER_API_KEY" \
-              -d '${{ steps.payload.outputs.payload }}'
-            )
-
-            echo "Resposta completa:"
-            echo "$RESPONSE"
-
-            HTTP_STATUS=$(echo "$RESPONSE" | grep HTTP | awk '{print $2}')
-            RESPONSE_BODY=$(echo "$RESPONSE" | awk '/^\{/{flag=1} flag')
-
-            echo "http_status=$HTTP_STATUS" >> $GITHUB_OUTPUT
-            echo "response_body=$RESPONSE_BODY" >> $GITHUB_OUTPUT
-
-            echo "Status da resposta: ${{ steps.request.outputs.http_status }}"
-            echo "Corpo da resposta:"
-            echo '${{ steps.request.outputs.response_body }}' | jq .
-
-            if [[ "${{ steps.request.outputs.http_status }}" =~ ^2[0-9]{2}$ ]]; then
-              DEPLOY_ID=$(echo '${{ steps.request.outputs.response_body }}' | jq -r '.id')
-              echo "Deploy iniciado com sucesso! ID: $DEPLOY_ID"
-            else
-              echo "Falha no deploy!"
-              echo "Detalhes:"
-              echo '${{ steps.request.outputs.response_body }}' | jq .
-              exit 1
-            fi
   # --- Enviar e-mail em caso de falha ---
   notify_failure:
     name: Notificar Falha
