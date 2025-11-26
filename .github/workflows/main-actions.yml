@@ -213,22 +213,13 @@ jobs:
             echo "$RESPONSE"
 
             HTTP_STATUS=$(echo "$RESPONSE" | grep HTTP | awk '{print $2}')
-            RESPONSE_BODY=$(echo "$RESPONSE" | awk '/^\{/{flag=1} flag')
 
-            echo "http_status=$HTTP_STATUS" >> $GITHUB_OUTPUT
-            echo "response_body=$RESPONSE_BODY" >> $GITHUB_OUTPUT
+            echo "Status da resposta HTTP: $HTTP_STATUS"
 
-            echo "Status da resposta: ${{ steps.request.outputs.http_status }}"
-            echo "Corpo da resposta:"
-            echo '${{ steps.request.outputs.response_body }}' | jq .
-
-            if [[ "${{ steps.request.outputs.http_status }}" =~ ^2[0-9]{2}$ ]]; then
-              DEPLOY_ID=$(echo '${{ steps.request.outputs.response_body }}' | jq -r '.id')
-              echo "Deploy iniciado com sucesso! ID: $DEPLOY_ID"
+            if [[ "$HTTP_STATUS" =~ ^2[0-9]{2}$ ]]; then
+              echo "Deploy iniciado com sucesso!"
             else
               echo "Falha no deploy!"
-              echo "Detalhes:"
-              echo '${{ steps.request.outputs.response_body }}' | jq .
               exit 1
             fi
 
