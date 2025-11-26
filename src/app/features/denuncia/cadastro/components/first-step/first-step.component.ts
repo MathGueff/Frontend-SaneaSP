@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ImageUploadInputComponent } from "../image-upload-input/image-upload-input.component";
-import { FormFieldComponent } from "@core/components/forms/form-field/form-field.component";
-import { IFormFieldInputConfig } from '@core/models/form.model';
+import { IFormFieldTextareaConfig } from '@core/models/form.model';
+import { FormFieldTextareaComponent } from '@core/components/forms/form-field-textarea/form-field-textarea.component';
 
 @Component({
     selector: 'app-first-step',
-    imports: [ImageUploadInputComponent, ReactiveFormsModule, FormFieldComponent],
+    imports: [ImageUploadInputComponent, ReactiveFormsModule, FormFieldTextareaComponent],
     templateUrl: './first-step.component.html',
     styleUrls: [
         './first-step.component.css'
@@ -20,9 +20,9 @@ export class FirstStepComponent implements OnInit{
 
   private imageFiles: File[] = [];
   protected filePreviews: string[] = [];
-  protected descriptionInputConfig : IFormFieldInputConfig = {
+  protected descriptionInputConfig : IFormFieldTextareaConfig = {
     formControlName: 'descricao',
-    input : {type: 'text', placeholder: 'Coloque o seu relato aqui', id: 'descricao', class: ['field__input--description']},
+    textarea : { placeholder: 'Coloque o seu relato aqui', id: 'descricao', class: ['field__input--description']},
     label : {text: 'O que aconteceu', for: 'descricao'}
   }
 

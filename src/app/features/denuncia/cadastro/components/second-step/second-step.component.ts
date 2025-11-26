@@ -14,12 +14,12 @@ import { MapComponent } from '@core/components/map/map.component';
 import { GeocodingService } from '@core/services/geocoding.service';
 import { ViacepService } from '@shared/services/viacep.service';
 import { ToastService } from '@shared/services/toast.service';
-import { FormFieldComponent } from '@core/components/forms/form-field/form-field.component';
 import { IFormFieldInputConfig } from '@core/models/form.model';
+import { FormFieldInputComponent } from '@core/components/forms/form-field-input/form-field-input.component';
 
 @Component({
   selector: 'app-second-step',
-  imports: [ReactiveFormsModule, MapComponent, FormFieldComponent],
+  imports: [ReactiveFormsModule, MapComponent, FormFieldInputComponent],
   templateUrl: './second-step.component.html',
   styleUrls: ['./second-step.component.css', '../../../../../shared/styles/form.style.css']
 })

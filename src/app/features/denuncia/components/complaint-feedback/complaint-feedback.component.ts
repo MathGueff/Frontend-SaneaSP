@@ -47,11 +47,19 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
     descricao: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
   });
 
-  protected formTextAreaConfig : IFormFieldTextareaConfig = {
+  protected feedbackTextAreaConfig : IFormFieldTextareaConfig = {
     formControlName: 'descricao',
     textarea: {
       id: 'descricao',
       placeholder: 'Insira aqui o seu feedback'
+    }
+  }
+
+  protected commentTextAreaConfig : IFormFieldTextareaConfig = {
+    formControlName: 'newComment',
+    textarea: {
+      id: 'newComment',
+      placeholder: 'Faça o seu comentário'
     }
   }
 
@@ -86,6 +94,21 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  openChat(item: any): void {
+    console.log(`Abrindo chat com: ${item.name}`);
+  }
+
+  autoGrow(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
+
   sendFeedback() {
     if (this.feedbackForm.invalid || !this.complaintId) return;
     const descricao = this.feedbackForm.get('descricao')?.value?.trim();
@@ -104,21 +127,6 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
         this.toastService.show({ message: 'Erro ao enviar feedback', error: true });
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  openChat(item: any): void {
-    console.log(`Abrindo chat com: ${item.name}`);
-  }
-
-  autoGrow(event: Event) {
-    const textarea = event.target as HTMLTextAreaElement;
-    textarea.style.height = "auto";
-    textarea.style.height = textarea.scrollHeight + "px";
   }
 
   sendComment() {
@@ -142,19 +150,5 @@ export class ComplaintFeedbackComponent implements OnInit, OnDestroy {
 
   isAuthor(){
     return this.authService.currentUser()?.id == this.complaint?.idUsuario
-  }
-
-  onFeedbackTextAreaKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      this.sendFeedback();
-    }
-  }
-
-  onCommentTextAreaKeyDown(event: KeyboardEvent) {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      this.sendComment();
-    }
   }
 }

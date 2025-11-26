@@ -9,7 +9,7 @@
     [id]="config.input.id" 
     [type]="config.input.type" 
     [placeholder]="config.input.placeholder" 
-    [class]="'field__input' + ' ' + inputClass + (hasError ? ' field__input--error' : '')"
+    [ngClass]="[ 'field__input', inputClass, fieldStatusClass ]"
     [value]="value"
     [disabled]="isDisabled"
     (input)="handleInput($event)"
@@ -21,5 +21,5 @@
     [attr.pattern]="config.input.pattern"
   />
   <!-- Passe o ngControl para o componente de erro -->
-  <app-form-field-error [ngControl]="ngControl"></app-form-field-error>
+  <app-form-field-error [ngControl]="ngControl" class="form-field-error-popup"></app-form-field-error>
 </div>

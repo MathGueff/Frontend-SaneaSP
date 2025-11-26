@@ -1,8 +1,9 @@
-import { Component, Input, Self } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Self } from '@angular/core';
 import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { IFormFieldTextareaConfig } from '@core/models/form.model';
 import { FormFieldErrorComponent } from '../form-field-error/form-field-error.component';
 import { CommonModule } from '@angular/common';
+import { FormFieldBaseComponent } from '../form-field-base/form-field-base.component';
 
 @Component({
   selector: 'app-form-field-textarea',
@@ -10,13 +11,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './form-field-textarea.component.html',
   styleUrl: './form-field-textarea.component.css',
 })
-export class FormFieldTextareaComponent implements ControlValueAccessor {
-  @Input() config!: IFormFieldTextareaConfig;
+export class FormFieldTextareaComponent extends FormFieldBaseComponent<IFormFieldTextareaConfig> {
+  @Output() onEnter = new EventEmitter()
 
-  constructor(@Self() public ngControl: NgControl) {
-    if (this.ngControl != null) {
-      this.ngControl.valueAccessor = this;
-    }
+  constructor(@Self() public override ngControl: NgControl) {
+    super(ngControl);
   }
 
   get fieldClass() {
@@ -40,31 +39,6 @@ export class FormFieldTextareaComponent implements ControlValueAccessor {
     return '';
   }
 
-  get hasError(): boolean {
-    return this.ngControl?.invalid && (this.ngControl?.dirty || this.ngControl?.touched) || false;
-  }
-
-  value: any = '';
-  isDisabled = false;
-  onChange = (value: any) => {};
-  onTouched = () => {};
-
-  writeValue(obj: any): void {
-    this.value = obj;
-  }
-  
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-  
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
-  }
-
   handleInput(event: Event) {
     const value = (event.target as HTMLTextAreaElement).value;
     this.value = value;
@@ -72,12 +46,19 @@ export class FormFieldTextareaComponent implements ControlValueAccessor {
     this.onTouched();
   }
 
-  autoGrow?(event: Event): void;
-  onTextAreaKeyDown?(event: KeyboardEvent): void;
-
-  ngOnInit() {
-    if (this.config.textarea.id && this.config.label && this.config.textarea.id !== this.config.label.for) {
-      alert('O ID e FOR do textarea devem ser iguais');
+  autoGrow(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
+  }
+  
+  onTextAreaKeyDown(event: KeyboardEvent) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      this.onEnter.emit()
+      if(this.ngControl.valid){
+        this.ngControl.control?.reset()
+      }
     }
   }
 }

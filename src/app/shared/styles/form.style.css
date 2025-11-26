@@ -37,7 +37,7 @@
 }
 
 /* Field */
-app-form-field{
+app-form-field-input{
   width: 100%;
 }
 
@@ -50,6 +50,14 @@ app-form-field-textarea{
   flex-direction: column;
   gap: var(--space-1);
   width: 100%;
+}
+
+.field--invalid{
+  border: 1px solid #d32f2f !important;
+}
+
+.field--valid{
+  border: 1px solid var(--green-color) !important;
 }
 
 .field-group{

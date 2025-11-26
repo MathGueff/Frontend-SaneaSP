@@ -9,9 +9,4 @@
 .error-message {
   color: #d32f2f;
   font-size: var(--xs-text);
-  margin-top: 2px;
-}
-
-.field__input--error {
-  border-color: #d32f2f !important;
 }

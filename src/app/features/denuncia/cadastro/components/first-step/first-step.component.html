@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" class="form-step__body flex-column">
-  <app-form-field [formControlName]="descriptionInputConfig.formControlName" [config]="descriptionInputConfig"></app-form-field>
+  <app-form-field-textarea  [formControlName]="descriptionInputConfig.formControlName" [config]="descriptionInputConfig"></app-form-field-textarea>
   
   <label class="field__label" for="images">Adicione imagens do problema</label>
   <app-image-upload-input class="flex-row w-100" (filesSelected)="onFilesSelected($event)"></app-image-upload-input>

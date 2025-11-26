@@ -1,10 +1,10 @@
-export interface ILabel {
+interface ILabel {
     text: string
     for: string 
     class ?: string[]
 }
 
-export interface IInput {
+interface IInput {
     id : string
     type : 'text' | 'number' | 'password' | 'tel'
     placeholder : string,
@@ -17,10 +17,9 @@ export interface IInput {
     pattern ?: string
 }
 
-export interface ITextArea { 
+interface ITextArea { 
     id: string;
     placeholder?: string;
-    value?: string;
     class?: string[];
     minlength?: number;
     maxlength?: number;
@@ -28,7 +27,7 @@ export interface ITextArea {
     cols?: number;
 }
 
-export interface IFormFieldBaseConfig{
+interface IFormFieldBaseConfig{
     formControlName: string
     class ?: string[]
     label: ILabel
