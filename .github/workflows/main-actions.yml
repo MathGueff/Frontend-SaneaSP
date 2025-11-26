@@ -199,7 +199,7 @@ jobs:
             echo "Payload JSON gerado:"
             echo "$PAYLOAD" | jq .
 
-            echo "payload=$PAYLOAD" >> $GITHUB_OUTPUT
+            -d "$PAYLOAD"
 
             echo "Iniciando deploy no Render..."
 
