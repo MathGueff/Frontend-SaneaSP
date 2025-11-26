@@ -52,7 +52,7 @@ src/
         │   ├── components/
         │   ├── pages/
         │   └── models/
-        ├── usuario/
+        ├── usuario/ 
         │   ├── services/
         │   ├── components/
         │   ├── pages/
