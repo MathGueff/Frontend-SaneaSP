@@ -144,7 +144,7 @@ jobs:
           draft: false
           prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ---- Imagem Docker -----
       - name: Login Docker Hub
@@ -153,28 +153,28 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Docker Image Front-DEV    
+      # Docker Image Front-Prod
 
-      - name: Extrai metadatas para a Imagem Front-Dev
-        id: metaDev
+      - name: Extrai metadatas para a Imagem Front-Prod
+        id: metaProd
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/front-sanea-dev
+          images: ${{ secrets.DOCKER_USERNAME }}/front-sanea-prod
           tags: |
             type=raw,value=${{ steps.version.outputs.new_version }}
             type=raw,value=latest
 
-      - name: Build e publicação da Imagem Front-Dev
-        id: pushDev
+      - name: Build e publicação da Imagem Front-Prod
+        id: pushProd
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
-          file: ./Dockerfile.dev
+          file: ./Dockerfile
           push: true
-          tags: ${{ steps.metaDev.outputs.tags }}
-          labels: ${{ steps.metaDev.outputs.labels }}
+          tags: ${{ steps.metaProd.outputs.tags }}
+          labels: ${{ steps.metaProd.outputs.labels }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # --- Deploy automático via Render ---
       - name: Deploy via Render API

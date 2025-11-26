@@ -113,10 +113,10 @@ jobs:
 
       # --- Docker Image Front-DEV ---
       - name: Extrai metadatas para o Docker
-        id: meta
+        id: metaDev
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: saneasp/sanea-back
+          images: saneasp/sanea-back-dev
 
       - name: Build e publicação da imagem Docker
         id: push
@@ -125,10 +125,10 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.metaDev.outputs.tags }}
+          labels: ${{ steps.metaDev.outputs.labels }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # --- Enviar e-mail em caso de falha ---
   notify_failure:
