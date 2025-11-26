@@ -1,13 +1,14 @@
+type InputType = 'text' | 'number' | 'password' | 'tel' | 'email' | 'date'
+
 interface ILabel {
     text: string
     for: string 
     class ?: string[]
 }
-
 interface IInput {
     id : string
-    type : 'text' | 'number' | 'password' | 'tel' | 'email'
-    placeholder : string,
+    type : InputType
+    placeholder ?: string,
     value ?: string,
     class ?: string[]
     minlength ?: number

@@ -2,15 +2,17 @@
 import { Component, inject } from '@angular/core';
 import { Validators, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { FormFieldInputComponent } from '@core/components/forms/form-field-input/form-field-input.component';
+import { IFormConfig, IFormFieldInputConfig } from '@core/models/form.model';
 import { AuthService } from '@core/services/auth.service';
 import { ErrorHandlerService } from '@core/services/error-handler.service';
-import { TUserCreate, IUser } from '@features/usuario/models/user.model';
+import { TUserCreate } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ToastService } from '@shared/services/toast.service';
 
 @Component({
     selector: 'app-register',
-    imports: [ReactiveFormsModule, RouterModule],
+    imports: [ReactiveFormsModule, RouterModule, FormFieldInputComponent],
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css']
 })
@@ -26,8 +28,59 @@ export class RegisterComponent {
     nome: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     senha: ['', [Validators.required, Validators.minLength(6)]],
-    confirmacao_senha: ['', [Validators.required, Validators.minLength(6)]]
+    confirmaSenha: ['', [Validators.required, Validators.minLength(6)]]
   });
+
+  protected formConfig : IFormConfig<IFormFieldInputConfig> = [
+    {
+      formControlName: 'nome',
+      label: {
+        text: 'Nome',
+        for: 'nome'
+      },
+      input: {
+        id: 'nome',
+        placeholder: 'Seu nome',
+        type: 'text'
+      }
+    },
+    {
+      formControlName: 'email',
+      label: {
+        text: 'email',
+        for: 'email'
+      },
+      input: {
+        id: 'email',
+        placeholder: 'seu@email.com',
+        type: 'email'
+      }
+    },
+    {
+      formControlName: 'senha',
+      label: {
+        text: 'Senha',
+        for: 'senha'
+      },
+      input: {
+        id: 'senha',
+        placeholder: 'Sua senha',
+        type: 'password'
+      }
+    },
+    {
+      formControlName: 'confirmaSenha',
+      label: {
+        text: 'Confirme sua senha',
+        for: 'confirmaSenha'
+      },
+      input: {
+        id: 'confirmaSenha',
+        placeholder: 'Confirme sua senha',
+        type: 'password'
+      }
+    }
+  ]
 
   onSubmit() {
     if (this.hasFormErrors()) return;
@@ -53,7 +106,7 @@ export class RegisterComponent {
   private hasFormErrors(): boolean {
     const { invalid : invalidForm, controls } = this.registerForm;
     const senha = controls['senha'].value;
-    const confirmacaoSenha = controls['confirmacao_senha'].value;
+    const confirmacaoSenha = controls['confirmaSenha'].value;
     const invalidPassword = senha !== confirmacaoSenha
 
     let message = '';
