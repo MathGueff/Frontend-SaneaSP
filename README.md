@@ -59,3 +59,6 @@ src/
         │   └── models/
         └── ...
 ```
+
+## Documentação
+[SaneaSP - Projeto Interdisciplinar IV.docx](https://github.com/user-attachments/files/23811643/SaneaSP.-.Projeto.Interdisciplinar.IV.docx)
