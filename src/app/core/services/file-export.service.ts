@@ -2,7 +2,8 @@ import { inject, Injectable } from "@angular/core";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { HttpClient } from "@angular/common/http";
-import { environment } from 'environments/environment.prod';
+import { environment } from '../../../environments/environment'
+
 import { saveAs } from 'file-saver';
 import { SweetAlertService } from "@shared/services/sweet-alert.service";
 export interface IFileExportEntry{
