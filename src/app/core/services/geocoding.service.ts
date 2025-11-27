@@ -11,7 +11,8 @@ export class GeocodingService {
   constructor(private http: HttpClient) {}
 
   geolocation(endereco: string): Observable<DataLocation> {
-   const url = `https://back-saneasp.onrender.com/location/geoconding?endereco=${encodeURIComponent(endereco)}, São Paulo, Brazil`;
+    const BASE_URL = environment.domain
+   const url = `${BASE_URL}location/geoconding?endereco=${encodeURIComponent(endereco)}, São Paulo, Brazil`;
     console.log(url)
     return this.http.get<DataLocation>(url)
   }
