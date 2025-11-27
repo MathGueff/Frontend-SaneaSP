@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment'
-
+import { inject, Injectable } from '@angular/core';
+import { environment } from 'environments/environment.prod';
 import { IDataGraph } from '@shared/models/graph.model';
+import { EnviromentService } from '@core/services/enviroment.service';
 export interface BigPoints{
     cidade: string,
     bairro ?: string,
@@ -13,7 +13,8 @@ export interface BigPoints{
 @Injectable({providedIn: 'root'})
 
 export class DataGraph{
-    private URL = `${environment.domain}graph/`;
+    private envService = inject(EnviromentService);
+    private URL = this.envService.getUrl() +'graph/';
     
     constructor(private http : HttpClient){}
     public getBigPoints(cidade ?:string) : Observable<BigPoints[]>{

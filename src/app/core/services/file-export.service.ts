@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment'
 
 import { saveAs } from 'file-saver';
 import { SweetAlertService } from "@shared/services/sweet-alert.service";
+import { EnviromentService } from "./enviroment.service";
 export interface IFileExportEntry{
     element ?: HTMLElement,
     pdfName : string
@@ -13,7 +14,8 @@ export interface IFileExportEntry{
 
 @Injectable({ providedIn: 'root' })
 export class FileExportService {
-    private readonly BASE_URL = environment.domain
+    private envService = inject(EnviromentService);
+    private BASE_URL = this.envService.getUrl()
     private httpClient = inject(HttpClient)
     private sweetAlertService = inject(SweetAlertService)
 

@@ -5,10 +5,12 @@ import { environment } from '../../../../environments/environment'
 
 import { Observable } from 'rxjs';
 import { BaseApiService } from '@core/services/base-api.service';
+import { EnviromentService } from '@core/services/enviroment.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends BaseApiService {
-  private API_URL =  environment.domain + "user"
+  private envService = inject(EnviromentService);
+  private API_URL = this.envService.getUrl() + "user"
   private httpClient = inject(HttpClient)
 
   getUserById(id : number){

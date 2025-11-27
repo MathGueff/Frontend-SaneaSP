@@ -3,8 +3,8 @@
   "version": "1.1.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config src/proxy.conf.json",
-    "build": "ng build --configuration=production",
+    "start": "ng serve --proxy-config src/proxy.conf.json --configuration production",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate": "ng g"

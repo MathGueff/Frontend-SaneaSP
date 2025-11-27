@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ICategory, TCreateCategory, ICategoryListFilter } from '@features/categoria/models/category.model';
 import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -8,11 +8,13 @@ import { environment } from '../../../../environments/environment'
 
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 import { ICategoryGroup } from '../models/category-group.model';
+import { EnviromentService } from '@core/services/enviroment.service';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  //
-  private apiUrl = environment.domain + 'categoria';
+  private envService = inject(EnviromentService);
+  private apiUrl = this.envService.getUrl() + 'categoria';
+
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,

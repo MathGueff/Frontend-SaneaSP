@@ -1,17 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal, inject } from '@angular/core';
 import { catchError, firstValueFrom, Observable, switchMap, tap } from 'rxjs';
 import { IUser, IUserCredentials, TUserCreate } from '@features/usuario/models/user.model';
 import { SweetAlertService } from '@shared/services/sweet-alert.service';
 import { ErrorHandlerService } from './error-handler.service';
+import { environment } from 'environments/environment';
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 import { UserType } from '@features/usuario/enums/user-type';
-import { environment } from '../../../environments/environment'
+import { EnviromentService } from './enviroment.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private API_URL = environment.domain + 'auth';
-
+  private envService = inject(EnviromentService);
+  private API_URL = this.envService.getUrl() + 'auth';
   private currentUserSignal = signal<IUser | null>(null);
   public currentUser = this.currentUserSignal.asReadonly();
 
@@ -23,7 +24,7 @@ export class AuthService {
     private sweetAlertService: SweetAlertService,
     private authTokenStorageService: AuthTokenStorageService,
     private errorService: ErrorHandlerService,
-  ) { }
+  ) {console.log("Env =" + this.API_URL) }
 
   public async initializeAuth(): Promise<void> {
     const token = this.authTokenStorageService.get();

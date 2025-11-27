@@ -8,9 +8,17 @@ export const IoToken = new InjectionToken<(() => Socket) | null>(
     providedIn: "root",
     factory: () => {
       if (typeof window !== "undefined") {
-        return () => io();         
+        const url =
+          window.location.hostname.includes("localhost")
+            ? "http://localhost:3000"
+            : "https://SEU-BACK-NO-RENDER.onrender.com"; // URL do backend
+
+        return () =>
+          io(url, {
+            transports: ["websocket"],
+          });
       }
       return null;
-    }
+    },
   }
 );
