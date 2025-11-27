@@ -44,7 +44,7 @@ export class FileExportService {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
             saveAs(blob, 'denuncias.xlsx');
-            this.sweetAlertService.confirmPayment()
+            this.sweetAlertService.confirmExport()
         },
         error: (err) => console.error('Erro ao exportar Excel', err)
         });
