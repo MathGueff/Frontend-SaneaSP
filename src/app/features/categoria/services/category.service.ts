@@ -4,7 +4,8 @@ import { IResponse } from '@shared/models/response.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { IResponseList } from '@shared/models/response.model';
 import { AuthService } from '@core/services/auth.service';
-import { environment } from 'environments/environment.prod';
+import { environment } from '../../../../environments/environment'
+
 import { AuthTokenStorageService } from '@core/auth/services/auth-token-storage.service';
 import { ICategoryGroup } from '../models/category-group.model';
 

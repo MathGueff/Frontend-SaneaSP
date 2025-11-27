@@ -1,7 +1,8 @@
 import { IDenunciaFeedback, TDenunciaFeedbackCreate, IInterfaceFeedback, TInterfaceFeedbackCreate  } from "@shared/models/feedback.model";
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { environment } from 'environments/environment.prod';
+import { environment } from '../../../environments/environment'
+
 import { BaseApiService } from "@core/services/base-api.service";
 import { Observable } from "rxjs";
 
