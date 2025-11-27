@@ -2,7 +2,8 @@ import { inject, Injectable } from "@angular/core";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { HttpClient } from "@angular/common/http";
-import { environment } from 'environments/environment.prod';
+import { environment } from '../../../environments/environment'
+
 import { saveAs } from 'file-saver';
 import { SweetAlertService } from "@shared/services/sweet-alert.service";
 import { EnviromentService } from "./enviroment.service";
@@ -45,7 +46,7 @@ export class FileExportService {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             });
             saveAs(blob, 'denuncias.xlsx');
-            this.sweetAlertService.confirmPayment()
+            this.sweetAlertService.confirmExport()
         },
         error: (err) => console.error('Erro ao exportar Excel', err)
         });

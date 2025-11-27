@@ -65,7 +65,7 @@ export class AuthService {
   public confirmRegistration(token: string) {
     return this.httpClient.get(`${this.API_URL}/registrationConfirm/${token}`).pipe(
       tap(() => {
-        this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso! ✅");
+        this.sweetAlertService.confirmLogin("Cadastro confirmado com sucesso!")
       }),
       catchError((err) => {
         this.errorService.handleError(err);
