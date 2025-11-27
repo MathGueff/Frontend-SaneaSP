@@ -4,13 +4,15 @@ import { Injectable, inject } from "@angular/core";
 import { environment } from 'environments/environment.prod';
 import { BaseApiService } from "@core/services/base-api.service";
 import { Observable } from "rxjs";
+import { EnviromentService } from "@core/services/enviroment.service";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class FeedbackService extends BaseApiService {
-    private API_URL =  environment.domain + "feedback"
+    private envService = inject(EnviromentService);
+    private API_URL = this.envService.getUrl() + "feedback"
     private httpClient = inject(HttpClient)
 
     public getDenunciaFeedback(idDenuncia : number) : Observable<IDenunciaFeedback> {

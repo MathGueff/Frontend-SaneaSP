@@ -13,11 +13,13 @@ import {
 } from "../models/complaint.model";
 import { IIcon } from "@shared/models/icon.model";
 import { BaseApiService } from "@core/services/base-api.service";
+import { EnviromentService } from "@core/services/enviroment.service";
 
 @Injectable({ providedIn: "root" })
 export class ComplaintService extends BaseApiService {
   //
-  private urlApi: string = environment.domain + "denuncia";
+  private envService = inject(EnviromentService);
+  private urlApi = this.envService.getUrl() + "denuncia";
 
   private authService = inject(AuthService);
   private httpClient = inject(HttpClient);
