@@ -148,7 +148,10 @@ export class SecondStepComponent implements OnInit, OnDestroy {
           }
         },
         error: err => {
-          // Não mostra erro para o usuário, apenas ignora
+          this.toastService.show({
+            message: 'Não foi possível buscar o endereço. Tente novamente mais tarde.',
+            error: true
+          });
         }
       });
     }
@@ -165,7 +168,12 @@ export class SecondStepComponent implements OnInit, OnDestroy {
         }
         this.applyCepResponse(res)
       },
-      error: err => this.toastService.show({ message: err.message, error: true })
+      error: err => {
+        this.toastService.show({
+          message: 'Não foi possível buscar o endereço. Tente novamente mais tarde.',
+          error: true
+        });
+      }
     });
   }
 
